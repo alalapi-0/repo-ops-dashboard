@@ -1,6 +1,6 @@
 # Agent Gate Report
 
-- generated_at: 2026-05-31T08:38:59.708983+00:00
+- generated_at: 2026-05-31T12:03:34.691841+00:00
 - verdict: PASS
 
 ## Findings
@@ -18,4 +18,7 @@
 - [PASS] `playwright_local`: ui_check uses local file:// access
 - [PASS] `scan_allowlist`: scan script uses pattern-based allowlist collection
 - [PASS] `protocol_round1_api`: Round 1 external API ban present in protocol
-- [PASS] `requirements_dev`: requirements-dev.txt includes playwright
+- [PASS] `requirements_dev`: requirements-dev.txt includes playwright and pytest
+- [PASS] `installation_doc`: installation.md covers core refresh commands
+- [PASS] `example_fixtures`: example data fixtures present
+- [PASS] `pytest_tests`: pytest tests present (4 modules)

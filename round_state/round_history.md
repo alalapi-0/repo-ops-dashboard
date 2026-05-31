@@ -64,3 +64,35 @@
 - 产出：prepare_feishu_payload.py、集成规划更新
 - 外部 API：false（仅本地预览）
 - 下一轮：`round_09_playwright_ui_check`（已基本完成，可跳过或做回归）
+
+## Round 01 (deferred) - Repo Registry
+
+- 状态：completed
+- 产出：config/repos.yaml（17 repos）、sync_repo_registry.py
+- 下一轮：lifecycle / downstream
+
+## Round 11 - Repository Lifecycle Rules
+
+- 状态：completed
+- 产出：lifecycle_rules.md、missing/empty → archived、downstream_integrations.md
+- 外部 API：false（Feishu --send opt-in only）
+- 下一轮：`round_10_release_hardening`
+
+## Round 10 - Release Hardening
+
+- 状态：completed
+- 产出：pytest 测试、refresh_status.sh、agent_gate 硬化、installation.md
+- 下一轮：`round_12_priority_review_system`
+
+## Round 12 - Priority Review System
+
+- 状态：completed
+- 产出：priority_review.py、priority_factors.yaml、Dashboard 优先级来源
+- 下一轮：`round_13_cross_repo_protocol_sync`
+
+## Round 13 - Cross-Repo Protocol Sync
+
+- 状态：completed
+- 产出：protocol_sync_report.py、protocol_sync_suggestions.md、每仓 Cursor Prompt
+- 修改被管理仓库：false
+- 下一轮：`round_14_openclaw_daily_briefing`

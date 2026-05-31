@@ -8,9 +8,16 @@
 - 优先级规则：`docs/priority_rules.md`
 - 工作流：`docs/workflow.md`
 
+## 安装与运行
+
+- 安装：`docs/installation.md`
+- 调度：`docs/scheduler.md`
+- 生命周期：`docs/lifecycle_rules.md`
+
 ## 集成规划
 
-- OpenClaw：`docs/openclaw_integration_plan.md`
+- 下游路线（主）：`docs/downstream_integrations.md`
+- OpenClaw（可选）：`docs/openclaw_integration_plan.md`
 - Feishu/Lark：`docs/feishu_integration_plan.md`
 - 通知：`docs/notification_plan.md`
 

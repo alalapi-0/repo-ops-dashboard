@@ -17,8 +17,8 @@
 6. 识别应冻结或归档的仓库
 7. 生成每日/每周报告
 8. 生成给 Cursor/Codex 的推进 Prompt
-9. 后续让 OpenClaw 调用这些脚本和报告
-10. 后续接 Feishu/Lark 或 Mac 通知
+9. 可选下游：OpenClaw、Hermes、Cursor Automations 或本地推理服务（见 `docs/downstream_integrations.md`）
+10. 可选 Feishu/Lark 推送（`prepare_feishu_payload.py --send`）或 Mac 通知
 
 ## 为什么它不是编程 Agent
 
@@ -52,7 +52,7 @@ pip install -r requirements-dev.txt   # Playwright 开发依赖（可选）
 python3 -m playwright install chromium   # 仅 UI 检查需要
 
 python3 scripts/agent_gate.py
-python3 scripts/scan_repos.py --config config/repos.example.yaml --dry-run
+python3 scripts/scan_repos.py --config config/repos.yaml --dry-run
 python3 scripts/analyze_repos.py --input data/repo_snapshots.example.json --output data/repo_status.example.json
 python3 scripts/generate_dashboard.py --input data/repo_status.example.json --output dashboard/index.html
 python3 scripts/generate_report.py --input data/repo_status.example.json --output reports/daily_repo_report.md
@@ -65,17 +65,17 @@ python3 scripts/ui_check.py --file dashboard/index.html --screenshot reports/ui_
 
 ## 当前状态
 
-- 当前轮：`round_01_independent_governance_audit_playwright_preparation`（已完成）
-- 下一轮：`round_02_readonly_scanner`
+- 真实登记：[`config/repos.yaml`](config/repos.yaml)（17 个 PycharmProjects 项目）
 - 状态记录：`round_state/current_round.yaml`
+- 安装与日常运行：[`docs/installation.md`](docs/installation.md)
 
 ## 后续路线
 
-按 `docs/rounds/` 中 `round_00` 到 `round_15` 推进。Round 01 Repo Registry 延后执行。
+按 `docs/rounds/` 中 `round_00` 到 `round_15` 推进；Round 01 登记与 Round 11 生命周期规则已落地。
 
 ## 不做什么
 
-- 不扫描全部 `~/PycharmProjects`
+- 不递归扫描业务源码
 - 不读取密钥文件
-- 不接真实 OpenClaw/Feishu/Telegram
+- 不自动删除被管理仓库
 - 不在早期轮次做复杂前端框架化改造

@@ -1,5 +1,32 @@
 # CHANGELOG
 
+## Round 13 - Cross-Repo Protocol Sync
+
+- 新增 `scripts/protocol_sync_report.py`：只读对比治理文件差异，生成 `reports/protocol_sync_suggestions.md` 与 `prompts/generated/*_protocol_sync.md`。
+- 新增 `prompts/protocol_sync_cursor.md` 模板；`refresh_status.sh` 纳入协议同步步骤。
+
+## Round 12 - Priority Review System
+
+- 新增 `config/priority_factors.yaml` 与 `scripts/priority_review.py`：多因素建议优先级，Human 可通过 `priority_hint` 覆盖。
+- Dashboard 卡片展示「优先级来源」（算法建议 / 人工覆盖）。
+- `refresh_status.sh` 链路加入 priority_review；新增 `tests/test_priority_review.py`。
+
+## Round 10 - Release Hardening
+
+- 新增 `tests/`（analyze、agent_gate、priority_review）与 `pytest.ini`。
+- 新增 `scripts/refresh_status.sh`：一条命令刷新 gate → scan → analyze → priority → dashboard → report → feishu 预览 → ui_check。
+- `agent_gate.py` 增加 installation.md、example fixtures、pytest 存在性检查。
+- 完善 `docs/installation.md`。
+
+## Registry, Lifecycle & Downstream Integrations
+
+- 新增 `config/repos.yaml`：登记 `/Users/alalapi/PycharmProjects` 下 17 个项目。
+- 新增 `scripts/sync_repo_registry.py`：合并新子目录，不覆盖已有 `priority_hint`。
+- `scan_repos.py`：`empty` 状态；`analyze_repos.py`：`missing`/`empty` → `archive_candidate` / `archived`。
+- 新增 `docs/lifecycle_rules.md`、`docs/downstream_integrations.md`、`docs/installation.md`。
+- `prepare_feishu_payload.py`：实现 `--send`（urllib + 可选 `FEISHU_SIGN_SECRET`）。
+- 更新调度/通知/OpenClaw 文档为多下游可选路线；`repos.example.yaml` 移除 `old_demo_placeholder`。
+
 ## Round 06 - Scheduler and Reports
 
 - 确认 `generate_report.py` 日报/周报链路可用。

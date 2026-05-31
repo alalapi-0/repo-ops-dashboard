@@ -25,6 +25,7 @@ priority_rules:
     - no recent update
     - duplicated with another repo
   archive_candidate:
-    - obsolete
-    - no README
-    - no future plan
+    - repository path missing (status=missing)
+    - repository directory empty (status=empty)
+    - obsolete demo removed by Human (registry row may remain)
+    - no README and no future plan (manual review)

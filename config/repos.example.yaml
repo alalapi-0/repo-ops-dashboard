@@ -35,9 +35,3 @@ repos:
     type: meta_ops
     priority_hint: high
     status_hint: bootstrap
-
-  - name: old_demo_placeholder
-    path: /Users/alalapi/PycharmProjects/old_demo_placeholder
-    type: demo
-    priority_hint: low
-    status_hint: unknown

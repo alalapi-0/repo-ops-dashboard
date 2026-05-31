@@ -1,0 +1,104 @@
+# Real registry: one subdirectory under PycharmProjects = one repo.
+# Run: python3 scripts/sync_repo_registry.py --workspace /Users/alalapi/PycharmProjects
+repos:
+  - name: novel-continuation-agent
+    path: /Users/alalapi/PycharmProjects/novel-continuation-agent
+    type: novel_agent
+    priority_hint: high
+    status_hint: active
+
+  - name: ai-manga
+    path: /Users/alalapi/PycharmProjects/ai-manga
+    type: ai_manga
+    priority_hint: high
+    status_hint: active
+
+  - name: repo-ops-dashboard
+    path: /Users/alalapi/PycharmProjects/repo-ops-dashboard
+    type: meta_ops
+    priority_hint: high
+    status_hint: bootstrap
+
+  - name: ai-anime-short-factory
+    path: /Users/alalapi/PycharmProjects/ai-anime-short-factory
+    type: ai_anime
+    priority_hint: high
+    status_hint: active
+
+  - name: wechat-article-scheduler
+    path: /Users/alalapi/PycharmProjects/wechat-article-scheduler
+    type: content_scheduler
+    priority_hint: high
+    status_hint: active
+
+  - name: light_novel
+    path: /Users/alalapi/PycharmProjects/light_novel
+    type: translation
+    priority_hint: medium
+    status_hint: active
+
+  - name: computer_study_plan
+    path: /Users/alalapi/PycharmProjects/computer_study_plan
+    type: study
+    priority_hint: medium
+    status_hint: active
+
+  - name: world-news-lens
+    path: /Users/alalapi/PycharmProjects/world-news-lens
+    type: news
+    priority_hint: medium
+    status_hint: active
+
+  - name: pixel-world-asset-forge
+    path: /Users/alalapi/PycharmProjects/pixel-world-asset-forge
+    type: asset_forge
+    priority_hint: medium
+    status_hint: active
+
+  - name: agent-experiments
+    path: /Users/alalapi/PycharmProjects/agent-experiments
+    type: experiment
+    priority_hint: low
+    status_hint: active
+
+  - name: ai-anime-short-factory-external
+    path: /Users/alalapi/PycharmProjects/ai-anime-short-factory-external
+    type: external
+    priority_hint: low
+    status_hint: active
+
+  - name: api-mini-labs
+    path: /Users/alalapi/PycharmProjects/api-mini-labs
+    type: lab
+    priority_hint: low
+    status_hint: active
+
+  - name: audiobook-cleaner-lab
+    path: /Users/alalapi/PycharmProjects/audiobook-cleaner-lab
+    type: lab
+    priority_hint: low
+    status_hint: active
+
+  - name: resilient-personal-network
+    path: /Users/alalapi/PycharmProjects/resilient-personal-network
+    type: utility
+    priority_hint: low
+    status_hint: active
+
+  - name: tool-mini-labs
+    path: /Users/alalapi/PycharmProjects/tool-mini-labs
+    type: lab
+    priority_hint: low
+    status_hint: active
+
+  - name: typing-practice-app
+    path: /Users/alalapi/PycharmProjects/typing-practice-app
+    type: utility
+    priority_hint: low
+    status_hint: active
+
+  - name: youtube_hq_downloader
+    path: /Users/alalapi/PycharmProjects/youtube_hq_downloader
+    type: utility
+    priority_hint: low
+    status_hint: active

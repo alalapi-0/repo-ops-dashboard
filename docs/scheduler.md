@@ -1,19 +1,27 @@
 # 本地调度说明（Round 06）
 
-本仓库提供脚本链路，**不自动部署 cron**。用户可在本地用 cron 或 launchd 定期运行。
+本仓库提供脚本链路，**不自动部署 cron**。用户可在本地用 cron、launchd 或 Cursor Automations 定期运行。
 
-## 推荐流水线
+## 推荐流水线（真实登记）
 
 ```bash
 cd /path/to/repo-ops-dashboard
 source .venv/bin/activate  # 可选
 
-python3 scripts/scan_repos.py --config config/repos.example.yaml --no-dry-run
+python3 scripts/scan_repos.py --config config/repos.yaml --no-dry-run
 python3 scripts/analyze_repos.py
 python3 scripts/generate_dashboard.py
 python3 scripts/generate_report.py
 python3 scripts/generate_prompts.py --no-dry-run
+python3 scripts/prepare_feishu_payload.py              # 预览
+python3 scripts/prepare_feishu_payload.py --send     # 可选：需 FEISHU_WEBHOOK_URL
 python3 scripts/ui_check.py --file dashboard/index.html --headless true
+```
+
+新增 PycharmProjects 子目录时：
+
+```bash
+python3 scripts/sync_repo_registry.py --workspace /Users/alalapi/PycharmProjects
 ```
 
 ## macOS launchd 示例（每日 09:00）
@@ -22,6 +30,7 @@ python3 scripts/ui_check.py --file dashboard/index.html --headless true
 
 ## 注意
 
-- 默认使用 `config/repos.example.yaml`；真实环境请复制为 `config/repos.yaml`（勿提交敏感路径）
+- 正式环境使用 [`config/repos.yaml`](../config/repos.yaml)（可提交；公开 fork 时请脱敏 path 或改用本地副本）
+- 示例链路仍可用 `config/repos.example.yaml` + `data/*.example.json`
 - 报告输出在 `reports/`，本地数据在 `data/`（部分已 gitignore）
-- 不接 Feishu/Telegram/外部通知（见 Round 08 规划）
+- 下游集成路线见 [`downstream_integrations.md`](downstream_integrations.md)

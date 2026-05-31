@@ -39,7 +39,7 @@ def build_prompt(repo: dict[str, Any]) -> str:
     )
 
 
-def render_card(repo: dict[str, Any], fallback_checked: str) -> str:
+def render_card(repo: dict[str, Any], fallback_checked: str, priority_meta: dict[str, Any] | None = None) -> str:
     blockers = repo.get("blockers", []) or ["无"]
     next_actions = repo.get("next_actions", []) or ["无"]
     lifecycle = repo.get("lifecycle_status") or repo.get("status") or "unknown"
@@ -51,6 +51,14 @@ def render_card(repo: dict[str, Any], fallback_checked: str) -> str:
     if repo.get("archive_candidate"):
         badges.append('<span class="badge archive">Archive</span>')
 
+    name = str(repo.get("name", ""))
+    priority_source_line = ""
+    if priority_meta:
+        src = priority_meta.get("priority_source", "")
+        label = "人工覆盖" if src == "human_override" else "算法建议"
+        final = priority_meta.get("final_priority", repo.get("priority"))
+        priority_source_line = f'<p><strong>优先级来源:</strong> {esc(label)} (final={esc(final)})</p>'
+
     return f"""
     <article class="repo-card" data-priority="{esc(repo.get('priority', ''))}" data-lifecycle="{esc(lifecycle)}" data-agent="{esc(repo.get('recommended_agent', ''))}">
       <div class="card-head">
@@ -61,6 +69,7 @@ def render_card(repo: dict[str, Any], fallback_checked: str) -> str:
       <p><strong>生命周期:</strong> {esc(lifecycle)}</p>
       <p><strong>阶段:</strong> {esc(repo.get("current_stage"))}</p>
       <p><strong>优先级:</strong> {esc(repo.get("priority"))}</p>
+      {priority_source_line}
       <p><strong>健康分:</strong> {esc(repo.get("health_score"))}</p>
       <p><strong>推荐 Agent:</strong> {esc(repo.get("recommended_agent"))}</p>
       <p><strong>最后检查:</strong> {esc(last_checked)}</p>
@@ -75,7 +84,19 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Generate static dashboard html")
     parser.add_argument("--input", default="data/repo_status.json", help="Input status json")
     parser.add_argument("--output", default="dashboard/index.html", help="Output html path")
+    parser.add_argument(
+        "--priority-board",
+        default="",
+        help="Optional priority board JSON (default: data/priority_board.json if exists)",
+    )
     return parser.parse_args()
+
+
+def load_priority_index(board_path: Path) -> dict[str, dict[str, Any]]:
+    if not board_path.exists():
+        return {}
+    board = load_json(board_path)
+    return {str(row.get("name", "")): row for row in board.get("repos", [])}
 
 
 def main() -> int:
@@ -86,6 +107,9 @@ def main() -> int:
     if not input_path.exists():
         raise SystemExit(f"Input not found: {input_path}")
 
+    board_path = Path(args.priority_board) if args.priority_board else Path("data/priority_board.json")
+    priority_index = load_priority_index(board_path)
+
     payload = load_json(input_path)
     repos = list(payload.get("repos", []))
     high_count = sum(1 for r in repos if r.get("priority") == "high")
@@ -94,7 +118,10 @@ def main() -> int:
     archive_count = sum(1 for r in repos if r.get("archive_candidate"))
     generated_at = payload.get("generated_at", "")
     now_text = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
-    cards = "\n".join(render_card(repo, generated_at or now_text) for repo in repos)
+    cards = "\n".join(
+        render_card(repo, generated_at or now_text, priority_index.get(str(repo.get("name", ""))))
+        for repo in repos
+    )
 
     html = f"""<!doctype html>
 <html lang="zh-CN">
@@ -132,6 +159,8 @@ def main() -> int:
           <option value="active">active</option>
           <option value="bootstrap">bootstrap</option>
           <option value="missing">missing</option>
+          <option value="empty">empty</option>
+          <option value="archived">archived</option>
           <option value="freeze_candidate">freeze_candidate</option>
           <option value="archive_candidate">archive_candidate</option>
         </select>

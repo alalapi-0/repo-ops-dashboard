@@ -24,6 +24,13 @@
 
 ## 归档候选
 
-- obsolete
-- no README
-- no future plan
+- repository path missing / directory empty（自动）
+- obsolete demo
+- no README and no future plan
+
+## 多因素复盘（Round 12）
+
+算法脚本 `scripts/priority_review.py` 读取 `config/priority_factors.yaml`，结合 `repo_status` 与 `repos.yaml` 中的 `priority_hint` 生成 `reports/priority_review.md`。
+
+- **Human 覆盖**：在 `config/repos.yaml` 设置 `priority_hint: high|medium|low` 后，Dashboard 显示「人工覆盖」。
+- **仅建议**：未设置 hint 时，按 type、health、blocker/freeze/archive 扣分后给出 suggested priority。

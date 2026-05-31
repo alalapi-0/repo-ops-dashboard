@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-31T08:38:59.969674+00:00",
+  "generated_at": "2026-05-31T12:02:51.676380+00:00",
   "repos": [
     {
       "name": "light_novel",
@@ -112,12 +112,12 @@
       ],
       "warnings": [],
       "next_actions": [
-        "确认仓库路径是否有效"
+        "确认仓库路径是否有效，或从登记中归档"
       ],
       "recommended_agent": "Human",
       "freeze_candidate": true,
       "archive_candidate": true,
-      "lifecycle_status": "missing",
+      "lifecycle_status": "archived",
       "last_checked": "2026-05-31T08:37:34.795755+00:00"
     }
   ]

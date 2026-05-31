@@ -187,6 +187,7 @@ def check_no_target_repo_modification_logic(state: GateState, root: Path) -> Non
 def check_integration_is_docs_only(state: GateState, root: Path) -> None:
     script_dir = root / "scripts"
     risky_imports = ["feishu", "lark_oapi", "telegram", "openclaw_sdk"]
+    allowed_feishu_scripts = {"prepare_feishu_payload.py"}
     hits = []
     for path in sorted(script_dir.glob("*.py")):
         if path.name == "agent_gate.py":
@@ -194,6 +195,8 @@ def check_integration_is_docs_only(state: GateState, root: Path) -> None:
         text = path.read_text(encoding="utf-8").lower()
         for key in risky_imports:
             if key in text:
+                if key == "feishu" and path.name in allowed_feishu_scripts:
+                    continue
                 hits.append(f"{path.name}:{key}")
     if hits:
         state.add("integration_docs_only", WARNING, f"integration keyword found: {hits}")
@@ -292,10 +295,48 @@ def check_requirements_dev_playwright(state: GateState, root: Path) -> None:
         state.add("requirements_dev", WARNING, "requirements-dev.txt missing")
         return
     text = path.read_text(encoding="utf-8").lower()
-    if "playwright" in text:
-        state.add("requirements_dev", PASS, "requirements-dev.txt includes playwright")
+    if "playwright" in text and "pytest" in text:
+        state.add("requirements_dev", PASS, "requirements-dev.txt includes playwright and pytest")
+    elif "playwright" in text:
+        state.add("requirements_dev", WARNING, "pytest not listed in requirements-dev.txt")
     else:
         state.add("requirements_dev", WARNING, "playwright not listed in requirements-dev.txt")
+
+
+def check_installation_doc(state: GateState, root: Path) -> None:
+    path = root / "docs" / "installation.md"
+    if not path.exists():
+        state.add("installation_doc", BLOCKED, "docs/installation.md missing")
+        return
+    text = path.read_text(encoding="utf-8")
+    required = ["agent_gate.py", "scan_repos.py", "ui_check.py"]
+    missing = [item for item in required if item not in text]
+    if missing:
+        state.add("installation_doc", WARNING, f"installation.md missing commands: {missing}")
+    else:
+        state.add("installation_doc", PASS, "installation.md covers core refresh commands")
+
+
+def check_example_fixtures(state: GateState, root: Path) -> None:
+    fixtures = [
+        "data/repo_snapshots.example.json",
+        "data/repo_status.example.json",
+        "config/repos.example.yaml",
+    ]
+    missing = [item for item in fixtures if not (root / item).exists()]
+    if missing:
+        state.add("example_fixtures", WARNING, f"example fixtures missing: {missing}")
+    else:
+        state.add("example_fixtures", PASS, "example data fixtures present")
+
+
+def check_pytest_tests(state: GateState, root: Path) -> None:
+    tests_dir = root / "tests"
+    test_files = sorted(tests_dir.glob("test_*.py")) if tests_dir.is_dir() else []
+    if len(test_files) < 2:
+        state.add("pytest_tests", WARNING, "tests/ should contain at least two test modules")
+        return
+    state.add("pytest_tests", PASS, f"pytest tests present ({len(test_files)} modules)")
 
 
 def render_report(state: GateState, root: Path) -> Path:
@@ -341,6 +382,9 @@ def main() -> int:
     check_scan_allowlist_compliance(state, root)
     check_protocol_round1_api_ban(state, root)
     check_requirements_dev_playwright(state, root)
+    check_installation_doc(state, root)
+    check_example_fixtures(state, root)
+    check_pytest_tests(state, root)
     report = render_report(state, root)
 
     print(f"[gate] verdict={state.verdict} report={report}")

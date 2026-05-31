@@ -1,4 +1,4 @@
-current_round: round_08_feishu_notifications
+current_round: round_13_cross_repo_protocol_sync
 status: completed
 executor: cursor
 external_api_called: false
@@ -6,8 +6,9 @@ managed_repos_modified: false
 secrets_read: false
 playwright_added: true
 playwright_real_browser_installed: true
-next_round: round_09_playwright_ui_check
+next_round: round_14_openclaw_daily_briefing
 outputs:
-  - scripts/prepare_feishu_payload.py
-  - docs/feishu_integration_plan.md
-  - reports/round_08_completion_report.md
+  - scripts/protocol_sync_report.py
+  - prompts/protocol_sync_cursor.md
+  - reports/protocol_sync_suggestions.md
+  - reports/round_13_protocol_sync_report.md

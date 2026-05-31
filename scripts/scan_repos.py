@@ -29,6 +29,17 @@ def normalize_patterns(patterns: list[str] | None, fallback: list[str]) -> list[
     return list(patterns) if patterns else list(fallback)
 
 
+IGNORED_DIR_ENTRIES = {".git", ".DS_Store"}
+
+
+def is_repository_empty(repo_path: Path) -> bool:
+    for child in repo_path.iterdir():
+        if child.name in IGNORED_DIR_ENTRIES:
+            continue
+        return False
+    return True
+
+
 def collect_files(
     repo_path: Path,
     patterns: list[str],
@@ -141,6 +152,7 @@ def main() -> int:
             "path": path.as_posix(),
             "type": repo_type,
             "status": status_hint,
+            "priority_hint": str(repo.get("priority_hint", "")),
             "exists": path.exists(),
             "read_files": [],
             "missing": [],
@@ -160,6 +172,13 @@ def main() -> int:
             row["missing"].append("repository path is not a directory")
             result["repos"].append(row)
             print(f"[missing] {name}: not a directory")
+            continue
+
+        if is_repository_empty(path):
+            row["status"] = "empty"
+            row["warnings"].append("repository directory empty")
+            result["repos"].append(row)
+            print(f"[empty] {name}: {path}")
             continue
 
         patterns = normalize_patterns(repo.get("managed_files"), global_allowlist)

@@ -1,0 +1,27 @@
+# Multi-factor priority scoring (suggested only; Human overrides via repos.yaml priority_hint)
+
+type_scores:
+  meta_ops: 25
+  novel_agent: 22
+  ai_manga: 22
+  ai_anime: 20
+  content_scheduler: 18
+  translation: 12
+  unknown: 5
+
+health_weight: 0.35
+blocker_penalty: 25
+archive_penalty: 100
+freeze_penalty: 15
+
+thresholds:
+  high: 55
+  medium: 30
+
+factor_labels:
+  income_relevance: "与工作/收入相关性（由 type 代理）"
+  ai_roadmap: "AI 主线相关性（meta_ops / novel / manga 加权）"
+  demo_value: "短期可展示（health_score 代理）"
+  reuse: "组件复用潜力（meta_ops / agent 类加权）"
+  cost: "维护成本（blocker/freeze 扣分）"
+  substitute_risk: "被替代风险（archive/freeze 扣分）"

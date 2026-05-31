@@ -10,7 +10,7 @@
   <main class="container" data-dashboard-ready="true">
     <header>
       <h1>Repo Ops Dashboard</h1>
-      <p>更新时间：2026-05-31 08:39:00 UTC</p>
+      <p>更新时间：2026-05-31 12:02:51 UTC</p>
     </header>
     <section class="stats">
       <div class="stat"><span>总仓库数</span><strong>5</strong></div>
@@ -34,6 +34,8 @@
           <option value="active">active</option>
           <option value="bootstrap">bootstrap</option>
           <option value="missing">missing</option>
+          <option value="empty">empty</option>
+          <option value="archived">archived</option>
           <option value="freeze_candidate">freeze_candidate</option>
           <option value="archive_candidate">archive_candidate</option>
         </select>
@@ -58,6 +60,7 @@
       <p><strong>生命周期:</strong> active</p>
       <p><strong>阶段:</strong> execution</p>
       <p><strong>优先级:</strong> low</p>
+      <p><strong>优先级来源:</strong> 人工覆盖 (final=medium)</p>
       <p><strong>健康分:</strong> 65</p>
       <p><strong>推荐 Agent:</strong> Human</p>
       <p><strong>最后检查:</strong> 2026-05-31T08:37:34.795755+00:00</p>
@@ -81,6 +84,7 @@
       <p><strong>生命周期:</strong> freeze_candidate</p>
       <p><strong>阶段:</strong> execution</p>
       <p><strong>优先级:</strong> high</p>
+      <p><strong>优先级来源:</strong> 人工覆盖 (final=high)</p>
       <p><strong>健康分:</strong> 8</p>
       <p><strong>推荐 Agent:</strong> Human</p>
       <p><strong>最后检查:</strong> 2026-05-31T08:37:34.795755+00:00</p>
@@ -104,6 +108,7 @@
       <p><strong>生命周期:</strong> active</p>
       <p><strong>阶段:</strong> execution</p>
       <p><strong>优先级:</strong> high</p>
+      <p><strong>优先级来源:</strong> 人工覆盖 (final=high)</p>
       <p><strong>健康分:</strong> 44</p>
       <p><strong>推荐 Agent:</strong> Human</p>
       <p><strong>最后检查:</strong> 2026-05-31T08:37:34.795755+00:00</p>
@@ -127,6 +132,7 @@
       <p><strong>生命周期:</strong> bootstrap</p>
       <p><strong>阶段:</strong> round_00_bootstrap</p>
       <p><strong>优先级:</strong> high</p>
+      <p><strong>优先级来源:</strong> 人工覆盖 (final=high)</p>
       <p><strong>健康分:</strong> 88</p>
       <p><strong>推荐 Agent:</strong> Cursor</p>
       <p><strong>最后检查:</strong> 2026-05-31T08:37:34.795755+00:00</p>
@@ -141,24 +147,25 @@
     </article>
     
 
-    <article class="repo-card" data-priority="low" data-lifecycle="missing" data-agent="Human">
+    <article class="repo-card" data-priority="low" data-lifecycle="archived" data-agent="Human">
       <div class="card-head">
         <h3>old_demo_placeholder</h3>
         <div><span class="badge freeze">Freeze</span><span class="badge archive">Archive</span></div>
       </div>
       <p><strong>类型:</strong> demo</p>
-      <p><strong>生命周期:</strong> missing</p>
+      <p><strong>生命周期:</strong> archived</p>
       <p><strong>阶段:</strong> missing</p>
       <p><strong>优先级:</strong> low</p>
+      <p><strong>优先级来源:</strong> 算法建议 (final=low)</p>
       <p><strong>健康分:</strong> 10</p>
       <p><strong>推荐 Agent:</strong> Human</p>
       <p><strong>最后检查:</strong> 2026-05-31T08:37:34.795755+00:00</p>
       <p><strong>卡点:</strong> repository path missing</p>
-      <p><strong>下一步:</strong> 确认仓库路径是否有效</p>
+      <p><strong>下一步:</strong> 确认仓库路径是否有效，或从登记中归档</p>
       <button type="button" class="copy-prompt" data-prompt="你是 Human，请推进仓库 `old_demo_placeholder`。
 
 卡点：repository path missing
-下一步：确认仓库路径是否有效
+下一步：确认仓库路径是否有效，或从登记中归档
 
 约束：不读取 .env、不修改被管理业务仓库、默认 dry-run。">复制 Prompt</button>
     </article>

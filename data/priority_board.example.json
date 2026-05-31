@@ -6,13 +6,11 @@
     "repo-ops-dashboard"
   ],
   "blocked": [
-    "ai-manga",
-    "old_demo_placeholder"
+    "light_novel",
+    "novel-continuation-agent"
   ],
-  "freeze_candidates": [
-    "old_demo_placeholder"
-  ],
+  "freeze_candidates": [],
   "archive_candidates": [
-    "old_demo_placeholder"
+    "ai-manga"
   ]
 }

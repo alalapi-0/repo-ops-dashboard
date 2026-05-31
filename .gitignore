@@ -29,8 +29,10 @@ artifacts/
 data/repo_snapshots.json
 data/repo_status.json
 data/priority_board.json
+data/priority_board.example.run.json
 reports/daily_repo_report.md
 reports/weekly_repo_report.md
 reports/feishu_payload_preview.json
+reports/priority_review.example.md
 prompts/generated/*.md
 .idea/

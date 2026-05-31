@@ -40,7 +40,9 @@ def repo_issue_messages(repo: dict[str, Any]) -> list[str]:
 
 def derive_blockers(repo: dict[str, Any]) -> list[str]:
     status = str(repo.get("status", "unknown"))
-    if status == "missing":
+    if status in {"missing", "empty"}:
+        if status == "empty":
+            return ["repository directory empty"]
         return list(repo.get("missing", [])) or ["repository path missing"]
 
     blockers: list[str] = []
@@ -52,11 +54,11 @@ def derive_blockers(repo: dict[str, Any]) -> list[str]:
 
 
 def derive_lifecycle(repo: dict[str, Any]) -> str:
-    status = str(repo.get("status", "unknown"))
-    if status == "missing":
-        return "missing"
     if repo.get("archive_candidate"):
-        return "archive_candidate"
+        return "archived"
+    status = str(repo.get("status", "unknown"))
+    if status in {"missing", "empty"}:
+        return status
     if repo.get("freeze_candidate"):
         return "freeze_candidate"
     if status == "bootstrap":
@@ -100,9 +102,12 @@ def pick_priority(repo: dict[str, Any], health_score: int) -> str:
     status = str(repo.get("status", "unknown"))
     repo_type = str(repo.get("type", "unknown"))
 
-    if status == "missing":
+    if status in {"missing", "empty"}:
         return "low"
-    if status in {"active", "bootstrap"} and repo_type in {"meta_ops", "novel_agent", "ai_manga"}:
+    hint = str(repo.get("priority_hint", "")).lower()
+    if hint in {"high", "medium", "low"}:
+        return hint
+    if status in {"active", "bootstrap"} and repo_type in {"meta_ops", "novel_agent", "ai_manga", "ai_anime", "content_scheduler"}:
         return "high"
     if health_score >= 70:
         return "medium"
@@ -111,8 +116,8 @@ def pick_priority(repo: dict[str, Any], health_score: int) -> str:
 
 def infer_stage(repo: dict[str, Any]) -> str:
     status = str(repo.get("status", "unknown"))
-    if status == "missing":
-        return "missing"
+    if status in {"missing", "empty"}:
+        return status
     if status == "bootstrap":
         return "round_00_bootstrap"
     if status == "active":
@@ -120,8 +125,12 @@ def infer_stage(repo: dict[str, Any]) -> str:
     return "unknown"
 
 
-def recommend_agent(priority: str, blockers: list[str], repo_type: str) -> str:
-    if blockers and "missing" in " ".join(blockers).lower():
+def recommend_agent(priority: str, blockers: list[str], repo_type: str, archive_candidate: bool) -> str:
+    if archive_candidate:
+        return "Human"
+    if blockers and any(
+        token in " ".join(blockers).lower() for token in ("missing", "empty", "path")
+    ):
         return "Human"
     if repo_type == "meta_ops":
         return "Cursor"
@@ -161,8 +170,11 @@ def main() -> int:
         blockers = derive_blockers(repo)
         warnings = list(repo.get("warnings", []))
         next_actions = []
-        if repo.get("status") == "missing":
-            next_actions.append("确认仓库路径是否有效")
+        status = str(repo.get("status", "unknown"))
+        if status == "missing":
+            next_actions.append("确认仓库路径是否有效，或从登记中归档")
+        elif status == "empty":
+            next_actions.append("目录为空：归档登记或恢复项目内容")
         elif blockers:
             next_actions.append("补齐缺失治理文件（AGENTS.md / protocol / README）")
         elif warnings:
@@ -170,9 +182,14 @@ def main() -> int:
         else:
             next_actions.append("继续执行下一轮计划")
 
-        freeze_candidate = health < 40 or repo.get("status") == "missing"
-        archive_candidate = repo.get("status") == "missing" and repo.get("type") == "demo"
-        recommended_agent = recommend_agent(priority, blockers, str(repo.get("type", "unknown")))
+        freeze_candidate = health < 40 or status in {"missing", "empty"}
+        archive_candidate = status in {"missing", "empty"}
+        recommended_agent = recommend_agent(
+            priority,
+            blockers,
+            str(repo.get("type", "unknown")),
+            archive_candidate,
+        )
 
         row = {
             "name": repo.get("name"),
