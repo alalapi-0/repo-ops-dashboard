@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## Round 19 - Local Imports Optional
+
+- 新增 `scripts/read_local_imports.py`：从 `config/local_imports.yaml` 只读 ICS/CSV 摘要。
+- 示例数据 `data/sample_calendar.example.ics`、`data/sample_finance.example.csv`；并入 weekly_review。
+- **Phase C 全部完成**。
+
+## Round 18 - Weekly Review & Human Notes
+
+- 新增 `scripts/generate_weekly_review.py`：合并 priority_review、OpenClaw brief、weekly report 与 human notes。
+- 新增 `data/human_notes.example.json`；Dashboard 展示「本周 Human 笔记」区块。
+- `ui_check.py` 增加 human_notes 检查；`refresh_status.sh` 链路重排。
+
 ## Round 17 - Feishu Bitable Sync
 
 - 新增 `scripts/sync_feishu_bitable.py`：从 `repo_status.json` 幂等 upsert 飞书多维表格（dry-run 默认，`--sync` opt-in，stdlib API）。

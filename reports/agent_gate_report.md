@@ -1,6 +1,6 @@
 # Agent Gate Report
 
-- generated_at: 2026-05-31T19:30:44.745632+00:00
+- generated_at: 2026-05-31T20:18:28.840060+00:00
 - verdict: PASS
 
 ## Findings
@@ -21,4 +21,4 @@
 - [PASS] `requirements_dev`: requirements-dev.txt includes playwright and pytest
 - [PASS] `installation_doc`: installation.md covers core refresh commands
 - [PASS] `example_fixtures`: example data fixtures present
-- [PASS] `pytest_tests`: pytest tests present (6 modules)
+- [PASS] `pytest_tests`: pytest tests present (8 modules)

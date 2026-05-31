@@ -52,13 +52,16 @@ if $USE_EXAMPLE; then
     --output-board data/priority_board.example.run.json \
     --output-report reports/priority_review.example.md
   PRIORITY_BOARD="data/priority_board.example.run.json"
+  PRIORITY_REPORT="reports/priority_review.example.md"
+  WEEKLY_REVIEW="reports/weekly_review.example.md"
+  HUMAN_NOTES="data/human_notes.example.json"
 else
   "$PYTHON" scripts/priority_review.py --input "$STATUS"
   PRIORITY_BOARD="data/priority_board.json"
+  PRIORITY_REPORT="reports/priority_review.md"
+  WEEKLY_REVIEW="reports/weekly_review.md"
+  HUMAN_NOTES="data/human_notes.json"
 fi
-
-echo "[refresh] dashboard"
-"$PYTHON" scripts/generate_dashboard.py --input "$STATUS" --output dashboard/index.html --priority-board "$PRIORITY_BOARD"
 
 echo "[refresh] reports"
 "$PYTHON" scripts/generate_report.py --input "$STATUS"
@@ -68,6 +71,19 @@ echo "[refresh] protocol sync suggestions"
 
 echo "[refresh] openclaw brief"
 "$PYTHON" scripts/generate_openclaw_brief.py --input "$STATUS"
+
+echo "[refresh] weekly review merge"
+"$PYTHON" scripts/generate_weekly_review.py \
+  --priority-report "$PRIORITY_REPORT" \
+  --human-notes "$HUMAN_NOTES" \
+  --output "$WEEKLY_REVIEW"
+
+echo "[refresh] dashboard"
+"$PYTHON" scripts/generate_dashboard.py \
+  --input "$STATUS" \
+  --output dashboard/index.html \
+  --priority-board "$PRIORITY_BOARD" \
+  --human-notes "$HUMAN_NOTES"
 
 echo "[refresh] feishu preview"
 if $FEISHU_SEND; then

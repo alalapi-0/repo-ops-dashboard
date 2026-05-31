@@ -1,17 +1,14 @@
-current_round: round_17_feishu_bitable_sync
+current_round: round_19_local_imports_optional
 status: completed
 executor: cursor
-external_api_called: true
+external_api_called: false
 managed_repos_modified: false
 secrets_read: false
-playwright_added: false
-playwright_real_browser_installed: false
+playwright_added: true
+playwright_real_browser_installed: true
 next_round: null
 outputs:
-  - scripts/sync_feishu_bitable.py
-  - docs/feishu_bitable_schema.md
-  - docs/cursor_automation_feishu.md
-  - docs/rounds/round_16_cursor_automation_feishu.md
-  - docs/rounds/round_17_feishu_bitable_sync.md
-  - reports/round_16_completion_report.md
-  - reports/round_17_completion_report.md
+  - scripts/read_local_imports.py
+  - config/local_imports.example.yaml
+  - docs/rounds/round_19_local_imports_optional.md
+  - reports/round_19_completion_report.md

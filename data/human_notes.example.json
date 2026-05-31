@@ -1,0 +1,12 @@
+{
+  "week_label": "2026-W22",
+  "updated_at": "2026-05-31T12:00:00+00:00",
+  "notes": [
+    "本周重点：repo-ops Phase C 周报合并与 Dashboard 笔记区",
+    "暂缓：路径 missing 的登记项需 Human 归档决策"
+  ],
+  "focus_repos": [
+    "repo-ops-dashboard",
+    "novel-continuation-agent"
+  ]
+}

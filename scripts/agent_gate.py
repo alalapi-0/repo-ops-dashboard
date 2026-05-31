@@ -42,6 +42,8 @@ ROUND_FILES = [
     "round_15_long_term_personal_operating_system.md",
     "round_16_cursor_automation_feishu.md",
     "round_17_feishu_bitable_sync.md",
+    "round_18_weekly_review_human_notes.md",
+    "round_19_local_imports_optional.md",
 ]
 
 ROUND_REQUIRED_SECTIONS = ["## 目标", "## 验收标准", "## 推荐执行 Agent"]
@@ -212,7 +214,7 @@ def check_round_docs_exist(state: GateState, root: Path) -> None:
     if missing:
         state.add("round_docs", BLOCKED, f"missing round docs: {missing}")
     else:
-        state.add("round_docs", PASS, "round docs 00-17 exist")
+        state.add("round_docs", PASS, f"round docs 00-{len(ROUND_FILES) - 1} exist")
 
 
 def check_round_doc_sections(state: GateState, root: Path) -> None:

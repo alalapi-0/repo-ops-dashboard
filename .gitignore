@@ -30,8 +30,12 @@ data/repo_snapshots.json
 data/repo_status.json
 data/priority_board.json
 data/priority_board.example.run.json
+config/local_imports.yaml
+data/human_notes.json
 reports/daily_repo_report.md
 reports/weekly_repo_report.md
+reports/weekly_review.md
+reports/weekly_review.example.md
 reports/feishu_payload_preview.json
 reports/priority_review.example.md
 prompts/generated/*.md

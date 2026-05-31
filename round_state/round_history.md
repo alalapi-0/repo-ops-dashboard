@@ -122,3 +122,15 @@
 - 产出：`sync_feishu_bitable.py`、`docs/feishu_bitable_schema.md`、`--bitable-sync`
 - 外部 API：true（Feishu Open API，`--sync` opt-in）
 - 修改被管理仓库：false
+
+## Round 18 - Weekly Review & Human Notes
+
+- 状态：completed
+- 产出：`generate_weekly_review.py`、Dashboard human notes、Phase C 部分完成
+- 下一轮：`round_19_local_imports_optional`
+
+## Round 19 - Local Imports Optional
+
+- 状态：completed
+- 产出：`read_local_imports.py`、ICS/CSV 摘要并入 weekly_review
+- Phase C 完结；Phase D 待 Human 授权

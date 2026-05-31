@@ -155,6 +155,12 @@ def main() -> int:
             if copy_count == 0:
                 warnings.append("No copy-prompt buttons found on repo cards")
 
+            human_notes = page.locator(".human-notes[data-human-notes-ready='true']")
+            hn_count = human_notes.count()
+            checks.append({"name": "human_notes_section", "ok": hn_count > 0, "detail": f"count={hn_count}"})
+            if hn_count == 0:
+                warnings.append("No human-notes section; run generate_dashboard with human_notes.example.json")
+
             screenshot_path.parent.mkdir(parents=True, exist_ok=True)
             page.screenshot(path=str(screenshot_path), full_page=True)
             screenshot_taken = screenshot_path

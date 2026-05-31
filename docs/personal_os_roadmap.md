@@ -36,11 +36,11 @@
 - priority_review、protocol_sync 建议
 - Human 在 `repos.yaml` 覆盖 priority_hint
 
-### Phase C — 轻量扩展（可选，需 Human 拍板）
+### Phase C — 轻量扩展（Round 18 部分完成）
 
-- 周报模板合并 priority_review + openclaw brief
-- 可选只读导入：日历 ICS 路径、本地 CSV 财务摘要（路径配置，无 API）
-- Dashboard 增加「本周 Human 笔记」静态区块（手动编辑 JSON）
+- ✅ 周报模板合并：`scripts/generate_weekly_review.py` → `reports/weekly_review.md`
+- ✅ Dashboard「本周 Human 笔记」：`data/human_notes.example.json` + 只读展示
+- ⏳ 可选只读导入：日历 ICS 路径、本地 CSV 财务摘要（Round 19 完成，见 `read_local_imports.py`）
 
 ### Phase D — 个人 OS 外壳（远期）
 

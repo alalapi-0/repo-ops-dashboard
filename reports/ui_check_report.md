@@ -1,6 +1,6 @@
 # UI Check Report
 
-- generated_at: 2026-05-31T12:04:10.930718+00:00
+- generated_at: 2026-05-31T20:18:31.547251+00:00
 - status: PASS
 - screenshot: reports/ui_screenshots/dashboard.png
 
@@ -10,4 +10,5 @@
 - [PASS] repo_cards: count=5
 - [PASS] dashboard_filters: count=3
 - [PASS] copy_prompt_buttons: count=5
+- [PASS] human_notes_section: count=1
 - [PASS] screenshot: reports/ui_screenshots/dashboard.png

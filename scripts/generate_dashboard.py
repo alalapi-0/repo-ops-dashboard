@@ -89,6 +89,11 @@ def parse_args() -> argparse.Namespace:
         default="",
         help="Optional priority board JSON (default: data/priority_board.json if exists)",
     )
+    parser.add_argument(
+        "--human-notes",
+        default="",
+        help="Human notes JSON (default: data/human_notes.json or example)",
+    )
     return parser.parse_args()
 
 
@@ -97,6 +102,31 @@ def load_priority_index(board_path: Path) -> dict[str, dict[str, Any]]:
         return {}
     board = load_json(board_path)
     return {str(row.get("name", "")): row for row in board.get("repos", [])}
+
+
+def load_human_notes(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    return load_json(path)
+
+
+def render_human_notes_section(notes: dict[str, Any]) -> str:
+    if not notes:
+        return ""
+    items = "".join(f"<li>{esc(item)}</li>" for item in notes.get("notes", []))
+    focus = notes.get("focus_repos", [])
+    focus_html = ""
+    if focus:
+        tags = "".join(f'<span class="note-tag">{esc(name)}</span>' for name in focus)
+        focus_html = f'<p class="human-notes-focus">{tags}</p>'
+    return f"""
+    <section class="human-notes" data-human-notes-ready="true">
+      <h2>本周 Human 笔记</h2>
+      <p class="human-notes-meta">周次：{esc(notes.get("week_label", "—"))} · 更新：{esc(notes.get("updated_at", "—"))}</p>
+      <ul>{items}</ul>
+      {focus_html}
+    </section>
+    """
 
 
 def main() -> int:
@@ -109,6 +139,11 @@ def main() -> int:
 
     board_path = Path(args.priority_board) if args.priority_board else Path("data/priority_board.json")
     priority_index = load_priority_index(board_path)
+
+    notes_path = Path(args.human_notes) if args.human_notes else Path("data/human_notes.json")
+    if not notes_path.exists():
+        notes_path = Path("data/human_notes.example.json")
+    human_notes_html = render_human_notes_section(load_human_notes(notes_path))
 
     payload = load_json(input_path)
     repos = list(payload.get("repos", []))
@@ -144,6 +179,7 @@ def main() -> int:
       <div class="stat"><span>冻结候选</span><strong>{freeze_count}</strong></div>
       <div class="stat"><span>归档候选</span><strong>{archive_count}</strong></div>
     </section>
+    {human_notes_html}
     <section class="filters">
       <label>优先级
         <select id="filter-priority">

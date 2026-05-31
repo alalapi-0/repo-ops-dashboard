@@ -57,6 +57,7 @@ python3 -m pytest
 | `Config not found` | 创建 `config/repos.yaml` 或指定 `--config` |
 | Playwright 未安装 | `pip install -r requirements-dev.txt && python3 -m playwright install chromium` |
 | 某仓库显示 archived | 路径缺失或目录为空，见 [`lifecycle_rules.md`](lifecycle_rules.md) |
+| Human 笔记不显示 | 复制 `data/human_notes.example.json` → `data/human_notes.json` 并编辑 |
 
 ## 文档索引
 

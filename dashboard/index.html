@@ -10,15 +10,23 @@
   <main class="container" data-dashboard-ready="true">
     <header>
       <h1>Repo Ops Dashboard</h1>
-      <p>更新时间：2026-05-31 19:30:45 UTC</p>
+      <p>更新时间：2026-05-31 20:18:30 UTC</p>
     </header>
     <section class="stats">
-      <div class="stat"><span>总仓库数</span><strong>17</strong></div>
-      <div class="stat"><span>高优先级</span><strong>4</strong></div>
-      <div class="stat"><span>卡住仓库</span><strong>16</strong></div>
-      <div class="stat"><span>冻结候选</span><strong>11</strong></div>
+      <div class="stat"><span>总仓库数</span><strong>5</strong></div>
+      <div class="stat"><span>高优先级</span><strong>3</strong></div>
+      <div class="stat"><span>卡住仓库</span><strong>4</strong></div>
+      <div class="stat"><span>冻结候选</span><strong>2</strong></div>
       <div class="stat"><span>归档候选</span><strong>1</strong></div>
     </section>
+    
+    <section class="human-notes" data-human-notes-ready="true">
+      <h2>本周 Human 笔记</h2>
+      <p class="human-notes-meta">周次：2026-W22 · 更新：2026-05-31T12:00:00+00:00</p>
+      <ul><li>本周重点：repo-ops Phase C 周报合并与 Dashboard 笔记区</li><li>暂缓：路径 missing 的登记项需 Human 归档决策</li></ul>
+      <p class="human-notes-focus"><span class="note-tag">repo-ops-dashboard</span><span class="note-tag">novel-continuation-agent</span></p>
+    </section>
+    
     <section class="filters">
       <label>优先级
         <select id="filter-priority">
@@ -51,6 +59,54 @@
     </section>
     <section class="cards">
       
+    <article class="repo-card" data-priority="low" data-lifecycle="active" data-agent="Human">
+      <div class="card-head">
+        <h3>light_novel</h3>
+        <div></div>
+      </div>
+      <p><strong>类型:</strong> translation</p>
+      <p><strong>生命周期:</strong> active</p>
+      <p><strong>阶段:</strong> execution</p>
+      <p><strong>优先级:</strong> low</p>
+      <p><strong>优先级来源:</strong> 人工覆盖 (final=medium)</p>
+      <p><strong>健康分:</strong> 65</p>
+      <p><strong>推荐 Agent:</strong> Human</p>
+      <p><strong>最后检查:</strong> 2026-05-31T08:37:34.795755+00:00</p>
+      <p><strong>卡点:</strong> AGENTS.md missing; repo_protocol_standard.yaml missing</p>
+      <p><strong>下一步:</strong> 补齐缺失治理文件（AGENTS.md / protocol / README）</p>
+      <button type="button" class="copy-prompt" data-prompt="你是 Human，请推进仓库 `light_novel`。
+
+卡点：AGENTS.md missing; repo_protocol_standard.yaml missing
+下一步：补齐缺失治理文件（AGENTS.md / protocol / README）
+
+约束：不读取 .env、不修改被管理业务仓库、默认 dry-run。">复制 Prompt</button>
+    </article>
+    
+
+    <article class="repo-card" data-priority="high" data-lifecycle="freeze_candidate" data-agent="Human">
+      <div class="card-head">
+        <h3>ai-manga</h3>
+        <div><span class="badge freeze">Freeze</span></div>
+      </div>
+      <p><strong>类型:</strong> ai_manga</p>
+      <p><strong>生命周期:</strong> freeze_candidate</p>
+      <p><strong>阶段:</strong> execution</p>
+      <p><strong>优先级:</strong> high</p>
+      <p><strong>优先级来源:</strong> 人工覆盖 (final=high)</p>
+      <p><strong>健康分:</strong> 8</p>
+      <p><strong>推荐 Agent:</strong> Human</p>
+      <p><strong>最后检查:</strong> 2026-05-31T08:37:34.795755+00:00</p>
+      <p><strong>卡点:</strong> README.md missing; AGENTS.md missing; repo_protocol_standard.yaml missing</p>
+      <p><strong>下一步:</strong> 补齐缺失治理文件（AGENTS.md / protocol / README）</p>
+      <button type="button" class="copy-prompt" data-prompt="你是 Human，请推进仓库 `ai-manga`。
+
+卡点：README.md missing; AGENTS.md missing; repo_protocol_standard.yaml missing
+下一步：补齐缺失治理文件（AGENTS.md / protocol / README）
+
+约束：不读取 .env、不修改被管理业务仓库、默认 dry-run。">复制 Prompt</button>
+    </article>
+    
+
     <article class="repo-card" data-priority="high" data-lifecycle="active" data-agent="Human">
       <div class="card-head">
         <h3>novel-continuation-agent</h3>
@@ -63,37 +119,13 @@
       <p><strong>优先级来源:</strong> 人工覆盖 (final=high)</p>
       <p><strong>健康分:</strong> 44</p>
       <p><strong>推荐 Agent:</strong> Human</p>
-      <p><strong>最后检查:</strong> 2026-05-31T19:30:44.861848+00:00</p>
+      <p><strong>最后检查:</strong> 2026-05-31T08:37:34.795755+00:00</p>
       <p><strong>卡点:</strong> repo_protocol_standard.yaml missing</p>
       <p><strong>下一步:</strong> 补齐缺失治理文件（AGENTS.md / protocol / README）</p>
       <button type="button" class="copy-prompt" data-prompt="你是 Human，请推进仓库 `novel-continuation-agent`。
 
 卡点：repo_protocol_standard.yaml missing
 下一步：补齐缺失治理文件（AGENTS.md / protocol / README）
-
-约束：不读取 .env、不修改被管理业务仓库、默认 dry-run。">复制 Prompt</button>
-    </article>
-    
-
-    <article class="repo-card" data-priority="low" data-lifecycle="archived" data-agent="Human">
-      <div class="card-head">
-        <h3>ai-manga</h3>
-        <div><span class="badge freeze">Freeze</span><span class="badge archive">Archive</span></div>
-      </div>
-      <p><strong>类型:</strong> ai_manga</p>
-      <p><strong>生命周期:</strong> archived</p>
-      <p><strong>阶段:</strong> empty</p>
-      <p><strong>优先级:</strong> low</p>
-      <p><strong>优先级来源:</strong> 人工覆盖 (final=high)</p>
-      <p><strong>健康分:</strong> 8</p>
-      <p><strong>推荐 Agent:</strong> Human</p>
-      <p><strong>最后检查:</strong> 2026-05-31T19:30:44.861848+00:00</p>
-      <p><strong>卡点:</strong> repository directory empty</p>
-      <p><strong>下一步:</strong> 目录为空：归档登记或恢复项目内容</p>
-      <button type="button" class="copy-prompt" data-prompt="你是 Human，请推进仓库 `ai-manga`。
-
-卡点：repository directory empty
-下一步：目录为空：归档登记或恢复项目内容
 
 约束：不读取 .env、不修改被管理业务仓库、默认 dry-run。">复制 Prompt</button>
     </article>
@@ -111,7 +143,7 @@
       <p><strong>优先级来源:</strong> 人工覆盖 (final=high)</p>
       <p><strong>健康分:</strong> 88</p>
       <p><strong>推荐 Agent:</strong> Cursor</p>
-      <p><strong>最后检查:</strong> 2026-05-31T19:30:44.861848+00:00</p>
+      <p><strong>最后检查:</strong> 2026-05-31T08:37:34.795755+00:00</p>
       <p><strong>卡点:</strong> 无</p>
       <p><strong>下一步:</strong> 处理扫描 warning 并补齐可选治理文件</p>
       <button type="button" class="copy-prompt" data-prompt="你是 Cursor，请推进仓库 `repo-ops-dashboard`。
@@ -123,337 +155,25 @@
     </article>
     
 
-    <article class="repo-card" data-priority="high" data-lifecycle="active" data-agent="Human">
+    <article class="repo-card" data-priority="low" data-lifecycle="archived" data-agent="Human">
       <div class="card-head">
-        <h3>ai-anime-short-factory</h3>
-        <div></div>
+        <h3>old_demo_placeholder</h3>
+        <div><span class="badge freeze">Freeze</span><span class="badge archive">Archive</span></div>
       </div>
-      <p><strong>类型:</strong> ai_anime</p>
-      <p><strong>生命周期:</strong> active</p>
-      <p><strong>阶段:</strong> execution</p>
-      <p><strong>优先级:</strong> high</p>
-      <p><strong>优先级来源:</strong> 人工覆盖 (final=high)</p>
-      <p><strong>健康分:</strong> 54</p>
-      <p><strong>推荐 Agent:</strong> Human</p>
-      <p><strong>最后检查:</strong> 2026-05-31T19:30:44.861848+00:00</p>
-      <p><strong>卡点:</strong> repo_protocol_standard.yaml missing</p>
-      <p><strong>下一步:</strong> 补齐缺失治理文件（AGENTS.md / protocol / README）</p>
-      <button type="button" class="copy-prompt" data-prompt="你是 Human，请推进仓库 `ai-anime-short-factory`。
-
-卡点：repo_protocol_standard.yaml missing
-下一步：补齐缺失治理文件（AGENTS.md / protocol / README）
-
-约束：不读取 .env、不修改被管理业务仓库、默认 dry-run。">复制 Prompt</button>
-    </article>
-    
-
-    <article class="repo-card" data-priority="high" data-lifecycle="active" data-agent="Human">
-      <div class="card-head">
-        <h3>wechat-article-scheduler</h3>
-        <div></div>
-      </div>
-      <p><strong>类型:</strong> content_scheduler</p>
-      <p><strong>生命周期:</strong> active</p>
-      <p><strong>阶段:</strong> execution</p>
-      <p><strong>优先级:</strong> high</p>
-      <p><strong>优先级来源:</strong> 人工覆盖 (final=high)</p>
-      <p><strong>健康分:</strong> 44</p>
-      <p><strong>推荐 Agent:</strong> Human</p>
-      <p><strong>最后检查:</strong> 2026-05-31T19:30:44.861848+00:00</p>
-      <p><strong>卡点:</strong> repo_protocol_standard.yaml missing</p>
-      <p><strong>下一步:</strong> 补齐缺失治理文件（AGENTS.md / protocol / README）</p>
-      <button type="button" class="copy-prompt" data-prompt="你是 Human，请推进仓库 `wechat-article-scheduler`。
-
-卡点：repo_protocol_standard.yaml missing
-下一步：补齐缺失治理文件（AGENTS.md / protocol / README）
-
-约束：不读取 .env、不修改被管理业务仓库、默认 dry-run。">复制 Prompt</button>
-    </article>
-    
-
-    <article class="repo-card" data-priority="medium" data-lifecycle="active" data-agent="Human">
-      <div class="card-head">
-        <h3>light_novel</h3>
-        <div></div>
-      </div>
-      <p><strong>类型:</strong> translation</p>
-      <p><strong>生命周期:</strong> active</p>
-      <p><strong>阶段:</strong> execution</p>
-      <p><strong>优先级:</strong> medium</p>
-      <p><strong>优先级来源:</strong> 人工覆盖 (final=medium)</p>
-      <p><strong>健康分:</strong> 63</p>
-      <p><strong>推荐 Agent:</strong> Human</p>
-      <p><strong>最后检查:</strong> 2026-05-31T19:30:44.861848+00:00</p>
-      <p><strong>卡点:</strong> AGENTS.md missing; repo_protocol_standard.yaml missing</p>
-      <p><strong>下一步:</strong> 补齐缺失治理文件（AGENTS.md / protocol / README）</p>
-      <button type="button" class="copy-prompt" data-prompt="你是 Human，请推进仓库 `light_novel`。
-
-卡点：AGENTS.md missing; repo_protocol_standard.yaml missing
-下一步：补齐缺失治理文件（AGENTS.md / protocol / README）
-
-约束：不读取 .env、不修改被管理业务仓库、默认 dry-run。">复制 Prompt</button>
-    </article>
-    
-
-    <article class="repo-card" data-priority="medium" data-lifecycle="freeze_candidate" data-agent="Human">
-      <div class="card-head">
-        <h3>computer_study_plan</h3>
-        <div><span class="badge freeze">Freeze</span></div>
-      </div>
-      <p><strong>类型:</strong> study</p>
-      <p><strong>生命周期:</strong> freeze_candidate</p>
-      <p><strong>阶段:</strong> execution</p>
-      <p><strong>优先级:</strong> medium</p>
-      <p><strong>优先级来源:</strong> 人工覆盖 (final=medium)</p>
-      <p><strong>健康分:</strong> 30</p>
-      <p><strong>推荐 Agent:</strong> Human</p>
-      <p><strong>最后检查:</strong> 2026-05-31T19:30:44.861848+00:00</p>
-      <p><strong>卡点:</strong> repo_protocol_standard.yaml missing</p>
-      <p><strong>下一步:</strong> 补齐缺失治理文件（AGENTS.md / protocol / README）</p>
-      <button type="button" class="copy-prompt" data-prompt="你是 Human，请推进仓库 `computer_study_plan`。
-
-卡点：repo_protocol_standard.yaml missing
-下一步：补齐缺失治理文件（AGENTS.md / protocol / README）
-
-约束：不读取 .env、不修改被管理业务仓库、默认 dry-run。">复制 Prompt</button>
-    </article>
-    
-
-    <article class="repo-card" data-priority="medium" data-lifecycle="active" data-agent="Human">
-      <div class="card-head">
-        <h3>world-news-lens</h3>
-        <div></div>
-      </div>
-      <p><strong>类型:</strong> news</p>
-      <p><strong>生命周期:</strong> active</p>
-      <p><strong>阶段:</strong> execution</p>
-      <p><strong>优先级:</strong> medium</p>
-      <p><strong>优先级来源:</strong> 人工覆盖 (final=medium)</p>
-      <p><strong>健康分:</strong> 54</p>
-      <p><strong>推荐 Agent:</strong> Human</p>
-      <p><strong>最后检查:</strong> 2026-05-31T19:30:44.861848+00:00</p>
-      <p><strong>卡点:</strong> repo_protocol_standard.yaml missing</p>
-      <p><strong>下一步:</strong> 补齐缺失治理文件（AGENTS.md / protocol / README）</p>
-      <button type="button" class="copy-prompt" data-prompt="你是 Human，请推进仓库 `world-news-lens`。
-
-卡点：repo_protocol_standard.yaml missing
-下一步：补齐缺失治理文件（AGENTS.md / protocol / README）
-
-约束：不读取 .env、不修改被管理业务仓库、默认 dry-run。">复制 Prompt</button>
-    </article>
-    
-
-    <article class="repo-card" data-priority="medium" data-lifecycle="freeze_candidate" data-agent="Human">
-      <div class="card-head">
-        <h3>pixel-world-asset-forge</h3>
-        <div><span class="badge freeze">Freeze</span></div>
-      </div>
-      <p><strong>类型:</strong> asset_forge</p>
-      <p><strong>生命周期:</strong> freeze_candidate</p>
-      <p><strong>阶段:</strong> execution</p>
-      <p><strong>优先级:</strong> medium</p>
-      <p><strong>优先级来源:</strong> 人工覆盖 (final=medium)</p>
-      <p><strong>健康分:</strong> 32</p>
-      <p><strong>推荐 Agent:</strong> Human</p>
-      <p><strong>最后检查:</strong> 2026-05-31T19:30:44.861848+00:00</p>
-      <p><strong>卡点:</strong> AGENTS.md missing; repo_protocol_standard.yaml missing</p>
-      <p><strong>下一步:</strong> 补齐缺失治理文件（AGENTS.md / protocol / README）</p>
-      <button type="button" class="copy-prompt" data-prompt="你是 Human，请推进仓库 `pixel-world-asset-forge`。
-
-卡点：AGENTS.md missing; repo_protocol_standard.yaml missing
-下一步：补齐缺失治理文件（AGENTS.md / protocol / README）
-
-约束：不读取 .env、不修改被管理业务仓库、默认 dry-run。">复制 Prompt</button>
-    </article>
-    
-
-    <article class="repo-card" data-priority="low" data-lifecycle="freeze_candidate" data-agent="Human">
-      <div class="card-head">
-        <h3>agent-experiments</h3>
-        <div><span class="badge freeze">Freeze</span></div>
-      </div>
-      <p><strong>类型:</strong> experiment</p>
-      <p><strong>生命周期:</strong> freeze_candidate</p>
-      <p><strong>阶段:</strong> execution</p>
+      <p><strong>类型:</strong> demo</p>
+      <p><strong>生命周期:</strong> archived</p>
+      <p><strong>阶段:</strong> missing</p>
       <p><strong>优先级:</strong> low</p>
-      <p><strong>优先级来源:</strong> 人工覆盖 (final=low)</p>
-      <p><strong>健康分:</strong> 8</p>
+      <p><strong>优先级来源:</strong> 算法建议 (final=low)</p>
+      <p><strong>健康分:</strong> 10</p>
       <p><strong>推荐 Agent:</strong> Human</p>
-      <p><strong>最后检查:</strong> 2026-05-31T19:30:44.861848+00:00</p>
-      <p><strong>卡点:</strong> README.md missing; AGENTS.md missing; repo_protocol_standard.yaml missing</p>
-      <p><strong>下一步:</strong> 补齐缺失治理文件（AGENTS.md / protocol / README）</p>
-      <button type="button" class="copy-prompt" data-prompt="你是 Human，请推进仓库 `agent-experiments`。
+      <p><strong>最后检查:</strong> 2026-05-31T08:37:34.795755+00:00</p>
+      <p><strong>卡点:</strong> repository path missing</p>
+      <p><strong>下一步:</strong> 确认仓库路径是否有效，或从登记中归档</p>
+      <button type="button" class="copy-prompt" data-prompt="你是 Human，请推进仓库 `old_demo_placeholder`。
 
-卡点：README.md missing; AGENTS.md missing; repo_protocol_standard.yaml missing
-下一步：补齐缺失治理文件（AGENTS.md / protocol / README）
-
-约束：不读取 .env、不修改被管理业务仓库、默认 dry-run。">复制 Prompt</button>
-    </article>
-    
-
-    <article class="repo-card" data-priority="low" data-lifecycle="freeze_candidate" data-agent="Human">
-      <div class="card-head">
-        <h3>ai-anime-short-factory-external</h3>
-        <div><span class="badge freeze">Freeze</span></div>
-      </div>
-      <p><strong>类型:</strong> external</p>
-      <p><strong>生命周期:</strong> freeze_candidate</p>
-      <p><strong>阶段:</strong> execution</p>
-      <p><strong>优先级:</strong> low</p>
-      <p><strong>优先级来源:</strong> 人工覆盖 (final=low)</p>
-      <p><strong>健康分:</strong> 8</p>
-      <p><strong>推荐 Agent:</strong> Human</p>
-      <p><strong>最后检查:</strong> 2026-05-31T19:30:44.861848+00:00</p>
-      <p><strong>卡点:</strong> README.md missing; AGENTS.md missing; repo_protocol_standard.yaml missing</p>
-      <p><strong>下一步:</strong> 补齐缺失治理文件（AGENTS.md / protocol / README）</p>
-      <button type="button" class="copy-prompt" data-prompt="你是 Human，请推进仓库 `ai-anime-short-factory-external`。
-
-卡点：README.md missing; AGENTS.md missing; repo_protocol_standard.yaml missing
-下一步：补齐缺失治理文件（AGENTS.md / protocol / README）
-
-约束：不读取 .env、不修改被管理业务仓库、默认 dry-run。">复制 Prompt</button>
-    </article>
-    
-
-    <article class="repo-card" data-priority="low" data-lifecycle="freeze_candidate" data-agent="Human">
-      <div class="card-head">
-        <h3>api-mini-labs</h3>
-        <div><span class="badge freeze">Freeze</span></div>
-      </div>
-      <p><strong>类型:</strong> lab</p>
-      <p><strong>生命周期:</strong> freeze_candidate</p>
-      <p><strong>阶段:</strong> execution</p>
-      <p><strong>优先级:</strong> low</p>
-      <p><strong>优先级来源:</strong> 人工覆盖 (final=low)</p>
-      <p><strong>健康分:</strong> 20</p>
-      <p><strong>推荐 Agent:</strong> Human</p>
-      <p><strong>最后检查:</strong> 2026-05-31T19:30:44.861848+00:00</p>
-      <p><strong>卡点:</strong> AGENTS.md missing; repo_protocol_standard.yaml missing</p>
-      <p><strong>下一步:</strong> 补齐缺失治理文件（AGENTS.md / protocol / README）</p>
-      <button type="button" class="copy-prompt" data-prompt="你是 Human，请推进仓库 `api-mini-labs`。
-
-卡点：AGENTS.md missing; repo_protocol_standard.yaml missing
-下一步：补齐缺失治理文件（AGENTS.md / protocol / README）
-
-约束：不读取 .env、不修改被管理业务仓库、默认 dry-run。">复制 Prompt</button>
-    </article>
-    
-
-    <article class="repo-card" data-priority="low" data-lifecycle="freeze_candidate" data-agent="Human">
-      <div class="card-head">
-        <h3>audiobook-cleaner-lab</h3>
-        <div><span class="badge freeze">Freeze</span></div>
-      </div>
-      <p><strong>类型:</strong> lab</p>
-      <p><strong>生命周期:</strong> freeze_candidate</p>
-      <p><strong>阶段:</strong> execution</p>
-      <p><strong>优先级:</strong> low</p>
-      <p><strong>优先级来源:</strong> 人工覆盖 (final=low)</p>
-      <p><strong>健康分:</strong> 30</p>
-      <p><strong>推荐 Agent:</strong> Human</p>
-      <p><strong>最后检查:</strong> 2026-05-31T19:30:44.861848+00:00</p>
-      <p><strong>卡点:</strong> repo_protocol_standard.yaml missing</p>
-      <p><strong>下一步:</strong> 补齐缺失治理文件（AGENTS.md / protocol / README）</p>
-      <button type="button" class="copy-prompt" data-prompt="你是 Human，请推进仓库 `audiobook-cleaner-lab`。
-
-卡点：repo_protocol_standard.yaml missing
-下一步：补齐缺失治理文件（AGENTS.md / protocol / README）
-
-约束：不读取 .env、不修改被管理业务仓库、默认 dry-run。">复制 Prompt</button>
-    </article>
-    
-
-    <article class="repo-card" data-priority="low" data-lifecycle="freeze_candidate" data-agent="Human">
-      <div class="card-head">
-        <h3>resilient-personal-network</h3>
-        <div><span class="badge freeze">Freeze</span></div>
-      </div>
-      <p><strong>类型:</strong> utility</p>
-      <p><strong>生命周期:</strong> freeze_candidate</p>
-      <p><strong>阶段:</strong> execution</p>
-      <p><strong>优先级:</strong> low</p>
-      <p><strong>优先级来源:</strong> 人工覆盖 (final=low)</p>
-      <p><strong>健康分:</strong> 20</p>
-      <p><strong>推荐 Agent:</strong> Human</p>
-      <p><strong>最后检查:</strong> 2026-05-31T19:30:44.861848+00:00</p>
-      <p><strong>卡点:</strong> AGENTS.md missing; repo_protocol_standard.yaml missing</p>
-      <p><strong>下一步:</strong> 补齐缺失治理文件（AGENTS.md / protocol / README）</p>
-      <button type="button" class="copy-prompt" data-prompt="你是 Human，请推进仓库 `resilient-personal-network`。
-
-卡点：AGENTS.md missing; repo_protocol_standard.yaml missing
-下一步：补齐缺失治理文件（AGENTS.md / protocol / README）
-
-约束：不读取 .env、不修改被管理业务仓库、默认 dry-run。">复制 Prompt</button>
-    </article>
-    
-
-    <article class="repo-card" data-priority="low" data-lifecycle="freeze_candidate" data-agent="Human">
-      <div class="card-head">
-        <h3>tool-mini-labs</h3>
-        <div><span class="badge freeze">Freeze</span></div>
-      </div>
-      <p><strong>类型:</strong> lab</p>
-      <p><strong>生命周期:</strong> freeze_candidate</p>
-      <p><strong>阶段:</strong> execution</p>
-      <p><strong>优先级:</strong> low</p>
-      <p><strong>优先级来源:</strong> 人工覆盖 (final=low)</p>
-      <p><strong>健康分:</strong> 20</p>
-      <p><strong>推荐 Agent:</strong> Human</p>
-      <p><strong>最后检查:</strong> 2026-05-31T19:30:44.861848+00:00</p>
-      <p><strong>卡点:</strong> AGENTS.md missing; repo_protocol_standard.yaml missing</p>
-      <p><strong>下一步:</strong> 补齐缺失治理文件（AGENTS.md / protocol / README）</p>
-      <button type="button" class="copy-prompt" data-prompt="你是 Human，请推进仓库 `tool-mini-labs`。
-
-卡点：AGENTS.md missing; repo_protocol_standard.yaml missing
-下一步：补齐缺失治理文件（AGENTS.md / protocol / README）
-
-约束：不读取 .env、不修改被管理业务仓库、默认 dry-run。">复制 Prompt</button>
-    </article>
-    
-
-    <article class="repo-card" data-priority="low" data-lifecycle="freeze_candidate" data-agent="Human">
-      <div class="card-head">
-        <h3>typing-practice-app</h3>
-        <div><span class="badge freeze">Freeze</span></div>
-      </div>
-      <p><strong>类型:</strong> utility</p>
-      <p><strong>生命周期:</strong> freeze_candidate</p>
-      <p><strong>阶段:</strong> execution</p>
-      <p><strong>优先级:</strong> low</p>
-      <p><strong>优先级来源:</strong> 人工覆盖 (final=low)</p>
-      <p><strong>健康分:</strong> 22</p>
-      <p><strong>推荐 Agent:</strong> Human</p>
-      <p><strong>最后检查:</strong> 2026-05-31T19:30:44.861848+00:00</p>
-      <p><strong>卡点:</strong> AGENTS.md missing; repo_protocol_standard.yaml missing</p>
-      <p><strong>下一步:</strong> 补齐缺失治理文件（AGENTS.md / protocol / README）</p>
-      <button type="button" class="copy-prompt" data-prompt="你是 Human，请推进仓库 `typing-practice-app`。
-
-卡点：AGENTS.md missing; repo_protocol_standard.yaml missing
-下一步：补齐缺失治理文件（AGENTS.md / protocol / README）
-
-约束：不读取 .env、不修改被管理业务仓库、默认 dry-run。">复制 Prompt</button>
-    </article>
-    
-
-    <article class="repo-card" data-priority="low" data-lifecycle="freeze_candidate" data-agent="Human">
-      <div class="card-head">
-        <h3>youtube_hq_downloader</h3>
-        <div><span class="badge freeze">Freeze</span></div>
-      </div>
-      <p><strong>类型:</strong> utility</p>
-      <p><strong>生命周期:</strong> freeze_candidate</p>
-      <p><strong>阶段:</strong> execution</p>
-      <p><strong>优先级:</strong> low</p>
-      <p><strong>优先级来源:</strong> 人工覆盖 (final=low)</p>
-      <p><strong>健康分:</strong> 30</p>
-      <p><strong>推荐 Agent:</strong> Human</p>
-      <p><strong>最后检查:</strong> 2026-05-31T19:30:44.861848+00:00</p>
-      <p><strong>卡点:</strong> AGENTS.md missing; repo_protocol_standard.yaml missing</p>
-      <p><strong>下一步:</strong> 补齐缺失治理文件（AGENTS.md / protocol / README）</p>
-      <button type="button" class="copy-prompt" data-prompt="你是 Human，请推进仓库 `youtube_hq_downloader`。
-
-卡点：AGENTS.md missing; repo_protocol_standard.yaml missing
-下一步：补齐缺失治理文件（AGENTS.md / protocol / README）
+卡点：repository path missing
+下一步：确认仓库路径是否有效，或从登记中归档
 
 约束：不读取 .env、不修改被管理业务仓库、默认 dry-run。">复制 Prompt</button>
     </article>

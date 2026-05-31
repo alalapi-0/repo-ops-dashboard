@@ -1,0 +1,3 @@
+# Copy to config/local_imports.yaml and set local paths (gitignored).
+calendar_ics: ""
+finance_csv: ""
