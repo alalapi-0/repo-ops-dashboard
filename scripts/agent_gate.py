@@ -126,8 +126,12 @@ def check_local_required_files(state: GateState, root: Path) -> None:
         state.add("required_files", PASS, "required governance files exist")
 
 
+ALLOWED_ENV_TRACKED = {".env.example"}
+
+
 def check_env_git_risk(state: GateState, root: Path) -> None:
     tracked = run_git_lines(["git", "ls-files", ".env", ".env.*"], root)
+    tracked = [path for path in tracked if path not in ALLOWED_ENV_TRACKED]
     if tracked:
         state.add("env_tracked", BLOCKED, f".env tracked by git: {tracked}")
     else:
