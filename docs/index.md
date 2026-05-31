@@ -13,6 +13,7 @@
 - 安装：`docs/installation.md`
 - 调度：`docs/scheduler.md`
 - 生命周期：`docs/lifecycle_rules.md`
+- 个人 OS 远期：`docs/personal_os_roadmap.md`
 
 ## 集成规划
 
@@ -23,4 +24,4 @@
 
 ## Round 路线
 
-见 `docs/rounds/round_00_bootstrap.md` 到 `docs/rounds/round_10_release_hardening.md`。
+见 `docs/rounds/round_00_bootstrap.md` 到 `docs/rounds/round_15_long_term_personal_operating_system.md`（Round 00–15 已完结）。

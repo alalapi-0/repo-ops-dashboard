@@ -65,6 +65,9 @@ echo "[refresh] feishu preview"
 echo "[refresh] protocol sync suggestions"
 "$PYTHON" scripts/protocol_sync_report.py --input "$SNAPSHOTS" --no-dry-run
 
+echo "[refresh] openclaw brief"
+"$PYTHON" scripts/generate_openclaw_brief.py --input "$STATUS"
+
 if $UI_CHECK; then
   echo "[refresh] ui_check"
   "$PYTHON" scripts/ui_check.py \

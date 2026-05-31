@@ -27,6 +27,10 @@ python3 scripts/generate_report.py --input data/repo_status.example.json
 
 {{cursor_codex_drafts}}
 
+## 短提醒
+
+{{short_reminder}}
+
 ---
 
 边界：不读 `.env`、不改被管理业务仓库、不自动 commit。

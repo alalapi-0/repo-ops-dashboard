@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## Round 15 - Personal OS Roadmap
+
+- 新增 `docs/personal_os_roadmap.md`：个人 OS 远期规划（文档 only，Round 00–15 完结）。
+
+## Round 14 - OpenClaw Daily Briefing
+
+- 新增 `scripts/generate_openclaw_brief.py`：规则生成每日简报（推进/暂缓/风险/任务/短提醒）。
+- 更新 `skills/openclaw_repo_ops/SKILL.md` 与 `refresh_status.sh`。
+
 ## Round 13 - Cross-Repo Protocol Sync
 
 - 新增 `scripts/protocol_sync_report.py`：只读对比治理文件差异，生成 `reports/protocol_sync_suggestions.md` 与 `prompts/generated/*_protocol_sync.md`。

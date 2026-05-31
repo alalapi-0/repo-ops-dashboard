@@ -27,6 +27,7 @@ OpenClaw 是**编排 Agent**，不是主力编程 Agent。负责读取状态、�
 | `reports/weekly_repo_report.md` | 周报 |
 | `round_state/current_round.yaml` | 当前轮次 |
 | `reports/agent_gate_report.md` | 门禁结果 |
+| `reports/openclaw_daily_brief.md` | OpenClaw 每日简报 |
 | `prompts/generated/*_openclaw.md` | 各仓 OpenClaw 提示词 |
 
 **禁止读取：** `.env`、密钥文件、被管理仓业务源码树。
@@ -59,10 +60,19 @@ python3 scripts/generate_prompts.py --input data/repo_status.example.json --dry-
 1. 运行 `agent_gate.py`，确认 PASS
 2. 读取 `data/repo_status.json` 或 example 文件
 3. 读取 `reports/daily_repo_report.md`
-4. 选出 1–3 个高优先级且 blockers 可处理的仓库
-5. 标记 freeze/archive 候选为「今日暂缓」
-6. 使用 `prompts/openclaw_daily_brief.md` 模板输出 Markdown 简报
+4. 运行 `python3 scripts/generate_openclaw_brief.py` → `reports/openclaw_daily_brief.md`
+5. 选出 1–3 个高优先级且 blockers 可处理的仓库
+6. 标记 freeze/archive 候选为「今日暂缓」
 7. 将 Cursor/Codex 任务指向 `prompts/generated/<repo>_cursor.md` 或 `_codex.md`
+
+### 建议每日 9:00（本地 cron / launchd）
+
+```bash
+cd /path/to/repo-ops-dashboard
+./scripts/refresh_status.sh --ui-check
+python3 scripts/generate_openclaw_brief.py --input data/repo_status.json
+# Human 复核 reports/openclaw_daily_brief.md 后再决定是否 Feishu --send
+```
 
 ## 输出模板
 

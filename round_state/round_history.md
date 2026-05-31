@@ -96,3 +96,15 @@
 - 产出：protocol_sync_report.py、protocol_sync_suggestions.md、每仓 Cursor Prompt
 - 修改被管理仓库：false
 - 下一轮：`round_14_openclaw_daily_briefing`
+
+## Round 14 - OpenClaw Daily Briefing
+
+- 状态：completed
+- 产出：generate_openclaw_brief.py、openclaw_daily_brief.md、Skill 9:00 流程
+- 下一轮：`round_15_long_term_personal_operating_system`
+
+## Round 15 - Long-Term Personal Operating System
+
+- 状态：completed（规划文档 only）
+- 产出：`docs/personal_os_roadmap.md`
+- 说明：Round 00–15 路线图完结；后续扩展需 Human 授权
