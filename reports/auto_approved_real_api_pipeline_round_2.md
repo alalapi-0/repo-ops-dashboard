@@ -58,8 +58,8 @@
 ## Git 提交
 
 - branch: main
-- commit: （见 push 后 hash）
-- push result: （见 push 后输出）
+- commit: 7dff72a
+- push result: origin/main 成功
 
 ## 软阻塞
 

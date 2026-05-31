@@ -26,10 +26,14 @@ for arg in "$@"; do
 done
 
 if [[ -f "$ROOT/.env" ]] && { $FEISHU_SEND || $BITABLE_SYNC || $LLM_CALL || $GEN_PIPELINE; }; then
+  _PRESERVE_LLM="${LLM_ENABLED:-}"
   set -a
   # shellcheck disable=SC1091
   source "$ROOT/.env"
   set +a
+  if [[ "$_PRESERVE_LLM" == "true" ]]; then
+    export LLM_ENABLED=true
+  fi
 fi
 
 PYTHON="${PYTHON:-python3}"
