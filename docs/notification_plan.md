@@ -1,26 +1,23 @@
 # 通知计划
 
-## 稳定契约（任何渠道消费）
+## 稳定契约
 
-见 [`downstream_integrations.md`](downstream_integrations.md)：`repo_status.json`、日报、Feishu 预览 JSON、生成的 Prompt。
+见 [`downstream_integrations.md`](downstream_integrations.md)：`repo_status.json`、日报、`daily_brief.md`、LLM 摘要、Feishu 预览 JSON。
 
 ## 目标渠道
 
 | 渠道 | 状态 | 说明 |
 |------|------|------|
 | Markdown 日报/周报 | 已实现 | `generate_report.py` |
-| Dashboard | 已实现 | 本地 `file://` |
-| Feishu 机器人 | 已实现（opt-in） | `prepare_feishu_payload.py --send` 或 `refresh_status.sh --feishu-send` |
-| Feishu 多维表格 | 已实现（opt-in） | `sync_feishu_bitable.py --sync` 或 `--bitable-sync` |
-| Cursor Automations | 文档就绪 | [`cursor_automation_feishu.md`](cursor_automation_feishu.md) |
-| Mac 本地通知 | 规划 | 可由 Automations / launchd 包装 |
-| Telegram | 规划 | 不在本仓库 Round 范围 |
-| OpenClaw | 可选适配器 | Skill + 只读脚本 |
-| Hermes | 可选适配器 | 消费同一 JSON/报告路径 |
-| Cursor Automations | 可选适配器 | 定时跑流水线 + `--send` |
-| 本地推理服务 | 可选适配器 | 读 status + 日报生成建议 |
+| Dashboard / Hub | 已实现 | `dashboard/index.html`、`dashboard/hub.html` |
+| Feishu 机器人 | 已实现（opt-in） | `prepare_feishu_payload.py --send` |
+| Feishu 多维表格 | 已实现（opt-in） | `sync_feishu_bitable.py --sync` |
+| Cursor Automations | 已实现（文档） | [`cursor_automation_guide.md`](cursor_automation_guide.md) |
+| OpenRouter LLM | 已实现（opt-in） | `generate_llm_summary.py --call` |
+| Mac 本地通知 | 规划 | launchd 包装 refresh |
+| OpenClaw | 可选遗留 | Skill deprecated |
 
 ## 原则
 
 - 不把 Webhook / Token 写入仓库
-- 默认预览；真实发送需 Human 配置环境变量后显式 `--send`
+- 默认预览；真实发送/LLM 需 Human 配置 `.env` 后显式 opt-in

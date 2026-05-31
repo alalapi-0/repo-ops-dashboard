@@ -1,4 +1,4 @@
-"""Tests for generate_openclaw_brief."""
+"""Tests for generate_daily_brief."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ SCRIPTS = Path(__file__).resolve().parents[1] / "scripts"
 if str(SCRIPTS) not in sys.path:
     sys.path.insert(0, str(SCRIPTS))
 
-import generate_openclaw_brief as brief  # noqa: E402
+import generate_daily_brief as brief  # noqa: E402
 
 
 def test_pick_top_skips_archived() -> None:

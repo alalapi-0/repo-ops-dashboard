@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Merge priority review, OpenClaw brief, weekly report, and human notes into one review."""
+"""Merge priority review, daily brief, weekly report, and human notes into one review."""
 
 from __future__ import annotations
 
@@ -52,7 +52,7 @@ def build_review(
         "# Repo Ops Weekly Review",
         "",
         f"- generated_at: {generated_at}",
-        "- 来源：priority_review + openclaw_daily_brief + weekly_repo_report + human_notes",
+        "- 来源：priority_review + daily_brief + weekly_repo_report + human_notes",
         "",
         "## Human 本周笔记",
         "",
@@ -65,7 +65,7 @@ def build_review(
             "## 优先级复盘摘要",
             "",
             priority_text,
-            "## OpenClaw 每日简报",
+            "## 每日简报",
             "",
             brief_text,
             "## 周报原始数据",
@@ -85,8 +85,8 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--brief",
-        default="reports/openclaw_daily_brief.md",
-        help="OpenClaw daily brief markdown",
+        default="reports/daily_brief.md",
+        help="Daily brief markdown",
     )
     parser.add_argument(
         "--weekly",

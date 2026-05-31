@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Repo Ops Hub</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .hub-links { display: grid; gap: 12px; margin-top: 24px; }
+    .hub-links a {
+      display: block;
+      background: white;
+      padding: 16px;
+      border-radius: 10px;
+      text-decoration: none;
+      color: #1f2937;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .hub-links a:hover { background: #f0f4ff; }
+    .hub-links small { display: block; color: #6b7280; margin-top: 4px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Repo Ops Hub</h1>
+    <p>个人多仓库治理统一入口（Phase D / Round 24）</p>
+    <div class="hub-links">
+      <a href="index.html">
+        <strong>仓库 Dashboard</strong>
+        <small>优先级、卡点、Human 笔记</small>
+      </a>
+      <a href="../reports/daily_repo_report.md">
+        <strong>每日报告</strong>
+        <small>reports/daily_repo_report.md</small>
+      </a>
+      <a href="../reports/daily_brief.md">
+        <strong>规则每日简报</strong>
+        <small>reports/daily_brief.md</small>
+      </a>
+      <a href="../reports/llm_daily_summary.md">
+        <strong>LLM 摘要</strong>
+        <small>reports/llm_daily_summary.md（opt-in）</small>
+      </a>
+      <a href="../reports/weekly_review.md">
+        <strong>周报复盘</strong>
+        <small>reports/weekly_review.md</small>
+      </a>
+    </div>
+    <p style="margin-top:24px;font-size:14px;color:#6b7280;">
+      刷新：<code>./scripts/refresh_status.sh</code> · 编排见 docs/cursor_automation_guide.md
+    </p>
+  </div>
+</body>
+</html>

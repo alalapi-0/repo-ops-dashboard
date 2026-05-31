@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate per-repo Cursor/Codex/OpenClaw prompts from status data."""
+"""Generate per-repo Cursor/Codex/orchestration prompts from status data."""
 
 from __future__ import annotations
 
@@ -86,7 +86,7 @@ def main() -> int:
     templates = {
         "cursor": load_template(prompts_dir / "cursor_next_round.md"),
         "codex": load_template(prompts_dir / "codex_next_round.md"),
-        "openclaw": load_template(prompts_dir / "openclaw_repo_scan.md"),
+        "orchestration": load_template(prompts_dir / "orchestration_repo_scan.md"),
     }
 
     print(f"[prompts] repos={len(repos)} dry_run={args.dry_run}")

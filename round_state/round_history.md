@@ -133,4 +133,37 @@
 
 - 状态：completed
 - 产出：`read_local_imports.py`、ICS/CSV 摘要并入 weekly_review
-- Phase C 完结；Phase D 待 Human 授权
+- Phase C 完结
+- 下一轮：`round_20_env_template`
+
+## Round 20 - Environment Template
+
+- 状态：completed
+- 产出：`.env.example`、`docs/env_configuration.md`
+- 外部 API：false
+- 下一轮：`round_21_daily_brief_rename`
+
+## Round 21 - Daily Brief Rename
+
+- 状态：completed
+- 产出：`generate_daily_brief.py`、`cursor_automation_guide.md`
+- 下一轮：`round_22_llm_openrouter`
+
+## Round 22 - OpenRouter LLM Summary
+
+- 状态：completed
+- 产出：`generate_llm_summary.py`、`--llm-summary`
+- 外部 API：true（`--call` opt-in）
+- 下一轮：`round_23_feishu_hardening`
+
+## Round 23 - Feishu Hardening
+
+- 状态：completed
+- 产出：20KB 截断、错误码提示、签名单测
+- 下一轮：`round_24_personal_os_hub`
+
+## Round 24 - Personal OS Hub
+
+- 状态：completed
+- 产出：`dashboard/hub.html`；Phase D 完结
+- next_round: null

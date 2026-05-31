@@ -1,6 +1,6 @@
 # Agent Gate Report
 
-- generated_at: 2026-05-31T20:18:28.840060+00:00
+- generated_at: 2026-05-31T20:38:37.251702+00:00
 - verdict: PASS
 
 ## Findings
@@ -11,7 +11,7 @@
 - [PASS] `dry_run_defaults`: dry-run defaults checked
 - [PASS] `target_repo_modification`: no obvious target-repo write logic
 - [PASS] `integration_docs_only`: integrations remain docs-only
-- [PASS] `round_docs`: round docs 00-17 exist
+- [PASS] `round_docs`: round docs 00-24 exist
 - [PASS] `round_doc_sections`: round docs contain required sections
 - [PASS] `ui_check_script`: ui_check.py exists
 - [PASS] `audit_report`: round 01 audit report exists
@@ -21,4 +21,4 @@
 - [PASS] `requirements_dev`: requirements-dev.txt includes playwright and pytest
 - [PASS] `installation_doc`: installation.md covers core refresh commands
 - [PASS] `example_fixtures`: example data fixtures present
-- [PASS] `pytest_tests`: pytest tests present (8 modules)
+- [PASS] `pytest_tests`: pytest tests present (9 modules)

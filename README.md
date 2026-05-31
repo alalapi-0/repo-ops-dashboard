@@ -17,21 +17,22 @@
 6. 识别应冻结或归档的仓库
 7. 生成每日/每周报告
 8. 生成给 Cursor/Codex 的推进 Prompt
-9. 可选下游：OpenClaw、Hermes、Cursor Automations 或本地推理服务（见 `docs/downstream_integrations.md`）
-10. 可选 Feishu/Lark 推送（`prepare_feishu_payload.py --send`）或 Mac 通知
+9. 可选下游：**Cursor Automations**（主编排）、Hermes 或遗留 OpenClaw（见 `docs/downstream_integrations.md`）
+10. 可选 OpenRouter LLM 摘要、Feishu 推送（均需 opt-in 与环境变量）
 
 ## 为什么它不是编程 Agent
 
 - 本项目本身不承担主力编码执行角色
 - 本项目只聚合状态、生成建议与下一轮提示词
 - Cursor 和 Codex 仍然是主要编程执行工具
-- OpenClaw 后续只作为调度入口和提醒入口，不负责主力代码开发
+- **Cursor Automations** 负责定时 refresh 与可选推送；OpenClaw 为可选遗留
 
 ## Agent 分工
 
 - **Cursor**：开发本项目、写脚本、调试 Dashboard、接 Playwright
 - **Codex**：执行明确推进轮、批量修改、自动 PR
-- **OpenClaw**：后续做调度、提醒、入口调用，**不承担主力开发**
+- **Cursor Automations**：定时 refresh、可选飞书/LLM，**不承担主力开发**
+- **OpenClaw**：可选遗留 Skill
 - **Human**：决定优先级、冻结、归档与推进方向
 
 ## 安全边界
@@ -71,7 +72,7 @@ python3 scripts/ui_check.py --file dashboard/index.html --screenshot reports/ui_
 
 ## 后续路线
 
-按 `docs/rounds/` 中 `round_00` 到 `round_15` 推进；Round 01 登记与 Round 11 生命周期规则已落地。
+Phase D（Round 20–24）已完成：环境变量模板、Cursor 编排主线、OpenRouter LLM、飞书加固、Hub 入口。见 [`docs/personal_os_roadmap.md`](docs/personal_os_roadmap.md)。
 
 ## 不做什么
 

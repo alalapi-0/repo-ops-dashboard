@@ -44,6 +44,11 @@ ROUND_FILES = [
     "round_17_feishu_bitable_sync.md",
     "round_18_weekly_review_human_notes.md",
     "round_19_local_imports_optional.md",
+    "round_20_env_template.md",
+    "round_21_daily_brief_rename.md",
+    "round_22_llm_openrouter.md",
+    "round_23_feishu_hardening.md",
+    "round_24_personal_os_hub.md",
 ]
 
 ROUND_REQUIRED_SECTIONS = ["## 目标", "## 验收标准", "## 推荐执行 Agent"]

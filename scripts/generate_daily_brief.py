@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate OpenClaw daily briefing from repo status (rule-based, no external API)."""
+"""Generate daily briefing from repo status (rule-based, no external API)."""
 
 from __future__ import annotations
 
@@ -91,7 +91,10 @@ def build_risk_notes(repos: list[dict[str, Any]]) -> str:
 def short_reminder(top: list[dict[str, Any]], defer: list[dict[str, Any]]) -> str:
     names = ", ".join(str(r.get("name")) for r in top[:2]) or "无"
     defer_count = len(defer)
-    text = f"今日优先推进：{names}。暂缓 {defer_count} 仓勿动。OpenClaw 只读编排，编程交给 Cursor/Codex。"
+    text = (
+        f"今日优先推进：{names}。暂缓 {defer_count} 仓勿动。"
+        "编排交给 Cursor Automations，编程交给 Cursor/Codex。"
+    )
     return text[:200]
 
 
@@ -125,10 +128,10 @@ def render_brief(
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Generate OpenClaw daily brief")
+    parser = argparse.ArgumentParser(description="Generate daily brief")
     parser.add_argument("--input", default="data/repo_status.json", help="Repo status JSON")
-    parser.add_argument("--template", default="prompts/openclaw_daily_brief.md", help="Brief template")
-    parser.add_argument("--output", default="reports/openclaw_daily_brief.md", help="Output markdown")
+    parser.add_argument("--template", default="prompts/daily_brief.md", help="Brief template")
+    parser.add_argument("--output", default="reports/daily_brief.md", help="Output markdown")
     return parser.parse_args()
 
 
@@ -148,7 +151,7 @@ def main() -> int:
     output_path = Path(args.output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(brief, encoding="utf-8")
-    print(f"[ok] openclaw daily brief -> {output_path}")
+    print(f"[ok] daily brief -> {output_path}")
     return 0
 
 

@@ -1,6 +1,6 @@
-# OpenClaw Repo Scan Prompt
+# Orchestration Repo Scan Prompt
 
-目标：只读扫描仓库 `{{repo_name}}` 的状态产物并生成调度建议。
+目标：只读扫描仓库 `{{repo_name}}` 的状态产物并生成调度建议（供 Cursor Automations / 编排 Agent 使用）。
 
 输入：
 
@@ -26,4 +26,4 @@
 
 - 不修改被管理业务仓库
 - 不读取密钥文件
-- 不调用外部 API（Round 0/1）
+- 不调用外部 API（除非 Human opt-in LLM / 飞书发送）

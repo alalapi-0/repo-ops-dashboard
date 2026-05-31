@@ -46,6 +46,12 @@ python3 -m pytest
 
 在浏览器打开 `dashboard/index.html`（`file://`）。
 
+## 配置环境变量（可选）
+
+1. 复制模板：`cp .env.example .env`
+2. 按需填入 OpenRouter、飞书等密钥（见 [`env_configuration.md`](env_configuration.md)）
+3. **默认不调用外部 API**；LLM 与飞书发送均需显式 opt-in 开关
+
 ## Feishu（可选）
 
 见 [`feishu_integration_plan.md`](feishu_integration_plan.md)：配置 `FEISHU_WEBHOOK_URL` 后执行 `prepare_feishu_payload.py --send`。
@@ -61,6 +67,7 @@ python3 -m pytest
 
 ## 文档索引
 
+- 环境变量：[`env_configuration.md`](env_configuration.md)
 - 架构：[`architecture.md`](architecture.md)
 - 生命周期：[`lifecycle_rules.md`](lifecycle_rules.md)
 - 下游集成：[`downstream_integrations.md`](downstream_integrations.md)

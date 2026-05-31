@@ -1,4 +1,4 @@
-# OpenClaw Daily Brief Template
+# Daily Brief Template
 
 生成时间：{{generated_at}}
 

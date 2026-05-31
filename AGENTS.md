@@ -4,7 +4,7 @@
 
 本项目为 `repo-ops-dashboard`，**个人多仓库管理总控台**。
 
-核心价值：读取多个本地仓库的管理文件，汇总状态、判断优先级、识别卡点、生成报告与推进 Prompt，供 Cursor/Codex 执行、OpenClaw 调度、Human 决策。
+核心价值：读取多个本地仓库的管理文件，汇总状态、判断优先级、识别卡点、生成报告与推进 Prompt，供 Cursor/Codex 执行、**Cursor Automations** 定时编排、Human 决策。
 
 ## 2) 不是什么
 
@@ -38,17 +38,19 @@
 - 自动 PR 或提交建议
 - **不直接碰被管理业务仓库**
 
-### OpenClawAgent
+### CursorAutomations
 
 负责：
 
-- 读取 `repo_status.json`
-- 读取 `reports/`
-- 触发只读扫描脚本
-- 生成今日建议
-- 生成 Cursor/Codex Prompt
-- 推送提醒
+- 定时执行 `refresh_status.sh`
+- 可选飞书 `--feishu-send`、LLM `--llm-summary --call`（Human opt-in）
+- 读取 `repo_status.json` 与 `reports/` 做编排
 - **不做主力编程开发**
+
+### OpenClawAgent（可选遗留）
+
+- 历史 Skill 仍可用；新部署请用 Cursor Automations（见 `docs/cursor_automation_guide.md`）
+- 只读 status/report，不主力编程
 
 ### HumanOwner
 

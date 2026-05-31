@@ -2,7 +2,7 @@
 
 ## 已实现
 
-- `scripts/prepare_feishu_payload.py` — 从日报 + status + OpenClaw brief 生成 `reports/feishu_payload_preview.json`
+- `scripts/prepare_feishu_payload.py` — 从日报 + status + daily brief（+ 可选 LLM 摘要）生成预览 JSON
 - 路径脱敏（仅保留仓库名与摘要）
 - `--send` — 通过环境变量 `FEISHU_WEBHOOK_URL` 使用 stdlib HTTP POST（opt-in，禁止入库）
 - `scripts/refresh_status.sh --feishu-send` — 刷新后 opt-in 发送（见 [`cursor_automation_feishu.md`](cursor_automation_feishu.md)）
@@ -51,9 +51,13 @@ python3 scripts/prepare_feishu_payload.py --send
 |------|------|
 | `FEISHU_WEBHOOK_URL not set` | 在当前 shell 或 launchd/Cursor Automation 环境中 export |
 | HTTP 403 / 签名校验失败 | 设置 `FEISHU_SIGN_SECRET` 或关闭机器人签名校验后重试 |
+| `code=19024` | 机器人启用了**自定义关键词**；卡片正文需包含配置的关键词（如「项目更新」） |
+| `code=19022` | **IP 白名单**拦截；添加 Automation 出口 IP 或关闭白名单 |
+| `code=11232` | **限流**；错开 10:00/17:30 等整点，推荐 cron `5 9 * * 1-5` |
+| 请求体过大 | 官方限制 20KB；脚本会自动截断摘要 |
 | `code` 非 0 | 检查 JSON 卡片格式；用预览文件在飞书调试工具验证 |
 | 群收不到消息 | 确认机器人已加入该群、Webhook 未轮换 |
 
 ## 与下游集成
 
-推送只是可选出口；详见 [`downstream_integrations.md`](downstream_integrations.md)（Cursor Automations / OpenClaw / Hermes / 本地推理服务均可调用同一脚本）。
+推送只是可选出口；详见 [`downstream_integrations.md`](downstream_integrations.md)（Cursor Automations 为主；OpenClaw 为遗留）。

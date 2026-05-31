@@ -18,6 +18,14 @@ from pathlib import Path
 from typing import Any
 
 
+FEISHU_MAX_BODY_BYTES = 20 * 1024
+FEISHU_ERROR_HINTS = {
+    19022: "IP 不在白名单；在飞书机器人安全设置中添加 Automation 出口 IP 或关闭 IP 白名单",
+    19024: "未包含自定义关键词；在卡片正文中加入机器人配置的关键词（如「项目更新」）",
+    11232: "触发限流；错开整点/半点发送，或降低频率（官方：5 次/秒、100 次/分钟）",
+}
+
+
 def load_text(path: Path) -> str:
     return path.read_text(encoding="utf-8")
 
@@ -71,7 +79,7 @@ def format_stats_line(stats: dict[str, int]) -> str:
 
 def extract_brief_excerpt(brief_text: str, *, max_chars: int = 300) -> str:
     if not brief_text.strip():
-        return "（暂无 OpenClaw 简报）"
+        return "（暂无每日简报）"
     for heading in ("## 短提醒", "## 今日最该推进（1–3 仓）", "## 风险提醒"):
         match = re.search(rf"{re.escape(heading)}\n\n(.*?)(?:\n## |\n---\n|\Z)", brief_text, re.DOTALL)
         if match:
@@ -83,7 +91,11 @@ def extract_brief_excerpt(brief_text: str, *, max_chars: int = 300) -> str:
     fallback = redact_paths(brief_text.strip())
     if len(fallback) > max_chars:
         return fallback[: max_chars - 1] + "…"
-    return fallback or "（暂无 OpenClaw 简报）"
+    return fallback or "（暂无每日简报）"
+
+
+def webhook_body(payload: dict[str, Any]) -> dict[str, Any]:
+    return {k: v for k, v in payload.items() if k != "meta"}
 
 
 def build_payload(
@@ -92,6 +104,7 @@ def build_payload(
     *,
     stats: dict[str, int] | None,
     brief_excerpt: str,
+    llm_excerpt: str = "",
     for_send: bool,
 ) -> dict[str, Any]:
     high = parse_high_priority_section(daily_report)
@@ -109,8 +122,12 @@ def build_payload(
     md_parts.append("**高优先级**")
     md_parts.extend(f"- {item}" for item in summary_lines)
     md_parts.append("")
-    md_parts.append("**OpenClaw 摘要**")
+    md_parts.append("**每日简报**")
     md_parts.append(brief_excerpt)
+    if llm_excerpt.strip():
+        md_parts.append("")
+        md_parts.append("**LLM 摘要**")
+        md_parts.append(llm_excerpt)
 
     body: dict[str, Any] = {
         "msg_type": "interactive",
@@ -143,8 +160,33 @@ def build_payload(
     return body
 
 
-def webhook_body(payload: dict[str, Any]) -> dict[str, Any]:
-    return {k: v for k, v in payload.items() if k != "meta"}
+def truncate_for_feishu(body: dict[str, Any], *, max_bytes: int = FEISHU_MAX_BODY_BYTES) -> dict[str, Any]:
+    encoded = json.dumps(body, ensure_ascii=False).encode("utf-8")
+    if len(encoded) <= max_bytes:
+        return body
+    trimmed = dict(body)
+    card = dict(trimmed.get("card", {}))
+    elements = list(card.get("elements", []))
+    if elements and isinstance(elements[0], dict):
+        div = dict(elements[0])
+        text = dict(div.get("text", {}))
+        content = str(text.get("content", ""))
+        while content and len(json.dumps({**trimmed, "card": {**card, "elements": [{**div, "text": {**text, "content": content}}]}} , ensure_ascii=False).encode("utf-8")) > max_bytes:
+            content = content[: max(len(content) - 200, 0)]
+        if content:
+            text["content"] = content.rstrip() + "\n\n…（已截断以满足飞书 20KB 限制）"
+        div["text"] = text
+        elements[0] = div
+    card["elements"] = elements
+    trimmed["card"] = card
+    return trimmed
+
+
+def feishu_error_hint(code: Any) -> str:
+    try:
+        return FEISHU_ERROR_HINTS.get(int(code), "")
+    except (TypeError, ValueError):
+        return ""
 
 
 def sign_payload(secret: str, timestamp: str) -> str:
@@ -154,7 +196,7 @@ def sign_payload(secret: str, timestamp: str) -> str:
 
 
 def send_webhook(webhook_url: str, payload: dict[str, Any]) -> tuple[int, str]:
-    body = webhook_body(payload)
+    body = truncate_for_feishu(webhook_body(payload))
     sign_secret = os.environ.get("FEISHU_SIGN_SECRET", "").strip()
     if sign_secret:
         timestamp = str(int(time.time()))
@@ -188,8 +230,13 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--brief",
-        default="reports/openclaw_daily_brief.md",
-        help="OpenClaw daily brief for excerpt",
+        default="reports/daily_brief.md",
+        help="Daily brief for excerpt",
+    )
+    parser.add_argument(
+        "--llm-summary",
+        default="reports/llm_daily_summary.md",
+        help="Optional LLM summary for card excerpt",
     )
     parser.add_argument(
         "--output",
@@ -210,6 +257,7 @@ def main() -> int:
     weekly_path = Path(args.weekly)
     status_path = Path(args.status)
     brief_path = Path(args.brief)
+    llm_path = Path(args.llm_summary)
     output_path = Path(args.output)
 
     if not daily_path.exists():
@@ -224,12 +272,15 @@ def main() -> int:
 
     brief_text = load_text(brief_path) if brief_path.exists() else ""
     brief_excerpt = extract_brief_excerpt(brief_text)
+    llm_text = load_text(llm_path) if llm_path.exists() else ""
+    llm_excerpt = extract_brief_excerpt(llm_text, max_chars=400) if llm_text.strip() else ""
 
     payload = build_payload(
         daily_text,
         weekly_text,
         stats=stats,
         brief_excerpt=brief_excerpt,
+        llm_excerpt=llm_excerpt,
         for_send=args.send,
     )
 
@@ -252,7 +303,10 @@ def main() -> int:
         parsed = json.loads(response_text)
         code = parsed.get("code", parsed.get("StatusCode"))
         if code not in (0, None) and str(code) != "0":
+            hint = feishu_error_hint(code)
             print(f"[error] feishu api code={code} msg={parsed.get('msg', parsed.get('StatusMessage', ''))}")
+            if hint:
+                print(f"[hint] {hint}")
             return 2
     except json.JSONDecodeError:
         if status >= 400:

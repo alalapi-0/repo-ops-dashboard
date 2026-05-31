@@ -8,7 +8,9 @@ venv/
 
 # Secrets
 .env
-.env.*
+.env.local
+.env.*.local
+!.env.example
 *.key
 *.pem
 *.p12
@@ -38,5 +40,7 @@ reports/weekly_review.md
 reports/weekly_review.example.md
 reports/feishu_payload_preview.json
 reports/priority_review.example.md
+reports/llm_daily_summary.md
+reports/daily_brief.md
 prompts/generated/*.md
 .idea/

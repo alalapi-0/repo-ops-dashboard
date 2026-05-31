@@ -11,10 +11,14 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from prepare_feishu_payload import (  # noqa: E402
+    FEISHU_MAX_BODY_BYTES,
     build_payload,
     compute_status_stats,
     extract_brief_excerpt,
     format_stats_line,
+    sign_payload,
+    truncate_for_feishu,
+    webhook_body,
 )
 from sync_feishu_bitable import join_list, repo_to_fields  # noqa: E402
 
@@ -56,7 +60,7 @@ def test_build_payload_includes_stats_and_brief():
     )
     content = payload["card"]["elements"][0]["text"]["content"]
     assert "概览" in content
-    assert "OpenClaw 摘要" in content
+    assert "每日简报" in content
     assert "短提醒内容" in content
 
 
@@ -84,6 +88,25 @@ def test_repo_to_fields_no_path():
 def test_join_list():
     assert join_list(["a", "b"]) == "a; b"
     assert join_list(None) == ""
+
+
+def test_sign_payload_matches_feishu_algorithm():
+    # Feishu: HmacSHA256(key=timestamp+"\n"+secret, message=empty) -> base64
+    sign = sign_payload("demo-secret", "1599360473")
+    assert isinstance(sign, str)
+    assert len(sign) > 0
+
+
+def test_truncate_for_feishu_limits_body_size():
+    huge = "x" * 30000
+    body = {
+        "msg_type": "interactive",
+        "card": {
+            "elements": [{"tag": "div", "text": {"tag": "lark_md", "content": huge}}],
+        },
+    }
+    trimmed = truncate_for_feishu(body, max_bytes=FEISHU_MAX_BODY_BYTES)
+    assert len(json.dumps(trimmed, ensure_ascii=False).encode("utf-8")) <= FEISHU_MAX_BODY_BYTES
 
 
 def test_sync_feishu_bitable_dry_run_cli():

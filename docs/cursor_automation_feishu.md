@@ -1,5 +1,7 @@
 # Cursor Automations × 飞书定时推送（Round 16）
 
+> **扩展阅读**：主编排与 LLM opt-in 见 [`cursor_automation_guide.md`](cursor_automation_guide.md)。
+
 本仓库不内置 Cursor Automations 配置；在 Cursor 产品 UI 中创建定时任务，执行本仓库脚本即可。
 
 ## 前置条件
@@ -15,7 +17,7 @@
 | 项 | 建议值 |
 |----|--------|
 | **名称** | Repo Ops 每日飞书推送 |
-| **Trigger** | Cron，工作日 09:00，`Asia/Shanghai` |
+| **Trigger** | Cron，工作日 09:05，`Asia/Shanghai`（错开飞书整点限流） |
 | **工作目录** | 本仓库根目录（含 `scripts/refresh_status.sh`） |
 | **命令** | 见下方 |
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Refresh repo status, dashboard, reports, and optional UI check.
-# Usage: ./scripts/refresh_status.sh [--example] [--ui-check] [--feishu-send] [--bitable-sync]
+# Usage: ./scripts/refresh_status.sh [--example] [--ui-check] [--feishu-send] [--bitable-sync] [--llm-summary] [--call]
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -10,14 +10,25 @@ USE_EXAMPLE=false
 UI_CHECK=false
 FEISHU_SEND=false
 BITABLE_SYNC=false
+LLM_SUMMARY=false
+LLM_CALL=false
 for arg in "$@"; do
   case "$arg" in
     --example) USE_EXAMPLE=true ;;
     --ui-check) UI_CHECK=true ;;
     --feishu-send) FEISHU_SEND=true ;;
     --bitable-sync) BITABLE_SYNC=true ;;
+    --llm-summary) LLM_SUMMARY=true ;;
+    --call) LLM_CALL=true ;;
   esac
 done
+
+if [[ -f "$ROOT/.env" ]] && { $FEISHU_SEND || $BITABLE_SYNC || $LLM_CALL; }; then
+  set -a
+  # shellcheck disable=SC1091
+  source "$ROOT/.env"
+  set +a
+fi
 
 PYTHON="${PYTHON:-python3}"
 if [[ -x "$ROOT/.venv/bin/python" ]]; then
@@ -69,8 +80,21 @@ echo "[refresh] reports"
 echo "[refresh] protocol sync suggestions"
 "$PYTHON" scripts/protocol_sync_report.py --input "$SNAPSHOTS" --no-dry-run
 
-echo "[refresh] openclaw brief"
-"$PYTHON" scripts/generate_openclaw_brief.py --input "$STATUS"
+echo "[refresh] daily brief"
+"$PYTHON" scripts/generate_daily_brief.py --input "$STATUS"
+
+if $LLM_SUMMARY; then
+  echo "[refresh] llm summary"
+  if $LLM_CALL; then
+    if [[ "${LLM_ENABLED:-false}" != "true" ]]; then
+      echo "[warn] LLM_ENABLED is not true; skipping --call"
+    else
+      "$PYTHON" scripts/generate_llm_summary.py --input "$STATUS" --call
+    fi
+  else
+    "$PYTHON" scripts/generate_llm_summary.py --input "$STATUS"
+  fi
+fi
 
 echo "[refresh] weekly review merge"
 "$PYTHON" scripts/generate_weekly_review.py \

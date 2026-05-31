@@ -1,5 +1,7 @@
 # Round 14 - OpenClaw Daily Briefing
 
+> **已迁移（Round 21）**：实现已重命名为 `generate_daily_brief.py` / `reports/daily_brief.md`；编排主线改为 Cursor Automations。
+
 ## 目标
 
 - 让 OpenClaw 每天读取报告，生成每日简报

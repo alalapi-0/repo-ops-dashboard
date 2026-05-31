@@ -1,5 +1,31 @@
 # CHANGELOG
 
+## Round 24 - Personal OS Hub
+
+- 新增 `dashboard/hub.html` 统一入口页。
+- Phase D 路线图标记完成。
+
+## Round 23 - Feishu Hardening
+
+- `prepare_feishu_payload.py`：20KB 截断、错误码提示、LLM 摘要段落、签名单测。
+- 飞书/Automation 文档：限流、关键词、IP 白名单说明。
+
+## Round 22 - OpenRouter LLM Summary
+
+- 新增 `scripts/generate_llm_summary.py`（dry-run 默认，`--call` opt-in）。
+- `refresh_status.sh --llm-summary [--call]`；`.env.example` OpenRouter 变量。
+
+## Round 21 - Daily Brief Rename & Cursor Orchestration
+
+- `generate_openclaw_brief.py` → `generate_daily_brief.py`；prompts/reports 同步重命名。
+- 新增 `docs/cursor_automation_guide.md`；OpenClaw Skill 标记 deprecated。
+- `generate_prompts.py` 使用 `orchestration` 模板键。
+
+## Round 20 - Environment Template
+
+- 修复 `.gitignore` 放行 `.env.example`。
+- 扩展 OpenRouter + Feishu 环境变量模板；新增 `docs/env_configuration.md`。
+
 ## Round 19 - Local Imports Optional
 
 - 新增 `scripts/read_local_imports.py`：从 `config/local_imports.yaml` 只读 ICS/CSV 摘要。
