@@ -26,9 +26,25 @@ def esc(text: Any) -> str:
     )
 
 
-def render_card(repo: dict[str, Any]) -> str:
+def build_prompt(repo: dict[str, Any]) -> str:
+    name = repo.get("name", "unknown")
+    agent = repo.get("recommended_agent", "Cursor")
+    blockers = repo.get("blockers") or ["无"]
+    next_actions = repo.get("next_actions") or ["无"]
+    return (
+        f"你是 {agent}，请推进仓库 `{name}`。\n\n"
+        f"卡点：{'; '.join(blockers)}\n"
+        f"下一步：{'; '.join(next_actions)}\n\n"
+        "约束：不读取 .env、不修改被管理业务仓库、默认 dry-run。"
+    )
+
+
+def render_card(repo: dict[str, Any], fallback_checked: str) -> str:
     blockers = repo.get("blockers", []) or ["无"]
     next_actions = repo.get("next_actions", []) or ["无"]
+    lifecycle = repo.get("lifecycle_status") or repo.get("status") or "unknown"
+    last_checked = repo.get("last_checked") or fallback_checked
+    prompt_text = build_prompt(repo)
     badges: list[str] = []
     if repo.get("freeze_candidate"):
         badges.append('<span class="badge freeze">Freeze</span>')
@@ -36,19 +52,21 @@ def render_card(repo: dict[str, Any]) -> str:
         badges.append('<span class="badge archive">Archive</span>')
 
     return f"""
-    <article class="repo-card">
+    <article class="repo-card" data-priority="{esc(repo.get('priority', ''))}" data-lifecycle="{esc(lifecycle)}" data-agent="{esc(repo.get('recommended_agent', ''))}">
       <div class="card-head">
         <h3>{esc(repo.get("name"))}</h3>
         <div>{''.join(badges)}</div>
       </div>
       <p><strong>类型:</strong> {esc(repo.get("type"))}</p>
-      <p><strong>状态:</strong> {esc(repo.get("status"))}</p>
+      <p><strong>生命周期:</strong> {esc(lifecycle)}</p>
       <p><strong>阶段:</strong> {esc(repo.get("current_stage"))}</p>
       <p><strong>优先级:</strong> {esc(repo.get("priority"))}</p>
       <p><strong>健康分:</strong> {esc(repo.get("health_score"))}</p>
       <p><strong>推荐 Agent:</strong> {esc(repo.get("recommended_agent"))}</p>
+      <p><strong>最后检查:</strong> {esc(last_checked)}</p>
       <p><strong>卡点:</strong> {esc('; '.join(blockers))}</p>
       <p><strong>下一步:</strong> {esc('; '.join(next_actions))}</p>
+      <button type="button" class="copy-prompt" data-prompt="{esc(prompt_text)}">复制 Prompt</button>
     </article>
     """
 
@@ -73,8 +91,10 @@ def main() -> int:
     high_count = sum(1 for r in repos if r.get("priority") == "high")
     blocked_count = sum(1 for r in repos if r.get("blockers"))
     freeze_count = sum(1 for r in repos if r.get("freeze_candidate"))
+    archive_count = sum(1 for r in repos if r.get("archive_candidate"))
+    generated_at = payload.get("generated_at", "")
     now_text = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
-    cards = "\n".join(render_card(repo) for repo in repos)
+    cards = "\n".join(render_card(repo, generated_at or now_text) for repo in repos)
 
     html = f"""<!doctype html>
 <html lang="zh-CN">
@@ -85,7 +105,7 @@ def main() -> int:
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main class="container">
+  <main class="container" data-dashboard-ready="true">
     <header>
       <h1>Repo Ops Dashboard</h1>
       <p>更新时间：{esc(now_text)}</p>
@@ -95,6 +115,35 @@ def main() -> int:
       <div class="stat"><span>高优先级</span><strong>{high_count}</strong></div>
       <div class="stat"><span>卡住仓库</span><strong>{blocked_count}</strong></div>
       <div class="stat"><span>冻结候选</span><strong>{freeze_count}</strong></div>
+      <div class="stat"><span>归档候选</span><strong>{archive_count}</strong></div>
+    </section>
+    <section class="filters">
+      <label>优先级
+        <select id="filter-priority">
+          <option value="all">全部</option>
+          <option value="high">高</option>
+          <option value="medium">中</option>
+          <option value="low">低</option>
+        </select>
+      </label>
+      <label>生命周期
+        <select id="filter-lifecycle">
+          <option value="all">全部</option>
+          <option value="active">active</option>
+          <option value="bootstrap">bootstrap</option>
+          <option value="missing">missing</option>
+          <option value="freeze_candidate">freeze_candidate</option>
+          <option value="archive_candidate">archive_candidate</option>
+        </select>
+      </label>
+      <label>推荐 Agent
+        <select id="filter-agent">
+          <option value="all">全部</option>
+          <option value="Cursor">Cursor</option>
+          <option value="Codex">Codex</option>
+          <option value="Human">Human</option>
+        </select>
+      </label>
     </section>
     <section class="cards">
       {cards}

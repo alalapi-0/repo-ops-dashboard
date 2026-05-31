@@ -29,13 +29,20 @@ def normalize_patterns(patterns: list[str] | None, fallback: list[str]) -> list[
     return list(patterns) if patterns else list(fallback)
 
 
-def collect_files(repo_path: Path, patterns: list[str], denylist: list[str]) -> tuple[list[str], list[str]]:
+def collect_files(
+    repo_path: Path,
+    patterns: list[str],
+    denylist: list[str],
+    max_file_bytes: int,
+) -> tuple[list[str], list[str], list[str], list[str]]:
     read_files: list[str] = []
+    missing: list[str] = []
+    skipped: list[str] = []
     warnings: list[str] = []
 
     for pattern in patterns:
         if is_denied(pattern, denylist):
-            warnings.append(f"skip denied pattern: {pattern}")
+            skipped.append(f"denied pattern: {pattern}")
             continue
 
         if any(token in pattern for token in ["*", "?", "["]):
@@ -47,7 +54,15 @@ def collect_files(repo_path: Path, patterns: list[str], denylist: list[str]) -> 
                     continue
                 rel = match.relative_to(repo_path).as_posix()
                 if is_denied(rel, denylist):
-                    warnings.append(f"skip denied file: {rel}")
+                    skipped.append(f"denied file: {rel}")
+                    continue
+                try:
+                    size = match.stat().st_size
+                except OSError as exc:
+                    warnings.append(f"stat failed: {rel} ({exc})")
+                    continue
+                if size > max_file_bytes:
+                    warnings.append(f"file too large ({size} bytes): {rel}")
                     continue
                 read_files.append(rel)
         else:
@@ -55,16 +70,24 @@ def collect_files(repo_path: Path, patterns: list[str], denylist: list[str]) -> 
             if candidate.is_file():
                 rel = candidate.relative_to(repo_path).as_posix()
                 if is_denied(rel, denylist):
-                    warnings.append(f"skip denied file: {rel}")
+                    skipped.append(f"denied file: {rel}")
+                    continue
+                try:
+                    size = candidate.stat().st_size
+                except OSError as exc:
+                    warnings.append(f"stat failed: {rel} ({exc})")
+                    continue
+                if size > max_file_bytes:
+                    warnings.append(f"file too large ({size} bytes): {rel}")
                     continue
                 read_files.append(rel)
             elif candidate.exists() and candidate.is_dir():
                 warnings.append(f"skip directory target: {pattern}")
             else:
-                warnings.append(f"missing file: {pattern}")
+                missing.append(pattern)
 
     dedup = sorted(set(read_files))
-    return dedup, warnings
+    return dedup, missing, skipped, warnings
 
 
 def parse_args() -> argparse.Namespace:
@@ -72,6 +95,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--config", default="config/repos.example.yaml", help="Repo config yaml path")
     parser.add_argument("--managed-files", default="config/managed_files.yaml", help="Managed files policy yaml path")
     parser.add_argument("--output", default="data/repo_snapshots.json", help="Output json path")
+    parser.add_argument(
+        "--max-file-kb",
+        type=int,
+        default=512,
+        help="Skip files larger than this size in KB (default 512)",
+    )
     parser.add_argument("--dry-run", action="store_true", default=True, help="Default true: print only")
     parser.add_argument("--no-dry-run", action="store_false", dest="dry_run", help="Write output file")
     return parser.parse_args()
@@ -114,32 +143,44 @@ def main() -> int:
             "status": status_hint,
             "exists": path.exists(),
             "read_files": [],
+            "missing": [],
+            "skipped": [],
             "warnings": [],
         }
 
         if not path.exists():
             row["status"] = "missing"
-            row["warnings"].append("repository path missing")
+            row["missing"].append("repository path missing")
             result["repos"].append(row)
             print(f"[missing] {name}: {path}")
             continue
 
         if not path.is_dir():
             row["status"] = "missing"
-            row["warnings"].append("repository path is not a directory")
+            row["missing"].append("repository path is not a directory")
             result["repos"].append(row)
             print(f"[missing] {name}: not a directory")
             continue
 
         patterns = normalize_patterns(repo.get("managed_files"), global_allowlist)
-        read_files, warnings = collect_files(path, patterns, denylist)
+        max_file_bytes = max(int(args.max_file_kb), 1) * 1024
+        read_files, missing, skipped, warnings = collect_files(path, patterns, denylist, max_file_bytes)
         row["read_files"] = read_files
+        row["missing"] = missing
+        row["skipped"] = skipped
         row["warnings"] = warnings
         result["repos"].append(row)
 
-        print(f"[repo] {name} read={len(read_files)} warnings={len(warnings)}")
+        print(
+            f"[repo] {name} read={len(read_files)} "
+            f"missing={len(missing)} skipped={len(skipped)} warnings={len(warnings)}"
+        )
         for file_path in read_files:
             print(f"  + {file_path}")
+        for item in missing:
+            print(f"  - missing: {item}")
+        for item in skipped:
+            print(f"  ~ skipped: {item}")
         for warn in warnings:
             print(f"  ! {warn}")
 

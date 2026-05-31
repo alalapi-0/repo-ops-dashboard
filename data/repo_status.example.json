@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-31T05:42:53.072238+00:00",
+  "generated_at": "2026-05-31T08:38:59.969674+00:00",
   "repos": [
     {
       "name": "light_novel",
@@ -7,15 +7,21 @@
       "type": "translation",
       "status": "active",
       "current_stage": "execution",
-      "health_score": 85,
-      "priority": "medium",
-      "blockers": [],
-      "next_actions": [
-        "继续执行下一轮计划"
+      "health_score": 65,
+      "priority": "low",
+      "blockers": [
+        "AGENTS.md missing",
+        "repo_protocol_standard.yaml missing"
       ],
-      "recommended_agent": "Cursor",
+      "warnings": [],
+      "next_actions": [
+        "补齐缺失治理文件（AGENTS.md / protocol / README）"
+      ],
+      "recommended_agent": "Human",
       "freeze_candidate": false,
-      "archive_candidate": false
+      "archive_candidate": false,
+      "lifecycle_status": "active",
+      "last_checked": "2026-05-31T08:37:34.795755+00:00"
     },
     {
       "name": "ai-manga",
@@ -23,17 +29,29 @@
       "type": "ai_manga",
       "status": "active",
       "current_stage": "execution",
-      "health_score": 30,
+      "health_score": 8,
       "priority": "high",
       "blockers": [
-        "AGENTS.md missing"
+        "README.md missing",
+        "AGENTS.md missing",
+        "repo_protocol_standard.yaml missing"
+      ],
+      "warnings": [
+        "pattern no match: README.*",
+        "pattern no match: round_state/**",
+        "pattern no match: docs/roadmap*.md",
+        "pattern no match: docs/architecture*.md",
+        "pattern no match: docs/reports/*.md",
+        "pattern no match: prompts/*.md"
       ],
       "next_actions": [
-        "补齐缺失治理文件并修复 warning"
+        "补齐缺失治理文件（AGENTS.md / protocol / README）"
       ],
       "recommended_agent": "Human",
       "freeze_candidate": true,
-      "archive_candidate": false
+      "archive_candidate": false,
+      "lifecycle_status": "freeze_candidate",
+      "last_checked": "2026-05-31T08:37:34.795755+00:00"
     },
     {
       "name": "novel-continuation-agent",
@@ -41,15 +59,24 @@
       "type": "novel_agent",
       "status": "active",
       "current_stage": "execution",
-      "health_score": 85,
+      "health_score": 44,
       "priority": "high",
-      "blockers": [],
-      "next_actions": [
-        "继续执行下一轮计划"
+      "blockers": [
+        "repo_protocol_standard.yaml missing"
       ],
-      "recommended_agent": "Codex",
+      "warnings": [
+        "pattern no match: round_state/**",
+        "pattern no match: docs/roadmap*.md",
+        "pattern no match: docs/architecture*.md"
+      ],
+      "next_actions": [
+        "补齐缺失治理文件（AGENTS.md / protocol / README）"
+      ],
+      "recommended_agent": "Human",
       "freeze_candidate": false,
-      "archive_candidate": false
+      "archive_candidate": false,
+      "lifecycle_status": "active",
+      "last_checked": "2026-05-31T08:37:34.795755+00:00"
     },
     {
       "name": "repo-ops-dashboard",
@@ -57,15 +84,20 @@
       "type": "meta_ops",
       "status": "bootstrap",
       "current_stage": "round_00_bootstrap",
-      "health_score": 100,
+      "health_score": 88,
       "priority": "high",
       "blockers": [],
+      "warnings": [
+        "pattern no match: docs/roadmap*.md"
+      ],
       "next_actions": [
-        "继续执行下一轮计划"
+        "处理扫描 warning 并补齐可选治理文件"
       ],
       "recommended_agent": "Cursor",
       "freeze_candidate": false,
-      "archive_candidate": false
+      "archive_candidate": false,
+      "lifecycle_status": "bootstrap",
+      "last_checked": "2026-05-31T08:37:34.795755+00:00"
     },
     {
       "name": "old_demo_placeholder",
@@ -78,12 +110,15 @@
       "blockers": [
         "repository path missing"
       ],
+      "warnings": [],
       "next_actions": [
         "确认仓库路径是否有效"
       ],
       "recommended_agent": "Human",
       "freeze_candidate": true,
-      "archive_candidate": true
+      "archive_candidate": true,
+      "lifecycle_status": "missing",
+      "last_checked": "2026-05-31T08:37:34.795755+00:00"
     }
   ]
 }

@@ -7,96 +7,160 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main class="container">
+  <main class="container" data-dashboard-ready="true">
     <header>
       <h1>Repo Ops Dashboard</h1>
-      <p>更新时间：2026-05-31 05:42:53 UTC</p>
+      <p>更新时间：2026-05-31 08:39:00 UTC</p>
     </header>
     <section class="stats">
       <div class="stat"><span>总仓库数</span><strong>5</strong></div>
       <div class="stat"><span>高优先级</span><strong>3</strong></div>
-      <div class="stat"><span>卡住仓库</span><strong>2</strong></div>
+      <div class="stat"><span>卡住仓库</span><strong>4</strong></div>
       <div class="stat"><span>冻结候选</span><strong>2</strong></div>
+      <div class="stat"><span>归档候选</span><strong>1</strong></div>
+    </section>
+    <section class="filters">
+      <label>优先级
+        <select id="filter-priority">
+          <option value="all">全部</option>
+          <option value="high">高</option>
+          <option value="medium">中</option>
+          <option value="low">低</option>
+        </select>
+      </label>
+      <label>生命周期
+        <select id="filter-lifecycle">
+          <option value="all">全部</option>
+          <option value="active">active</option>
+          <option value="bootstrap">bootstrap</option>
+          <option value="missing">missing</option>
+          <option value="freeze_candidate">freeze_candidate</option>
+          <option value="archive_candidate">archive_candidate</option>
+        </select>
+      </label>
+      <label>推荐 Agent
+        <select id="filter-agent">
+          <option value="all">全部</option>
+          <option value="Cursor">Cursor</option>
+          <option value="Codex">Codex</option>
+          <option value="Human">Human</option>
+        </select>
+      </label>
     </section>
     <section class="cards">
       
-    <article class="repo-card">
+    <article class="repo-card" data-priority="low" data-lifecycle="active" data-agent="Human">
       <div class="card-head">
         <h3>light_novel</h3>
         <div></div>
       </div>
       <p><strong>类型:</strong> translation</p>
-      <p><strong>状态:</strong> active</p>
+      <p><strong>生命周期:</strong> active</p>
       <p><strong>阶段:</strong> execution</p>
-      <p><strong>优先级:</strong> medium</p>
-      <p><strong>健康分:</strong> 85</p>
-      <p><strong>推荐 Agent:</strong> Cursor</p>
-      <p><strong>卡点:</strong> 无</p>
-      <p><strong>下一步:</strong> 继续执行下一轮计划</p>
+      <p><strong>优先级:</strong> low</p>
+      <p><strong>健康分:</strong> 65</p>
+      <p><strong>推荐 Agent:</strong> Human</p>
+      <p><strong>最后检查:</strong> 2026-05-31T08:37:34.795755+00:00</p>
+      <p><strong>卡点:</strong> AGENTS.md missing; repo_protocol_standard.yaml missing</p>
+      <p><strong>下一步:</strong> 补齐缺失治理文件（AGENTS.md / protocol / README）</p>
+      <button type="button" class="copy-prompt" data-prompt="你是 Human，请推进仓库 `light_novel`。
+
+卡点：AGENTS.md missing; repo_protocol_standard.yaml missing
+下一步：补齐缺失治理文件（AGENTS.md / protocol / README）
+
+约束：不读取 .env、不修改被管理业务仓库、默认 dry-run。">复制 Prompt</button>
     </article>
     
 
-    <article class="repo-card">
+    <article class="repo-card" data-priority="high" data-lifecycle="freeze_candidate" data-agent="Human">
       <div class="card-head">
         <h3>ai-manga</h3>
         <div><span class="badge freeze">Freeze</span></div>
       </div>
       <p><strong>类型:</strong> ai_manga</p>
-      <p><strong>状态:</strong> active</p>
+      <p><strong>生命周期:</strong> freeze_candidate</p>
       <p><strong>阶段:</strong> execution</p>
       <p><strong>优先级:</strong> high</p>
-      <p><strong>健康分:</strong> 30</p>
+      <p><strong>健康分:</strong> 8</p>
       <p><strong>推荐 Agent:</strong> Human</p>
-      <p><strong>卡点:</strong> AGENTS.md missing</p>
-      <p><strong>下一步:</strong> 补齐缺失治理文件并修复 warning</p>
+      <p><strong>最后检查:</strong> 2026-05-31T08:37:34.795755+00:00</p>
+      <p><strong>卡点:</strong> README.md missing; AGENTS.md missing; repo_protocol_standard.yaml missing</p>
+      <p><strong>下一步:</strong> 补齐缺失治理文件（AGENTS.md / protocol / README）</p>
+      <button type="button" class="copy-prompt" data-prompt="你是 Human，请推进仓库 `ai-manga`。
+
+卡点：README.md missing; AGENTS.md missing; repo_protocol_standard.yaml missing
+下一步：补齐缺失治理文件（AGENTS.md / protocol / README）
+
+约束：不读取 .env、不修改被管理业务仓库、默认 dry-run。">复制 Prompt</button>
     </article>
     
 
-    <article class="repo-card">
+    <article class="repo-card" data-priority="high" data-lifecycle="active" data-agent="Human">
       <div class="card-head">
         <h3>novel-continuation-agent</h3>
         <div></div>
       </div>
       <p><strong>类型:</strong> novel_agent</p>
-      <p><strong>状态:</strong> active</p>
+      <p><strong>生命周期:</strong> active</p>
       <p><strong>阶段:</strong> execution</p>
       <p><strong>优先级:</strong> high</p>
-      <p><strong>健康分:</strong> 85</p>
-      <p><strong>推荐 Agent:</strong> Codex</p>
-      <p><strong>卡点:</strong> 无</p>
-      <p><strong>下一步:</strong> 继续执行下一轮计划</p>
+      <p><strong>健康分:</strong> 44</p>
+      <p><strong>推荐 Agent:</strong> Human</p>
+      <p><strong>最后检查:</strong> 2026-05-31T08:37:34.795755+00:00</p>
+      <p><strong>卡点:</strong> repo_protocol_standard.yaml missing</p>
+      <p><strong>下一步:</strong> 补齐缺失治理文件（AGENTS.md / protocol / README）</p>
+      <button type="button" class="copy-prompt" data-prompt="你是 Human，请推进仓库 `novel-continuation-agent`。
+
+卡点：repo_protocol_standard.yaml missing
+下一步：补齐缺失治理文件（AGENTS.md / protocol / README）
+
+约束：不读取 .env、不修改被管理业务仓库、默认 dry-run。">复制 Prompt</button>
     </article>
     
 
-    <article class="repo-card">
+    <article class="repo-card" data-priority="high" data-lifecycle="bootstrap" data-agent="Cursor">
       <div class="card-head">
         <h3>repo-ops-dashboard</h3>
         <div></div>
       </div>
       <p><strong>类型:</strong> meta_ops</p>
-      <p><strong>状态:</strong> bootstrap</p>
+      <p><strong>生命周期:</strong> bootstrap</p>
       <p><strong>阶段:</strong> round_00_bootstrap</p>
       <p><strong>优先级:</strong> high</p>
-      <p><strong>健康分:</strong> 100</p>
+      <p><strong>健康分:</strong> 88</p>
       <p><strong>推荐 Agent:</strong> Cursor</p>
+      <p><strong>最后检查:</strong> 2026-05-31T08:37:34.795755+00:00</p>
       <p><strong>卡点:</strong> 无</p>
-      <p><strong>下一步:</strong> 继续执行下一轮计划</p>
+      <p><strong>下一步:</strong> 处理扫描 warning 并补齐可选治理文件</p>
+      <button type="button" class="copy-prompt" data-prompt="你是 Cursor，请推进仓库 `repo-ops-dashboard`。
+
+卡点：无
+下一步：处理扫描 warning 并补齐可选治理文件
+
+约束：不读取 .env、不修改被管理业务仓库、默认 dry-run。">复制 Prompt</button>
     </article>
     
 
-    <article class="repo-card">
+    <article class="repo-card" data-priority="low" data-lifecycle="missing" data-agent="Human">
       <div class="card-head">
         <h3>old_demo_placeholder</h3>
         <div><span class="badge freeze">Freeze</span><span class="badge archive">Archive</span></div>
       </div>
       <p><strong>类型:</strong> demo</p>
-      <p><strong>状态:</strong> missing</p>
+      <p><strong>生命周期:</strong> missing</p>
       <p><strong>阶段:</strong> missing</p>
       <p><strong>优先级:</strong> low</p>
       <p><strong>健康分:</strong> 10</p>
       <p><strong>推荐 Agent:</strong> Human</p>
+      <p><strong>最后检查:</strong> 2026-05-31T08:37:34.795755+00:00</p>
       <p><strong>卡点:</strong> repository path missing</p>
       <p><strong>下一步:</strong> 确认仓库路径是否有效</p>
+      <button type="button" class="copy-prompt" data-prompt="你是 Human，请推进仓库 `old_demo_placeholder`。
+
+卡点：repository path missing
+下一步：确认仓库路径是否有效
+
+约束：不读取 .env、不修改被管理业务仓库、默认 dry-run。">复制 Prompt</button>
     </article>
     
     </section>

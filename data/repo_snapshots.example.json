@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-31T13:00:00Z",
-  "dry_run": true,
+  "generated_at": "2026-05-31T08:37:34.795755+00:00",
+  "dry_run": false,
   "repos": [
     {
       "name": "light_novel",
@@ -9,12 +9,19 @@
       "status": "active",
       "exists": true,
       "read_files": [
+        "CHANGELOG.md",
         "README.md",
-        "AGENTS.md",
-        "repo_protocol_standard.yaml",
         "docs/index.md",
-        "CHANGELOG.md"
+        "prompts/codex_translation_pipeline_round.md",
+        "prompts/cursor_translation_pipeline_round.md",
+        "prompts/openclaw_translation_governance.md",
+        "round_state/translation_pipeline_governance_round.yaml"
       ],
+      "missing": [
+        "AGENTS.md",
+        "repo_protocol_standard.yaml"
+      ],
+      "skipped": [],
       "warnings": []
     },
     {
@@ -23,11 +30,24 @@
       "type": "ai_manga",
       "status": "active",
       "exists": true,
-      "read_files": [
-        "README.md"
+      "read_files": [],
+      "missing": [
+        "README.md",
+        "AGENTS.md",
+        "CLAUDE.md",
+        "GEMINI.md",
+        "repo_protocol_standard.yaml",
+        "docs/index.md",
+        "CHANGELOG.md"
       ],
+      "skipped": [],
       "warnings": [
-        "AGENTS.md missing"
+        "pattern no match: README.*",
+        "pattern no match: round_state/**",
+        "pattern no match: docs/roadmap*.md",
+        "pattern no match: docs/architecture*.md",
+        "pattern no match: docs/reports/*.md",
+        "pattern no match: prompts/*.md"
       ]
     },
     {
@@ -37,13 +57,57 @@
       "status": "active",
       "exists": true,
       "read_files": [
-        "README.md",
         "AGENTS.md",
-        "repo_protocol_standard.yaml",
+        "README.md",
         "docs/index.md",
+        "docs/reports/agent_gate_policy.md",
+        "docs/reports/agent_gate_report.md",
+        "docs/reports/archivist_ownership_report.md",
+        "docs/reports/autonomous_pipeline_roadmap_governance_report.md",
+        "docs/reports/character_asset_gate_governance_round_report.md",
+        "docs/reports/context_compression_v2_report.md",
+        "docs/reports/continuity_agent_contract_report.md",
+        "docs/reports/director_agent_contract_report.md",
+        "docs/reports/doc_migration_report.md",
+        "docs/reports/embedding_provider_gate_report.md",
+        "docs/reports/future_goal_phase_round_detail_report.md",
+        "docs/reports/governance_continuation_report_2026_05_30.md",
+        "docs/reports/governance_recovery_report.md",
+        "docs/reports/governance_round_completion_report.md",
+        "docs/reports/governance_upgrade_followup_report.md",
+        "docs/reports/governance_validation_report.md",
+        "docs/reports/knowledge_source_graph_report.md",
+        "docs/reports/memory_intelligence_governance_completion_report.md",
+        "docs/reports/memory_intelligence_pre_scan_report.md",
+        "docs/reports/minimal_web_ui_report.md",
+        "docs/reports/repo_governance_audit.md",
+        "docs/reports/repo_protocol_sync_report.md",
+        "docs/reports/repository_scan_report.md",
+        "docs/reports/review_agent_contract_report.md",
+        "docs/reports/semantic_rag_retrieval_report.md",
+        "docs/reports/skill_executor_harness_report.md",
+        "docs/reports/story_template_registry_report.md",
+        "docs/reports/web_backend_integration_report.md",
+        "prompts/apply_repo_protocol_to_new_project.md",
+        "prompts/codex_next_round.md",
+        "prompts/governance_upgrade_followup.md",
+        "prompts/outline_agent.md",
+        "prompts/preference_extractor.md",
+        "prompts/revision_recorder.md",
+        "prompts/writing_agent.md"
+      ],
+      "missing": [
+        "CLAUDE.md",
+        "GEMINI.md",
+        "repo_protocol_standard.yaml",
         "CHANGELOG.md"
       ],
-      "warnings": []
+      "skipped": [],
+      "warnings": [
+        "pattern no match: round_state/**",
+        "pattern no match: docs/roadmap*.md",
+        "pattern no match: docs/architecture*.md"
+      ]
     },
     {
       "name": "repo-ops-dashboard",
@@ -52,14 +116,28 @@
       "status": "bootstrap",
       "exists": true,
       "read_files": [
-        "README.md",
         "AGENTS.md",
-        "repo_protocol_standard.yaml",
-        "docs/index.md",
         "CHANGELOG.md",
-        "round_state/current_round.yaml"
+        "README.md",
+        "docs/architecture.md",
+        "docs/index.md",
+        "docs/reports/index.md",
+        "prompts/codex_next_round.md",
+        "prompts/cursor_next_round.md",
+        "prompts/openclaw_repo_scan.md",
+        "prompts/repo_governance_prompt_template.md",
+        "repo_protocol_standard.yaml",
+        "round_state/current_round.yaml",
+        "round_state/round_history.md"
       ],
-      "warnings": []
+      "missing": [
+        "CLAUDE.md",
+        "GEMINI.md"
+      ],
+      "skipped": [],
+      "warnings": [
+        "pattern no match: docs/roadmap*.md"
+      ]
     },
     {
       "name": "old_demo_placeholder",
@@ -68,9 +146,11 @@
       "status": "missing",
       "exists": false,
       "read_files": [],
-      "warnings": [
+      "missing": [
         "repository path missing"
-      ]
+      ],
+      "skipped": [],
+      "warnings": []
     }
   ]
 }

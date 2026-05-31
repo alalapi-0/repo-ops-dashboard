@@ -23,6 +23,27 @@ BLOCKED = "BLOCKED"
 SEVERITY_ORDER = {PASS: 0, WARNING: 1, BLOCKED: 2}
 EXIT_CODES = {PASS: 0, WARNING: 1, BLOCKED: 2}
 
+ROUND_FILES = [
+    "round_00_bootstrap.md",
+    "round_01_repo_registry.md",
+    "round_02_readonly_scanner.md",
+    "round_03_status_analyzer.md",
+    "round_04_dashboard.md",
+    "round_05_prompt_generator.md",
+    "round_06_scheduler_and_reports.md",
+    "round_07_openclaw_bridge.md",
+    "round_08_feishu_notifications.md",
+    "round_09_playwright_ui_check.md",
+    "round_10_release_hardening.md",
+    "round_11_repository_lifecycle_rules.md",
+    "round_12_priority_review_system.md",
+    "round_13_cross_repo_protocol_sync.md",
+    "round_14_openclaw_daily_briefing.md",
+    "round_15_long_term_personal_operating_system.md",
+]
+
+ROUND_REQUIRED_SECTIONS = ["## 目标", "## 验收标准", "## 推荐执行 Agent"]
+
 
 @dataclass
 class Finding:
@@ -108,7 +129,7 @@ def check_secret_patterns(state: GateState, root: Path) -> None:
     candidates = run_git_lines(["git", "ls-files"], root)
     patterns = [
         re.compile(r"AKIA[0-9A-Z]{16}"),
-        re.compile(r"(?i)api[_-]?key\\s*[:=]\\s*['\\\"][A-Za-z0-9_\\-]{16,}"),
+        re.compile(r"(?i)api[_-]?key\s*[:=]\s*['\"][A-Za-z0-9_\-]{16,}"),
         re.compile(r"-----BEGIN (?:RSA|EC|OPENSSH|PRIVATE) KEY-----"),
     ]
     hits: list[str] = []
@@ -151,6 +172,8 @@ def check_no_target_repo_modification_logic(state: GateState, root: Path) -> Non
     script_dir = root / "scripts"
     findings: list[str] = []
     for path in sorted(script_dir.glob("*.py")):
+        if path.name == "agent_gate.py":
+            continue
         text = path.read_text(encoding="utf-8")
         for token in risky_tokens:
             if token in text:
@@ -166,6 +189,8 @@ def check_integration_is_docs_only(state: GateState, root: Path) -> None:
     risky_imports = ["feishu", "lark_oapi", "telegram", "openclaw_sdk"]
     hits = []
     for path in sorted(script_dir.glob("*.py")):
+        if path.name == "agent_gate.py":
+            continue
         text = path.read_text(encoding="utf-8").lower()
         for key in risky_imports:
             if key in text:
@@ -174,6 +199,103 @@ def check_integration_is_docs_only(state: GateState, root: Path) -> None:
         state.add("integration_docs_only", WARNING, f"integration keyword found: {hits}")
     else:
         state.add("integration_docs_only", PASS, "integrations remain docs-only")
+
+
+def check_round_docs_exist(state: GateState, root: Path) -> None:
+    rounds_dir = root / "docs" / "rounds"
+    missing = [name for name in ROUND_FILES if not (rounds_dir / name).exists()]
+    if missing:
+        state.add("round_docs", BLOCKED, f"missing round docs: {missing}")
+    else:
+        state.add("round_docs", PASS, "round docs 00-15 exist")
+
+
+def check_round_doc_sections(state: GateState, root: Path) -> None:
+    rounds_dir = root / "docs" / "rounds"
+    incomplete: list[str] = []
+    for name in ROUND_FILES:
+        path = rounds_dir / name
+        if not path.exists():
+            continue
+        text = path.read_text(encoding="utf-8")
+        missing_sections = [sec for sec in ROUND_REQUIRED_SECTIONS if sec not in text]
+        if missing_sections:
+            incomplete.append(f"{name}: {missing_sections}")
+    if incomplete:
+        state.add("round_doc_sections", WARNING, f"incomplete sections: {incomplete[:5]}")
+    else:
+        state.add("round_doc_sections", PASS, "round docs contain required sections")
+
+
+def check_ui_check_script(state: GateState, root: Path) -> None:
+    path = root / "scripts" / "ui_check.py"
+    if not path.exists():
+        state.add("ui_check_script", WARNING, "scripts/ui_check.py missing")
+    else:
+        state.add("ui_check_script", PASS, "ui_check.py exists")
+
+
+def check_audit_report(state: GateState, root: Path) -> None:
+    path = root / "reports" / "round_01_independent_audit_report.md"
+    if not path.exists():
+        state.add("audit_report", WARNING, "reports/round_01_independent_audit_report.md missing")
+    else:
+        state.add("audit_report", PASS, "round 01 audit report exists")
+
+
+def check_playwright_local_only(state: GateState, root: Path) -> None:
+    path = root / "scripts" / "ui_check.py"
+    if not path.exists():
+        state.add("playwright_local", WARNING, "ui_check.py not present for review")
+        return
+    text = path.read_text(encoding="utf-8")
+    external_hits = []
+    for match in re.finditer(r"https?://[^\s'\"]+", text):
+        url = match.group(0)
+        if "playwright.dev" not in url and "example.com" not in url:
+            external_hits.append(url)
+    if "file://" in text or "as_uri()" in text:
+        state.add("playwright_local", PASS, "ui_check uses local file:// access")
+    elif external_hits:
+        state.add("playwright_local", WARNING, f"ui_check may access external URLs: {external_hits}")
+    else:
+        state.add("playwright_local", WARNING, "ui_check local-only pattern not confirmed")
+
+
+def check_scan_allowlist_compliance(state: GateState, root: Path) -> None:
+    scan_path = root / "scripts" / "scan_repos.py"
+    if not scan_path.exists():
+        state.add("scan_allowlist", WARNING, "scan_repos.py missing")
+        return
+    text = scan_path.read_text(encoding="utf-8")
+    risky = []
+    if "rglob(" in text or "os.walk(" in text:
+        risky.append("full tree walk detected")
+    if risky:
+        state.add("scan_allowlist", WARNING, f"scan script review needed: {risky}")
+    else:
+        state.add("scan_allowlist", PASS, "scan script uses pattern-based allowlist collection")
+
+
+def check_protocol_round1_api_ban(state: GateState, root: Path) -> None:
+    protocol = load_yaml(root / "repo_protocol_standard.yaml")
+    safety = protocol.get("safety", {})
+    if safety.get("allow_external_api_in_round_1") is False:
+        state.add("protocol_round1_api", PASS, "Round 1 external API ban present in protocol")
+    else:
+        state.add("protocol_round1_api", WARNING, "allow_external_api_in_round_1 not set to false")
+
+
+def check_requirements_dev_playwright(state: GateState, root: Path) -> None:
+    path = root / "requirements-dev.txt"
+    if not path.exists():
+        state.add("requirements_dev", WARNING, "requirements-dev.txt missing")
+        return
+    text = path.read_text(encoding="utf-8").lower()
+    if "playwright" in text:
+        state.add("requirements_dev", PASS, "requirements-dev.txt includes playwright")
+    else:
+        state.add("requirements_dev", WARNING, "playwright not listed in requirements-dev.txt")
 
 
 def render_report(state: GateState, root: Path) -> Path:
@@ -211,6 +333,14 @@ def main() -> int:
     check_script_defaults(state, root)
     check_no_target_repo_modification_logic(state, root)
     check_integration_is_docs_only(state, root)
+    check_round_docs_exist(state, root)
+    check_round_doc_sections(state, root)
+    check_ui_check_script(state, root)
+    check_audit_report(state, root)
+    check_playwright_local_only(state, root)
+    check_scan_allowlist_compliance(state, root)
+    check_protocol_round1_api_ban(state, root)
+    check_requirements_dev_playwright(state, root)
     report = render_report(state, root)
 
     print(f"[gate] verdict={state.verdict} report={report}")

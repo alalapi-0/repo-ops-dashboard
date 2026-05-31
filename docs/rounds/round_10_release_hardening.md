@@ -2,40 +2,66 @@
 
 ## 目标
 
-- 整理安装流程
-- 强化安全检查
-- 增加测试
-- 增加打包方式
-- 准备长期使用
+- 强化测试与 `agent_gate`
+- 整理安装文档与长期使用指南
+- 支持稳定日常运行
 
 ## 不做什么
 
-- 不牺牲安全边界换取自动化速度
+- 不大规模重构
+- 不引入微服务或数据库
+- 不自动部署到云
+
+## 前置条件
+
+- Round 00–09 核心功能可用
+- 验证命令链稳定
 
 ## 输入文件
 
-- 全项目治理与脚本实现
+- 全部 scripts、docs、config
 
 ## 输出文件
 
-- 完整发布说明
-- 强化后的 gate 与测试文档
+- `docs/installation.md`
+- 增强的 `agent_gate.py` 检查项
+- 可选 `tests/` 目录
 
-## 具体阶段
+## 阶段任务
 
-1. 安装与运行体验打磨
-2. 安全与测试补强
-3. 发布准备
+### 阶段 1 — 测试
+
+- pytest 覆盖 analyze、gate 核心逻辑
+- 示例数据 fixture
+
+### 阶段 2 — 文档
+
+- 安装、调度、故障排查
+- Agent 使用手册索引
+
+### 阶段 3 — Gate 硬化
+
+- 全 round 文档章节检查
+- secret/env 跟踪检查
 
 ## 验收标准
 
-- 新环境可按文档稳定运行
-- 治理检查可持续执行
+- `python3 scripts/agent_gate.py` PASS 或仅可解释 WARNING
+- 安装文档可让新 Agent 30 分钟内跑通
+- CHANGELOG 完整
 
-## 风险
+## 风险点
 
-- 兼容性与依赖版本漂移
+- 过度测试维护成本
+- 文档与代码漂移
 
 ## 推荐执行 Agent
 
-- Cursor / Codex / HumanOwner
+- Codex / Cursor
+
+## 可复制给 Cursor/Codex/OpenClaw 的任务摘要
+
+```
+添加 pytest、installation.md，硬化 agent_gate。
+目标：日常一条命令刷新 status + dashboard + report + ui_check。
+```

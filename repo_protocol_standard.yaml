@@ -1,8 +1,18 @@
 protocol_name: repo_ops_dashboard_protocol
-protocol_version: 0.1.0
+protocol_version: 0.2.0
 project_type: meta_repo_manager
 owner: user
 default_language: zh-CN
+
+project_positioning:
+  role: personal_multi_repo_dashboard
+  not_a_coding_agent: true
+  openclaw_role: orchestration_only
+  cursor_role: implementation
+  codex_role: batch_execution
+  description: >
+    个人多仓库状态总控台，聚合管理文件、生成报告与推进建议，
+    不替代 Cursor/Codex 的主力编程角色。
 
 safety:
   managed_repos_readonly: true
@@ -12,6 +22,8 @@ safety:
   allow_target_repo_modification: false
   allow_auto_commit: false
   allow_external_api_in_round_0: false
+  allow_external_api_in_round_1: false
+  allow_browser_login_automation: false
 
 managed_file_allowlist:
   - README.md
@@ -51,10 +63,22 @@ managed_file_denylist:
   - large_assets/**
 
 agent_roles:
-  cursor: implementation
-  codex: batch_execution
-  openclaw: orchestration
-  human: final_decision
+  cursor:
+    role: implementation
+    can_modify_repo_ops_dashboard: true
+    can_modify_managed_repos: false
+  codex:
+    role: batch_execution
+    can_modify_repo_ops_dashboard: true
+    can_modify_managed_repos: false
+  openclaw:
+    role: orchestration
+    can_modify_repo_ops_dashboard: limited
+    can_modify_managed_repos: false
+  human:
+    role: final_decision
+    can_modify_repo_ops_dashboard: true
+    can_modify_managed_repos: true
 
 round_policy:
   every_round_requires_plan: true
@@ -62,6 +86,14 @@ round_policy:
   every_round_requires_changelog: true
   every_round_requires_state_update: true
   every_round_requires_completion_report: true
+
+playwright_policy:
+  allowed: true
+  purpose: local_dashboard_visual_check
+  allow_external_login: false
+  allow_real_account_login: false
+  allow_screenshots: true
+  screenshot_output_dir: reports/ui_screenshots
 
 sync_requirements:
   must_update_when:

@@ -31,4 +31,6 @@ data/repo_status.json
 data/priority_board.json
 reports/daily_repo_report.md
 reports/weekly_repo_report.md
+reports/feishu_payload_preview.json
+prompts/generated/*.md
 .idea/

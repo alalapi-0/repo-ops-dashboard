@@ -25,10 +25,51 @@ def load_yaml(path: Path) -> dict[str, Any]:
         return yaml.safe_load(handle) or {}
 
 
+CRITICAL_MISSING = {"AGENTS.md", "repo_protocol_standard.yaml", "README.md"}
+
+
+def repo_issue_messages(repo: dict[str, Any]) -> list[str]:
+    messages: list[str] = []
+    for key in ("missing", "skipped", "warnings"):
+        for item in repo.get(key, []):
+            text = str(item)
+            if text not in messages:
+                messages.append(text)
+    return messages
+
+
+def derive_blockers(repo: dict[str, Any]) -> list[str]:
+    status = str(repo.get("status", "unknown"))
+    if status == "missing":
+        return list(repo.get("missing", [])) or ["repository path missing"]
+
+    blockers: list[str] = []
+    for item in repo.get("missing", []):
+        name = str(item)
+        if name in CRITICAL_MISSING:
+            blockers.append(f"{name} missing")
+    return blockers
+
+
+def derive_lifecycle(repo: dict[str, Any]) -> str:
+    status = str(repo.get("status", "unknown"))
+    if status == "missing":
+        return "missing"
+    if repo.get("archive_candidate"):
+        return "archive_candidate"
+    if repo.get("freeze_candidate"):
+        return "freeze_candidate"
+    if status == "bootstrap":
+        return "bootstrap"
+    if status == "active":
+        return "active"
+    return status
+
+
 def compute_health(repo: dict[str, Any], weights: dict[str, int]) -> int:
     score = 0
     files = set(repo.get("read_files", []))
-    warnings = repo.get("warnings", [])
+    warning_count = len(repo.get("warnings", []))
     status = str(repo.get("status", "unknown"))
 
     if any(item.startswith("README") for item in files):
@@ -45,11 +86,13 @@ def compute_health(repo: dict[str, Any], weights: dict[str, int]) -> int:
         score += int(weights.get("docs_index_exists", 0))
     if status in {"active", "bootstrap"}:
         score += int(weights.get("recent_update", 0))
-    if not any("next action missing" in str(w).lower() for w in warnings):
+    if not any("next action missing" in str(w).lower() for w in repo.get("warnings", [])):
         score += int(weights.get("has_next_action", 0))
-    if not warnings:
+    blockers = derive_blockers(repo)
+    if not blockers and not repo.get("warnings"):
         score += int(weights.get("no_blocker", 0))
 
+    score -= min(warning_count * 2, 20)
     return min(max(score, 0), 100)
 
 
@@ -111,39 +154,50 @@ def main() -> int:
     weights = dict(rules.get("health_score", {}))
 
     repos_out: list[dict[str, Any]] = []
+    snapshot_generated_at = str(snapshots.get("generated_at", ""))
     for repo in snapshots.get("repos", []):
         health = compute_health(repo, weights)
         priority = pick_priority(repo, health)
-        blockers = list(repo.get("warnings", []))
+        blockers = derive_blockers(repo)
+        warnings = list(repo.get("warnings", []))
         next_actions = []
         if repo.get("status") == "missing":
             next_actions.append("确认仓库路径是否有效")
+        elif blockers:
+            next_actions.append("补齐缺失治理文件（AGENTS.md / protocol / README）")
+        elif warnings:
+            next_actions.append("处理扫描 warning 并补齐可选治理文件")
         else:
-            if blockers:
-                next_actions.append("补齐缺失治理文件并修复 warning")
-            else:
-                next_actions.append("继续执行下一轮计划")
+            next_actions.append("继续执行下一轮计划")
 
         freeze_candidate = health < 40 or repo.get("status") == "missing"
         archive_candidate = repo.get("status") == "missing" and repo.get("type") == "demo"
         recommended_agent = recommend_agent(priority, blockers, str(repo.get("type", "unknown")))
 
-        repos_out.append(
-            {
-                "name": repo.get("name"),
-                "path": repo.get("path"),
-                "type": repo.get("type"),
-                "status": repo.get("status"),
-                "current_stage": infer_stage(repo),
-                "health_score": health,
-                "priority": priority,
-                "blockers": blockers,
-                "next_actions": next_actions,
-                "recommended_agent": recommended_agent,
-                "freeze_candidate": freeze_candidate,
-                "archive_candidate": archive_candidate,
-            }
-        )
+        row = {
+            "name": repo.get("name"),
+            "path": repo.get("path"),
+            "type": repo.get("type"),
+            "status": repo.get("status"),
+            "current_stage": infer_stage(repo),
+            "health_score": health,
+            "priority": priority,
+            "blockers": blockers,
+            "warnings": warnings,
+            "next_actions": next_actions,
+            "recommended_agent": recommended_agent,
+            "freeze_candidate": freeze_candidate,
+            "archive_candidate": archive_candidate,
+            "lifecycle_status": derive_lifecycle(
+                {
+                    **repo,
+                    "freeze_candidate": freeze_candidate,
+                    "archive_candidate": archive_candidate,
+                }
+            ),
+            "last_checked": snapshot_generated_at,
+        }
+        repos_out.append(row)
 
     result = {"generated_at": datetime.now(timezone.utc).isoformat(), "repos": repos_out}
     output_path.parent.mkdir(parents=True, exist_ok=True)

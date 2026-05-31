@@ -1,7 +1,7 @@
 # Agent Gate Report
 
-- generated_at: 2026-05-31T05:42:46.937237+00:00
-- verdict: WARNING
+- generated_at: 2026-05-31T08:38:59.708983+00:00
+- verdict: PASS
 
 ## Findings
 - [PASS] `denylist`: denylist configured
@@ -9,5 +9,13 @@
 - [PASS] `env_tracked`: .env is not tracked
 - [PASS] `secret_pattern`: no obvious secret patterns in tracked files
 - [PASS] `dry_run_defaults`: dry-run defaults checked
-- [WARNING] `target_repo_modification`: review risky tokens: ['agent_gate.py:git commit', 'agent_gate.py:git push', 'agent_gate.py:shutil.rmtree', 'agent_gate.py:os.remove(', 'agent_gate.py:Path.unlink(']
-- [WARNING] `integration_docs_only`: integration keyword found: ['agent_gate.py:feishu', 'agent_gate.py:lark_oapi', 'agent_gate.py:telegram', 'agent_gate.py:openclaw_sdk']
+- [PASS] `target_repo_modification`: no obvious target-repo write logic
+- [PASS] `integration_docs_only`: integrations remain docs-only
+- [PASS] `round_docs`: round docs 00-15 exist
+- [PASS] `round_doc_sections`: round docs contain required sections
+- [PASS] `ui_check_script`: ui_check.py exists
+- [PASS] `audit_report`: round 01 audit report exists
+- [PASS] `playwright_local`: ui_check uses local file:// access
+- [PASS] `scan_allowlist`: scan script uses pattern-based allowlist collection
+- [PASS] `protocol_round1_api`: Round 1 external API ban present in protocol
+- [PASS] `requirements_dev`: requirements-dev.txt includes playwright
