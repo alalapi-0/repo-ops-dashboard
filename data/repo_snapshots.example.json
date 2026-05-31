@@ -1,0 +1,76 @@
+{
+  "generated_at": "2026-05-31T13:00:00Z",
+  "dry_run": true,
+  "repos": [
+    {
+      "name": "light_novel",
+      "path": "/Users/alalapi/PycharmProjects/light_novel",
+      "type": "translation",
+      "status": "active",
+      "exists": true,
+      "read_files": [
+        "README.md",
+        "AGENTS.md",
+        "repo_protocol_standard.yaml",
+        "docs/index.md",
+        "CHANGELOG.md"
+      ],
+      "warnings": []
+    },
+    {
+      "name": "ai-manga",
+      "path": "/Users/alalapi/PycharmProjects/ai-manga",
+      "type": "ai_manga",
+      "status": "active",
+      "exists": true,
+      "read_files": [
+        "README.md"
+      ],
+      "warnings": [
+        "AGENTS.md missing"
+      ]
+    },
+    {
+      "name": "novel-continuation-agent",
+      "path": "/Users/alalapi/PycharmProjects/novel-continuation-agent",
+      "type": "novel_agent",
+      "status": "active",
+      "exists": true,
+      "read_files": [
+        "README.md",
+        "AGENTS.md",
+        "repo_protocol_standard.yaml",
+        "docs/index.md",
+        "CHANGELOG.md"
+      ],
+      "warnings": []
+    },
+    {
+      "name": "repo-ops-dashboard",
+      "path": "/Users/alalapi/PycharmProjects/repo-ops-dashboard",
+      "type": "meta_ops",
+      "status": "bootstrap",
+      "exists": true,
+      "read_files": [
+        "README.md",
+        "AGENTS.md",
+        "repo_protocol_standard.yaml",
+        "docs/index.md",
+        "CHANGELOG.md",
+        "round_state/current_round.yaml"
+      ],
+      "warnings": []
+    },
+    {
+      "name": "old_demo_placeholder",
+      "path": "/Users/alalapi/PycharmProjects/old_demo_placeholder",
+      "type": "demo",
+      "status": "missing",
+      "exists": false,
+      "read_files": [],
+      "warnings": [
+        "repository path missing"
+      ]
+    }
+  ]
+}

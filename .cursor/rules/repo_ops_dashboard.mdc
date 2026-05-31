@@ -1,0 +1,10 @@
+# Repo Ops Dashboard Rule
+
+1. 本项目是多仓库管理总控台，不是业务仓库。
+2. Cursor 仅允许修改本仓库文件。
+3. Cursor 不得修改被管理仓库。
+4. Cursor 不得读取密钥或 `.env` 内容。
+5. Cursor 必须遵循 `AGENTS.md` 与 `repo_protocol_standard.yaml`。
+6. Cursor 每轮必须更新 `round_state`、`CHANGELOG.md` 与 completion report。
+7. Cursor 生成脚本时必须默认 dry-run。
+8. Cursor 不得引入复杂依赖，除非用户明确要求。

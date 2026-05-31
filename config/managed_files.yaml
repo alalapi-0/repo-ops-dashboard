@@ -1,0 +1,36 @@
+allowlist:
+  - README.md
+  - README.*
+  - AGENTS.md
+  - CLAUDE.md
+  - GEMINI.md
+  - repo_protocol_standard.yaml
+  - round_state/**
+  - docs/index.md
+  - docs/roadmap*.md
+  - docs/architecture*.md
+  - docs/reports/*.md
+  - CHANGELOG.md
+  - prompts/*.md
+
+denylist:
+  - .env
+  - .env.*
+  - "*.key"
+  - "*.pem"
+  - "*.p12"
+  - "*.pfx"
+  - "*token*"
+  - "*secret*"
+  - node_modules/**
+  - venv/**
+  - .venv/**
+  - dist/**
+  - build/**
+  - __pycache__/**
+  - .git/**
+  - logs/**
+  - cache/**
+  - tmp/**
+  - output/**
+  - large_assets/**

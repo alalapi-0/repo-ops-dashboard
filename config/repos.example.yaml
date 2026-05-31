@@ -1,0 +1,43 @@
+repos:
+  - name: light_novel
+    path: /Users/alalapi/PycharmProjects/light_novel
+    type: translation
+    priority_hint: medium
+    status_hint: active
+    managed_files:
+      - README.md
+      - AGENTS.md
+      - repo_protocol_standard.yaml
+      - docs/index.md
+      - CHANGELOG.md
+      - round_state/**
+      - prompts/*.md
+    ignored_paths:
+      - .env
+      - node_modules/
+      - .git/
+      - logs/
+
+  - name: ai-manga
+    path: /Users/alalapi/PycharmProjects/ai-manga
+    type: ai_manga
+    priority_hint: high
+    status_hint: active
+
+  - name: novel-continuation-agent
+    path: /Users/alalapi/PycharmProjects/novel-continuation-agent
+    type: novel_agent
+    priority_hint: high
+    status_hint: active
+
+  - name: repo-ops-dashboard
+    path: /Users/alalapi/PycharmProjects/repo-ops-dashboard
+    type: meta_ops
+    priority_hint: high
+    status_hint: bootstrap
+
+  - name: old_demo_placeholder
+    path: /Users/alalapi/PycharmProjects/old_demo_placeholder
+    type: demo
+    priority_hint: low
+    status_hint: unknown

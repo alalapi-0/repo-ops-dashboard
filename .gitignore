@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
+
+# Secrets
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Build and runtime
+dist/
+build/
+node_modules/
+logs/
+cache/
+tmp/
+output/
+large_assets/
+artifacts/
+
+# Local reports/data
+data/repo_snapshots.json
+data/repo_status.json
+data/priority_board.json
+reports/daily_repo_report.md
+reports/weekly_repo_report.md
+.idea/

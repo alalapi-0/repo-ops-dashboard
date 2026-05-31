@@ -1,0 +1,30 @@
+health_score:
+  readme_exists: 10
+  agents_exists: 10
+  protocol_exists: 15
+  changelog_exists: 10
+  round_state_exists: 15
+  docs_index_exists: 10
+  recent_update: 10
+  has_next_action: 10
+  no_blocker: 10
+
+priority_rules:
+  high:
+    - active project
+    - has clear next action
+    - related to current AI/product roadmap
+  medium:
+    - useful but not urgent
+    - needs governance cleanup
+  low:
+    - old demo
+    - unclear value
+  freeze_candidate:
+    - no clear next action
+    - no recent update
+    - duplicated with another repo
+  archive_candidate:
+    - obsolete
+    - no README
+    - no future plan

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Repo Ops Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>Repo Ops Dashboard</h1>
+      <p>更新时间：2026-05-31 05:42:53 UTC</p>
+    </header>
+    <section class="stats">
+      <div class="stat"><span>总仓库数</span><strong>5</strong></div>
+      <div class="stat"><span>高优先级</span><strong>3</strong></div>
+      <div class="stat"><span>卡住仓库</span><strong>2</strong></div>
+      <div class="stat"><span>冻结候选</span><strong>2</strong></div>
+    </section>
+    <section class="cards">
+      
+    <article class="repo-card">
+      <div class="card-head">
+        <h3>light_novel</h3>
+        <div></div>
+      </div>
+      <p><strong>类型:</strong> translation</p>
+      <p><strong>状态:</strong> active</p>
+      <p><strong>阶段:</strong> execution</p>
+      <p><strong>优先级:</strong> medium</p>
+      <p><strong>健康分:</strong> 85</p>
+      <p><strong>推荐 Agent:</strong> Cursor</p>
+      <p><strong>卡点:</strong> 无</p>
+      <p><strong>下一步:</strong> 继续执行下一轮计划</p>
+    </article>
+    
+
+    <article class="repo-card">
+      <div class="card-head">
+        <h3>ai-manga</h3>
+        <div><span class="badge freeze">Freeze</span></div>
+      </div>
+      <p><strong>类型:</strong> ai_manga</p>
+      <p><strong>状态:</strong> active</p>
+      <p><strong>阶段:</strong> execution</p>
+      <p><strong>优先级:</strong> high</p>
+      <p><strong>健康分:</strong> 30</p>
+      <p><strong>推荐 Agent:</strong> Human</p>
+      <p><strong>卡点:</strong> AGENTS.md missing</p>
+      <p><strong>下一步:</strong> 补齐缺失治理文件并修复 warning</p>
+    </article>
+    
+
+    <article class="repo-card">
+      <div class="card-head">
+        <h3>novel-continuation-agent</h3>
+        <div></div>
+      </div>
+      <p><strong>类型:</strong> novel_agent</p>
+      <p><strong>状态:</strong> active</p>
+      <p><strong>阶段:</strong> execution</p>
+      <p><strong>优先级:</strong> high</p>
+      <p><strong>健康分:</strong> 85</p>
+      <p><strong>推荐 Agent:</strong> Codex</p>
+      <p><strong>卡点:</strong> 无</p>
+      <p><strong>下一步:</strong> 继续执行下一轮计划</p>
+    </article>
+    
+
+    <article class="repo-card">
+      <div class="card-head">
+        <h3>repo-ops-dashboard</h3>
+        <div></div>
+      </div>
+      <p><strong>类型:</strong> meta_ops</p>
+      <p><strong>状态:</strong> bootstrap</p>
+      <p><strong>阶段:</strong> round_00_bootstrap</p>
+      <p><strong>优先级:</strong> high</p>
+      <p><strong>健康分:</strong> 100</p>
+      <p><strong>推荐 Agent:</strong> Cursor</p>
+      <p><strong>卡点:</strong> 无</p>
+      <p><strong>下一步:</strong> 继续执行下一轮计划</p>
+    </article>
+    
+
+    <article class="repo-card">
+      <div class="card-head">
+        <h3>old_demo_placeholder</h3>
+        <div><span class="badge freeze">Freeze</span><span class="badge archive">Archive</span></div>
+      </div>
+      <p><strong>类型:</strong> demo</p>
+      <p><strong>状态:</strong> missing</p>
+      <p><strong>阶段:</strong> missing</p>
+      <p><strong>优先级:</strong> low</p>
+      <p><strong>健康分:</strong> 10</p>
+      <p><strong>推荐 Agent:</strong> Human</p>
+      <p><strong>卡点:</strong> repository path missing</p>
+      <p><strong>下一步:</strong> 确认仓库路径是否有效</p>
+    </article>
+    
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "generated_at": "2026-05-31T13:10:00Z",
+  "high_priority": [
+    "ai-manga",
+    "novel-continuation-agent",
+    "repo-ops-dashboard"
+  ],
+  "blocked": [
+    "ai-manga",
+    "old_demo_placeholder"
+  ],
+  "freeze_candidates": [
+    "old_demo_placeholder"
+  ],
+  "archive_candidates": [
+    "old_demo_placeholder"
+  ]
+}

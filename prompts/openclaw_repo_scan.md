@@ -1,0 +1,21 @@
+# OpenClaw Repo Scan Prompt (Future)
+
+目标：只读扫描 `repo-ops-dashboard` 的状态产物并生成调度建议。
+
+输入：
+
+- `data/repo_status.json`
+- `reports/daily_repo_report.md`
+- `reports/weekly_repo_report.md`
+
+输出：
+
+- 今日建议推进仓库列表
+- 风险提醒
+- 给 Cursor/Codex 的执行提示词草案
+
+边界：
+
+- 不修改被管理业务仓库
+- 不读取密钥文件
+- 不调用外部 API（Round 0）

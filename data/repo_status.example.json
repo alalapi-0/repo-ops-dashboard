@@ -1,0 +1,89 @@
+{
+  "generated_at": "2026-05-31T05:42:53.072238+00:00",
+  "repos": [
+    {
+      "name": "light_novel",
+      "path": "/Users/alalapi/PycharmProjects/light_novel",
+      "type": "translation",
+      "status": "active",
+      "current_stage": "execution",
+      "health_score": 85,
+      "priority": "medium",
+      "blockers": [],
+      "next_actions": [
+        "继续执行下一轮计划"
+      ],
+      "recommended_agent": "Cursor",
+      "freeze_candidate": false,
+      "archive_candidate": false
+    },
+    {
+      "name": "ai-manga",
+      "path": "/Users/alalapi/PycharmProjects/ai-manga",
+      "type": "ai_manga",
+      "status": "active",
+      "current_stage": "execution",
+      "health_score": 30,
+      "priority": "high",
+      "blockers": [
+        "AGENTS.md missing"
+      ],
+      "next_actions": [
+        "补齐缺失治理文件并修复 warning"
+      ],
+      "recommended_agent": "Human",
+      "freeze_candidate": true,
+      "archive_candidate": false
+    },
+    {
+      "name": "novel-continuation-agent",
+      "path": "/Users/alalapi/PycharmProjects/novel-continuation-agent",
+      "type": "novel_agent",
+      "status": "active",
+      "current_stage": "execution",
+      "health_score": 85,
+      "priority": "high",
+      "blockers": [],
+      "next_actions": [
+        "继续执行下一轮计划"
+      ],
+      "recommended_agent": "Codex",
+      "freeze_candidate": false,
+      "archive_candidate": false
+    },
+    {
+      "name": "repo-ops-dashboard",
+      "path": "/Users/alalapi/PycharmProjects/repo-ops-dashboard",
+      "type": "meta_ops",
+      "status": "bootstrap",
+      "current_stage": "round_00_bootstrap",
+      "health_score": 100,
+      "priority": "high",
+      "blockers": [],
+      "next_actions": [
+        "继续执行下一轮计划"
+      ],
+      "recommended_agent": "Cursor",
+      "freeze_candidate": false,
+      "archive_candidate": false
+    },
+    {
+      "name": "old_demo_placeholder",
+      "path": "/Users/alalapi/PycharmProjects/old_demo_placeholder",
+      "type": "demo",
+      "status": "missing",
+      "current_stage": "missing",
+      "health_score": 10,
+      "priority": "low",
+      "blockers": [
+        "repository path missing"
+      ],
+      "next_actions": [
+        "确认仓库路径是否有效"
+      ],
+      "recommended_agent": "Human",
+      "freeze_candidate": true,
+      "archive_candidate": true
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+protocol_name: repo_ops_dashboard_protocol
+protocol_version: 0.1.0
+project_type: meta_repo_manager
+owner: user
+default_language: zh-CN
+
+safety:
+  managed_repos_readonly: true
+  allow_full_repo_scan: false
+  allow_secret_reading: false
+  allow_env_reading: false
+  allow_target_repo_modification: false
+  allow_auto_commit: false
+  allow_external_api_in_round_0: false
+
+managed_file_allowlist:
+  - README.md
+  - README.*
+  - AGENTS.md
+  - CLAUDE.md
+  - GEMINI.md
+  - repo_protocol_standard.yaml
+  - round_state/**
+  - docs/index.md
+  - docs/roadmap*.md
+  - docs/architecture*.md
+  - docs/reports/*.md
+  - CHANGELOG.md
+  - prompts/*.md
+
+managed_file_denylist:
+  - .env
+  - .env.*
+  - "*.key"
+  - "*.pem"
+  - "*.p12"
+  - "*.pfx"
+  - "*token*"
+  - "*secret*"
+  - node_modules/**
+  - venv/**
+  - .venv/**
+  - dist/**
+  - build/**
+  - __pycache__/**
+  - .git/**
+  - logs/**
+  - cache/**
+  - tmp/**
+  - output/**
+  - large_assets/**
+
+agent_roles:
+  cursor: implementation
+  codex: batch_execution
+  openclaw: orchestration
+  human: final_decision
+
+round_policy:
+  every_round_requires_plan: true
+  every_round_requires_validation: true
+  every_round_requires_changelog: true
+  every_round_requires_state_update: true
+  every_round_requires_completion_report: true
+
+sync_requirements:
+  must_update_when:
+    - managed file allowlist or denylist changes
+    - round lifecycle contract changes
+    - agent role boundary changes
+    - script validation requirements change
+  files_to_sync_with:
+    - AGENTS.md
+    - README.md
+    - config/managed_files.yaml
+    - round_state/current_round.yaml
+    - docs/security_policy.md

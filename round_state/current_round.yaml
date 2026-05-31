@@ -1,0 +1,14 @@
+current_round: round_00_bootstrap
+status: completed
+executor: cursor
+external_api_called: false
+managed_repos_modified: false
+secrets_read: false
+next_round: round_01_repo_registry
+outputs:
+  - README.md
+  - AGENTS.md
+  - repo_protocol_standard.yaml
+  - docs/index.md
+  - docs/rounds/round_00_bootstrap.md
+  - reports/round_00_completion_report.md
