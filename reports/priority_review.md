@@ -1,6 +1,6 @@
 # Priority Review
 
-- generated_at: 2026-05-31T19:30:45.090215+00:00
+- generated_at: 2026-05-31T21:58:52.046704+00:00
 - 说明：以下为**建议**优先级；Human 在 `config/repos.yaml` 的 `priority_hint` 中覆盖后，`final_priority` 以人工为准。
 
 ## 因素说明
