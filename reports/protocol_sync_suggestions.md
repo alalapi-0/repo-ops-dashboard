@@ -1,6 +1,6 @@
 # Protocol Sync Suggestions
 
-- generated_at: 2026-05-31T21:58:52.239246+00:00
+- generated_at: 2026-05-31T22:54:12.917807+00:00
 - reference_protocol_version: 0.2.0
 - **只读建议**：不在此脚本中写入任何被管理仓库。
 
@@ -8,23 +8,11 @@
 
 | 仓库 | 状态 | 缺失治理文件 |
 |------|------|--------------|
-| novel-continuation-agent | active | repo_protocol_standard.yaml, CHANGELOG.md |
-| ai-manga | empty | （跳过：路径不可用） |
-| repo-ops-dashboard | bootstrap | — |
-| ai-anime-short-factory | active | repo_protocol_standard.yaml |
-| wechat-article-scheduler | active | repo_protocol_standard.yaml, CHANGELOG.md |
 | light_novel | active | AGENTS.md, repo_protocol_standard.yaml |
-| computer_study_plan | active | repo_protocol_standard.yaml, CHANGELOG.md, docs/index.md |
-| world-news-lens | active | repo_protocol_standard.yaml |
-| pixel-world-asset-forge | active | AGENTS.md, repo_protocol_standard.yaml, docs/index.md |
-| agent-experiments | active | README.md, AGENTS.md, repo_protocol_standard.yaml, CHANGELOG.md, docs/index.md |
-| ai-anime-short-factory-external | active | README.md, AGENTS.md, repo_protocol_standard.yaml, CHANGELOG.md, docs/index.md |
-| api-mini-labs | active | AGENTS.md, repo_protocol_standard.yaml, CHANGELOG.md, docs/index.md |
-| audiobook-cleaner-lab | active | repo_protocol_standard.yaml, CHANGELOG.md, docs/index.md |
-| resilient-personal-network | active | AGENTS.md, repo_protocol_standard.yaml, CHANGELOG.md, docs/index.md |
-| tool-mini-labs | active | AGENTS.md, repo_protocol_standard.yaml, CHANGELOG.md, docs/index.md |
-| typing-practice-app | active | AGENTS.md, repo_protocol_standard.yaml, CHANGELOG.md, docs/index.md |
-| youtube_hq_downloader | active | AGENTS.md, repo_protocol_standard.yaml, docs/index.md |
+| ai-manga | active | README.md, AGENTS.md, repo_protocol_standard.yaml, CHANGELOG.md, docs/index.md |
+| novel-continuation-agent | active | repo_protocol_standard.yaml, CHANGELOG.md |
+| repo-ops-dashboard | bootstrap | — |
+| old_demo_placeholder | missing | （跳过：路径不可用） |
 
 ## 建议执行顺序
 

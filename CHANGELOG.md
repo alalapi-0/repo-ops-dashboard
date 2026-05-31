@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## Autonomous Round 1 - Agent Verification
+
+- 执行 agent_gate、pytest（37）、ui_check、MCP 浏览器验证（经本地 HTTP）。
+- 真实 OpenRouter 调用返回 401（密钥需 Human 更新）；文档补充 MCP `file://` 限制说明。
+
 ## Round 24 - Personal OS Hub
 
 - 新增 `dashboard/hub.html` 统一入口页。

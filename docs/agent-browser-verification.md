@@ -75,6 +75,18 @@ python3 scripts/agent_gate.py
 - Playwright 通过 **Python**（`requirements-dev.txt` + `scripts/ui_check.py`）做本地 `file://` 检查，见 `AGENTS.md`。
 - 未安装 `@playwright/test` smoke spec；如需 Node 侧 smoke test，需先引入前端构建链。
 
+### MCP 浏览器与 `file://` 限制
+
+Cursor 内置 **Playwright MCP** 与 **cursor-ide-browser** 均**禁止**直接打开 `file://` URL。Agent 验证 Dashboard 时请二选一：
+
+1. **推荐（Python）**：`python3 scripts/ui_check.py --file dashboard/index.html ...`（原生支持 `file://`）。
+2. **MCP 路径**：先启动本地 HTTP 服务，再用 `http://127.0.0.1:<port>/dashboard/index.html` 打开：
+
+```bash
+python3 -m http.server 8765 --bind 127.0.0.1
+# MCP navigate → http://127.0.0.1:8765/dashboard/index.html
+```
+
 ## 安全注意事项
 
 - **不要**让 MCP 打开真实支付后台、生产管理后台或含隐私数据的页面。
