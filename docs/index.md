@@ -20,8 +20,10 @@
 - 下游路线（主）：`docs/downstream_integrations.md`
 - OpenClaw（可选）：`docs/openclaw_integration_plan.md`
 - Feishu/Lark：`docs/feishu_integration_plan.md`
+- Cursor Automations × 飞书：`docs/cursor_automation_feishu.md`
+- 飞书多维表格：`docs/feishu_bitable_schema.md`
 - 通知：`docs/notification_plan.md`
 
 ## Round 路线
 
-见 `docs/rounds/round_00_bootstrap.md` 到 `docs/rounds/round_15_long_term_personal_operating_system.md`（Round 00–15 已完结）。
+见 `docs/rounds/round_00_bootstrap.md` 到 `docs/rounds/round_17_feishu_bitable_sync.md`（Round 00–17）。

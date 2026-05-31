@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Refresh repo status, dashboard, reports, and optional UI check.
-# Usage: ./scripts/refresh_status.sh [--example] [--ui-check]
+# Usage: ./scripts/refresh_status.sh [--example] [--ui-check] [--feishu-send] [--bitable-sync]
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -8,10 +8,14 @@ cd "$ROOT"
 
 USE_EXAMPLE=false
 UI_CHECK=false
+FEISHU_SEND=false
+BITABLE_SYNC=false
 for arg in "$@"; do
   case "$arg" in
     --example) USE_EXAMPLE=true ;;
     --ui-check) UI_CHECK=true ;;
+    --feishu-send) FEISHU_SEND=true ;;
+    --bitable-sync) BITABLE_SYNC=true ;;
   esac
 done
 
@@ -59,14 +63,23 @@ echo "[refresh] dashboard"
 echo "[refresh] reports"
 "$PYTHON" scripts/generate_report.py --input "$STATUS"
 
-echo "[refresh] feishu preview"
-"$PYTHON" scripts/prepare_feishu_payload.py
-
 echo "[refresh] protocol sync suggestions"
 "$PYTHON" scripts/protocol_sync_report.py --input "$SNAPSHOTS" --no-dry-run
 
 echo "[refresh] openclaw brief"
 "$PYTHON" scripts/generate_openclaw_brief.py --input "$STATUS"
+
+echo "[refresh] feishu preview"
+if $FEISHU_SEND; then
+  "$PYTHON" scripts/prepare_feishu_payload.py --status "$STATUS" --send
+else
+  "$PYTHON" scripts/prepare_feishu_payload.py --status "$STATUS"
+fi
+
+if $BITABLE_SYNC; then
+  echo "[refresh] feishu bitable sync"
+  "$PYTHON" scripts/sync_feishu_bitable.py --input "$STATUS" --sync
+fi
 
 if $UI_CHECK; then
   echo "[refresh] ui_check"

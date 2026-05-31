@@ -40,6 +40,8 @@ ROUND_FILES = [
     "round_13_cross_repo_protocol_sync.md",
     "round_14_openclaw_daily_briefing.md",
     "round_15_long_term_personal_operating_system.md",
+    "round_16_cursor_automation_feishu.md",
+    "round_17_feishu_bitable_sync.md",
 ]
 
 ROUND_REQUIRED_SECTIONS = ["## 目标", "## 验收标准", "## 推荐执行 Agent"]
@@ -187,7 +189,7 @@ def check_no_target_repo_modification_logic(state: GateState, root: Path) -> Non
 def check_integration_is_docs_only(state: GateState, root: Path) -> None:
     script_dir = root / "scripts"
     risky_imports = ["feishu", "lark_oapi", "telegram", "openclaw_sdk"]
-    allowed_feishu_scripts = {"prepare_feishu_payload.py"}
+    allowed_feishu_scripts = {"prepare_feishu_payload.py", "sync_feishu_bitable.py"}
     hits = []
     for path in sorted(script_dir.glob("*.py")):
         if path.name == "agent_gate.py":
@@ -210,7 +212,7 @@ def check_round_docs_exist(state: GateState, root: Path) -> None:
     if missing:
         state.add("round_docs", BLOCKED, f"missing round docs: {missing}")
     else:
-        state.add("round_docs", PASS, "round docs 00-15 exist")
+        state.add("round_docs", PASS, "round docs 00-17 exist")
 
 
 def check_round_doc_sections(state: GateState, root: Path) -> None:

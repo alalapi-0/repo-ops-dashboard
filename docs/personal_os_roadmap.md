@@ -45,7 +45,7 @@
 ### Phase D — 个人 OS 外壳（远期）
 
 - 统一入口页（静态 HTML 或 Obsidian/Notion 链接集）
-- OpenClaw 每日 9:00：gate → refresh → brief → 可选 Feishu `--send`（Human 启用）
+- OpenClaw 每日 9:00：gate → refresh → brief → 可选 Feishu `--send`（Human 启用；见 [`cursor_automation_feishu.md`](cursor_automation_feishu.md)）
 
 ## Agent 分工（保持不变）
 

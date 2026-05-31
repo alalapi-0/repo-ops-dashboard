@@ -11,6 +11,7 @@
 | 日报 | `reports/daily_repo_report.md` | 人类阅读 |
 | 周报 | `reports/weekly_repo_report.md` | 可选 |
 | Feishu 载荷 | `reports/feishu_payload_preview.json` | 机器人推送 |
+| Bitable 同步 | `scripts/sync_feishu_bitable.py` | 多维表格 upsert（Round 17） |
 | Prompt | `prompts/generated/*.md` | Cursor/Codex 执行 |
 | Dashboard | `dashboard/index.html` | 本地浏览 |
 
@@ -34,7 +35,7 @@ python3 scripts/ui_check.py --file dashboard/index.html --headless true
 
 | 路线 | 适合 | 接法 |
 |------|------|------|
-| **Cursor Automations** | 已用 Cursor、要定时推送 | Automation 定时执行上述 shell；Feishu 用 `--send` |
+| **Cursor Automations** | 已用 Cursor、要定时推送 | 见 [`cursor_automation_feishu.md`](cursor_automation_feishu.md)；`refresh_status.sh --feishu-send [--bitable-sync]` |
 | **OpenClaw** | 已有 OpenClaw 习惯 | 使用 [`skills/openclaw_repo_ops/SKILL.md`](../skills/openclaw_repo_ops/SKILL.md)，读 status + reports，触发只读脚本 |
 | **Hermes** | 另有任务/消息中枢 | Hermes 轮询或订阅 `repo_status.json` / 日报路径；本仓库不内置 Hermes 客户端 |
 | **本地推理服务** | 自定义摘要/对话 | 定时读 JSON + 日报，模型输出建议写入 `prompts/` 或仅发 Feishu |

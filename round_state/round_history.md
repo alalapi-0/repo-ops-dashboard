@@ -108,3 +108,17 @@
 - 状态：completed（规划文档 only）
 - 产出：`docs/personal_os_roadmap.md`
 - 说明：Round 00–15 路线图完结；后续扩展需 Human 授权
+
+## Round 16 - Cursor Automations Feishu Push
+
+- 状态：completed
+- 产出：`--feishu-send`、`prepare_feishu_payload.py` 增强、`docs/cursor_automation_feishu.md`
+- 外部 API：true（Feishu webhook，Human opt-in `--send`）
+- 下一轮：`round_17_feishu_bitable_sync`
+
+## Round 17 - Feishu Bitable Sync
+
+- 状态：completed
+- 产出：`sync_feishu_bitable.py`、`docs/feishu_bitable_schema.md`、`--bitable-sync`
+- 外部 API：true（Feishu Open API，`--sync` opt-in）
+- 修改被管理仓库：false

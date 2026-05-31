@@ -13,8 +13,10 @@ python3 scripts/analyze_repos.py
 python3 scripts/generate_dashboard.py
 python3 scripts/generate_report.py
 python3 scripts/generate_prompts.py --no-dry-run
-python3 scripts/prepare_feishu_payload.py              # 预览
-python3 scripts/prepare_feishu_payload.py --send     # 可选：需 FEISHU_WEBHOOK_URL
+python3 scripts/prepare_feishu_payload.py --status data/repo_status.json              # 预览
+python3 scripts/prepare_feishu_payload.py --status data/repo_status.json --send   # 可选：需 FEISHU_WEBHOOK_URL
+python3 scripts/sync_feishu_bitable.py --input data/repo_status.json              # Bitable dry-run
+python3 scripts/sync_feishu_bitable.py --input data/repo_status.json --sync       # 可选：需 FEISHU_APP_*
 python3 scripts/ui_check.py --file dashboard/index.html --headless true
 ```
 

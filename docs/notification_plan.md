@@ -10,7 +10,9 @@
 |------|------|------|
 | Markdown 日报/周报 | 已实现 | `generate_report.py` |
 | Dashboard | 已实现 | 本地 `file://` |
-| Feishu 机器人 | 已实现（opt-in） | `prepare_feishu_payload.py --send` + 环境变量 |
+| Feishu 机器人 | 已实现（opt-in） | `prepare_feishu_payload.py --send` 或 `refresh_status.sh --feishu-send` |
+| Feishu 多维表格 | 已实现（opt-in） | `sync_feishu_bitable.py --sync` 或 `--bitable-sync` |
+| Cursor Automations | 文档就绪 | [`cursor_automation_feishu.md`](cursor_automation_feishu.md) |
 | Mac 本地通知 | 规划 | 可由 Automations / launchd 包装 |
 | Telegram | 规划 | 不在本仓库 Round 范围 |
 | OpenClaw | 可选适配器 | Skill + 只读脚本 |

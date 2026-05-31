@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## Round 17 - Feishu Bitable Sync
+
+- 新增 `scripts/sync_feishu_bitable.py`：从 `repo_status.json` 幂等 upsert 飞书多维表格（dry-run 默认，`--sync` opt-in，stdlib API）。
+- 新增 `docs/feishu_bitable_schema.md` 字段与 Human 配置说明。
+- `refresh_status.sh` 增加 `--bitable-sync`；`.env.example` 扩展 Bitable 凭证占位。
+- 新增 `tests/test_feishu_integration.py`。
+
+## Round 16 - Cursor Automations Feishu Push
+
+- `refresh_status.sh` 增加 `--feishu-send`；OpenClaw brief 先于 Feishu 预览生成。
+- 增强 `prepare_feishu_payload.py`：概览统计、OpenClaw 摘要、`--status` / `--brief` 参数。
+- 新增 `docs/cursor_automation_feishu.md` 与 Round 16/17 文档。
+- 更新 `feishu_integration_plan.md`、`downstream_integrations.md`、`scheduler.md`。
+
 ## Round 15 - Personal OS Roadmap
 
 - 新增 `docs/personal_os_roadmap.md`：个人 OS 远期规划（文档 only，Round 00–15 完结）。

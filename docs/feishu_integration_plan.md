@@ -2,9 +2,11 @@
 
 ## 已实现
 
-- `scripts/prepare_feishu_payload.py` — 从日报生成 `reports/feishu_payload_preview.json`
+- `scripts/prepare_feishu_payload.py` — 从日报 + status + OpenClaw brief 生成 `reports/feishu_payload_preview.json`
 - 路径脱敏（仅保留仓库名与摘要）
 - `--send` — 通过环境变量 `FEISHU_WEBHOOK_URL` 使用 stdlib HTTP POST（opt-in，禁止入库）
+- `scripts/refresh_status.sh --feishu-send` — 刷新后 opt-in 发送（见 [`cursor_automation_feishu.md`](cursor_automation_feishu.md)）
+- `scripts/sync_feishu_bitable.py` — 多维表格同步（默认 dry-run，`--sync` opt-in，见 [`feishu_bitable_schema.md`](feishu_bitable_schema.md)）
 
 ## 你在飞书侧的一次性配置
 
