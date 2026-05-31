@@ -64,18 +64,18 @@ def build_prompt_variants(status: dict[str, Any], daily_report: str, daily_brief
     return variants[:count]
 
 
-def call_real_api(user_prompt: str) -> tuple[str, dict[str, Any]]:
+def call_real_api(user_prompt: str, *, max_tokens: int | None = None) -> tuple[str, dict[str, Any]]:
     api_key = os.environ.get("OPENROUTER_API_KEY", "").strip()
     if not api_key:
         raise SystemExit("OPENROUTER_API_KEY not set; refusing --call")
 
     base_url = os.environ.get("OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1").rstrip("/")
     model = os.environ.get("LLM_MODEL", "deepseek/deepseek-v4-pro").strip()
-    max_tokens = int(os.environ.get("LLM_MAX_TOKENS", "2048"))
+    token_limit = max_tokens if max_tokens is not None else int(os.environ.get("LLM_MAX_TOKENS", "2048"))
 
     body = {
         "model": model,
-        "max_tokens": max_tokens,
+        "max_tokens": token_limit,
         "messages": [
             {"role": "system", "content": llm.SYSTEM_PROMPT},
             {"role": "user", "content": user_prompt},
@@ -129,7 +129,7 @@ def call_real_api(user_prompt: str) -> tuple[str, dict[str, Any]]:
         "generated_at": generated_at,
         "provider": "openrouter",
         "model": model,
-        "request": {"model": model, "max_tokens": max_tokens, "user_prompt_chars": len(user_prompt)},
+        "request": {"model": model, "max_tokens": token_limit, "user_prompt_chars": len(user_prompt)},
         "response": parsed,
     }
     return cleaned, raw_record
@@ -149,7 +149,8 @@ def process_generation(
     library_dir = root / "library" / generation_id
     pending_dir.mkdir(parents=True, exist_ok=True)
 
-    cleaned, raw_record = call_real_api(user_prompt)
+    token_limit = 512 if label.startswith("repo_") else None
+    cleaned, raw_record = call_real_api(user_prompt, max_tokens=token_limit)
     quality = review.assess_quality(cleaned)
     provider = raw_record.get("provider", "openrouter")
     model = raw_record.get("model", os.environ.get("LLM_MODEL", "unknown"))
