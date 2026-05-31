@@ -1,0 +1,15 @@
+{
+  "generations": [
+    {
+      "generation_id": "example_daily_summary_a1b2c3d4",
+      "label": "daily_summary",
+      "review_status": "auto_approved",
+      "quality_status": "pass",
+      "approved_path": "data/generations/approved/example_daily_summary_a1b2c3d4",
+      "round": "example",
+      "indexed_at": "2026-01-01T00:00:00+00:00"
+    }
+  ],
+  "updated_at": "2026-01-01T00:00:00+00:00",
+  "last_round": "example"
+}

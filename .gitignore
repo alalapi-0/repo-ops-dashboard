@@ -42,5 +42,10 @@ reports/feishu_payload_preview.json
 reports/priority_review.example.md
 reports/llm_daily_summary.md
 reports/daily_brief.md
+data/generations/index.json
+data/generations/pending/
+data/generations/approved/
+data/generations/library/
+data/generations/raw/
 prompts/generated/*.md
 .idea/

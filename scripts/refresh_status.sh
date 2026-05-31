@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Refresh repo status, dashboard, reports, and optional UI check.
-# Usage: ./scripts/refresh_status.sh [--example] [--ui-check] [--feishu-send] [--bitable-sync] [--llm-summary] [--call]
+# Usage: ./scripts/refresh_status.sh [--example] [--ui-check] [--feishu-send] [--bitable-sync] [--llm-summary] [--generation-pipeline] [--call]
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -11,6 +11,7 @@ UI_CHECK=false
 FEISHU_SEND=false
 BITABLE_SYNC=false
 LLM_SUMMARY=false
+GEN_PIPELINE=false
 LLM_CALL=false
 for arg in "$@"; do
   case "$arg" in
@@ -19,11 +20,12 @@ for arg in "$@"; do
     --feishu-send) FEISHU_SEND=true ;;
     --bitable-sync) BITABLE_SYNC=true ;;
     --llm-summary) LLM_SUMMARY=true ;;
+    --generation-pipeline) GEN_PIPELINE=true ;;
     --call) LLM_CALL=true ;;
   esac
 done
 
-if [[ -f "$ROOT/.env" ]] && { $FEISHU_SEND || $BITABLE_SYNC || $LLM_CALL; }; then
+if [[ -f "$ROOT/.env" ]] && { $FEISHU_SEND || $BITABLE_SYNC || $LLM_CALL || $GEN_PIPELINE; }; then
   set -a
   # shellcheck disable=SC1091
   source "$ROOT/.env"
@@ -93,6 +95,22 @@ if $LLM_SUMMARY; then
     fi
   else
     "$PYTHON" scripts/generate_llm_summary.py --input "$STATUS"
+  fi
+fi
+
+if $GEN_PIPELINE; then
+  echo "[refresh] generation pipeline"
+  PIPE_ARGS=(--input "$STATUS" --round "refresh_$(date +%Y%m%d)")
+  if $LLM_CALL; then
+    if [[ "${LLM_ENABLED:-false}" != "true" ]]; then
+      echo "[warn] LLM_ENABLED is not true; skipping pipeline --call"
+    else
+      PIPE_ARGS+=(--call --auto-approve --review-mode auto --skip-human-review)
+      "$PYTHON" scripts/run_generation_pipeline.py "${PIPE_ARGS[@]}"
+      "$PYTHON" scripts/generate_generations_page.py
+    fi
+  else
+    "$PYTHON" scripts/run_generation_pipeline.py --dry-run "${PIPE_ARGS[@]}"
   fi
 fi
 

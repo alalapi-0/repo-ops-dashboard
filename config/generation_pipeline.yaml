@@ -1,0 +1,18 @@
+# LLM generation pipeline defaults (manual review in production).
+# Enable auto-approve for local e2e tests via env or CLI — see docs/env_configuration.md.
+
+review_mode: manual
+auto_approve: false
+skip_human_review: false
+
+default_count: 3
+max_count: 5
+provider: openrouter
+output_root: data/generations
+
+paths:
+  pending: pending
+  approved: approved
+  library: library
+  raw: raw
+  index: index.json

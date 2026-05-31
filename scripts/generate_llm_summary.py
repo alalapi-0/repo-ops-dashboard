@@ -80,7 +80,7 @@ def call_openrouter(user_prompt: str) -> str:
         raise SystemExit("OPENROUTER_API_KEY not set; refusing --call")
 
     base_url = os.environ.get("OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1").rstrip("/")
-    model = os.environ.get("LLM_MODEL", "anthropic/claude-sonnet-4").strip()
+    model = os.environ.get("LLM_MODEL", "deepseek/deepseek-v4-pro").strip()
     max_tokens = int(os.environ.get("LLM_MAX_TOKENS", "2048"))
 
     body = {

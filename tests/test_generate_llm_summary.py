@@ -47,7 +47,7 @@ def test_call_openrouter_success() -> None:
         "os.environ",
         {
             "OPENROUTER_API_KEY": "test-key",
-            "LLM_MODEL": "anthropic/claude-sonnet-4",
+            "LLM_MODEL": "deepseek/deepseek-v4-pro",
         },
         clear=False,
     ):
