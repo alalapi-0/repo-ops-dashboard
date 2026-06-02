@@ -1,8 +1,8 @@
 # Eval Registry Run
 
-- generated_at: 2026-06-02 17:43 UTC
+- generated_at: 2026-06-02 17:44 UTC
 - verdict: PASS
-- passed: 28/28
+- passed: 29/29
 - failed_required: 0
 - skipped: 0
 
@@ -29,6 +29,7 @@
 - [PASS] `completion_report_exists` (required): ok
 - [PASS] `failure_recovery_policy_valid` (required): ok
 - [PASS] `checkpoint_snapshot_policy_valid` (required): ok
+- [PASS] `playbook_candidates_registry_exists` (required): ok
 - [PASS] `handoff_packet_valid` (required): ok
 - [PASS] `handoff_tracking_valid` (required): ok
 - [PASS] `eval_registry_runner_valid` (required): ok

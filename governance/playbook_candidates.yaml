@@ -1,0 +1,22 @@
+# Playbook / skill candidates (Personal Agent OS).
+# Sources: proof_of_work_registry via scripts/extract_playbook_candidates.py
+schema_version: 0.1.0
+generated_at: '2026-06-03T00:00:00+00:00'
+source_registry: governance/proof_of_work_registry.yaml
+summary:
+  total_candidates: 1
+  auto_approve: true
+candidates:
+  - candidate_id: playbook_light_novel_governance_prompt_001
+    kind: playbook
+    status: proposed
+    lifecycle: candidate
+    approval: human_required
+    project_id: light_novel
+    source_task_id: task_light_novel_governance_prompt_001
+    proof_path: governance/proof_of_work/example_proof_of_work.json
+    summary: 示例 proof_of_work，展示任务完成证明结构。
+    context_refs:
+      - governance/proof_of_work/example_proof_of_work.json
+      - governance/playbooks/
+    extracted_at: '2026-06-03T00:00:00+00:00'

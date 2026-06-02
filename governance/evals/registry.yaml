@@ -114,6 +114,11 @@ evals:
     type: schema_check
     required: true
     path: config/checkpoint_snapshot_policy.yaml
+  - eval_id: playbook_candidates_registry_exists
+    description: governance/playbook_candidates.yaml lists extracted playbook candidates.
+    type: file_exists
+    required: true
+    path: governance/playbook_candidates.yaml
   - eval_id: handoff_packet_valid
     description: example handoff_packet passes schema validation.
     type: schema_check

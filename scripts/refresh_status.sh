@@ -113,6 +113,9 @@ echo "[refresh] handoff packet (dry-run)"
 echo "[refresh] failure recovery plan (dry-run)"
 "$PYTHON" scripts/failure_recovery.py --task-id task_example --failure-class validation_failed --retry-count 1
 
+echo "[refresh] playbook candidates (dry-run)"
+"$PYTHON" scripts/extract_playbook_candidates.py
+
 if $LLM_SUMMARY; then
   echo "[refresh] llm summary"
   if $LLM_CALL; then

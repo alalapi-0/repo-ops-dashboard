@@ -1,0 +1,23 @@
+schema_version: 0.1.0
+policy_version: v1
+description: Extract playbook/skill candidates from successful proof_of_work records (dry-run default).
+
+sources:
+  proof_of_work_registry: governance/proof_of_work_registry.yaml
+  output: governance/playbook_candidates.yaml
+  report: reports/playbook_candidates_extraction.md
+
+selection:
+  status_allowlist:
+    - completed
+  require_tests_passed: false
+  max_known_issues: 99
+
+candidate_defaults:
+  status: proposed
+  lifecycle: candidate
+  approval: human_required
+
+defaults:
+  dry_run: true
+  auto_approve: true

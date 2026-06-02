@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Round 50 - Skill / Playbook Candidate Extraction
+
+- 新增 `playbook_extraction_policy.yaml` 与 `extract_playbook_candidates.py`。
+- 生成 `governance/playbook_candidates.yaml`；`refresh_status` 与 `agent_gate` 纳入候选提取验收。
+- `reports/round_50_completion_report.md`。
+
 ## Round 49 - Checkpoint Snapshot
 
 - 新增 `checkpoint_snapshot_policy.yaml`、portfolio 快照脚本与 `governance/checkpoints/manifest.yaml`。

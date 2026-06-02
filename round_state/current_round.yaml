@@ -1,15 +1,15 @@
-current_round: round_49_checkpoint_snapshot
+current_round: round_50_skill_playbook_candidate_extraction
 status: completed
 executor: cursor
 external_api_called: false
 managed_repos_modified: false
 secrets_read: false
 dashboard_version: v2
-next_round: round_50_skill_playbook_candidate_extraction
+next_round: round_51_project_rule_promotion
 outputs:
-  - config/checkpoint_snapshot_policy.yaml
-  - scripts/snapshot_portfolio_checkpoint.py
-  - scripts/validate_checkpoint_snapshot_policy.py
-  - docs/checkpoint_snapshot_design.md
-  - governance/checkpoints/manifest.yaml
-  - reports/round_49_completion_report.md
+  - config/playbook_extraction_policy.yaml
+  - scripts/extract_playbook_candidates.py
+  - scripts/validate_playbook_extraction_policy.py
+  - governance/playbook_candidates.yaml
+  - docs/playbook_extraction_design.md
+  - reports/round_50_completion_report.md

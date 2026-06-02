@@ -1,6 +1,6 @@
 # Weekly Digest Template
 
-生成时间：2026-06-02 17:43 UTC
+生成时间：2026-06-02 17:44 UTC
 
 ## 本周摘要
 
@@ -39,9 +39,9 @@
 
 ## 当前轮次
 
-- round：`round_49_checkpoint_snapshot`
+- round：`round_50_skill_playbook_candidate_extraction`
 - status：`completed`
-- next：`round_50_skill_playbook_candidate_extraction`
+- next：`round_51_project_rule_promotion`
 
 ## Human 本周笔记
 

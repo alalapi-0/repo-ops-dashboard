@@ -598,6 +598,38 @@ def check_ui_check_policy(state: GateState, root: Path) -> None:
         state.add("ui_check_policy", WARNING, "ui_check_policy valid but console checks not wired in ui_check.py")
 
 
+def check_playbook_extraction_policy(state: GateState, root: Path) -> None:
+    live = root / "config" / "playbook_extraction_policy.yaml"
+    example = root / "governance" / "playbook_extraction_policy.example.yaml"
+    extractor = root / "scripts" / "extract_playbook_candidates.py"
+    validator = root / "scripts" / "validate_playbook_extraction_policy.py"
+    registry = root / "governance" / "playbook_candidates.yaml"
+    if not live.exists() or not validator.exists():
+        state.add("playbook_extraction_policy", BLOCKED, "playbook_extraction_policy.yaml or validator missing")
+        return
+    try:
+        from validate_playbook_extraction_policy import (
+            load_yaml,
+            validate_playbook_extraction_policy,
+        )
+    except ImportError:
+        state.add("playbook_extraction_policy", BLOCKED, "validate_playbook_extraction_policy unavailable")
+        return
+    errors = validate_playbook_extraction_policy(load_yaml(live), live.name)
+    if errors:
+        state.add("playbook_extraction_policy", BLOCKED, f"playbook_extraction_policy invalid: {errors[0]}")
+        return
+    if example.exists() and extractor.exists() and registry.exists():
+        candidates = load_yaml(registry).get("candidates", [])
+        state.add(
+            "playbook_extraction_policy",
+            PASS,
+            f"playbook candidate extraction wired ({len(candidates)} candidate(s), dry-run)",
+        )
+    else:
+        state.add("playbook_extraction_policy", WARNING, "playbook_extraction_policy valid but extractor/registry incomplete")
+
+
 def check_checkpoint_snapshot_policy(state: GateState, root: Path) -> None:
     live = root / "config" / "checkpoint_snapshot_policy.yaml"
     example = root / "governance" / "checkpoint_snapshot_policy.example.yaml"
@@ -983,6 +1015,10 @@ def check_governance_assets(state: GateState, root: Path) -> None:
         "docs/checkpoint_snapshot_design.md",
         "config/checkpoint_snapshot_policy.yaml",
         "governance/checkpoint_snapshot_policy.example.yaml",
+        "governance/playbook_candidates.yaml",
+        "docs/playbook_extraction_design.md",
+        "config/playbook_extraction_policy.yaml",
+        "governance/playbook_extraction_policy.example.yaml",
         "governance/execpolicy/profiles/readonly_managed_repo.rules",
         "governance/execpolicy/profiles/repo_ops_write.rules",
         "governance/execpolicy/profiles/risky_confirm.rules",
@@ -1224,6 +1260,7 @@ def main() -> int:
     check_priority_scoring_policy(state, root)
     check_lifecycle_policy(state, root)
     check_blocker_policy(state, root)
+    check_playbook_extraction_policy(state, root)
     check_checkpoint_snapshot_policy(state, root)
     check_failure_recovery_policy(state, root)
     check_ui_check_policy(state, root)
