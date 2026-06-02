@@ -1,18 +1,18 @@
 # OpenClaw Daily Briefing Skill
 
-生成时间：2026-06-02 17:54 UTC
+生成时间：2026-06-02 17:56 UTC
 
 ## 当前轮次
 
-- round：`round_60_multi_agent_handoff_trial`
+- round：`round_61_portfolio_governance_hardening`
 - status：`completed`
-- next：`round_61_portfolio_governance_hardening`
+- next：`round_62_release_backup_restore`
 
 ## Repo Status 摘要
 
 - 仓库数：5
 - 有卡点：4
-- 扫描时间：2026-06-02T17:54:58.698744+00:00
+- 扫描时间：2026-06-02T17:56:53.028306+00:00
 
 ## 今日最该推进（1–3 仓）
 
@@ -28,11 +28,11 @@
 ## Daily Briefing 摘要
 
 - # Daily Briefing Template (Governance MVP)
-- 生成时间：2026-06-02 17:54 UTC
+- 生成时间：2026-06-02 17:56 UTC
 - ## 当前轮次
-- round：`round_60_multi_agent_handoff_trial`
+- round：`round_61_portfolio_governance_hardening`
 - status：`completed`
-- next：`round_61_portfolio_governance_hardening`
+- next：`round_62_release_backup_restore`
 - ## 今日最该推进（1–3 仓）
 - 1. **repo-ops-dashboard**（Cursor）— 处理扫描 warning 并补齐可选治理文件；卡点：无卡点
 - 2. **novel-continuation-agent**（Human）— 补齐缺失治理文件（AGENTS.md / protocol / README）；卡点：repo_protocol_standard.yaml missing
@@ -44,7 +44,7 @@
 ## Weekly Digest 摘要
 
 - # Weekly Digest Template
-- 生成时间：2026-06-02 17:51 UTC
+- 生成时间：2026-06-02 17:55 UTC
 - ## 本周摘要
 - 扫描仓库：5
 - 活跃项目：14
@@ -55,7 +55,7 @@
 - 活跃：14
 - 阻塞：3
 - review_queue 待决：5
-- … 另有 28 行
+- … 另有 29 行
 
 ## 待 HumanOwner 决策
 
@@ -79,7 +79,7 @@ python3 scripts/generate_daily_briefing.py --input data/repo_status.example.json
 
 ## 短提醒（≤200 字）
 
-Round round_60_multi_agent_handoff_trial：优先 repo-ops-dashboard, novel-continuation-agent。暂缓 2 仓；review_queue 待决 5 项。OpenClaw 只读 digest/repo_status，编程交给 Cursor/Codex。
+Round round_61_portfolio_governance_hardening：优先 repo-ops-dashboard, novel-continuation-agent。暂缓 2 仓；review_queue 待决 5 项。OpenClaw 只读 digest/repo_status，编程交给 Cursor/Codex。
 
 ---
 

@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Round 61 - Portfolio Governance Hardening
+
+- 新增 `audit_governance_hardening.py`（denylist、协议对齐、脚本安全扫描，dry-run 默认）。
+- 新增 governance hardening policy；`refresh_status.sh` 与 `agent_gate` 纳入验收。
+- `reports/round_61_completion_report.md`。
+
 ## Round 60 - Multi-Agent Handoff Trial
 
 - 新增 `run_handoff_trial.py`（OpenClaw 读状态 → Cursor Prompt → proof_of_work 草案，dry-run 默认）。

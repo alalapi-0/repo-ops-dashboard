@@ -1,15 +1,14 @@
-current_round: round_60_multi_agent_handoff_trial
+current_round: round_61_portfolio_governance_hardening
 status: completed
 executor: cursor
 external_api_called: false
 managed_repos_modified: false
 secrets_read: false
 dashboard_version: v2
-next_round: round_61_portfolio_governance_hardening
+next_round: round_62_release_backup_restore
 outputs:
-  - scripts/run_handoff_trial.py
-  - governance/handoffs/handoff_trial_policy.yaml
-  - governance/task_specs/example_handoff_trial_task_spec.yaml
-  - reports/handoff_trial_report.md
-  - reports/handoff_trial_pow_draft.json
-  - reports/round_60_completion_report.md
+  - scripts/audit_governance_hardening.py
+  - config/governance_hardening_policy.yaml
+  - governance/governance_hardening_policy.example.yaml
+  - reports/governance_hardening_audit.md
+  - reports/round_61_completion_report.md

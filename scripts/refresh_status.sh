@@ -121,6 +121,9 @@ echo "[refresh] openclaw orchestration bridge"
 echo "[refresh] handoff trial (dry-run)"
 "$PYTHON" scripts/run_handoff_trial.py --dry-run
 
+echo "[refresh] governance hardening audit (dry-run)"
+"$PYTHON" scripts/audit_governance_hardening.py
+
 echo "[refresh] eval registry (dry-run)"
 "$PYTHON" scripts/run_eval_registry.py --required-only
 

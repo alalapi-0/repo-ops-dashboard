@@ -1,6 +1,6 @@
 # Agent Gate Report
 
-- generated_at: 2026-06-02T17:54:58.569702+00:00
+- generated_at: 2026-06-02T17:56:52.909421+00:00
 - verdict: PASS
 
 ## Findings
@@ -41,6 +41,7 @@
 - [PASS] `openclaw_daily_briefing_skill`: OpenClaw daily briefing skill wired (digest + repo_status)
 - [PASS] `handoff_protocol`: handoff_packet generation and tracking wired
 - [PASS] `handoff_trial`: multi-agent handoff trial wired (dry-run default)
+- [PASS] `governance_hardening`: governance hardening audit wired (dry-run default)
 - [PASS] `protocol_governance_api`: governance round external API ban present in protocol
 - [PASS] `protocol_version`: protocol v0.3.0 portfolio governance positioning present
 - [PASS] `protocol_positioning`: Personal Agent OS positioning present
@@ -57,8 +58,8 @@
 - [PASS] `repo_context_index`: repo_context_index.yaml valid for repo_ops_dashboard (6 key files)
 - [PASS] `eval_registry`: eval registry contains required baseline evals
 - [PASS] `eval_registry_runner`: eval registry runner wired (dry-run default)
-- [PASS] `completion_report`: round_60_completion_report.md exists
+- [PASS] `completion_report`: round_61_completion_report.md exists
 - [PASS] `requirements_dev`: requirements-dev.txt includes playwright and pytest
 - [PASS] `installation_doc`: installation.md covers core refresh commands
 - [PASS] `example_fixtures`: example data fixtures present
-- [PASS] `pytest_tests`: pytest tests present (44 modules)
+- [PASS] `pytest_tests`: pytest tests present (45 modules)

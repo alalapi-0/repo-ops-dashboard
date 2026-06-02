@@ -1,12 +1,12 @@
 schema_version: 0.1.0
-generated_at: '2026-06-02T17:54:59+00:00'
+generated_at: '2026-06-02T17:56:53+00:00'
 role: openclaw_daily_briefing_skill
-current_round: round_60_multi_agent_handoff_trial
+current_round: round_61_portfolio_governance_hardening
 round_status: completed
-next_round: round_61_portfolio_governance_hardening
+next_round: round_62_release_backup_restore
 repo_count: 5
 blocked_repo_count: 4
-status_generated_at: '2026-06-02T17:54:58.698744+00:00'
+status_generated_at: '2026-06-02T17:56:53.028306+00:00'
 top_repo_names:
 - repo-ops-dashboard
 - novel-continuation-agent
@@ -16,8 +16,9 @@ digest_paths:
   daily_briefing: governance/digests/daily/daily_briefing.md
   weekly_digest: governance/digests/weekly/weekly_digest.md
   repo_status: data/repo_status.example.json
-short_reminder: Round round_60_multi_agent_handoff_trial：优先 repo-ops-dashboard, novel-continuation-agent。暂缓
-  2 仓；review_queue 待决 5 项。OpenClaw 只读 digest/repo_status，编程交给 Cursor/Codex。
+short_reminder: Round round_61_portfolio_governance_hardening：优先 repo-ops-dashboard,
+  novel-continuation-agent。暂缓 2 仓；review_queue 待决 5 项。OpenClaw 只读 digest/repo_status，编程交给
+  Cursor/Codex。
 dry_run_only: true
 external_api_called: false
 manifest_role: orchestration_entry

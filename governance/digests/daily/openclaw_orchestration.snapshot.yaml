@@ -1,9 +1,9 @@
 schema_version: 0.1.0
-generated_at: '2026-06-02T17:54:59+00:00'
+generated_at: '2026-06-02T17:56:53+00:00'
 role: orchestration_entry
-current_round: round_60_multi_agent_handoff_trial
+current_round: round_61_portfolio_governance_hardening
 round_status: completed
-next_round: round_61_portfolio_governance_hardening
+next_round: round_62_release_backup_restore
 portfolio_summary:
   total_projects: 17
   active_projects: 14
@@ -26,7 +26,7 @@ top_project_ids:
 - ai_anime_short_factory
 - ai_manga
 - novel_continuation_agent
-short_reminder: Round round_60_multi_agent_handoff_trial：优先 ai-anime-short-factory,
+short_reminder: Round round_61_portfolio_governance_hardening：优先 ai-anime-short-factory,
   ai-manga。暂缓 0 项；review_queue 待决 5 项。OpenClaw 只读编排，编程交给 Cursor/Codex。
 dry_run_only: true
 external_api_called: false

@@ -1,6 +1,6 @@
 # Weekly Digest Template
 
-生成时间：2026-06-02 17:51 UTC
+生成时间：2026-06-02 17:56 UTC
 
 ## 本周摘要
 
@@ -34,14 +34,15 @@
 
 ## 治理任务队列
 
+- **task_handoff_trial_001**（Cursor）— Handoff trial — 验证 OpenClaw 读状态到 Cursor Prompt 到 proof_of_work 草案
 - **task_light_novel_governance_prompt_001**（Cursor）— 为 light_novel 仓库生成 README/docs/CHANGELOG 同步治理 Prompt
 - **task_repo_ops_test_fix_001**（Codex）— 修复 repo-ops-dashboard 示例测试与 gate 报告
 
 ## 当前轮次
 
-- round：`round_56_feishu_lark_notification_mvp`
+- round：`round_61_portfolio_governance_hardening`
 - status：`completed`
-- next：`round_57_mac_local_notification`
+- next：`round_62_release_backup_restore`
 
 ## Human 本周笔记
 
@@ -52,7 +53,7 @@
 
 ## 短提醒（≤200 字）
 
-本周关注：repo-ops-dashboard, novel-continuation-agent。review_queue 待决 5 项；活跃治理任务 2 项。HumanOwner 优先处理 HITL 决策。
+本周关注：repo-ops-dashboard, novel-continuation-agent。review_queue 待决 5 项；活跃治理任务 3 项。HumanOwner 优先处理 HITL 决策。
 
 ---
 

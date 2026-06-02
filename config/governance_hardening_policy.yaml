@@ -1,0 +1,28 @@
+schema_version: 0.1.0
+policy_version: v1
+description: Portfolio governance hardening audit (security, docs consistency, dry-run default).
+
+audit:
+  denylist_config: config/managed_files.yaml
+  protocol_doc: repo_protocol_standard.yaml
+  agents_doc: AGENTS.md
+  required_round_docs:
+    - docs/rounds/round_61_portfolio_governance_hardening.md
+    - docs/rounds/round_62_release_backup_restore.md
+    - docs/rounds/round_63_personal_agent_os_long_term_integration.md
+
+security:
+  forbidden_script_patterns:
+    - "open('.env'"
+    - 'open(".env"'
+    - "load_dotenv()"
+  allowed_env_sources:
+    - scripts/refresh_status.sh
+
+defaults:
+  dry_run: true
+  external_api_allowed: false
+  managed_repos_write_allowed: false
+
+outputs:
+  report: reports/governance_hardening_audit.md

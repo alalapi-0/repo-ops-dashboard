@@ -584,6 +584,20 @@ def check_handoff_trial(state: GateState, root: Path) -> None:
         state.add("handoff_trial", WARNING, "handoff trial incomplete")
 
 
+def check_governance_hardening(state: GateState, root: Path) -> None:
+    script = root / "scripts" / "audit_governance_hardening.py"
+    policy = root / "config" / "governance_hardening_policy.yaml"
+    example = root / "governance" / "governance_hardening_policy.example.yaml"
+    if not script.exists() or not policy.exists():
+        state.add("governance_hardening", WARNING, "governance hardening audit script/policy missing")
+        return
+    text = script.read_text(encoding="utf-8")
+    if "--write" in text and "denylist" in text and example.exists():
+        state.add("governance_hardening", PASS, "governance hardening audit wired (dry-run default)")
+    else:
+        state.add("governance_hardening", WARNING, "governance hardening audit incomplete")
+
+
 def check_codex_task_spec_prompt(state: GateState, root: Path) -> None:
     script = root / "scripts" / "generate_codex_prompt_from_task_spec.py"
     template = root / "prompts" / "codex_from_task_spec.md"
@@ -1572,6 +1586,7 @@ def main() -> int:
     check_openclaw_daily_briefing_skill(state, root)
     check_handoff_protocol(state, root)
     check_handoff_trial(state, root)
+    check_governance_hardening(state, root)
     check_protocol_governance_api_ban(state, root)
     check_protocol_version(state, root)
     check_governance_assets(state, root)
