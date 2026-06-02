@@ -27,7 +27,7 @@
 - `runs/example_run.jsonl`：示例审计轨迹。
 - `review_queue.yaml`：人工决策队列（`scripts/read_review_queue.py` 读取；`add_review_queue_item.py` 追加；`close_review_queue_item.py` 仅 HumanOwner 关闭）。
 - `review_queue.example.yaml`：review_queue 字段示例。
-- `execpolicy/`：文档级执行边界。
+- `execpolicy/`：文档级执行边界（`scripts/read_execpolicy.py` 读取；`check_execpolicy_action.py` dry-run 分类）。
 - `evals/registry.yaml`：验收 gate 注册表。
 - `playbooks/`：可复用流程候选。
 - `skills/`：可沉淀为 Agent Skill 的候选说明。

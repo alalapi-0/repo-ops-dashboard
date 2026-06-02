@@ -1,17 +1,16 @@
-current_round: round_31_review_queue_mvp
+current_round: round_32_execpolicy_checker
 status: completed
 executor: cursor
 external_api_called: false
 managed_repos_modified: false
 secrets_read: false
-review_queue_mvp_implemented: true
-review_queue_open_count: 5
-next_round: round_32_execpolicy_checker
+execpolicy_checker_implemented: true
+execpolicy_portfolio_rules: 9
+execpolicy_profiles: 3
+next_round: round_33_repo_context_index_mvp
 outputs:
-  - governance/review_queue.example.yaml
-  - scripts/validate_review_queue.py
-  - scripts/read_review_queue.py
-  - scripts/add_review_queue_item.py
-  - scripts/close_review_queue_item.py
-  - reports/round_31_completion_report.md
-  - tests/test_review_queue.py
+  - scripts/validate_execpolicy.py
+  - scripts/read_execpolicy.py
+  - scripts/check_execpolicy_action.py
+  - reports/round_32_completion_report.md
+  - tests/test_execpolicy.py

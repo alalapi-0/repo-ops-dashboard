@@ -215,3 +215,9 @@
 - 产出：`governance/review_queue.example.yaml`、`scripts/validate_review_queue.py`、`scripts/read_review_queue.py`
 - 下一轮：`round_32_execpolicy_checker`
 
+## Round 32 - Execpolicy Checker
+
+- 状态：completed
+- 产出：`scripts/validate_execpolicy.py`、`scripts/read_execpolicy.py`、`scripts/check_execpolicy_action.py`
+- 下一轮：`round_33_repo_context_index_mvp`
+

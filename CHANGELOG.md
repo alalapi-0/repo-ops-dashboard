@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Round 32 - Execpolicy Checker
+
+- 新增 `scripts/validate_execpolicy.py`、`read_execpolicy.py`、`check_execpolicy_action.py`。
+- `agent_gate` 与 eval registry 增加 execpolicy 验收。
+- 新增 `tests/test_execpolicy.py` 与 `reports/round_32_completion_report.md`。
+
 ## Round 31 - Review Queue MVP
 
 - 新增 `scripts/validate_review_queue.py`、`read_review_queue.py`、`add_review_queue_item.py`、`close_review_queue_item.py` 与 `review_queue.example.yaml`。

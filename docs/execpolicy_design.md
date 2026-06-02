@@ -10,7 +10,10 @@
 
 ## 后续脚本化
 
-- `agent_gate.py` 应检查风险操作的静态迹象。
+- `scripts/validate_execpolicy.py`：解析并校验 `.rules` 语法与 portfolio 必选约束。
+- `scripts/read_execpolicy.py`：读取规则摘要；`--all` 校验整个 `governance/execpolicy/`。
+- `scripts/check_execpolicy_action.py`：对路径或命令做 dry-run 分类（allow/deny/prompt/unknown）。
+- `agent_gate.py` 的 `execpolicy` 检查调用上述校验。
 - 高风险命令必须进入 `review_queue`。
 - 可逐步引入结构化 YAML 规则，替代当前伪规则文本。
 

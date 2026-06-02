@@ -249,7 +249,7 @@ eval_registry:
 - 示例：见 `governance/execpolicy/profiles/*.rules` 或下方片段。
 - 是否机器权威：是
 - 对应文件路径：`governance/execpolicy/profiles/*.rules`
-- 后续实现轮次：Round 32
+- 后续实现轮次：Round 32（已实现 `scripts/validate_execpolicy.py`）
 
 ```yaml
 execpolicy_profile:

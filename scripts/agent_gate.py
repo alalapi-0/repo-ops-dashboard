@@ -408,6 +408,30 @@ def check_project_registry(state: GateState, root: Path) -> None:
         )
 
 
+def check_execpolicy(state: GateState, root: Path) -> None:
+    execpolicy_dir = root / "governance" / "execpolicy"
+    if not execpolicy_dir.is_dir():
+        state.add("execpolicy", BLOCKED, "governance/execpolicy/ missing")
+        return
+    try:
+        from validate_execpolicy import summarize_execpolicy, validate_execpolicy_dir
+        from validate_execpolicy import read_execpolicy_file as load_execpolicy_file
+    except ImportError:
+        state.add("execpolicy", BLOCKED, "validate_execpolicy module unavailable")
+        return
+    errors = validate_execpolicy_dir(execpolicy_dir)
+    if errors:
+        state.add("execpolicy", BLOCKED, f"execpolicy invalid: {errors[0]}")
+        return
+    rules, _ = load_execpolicy_file(execpolicy_dir / "portfolio.rules")
+    summary = summarize_execpolicy(rules)
+    state.add(
+        "execpolicy",
+        PASS,
+        f"execpolicy rules valid ({summary['total_rules']} portfolio rules, 3 profiles)",
+    )
+
+
 def check_review_queue(state: GateState, root: Path) -> None:
     path = root / "governance" / "review_queue.yaml"
     example = root / "governance" / "review_queue.example.yaml"
@@ -766,6 +790,7 @@ def main() -> int:
     check_proof_of_work_registry(state, root)
     check_agent_run_example(state, root)
     check_review_queue(state, root)
+    check_execpolicy(state, root)
     check_eval_registry(state, root)
     check_completion_report(state, root)
     check_requirements_dev_playwright(state, root)
