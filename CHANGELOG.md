@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Round 42 - Prompt Generator for Codex
+
+- 新增 `generate_codex_prompt_from_task_spec.py`、`codex_from_task_spec.md` 与 `example_codex_task_spec.yaml`。
+- `refresh_status.sh` 与 `tests/test_generate_codex_prompt_from_task_spec.py`。
+- `reports/round_42_completion_report.md`。
+
 ## Round 41 - Prompt Generator for Cursor
 
 - 新增 `generate_cursor_prompt_from_task_spec.py` 与 `prompts/cursor_from_task_spec.md`。

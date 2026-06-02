@@ -275,3 +275,9 @@
 - 产出：`generate_cursor_prompt_from_task_spec.py`、`cursor_from_task_spec.md` 模板
 - 下一轮：`round_42_prompt_generator_for_codex`
 
+## Round 42 - Prompt Generator for Codex
+
+- 状态：completed
+- 产出：`generate_codex_prompt_from_task_spec.py`、`example_codex_task_spec.yaml`
+- 下一轮：`round_43_openclaw_orchestration_bridge`
+

@@ -129,6 +129,11 @@ echo "[refresh] cursor task_spec prompt"
   --task-spec governance/task_specs/example_task_spec.yaml \
   --dry-run
 
+echo "[refresh] codex task_spec prompt"
+"$PYTHON" scripts/generate_codex_prompt_from_task_spec.py \
+  --task-spec governance/task_specs/example_codex_task_spec.yaml \
+  --dry-run
+
 echo "[refresh] dashboard"
 "$PYTHON" scripts/generate_dashboard.py \
   --input "$STATUS" \

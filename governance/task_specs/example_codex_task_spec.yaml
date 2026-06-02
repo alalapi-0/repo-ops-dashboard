@@ -1,0 +1,35 @@
+task_id: task_repo_ops_test_fix_001
+project_id: repo_ops_dashboard
+title: 修复 repo-ops-dashboard 示例测试与 gate 报告
+description: 基于 task_spec 对治理层脚本做边界清楚的测试修复，不触碰被管理业务仓库。
+status: proposed
+priority: medium
+task_type: test_fix
+working_directory: /Users/alalapi/PycharmProjects/repo-ops-dashboard
+reference_paths:
+  - AGENTS.md
+  - scripts/agent_gate.py
+  - tests/
+scope:
+  - 运行 pytest 与 agent_gate，定位失败项。
+  - 最小 diff 修复测试或脚本。
+out_of_scope:
+  - 修改被管理业务仓库。
+  - 读取 .env 或密钥。
+assigned_agent: Codex
+playbook_id: repo_ops.batch_test_fix
+confirmation_policy: human_review_before_execution
+execpolicy_profile: portfolio_safe
+depends_on: []
+acceptance_criteria:
+  - pytest 与 agent_gate 均 PASS。
+  - diff 不含密钥或无关大文件。
+artifacts_expected:
+  - reports/round_42_completion_report.md
+validation_commands:
+  - python3 scripts/agent_gate.py
+  - .venv/bin/python -m pytest -q
+blockers: []
+created_at: '2026-06-02T00:00:00Z'
+updated_at: '2026-06-02T00:00:00Z'
+notes: 示例 Codex 任务，工作目录为本治理仓。

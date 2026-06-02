@@ -1,7 +1,7 @@
 # Agent Gate Report
 
-- generated_at: 2026-06-02T17:31:17.210517+00:00
-- verdict: PASS
+- generated_at: 2026-06-02T17:33:09.320660+00:00
+- verdict: WARNING
 
 ## Findings
 - [PASS] `denylist`: denylist configured
@@ -23,13 +23,15 @@
 - [PASS] `lifecycle_policy`: lifecycle_policy v1 valid (8 states)
 - [PASS] `blocker_policy`: blocker_policy v1 valid (3 types, 4 escalation levels)
 - [PASS] `ui_check_policy`: ui_check_policy v1 valid (10 required checks)
+- [PASS] `cursor_task_spec_prompt`: Cursor task_spec prompt generator wired
+- [PASS] `codex_task_spec_prompt`: Codex task_spec prompt generator wired
 - [PASS] `protocol_governance_api`: governance round external API ban present in protocol
 - [PASS] `protocol_version`: protocol v0.3.0 portfolio governance positioning present
 - [PASS] `protocol_positioning`: Personal Agent OS positioning present
 - [PASS] `governance_assets`: governance assets and design docs exist
 - [PASS] `project_registry`: project_registry.yaml has 17 projects aligned with repos.yaml
 - [PASS] `portfolio_state`: portfolio_state.yaml snapshot covers 17 projects
-- [PASS] `governance_task_queue`: governance_task_queue.yaml lists 1 task(s)
+- [WARNING] `governance_task_queue`: queue has 1 tasks but 2 task_spec file(s)
 - [PASS] `task_spec_template`: task_spec template contains required fields
 - [PASS] `proof_of_work_template`: proof_of_work template contains required fields
 - [PASS] `proof_of_work_registry`: proof_of_work_registry.yaml lists 1 record(s)
@@ -38,8 +40,8 @@
 - [PASS] `execpolicy`: execpolicy rules valid (11 portfolio rules, 3 profiles)
 - [PASS] `repo_context_index`: repo_context_index.yaml valid for repo_ops_dashboard (6 key files)
 - [PASS] `eval_registry`: eval registry contains required baseline evals
-- [PASS] `completion_report`: round_40_completion_report.md exists
+- [PASS] `completion_report`: round_42_completion_report.md exists
 - [PASS] `requirements_dev`: requirements-dev.txt includes playwright and pytest
 - [PASS] `installation_doc`: installation.md covers core refresh commands
 - [PASS] `example_fixtures`: example data fixtures present
-- [PASS] `pytest_tests`: pytest tests present (25 modules)
+- [PASS] `pytest_tests`: pytest tests present (27 modules)
