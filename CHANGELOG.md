@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Round 52 - Cross-Repo Protocol Sync Suggestion
+
+- 新增 `protocol_sync_policy.yaml` 与机器可读 `governance/protocol_sync_suggestions.yaml`。
+- 增强 `protocol_sync_report.py`（YAML 输出、优先级规则）；`agent_gate` 纳入协议同步验收。
+- `reports/round_52_completion_report.md`。
+
 ## Round 51 - Project Rule Promotion
 
 - 新增 `project_rule_promotion_policy.yaml` 与 `promote_project_rule.py`（默认不自动合并 review_queue）。

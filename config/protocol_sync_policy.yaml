@@ -1,0 +1,31 @@
+schema_version: 0.1.0
+policy_version: v1
+description: Cross-repo protocol sync suggestions (read-only, no managed repo writes).
+
+sources:
+  snapshots: data/repo_snapshots.example.json
+  reference_protocol: repo_protocol_standard.yaml
+  prompt_template: prompts/protocol_sync_cursor.md
+  prompt_dir: prompts/generated
+  markdown_report: reports/protocol_sync_suggestions.md
+  yaml_output: governance/protocol_sync_suggestions.yaml
+
+governance_files:
+  - README.md
+  - AGENTS.md
+  - repo_protocol_standard.yaml
+  - CHANGELOG.md
+  - docs/index.md
+
+priority_rules:
+  high_missing:
+    - AGENTS.md
+    - repo_protocol_standard.yaml
+  skip_statuses:
+    - missing
+    - empty
+    - archived
+
+defaults:
+  dry_run: true
+  write_prompts: false

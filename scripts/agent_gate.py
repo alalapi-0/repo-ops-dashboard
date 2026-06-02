@@ -598,6 +598,40 @@ def check_ui_check_policy(state: GateState, root: Path) -> None:
         state.add("ui_check_policy", WARNING, "ui_check_policy valid but console checks not wired in ui_check.py")
 
 
+def check_protocol_sync_policy(state: GateState, root: Path) -> None:
+    live = root / "config" / "protocol_sync_policy.yaml"
+    example = root / "governance" / "protocol_sync_policy.example.yaml"
+    reporter = root / "scripts" / "protocol_sync_report.py"
+    validator = root / "scripts" / "validate_protocol_sync_policy.py"
+    yaml_out = root / "governance" / "protocol_sync_suggestions.yaml"
+    if not live.exists() or not validator.exists():
+        state.add("protocol_sync_policy", BLOCKED, "protocol_sync_policy.yaml or validator missing")
+        return
+    try:
+        from validate_protocol_sync_policy import load_yaml, validate_protocol_sync_policy
+    except ImportError:
+        state.add("protocol_sync_policy", BLOCKED, "validate_protocol_sync_policy unavailable")
+        return
+    errors = validate_protocol_sync_policy(load_yaml(live), live.name)
+    if errors:
+        state.add("protocol_sync_policy", BLOCKED, f"protocol_sync_policy invalid: {errors[0]}")
+        return
+    if example.exists() and reporter.exists() and yaml_out.exists():
+        suggestions = load_yaml(yaml_out).get("suggestions", [])
+        need_sync = sum(1 for s in suggestions if s.get("action") == "sync_suggested")
+        state.add(
+            "protocol_sync_policy",
+            PASS,
+            f"protocol sync suggestions wired ({need_sync} repo(s) need sync, read-only)",
+        )
+    else:
+        state.add(
+            "protocol_sync_policy",
+            WARNING,
+            "protocol_sync_policy valid but reporter/yaml output incomplete",
+        )
+
+
 def check_project_rule_promotion_policy(state: GateState, root: Path) -> None:
     live = root / "config" / "project_rule_promotion_policy.yaml"
     example = root / "governance" / "project_rule_promotion_policy.example.yaml"
@@ -1059,6 +1093,10 @@ def check_governance_assets(state: GateState, root: Path) -> None:
         "docs/project_rule_promotion_design.md",
         "config/project_rule_promotion_policy.yaml",
         "governance/project_rule_promotion_policy.example.yaml",
+        "config/protocol_sync_policy.yaml",
+        "governance/protocol_sync_policy.example.yaml",
+        "governance/protocol_sync_suggestions.yaml",
+        "docs/protocol_sync_design.md",
         "governance/execpolicy/profiles/readonly_managed_repo.rules",
         "governance/execpolicy/profiles/repo_ops_write.rules",
         "governance/execpolicy/profiles/risky_confirm.rules",
@@ -1300,6 +1338,7 @@ def main() -> int:
     check_priority_scoring_policy(state, root)
     check_lifecycle_policy(state, root)
     check_blocker_policy(state, root)
+    check_protocol_sync_policy(state, root)
     check_project_rule_promotion_policy(state, root)
     check_playbook_extraction_policy(state, root)
     check_checkpoint_snapshot_policy(state, root)
