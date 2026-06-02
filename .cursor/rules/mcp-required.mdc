@@ -1,0 +1,15 @@
+---
+description: "Workspace MCP Servers 必选清单与安全检查要求"
+alwaysApply: true
+---
+
+# MCP Required
+
+1. 当前仓库默认需要以下 **Workspace MCP Servers**：`chrome-devtools`、`context7`、`filesystem`、`github`、`playwright`（配置见 `.cursor/mcp.json`）。
+2. Agent **开始自动推进前**必须检查 MCP 配置：运行 `node scripts/check_mcp_config.js` 或 `npm run check:mcp`，并在 Cursor **Tools & MCP** 确认 server 已连接。
+3. **UI / 浏览器任务**（Dashboard、审核台、预览、发布流程）必须使用 **chrome-devtools** 或 **playwright** 做真实浏览器检查；不得仅凭静态 HTML 或代码 diff 宣布完成。
+4. 文档与依赖不确定时，优先用 **context7** 查询第三方库/框架文档。
+5. **filesystem** 读写必须限制在当前项目目录；禁止授权 `/`、`~`、用户主目录、磁盘根路径或 `/Volumes`。
+6. **GitHub** 操作前必须检查 `git status` 和 `git diff`；有 token 可用 GitHub MCP，否则降级为 `git` / `gh` CLI。
+7. **提交前**必须确认 diff 中无 token、API Key、cookie、`.env` 或无关大文件。
+8. MCP 不可用时，在 completion report 中**记录原因**，尝试 Node/npx 与重启 Cursor；**不要**无意义反复安装同一包。

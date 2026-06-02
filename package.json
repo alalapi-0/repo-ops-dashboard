@@ -1,0 +1,8 @@
+{
+  "name": "repo-ops-dashboard",
+  "private": true,
+  "description": "Personal Agent OS / Portfolio Orchestrator — MCP config checks",
+  "scripts": {
+    "check:mcp": "node scripts/check_mcp_config.js"
+  }
+}

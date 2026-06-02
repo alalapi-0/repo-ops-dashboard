@@ -115,9 +115,26 @@
 - Playwright 失败不能影响核心扫描脚本，但必须写入报告
 - 未安装 Playwright 时，`ui_check.py` 应给出清晰安装提示并优雅退出
 
-## 8) 验证命令
+## 8) MCP Tools
+
+当前项目要求启用以下 **Workspace MCP Servers**（见 `.cursor/mcp.json`）：
+
+- **chrome-devtools**：浏览器调试、console、network、页面状态检查。
+- **context7**：查询第三方库和框架文档。
+- **filesystem**：安全读取和检查当前项目文件（仅授权工作区根目录）。
+- **github**：仓库、提交、分支、issue、PR 等相关操作（token 通过环境变量，勿写入仓库）。
+- **playwright**：浏览器自动化、页面操作、E2E 检查。
+
+**自动推进轮开始前**，Agent 必须确认上述 MCP 已加载（`npm run check:mcp` 或 `node scripts/check_mcp_config.js`）。若某个 MCP 不可用，须记录原因并使用可用替代方案继续推进（见 `docs/agent_skills/mcp_usage_skill.md`）。
+
+涉及页面、审核台、生成结果、预览、发布流程的任务，**必须**使用 chrome-devtools 或 playwright 进行真实浏览器检查。
+
+修改 `.cursor/mcp.json` 后需**完全退出并重启 Cursor** 才能在 Tools & MCP 面板生效。
+
+## 9) 验证命令
 
 ```bash
+npm run check:mcp
 python3 scripts/agent_gate.py
 python3 scripts/scan_repos.py --config config/repos.example.yaml --dry-run
 python3 scripts/analyze_repos.py --input data/repo_snapshots.example.json --output data/repo_status.example.json

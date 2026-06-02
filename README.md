@@ -68,6 +68,28 @@ python3 scripts/ui_check.py --file dashboard/index.html --screenshot reports/ui_
 - 示例登记：`governance/project_registry.example.yaml`。
 - 长期路线：`docs/roadmap_40_rounds.md`。
 
+## Workspace MCP Servers
+
+本项目在 Cursor 中需要启用以下 **Workspace MCP Servers**（声明于 `.cursor/mcp.json`）：
+
+| Server | 用途 |
+|--------|------|
+| **chrome-devtools** | 浏览器调试、console、network、页面状态 |
+| **context7** | 第三方库/框架文档查询 |
+| **filesystem** | 当前项目目录内文件读写与检查 |
+| **github** | 仓库、分支、issue、PR 等 GitHub 操作 |
+| **playwright** | 浏览器自动化与 E2E 验收 |
+
+说明：
+
+1. `.cursor/mcp.json` 是本项目的 Workspace MCP 配置；合并已有 server 时勿覆盖无关项。
+2. Cursor 可能需要**完全退出并重启**（或重新加载窗口）后才能识别新配置。
+3. **GitHub MCP** 需通过环境变量提供 token（如 `GITHUB_TOKEN` → `${env:GITHUB_TOKEN}`），**不允许**写进仓库。
+4. **filesystem MCP** 仅授权当前项目目录（配置为 `"."`，相对工作区根）。
+5. 运行 `npm run check:mcp`（或 `node scripts/check_mcp_config.js`）做静态配置检查。
+
+详见 `docs/agent_skills/mcp_usage_skill.md` 与 `AGENTS.md` MCP Tools 章节。
+
 ## 安全边界
 
 本项目默认只读取被管理仓库 allowlist 管理文件。任何冻结、归档、删除、预算、发布、协议修改、skill/playbook 推广都必须由 HumanOwner 在 review_queue 中确认。
