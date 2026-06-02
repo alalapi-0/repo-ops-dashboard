@@ -598,6 +598,40 @@ def check_ui_check_policy(state: GateState, root: Path) -> None:
         state.add("ui_check_policy", WARNING, "ui_check_policy valid but console checks not wired in ui_check.py")
 
 
+def check_budget_tracking_policy(state: GateState, root: Path) -> None:
+    live = root / "config" / "budget_tracking_policy.yaml"
+    example = root / "governance" / "budget_tracking_policy.example.yaml"
+    tracker = root / "scripts" / "track_budget_cost.py"
+    validator = root / "scripts" / "validate_budget_tracking_policy.py"
+    output = root / "governance" / "budget_cost_tracking.yaml"
+    if not live.exists() or not validator.exists():
+        state.add("budget_tracking_policy", BLOCKED, "budget_tracking_policy.yaml or validator missing")
+        return
+    try:
+        from validate_budget_tracking_policy import load_yaml, validate_budget_tracking_policy
+    except ImportError:
+        state.add("budget_tracking_policy", BLOCKED, "validate_budget_tracking_policy unavailable")
+        return
+    errors = validate_budget_tracking_policy(load_yaml(live), live.name)
+    if errors:
+        state.add("budget_tracking_policy", BLOCKED, f"budget_tracking_policy invalid: {errors[0]}")
+        return
+    if example.exists() and tracker.exists() and output.exists():
+        summary = load_yaml(output).get("summary", {})
+        warnings = summary.get("projects_with_warning", 0)
+        state.add(
+            "budget_tracking_policy",
+            PASS,
+            f"budget cost tracking wired (mock estimates, {warnings} warning(s))",
+        )
+    else:
+        state.add(
+            "budget_tracking_policy",
+            WARNING,
+            "budget_tracking_policy valid but tracker/output incomplete",
+        )
+
+
 def check_protocol_sync_policy(state: GateState, root: Path) -> None:
     live = root / "config" / "protocol_sync_policy.yaml"
     example = root / "governance" / "protocol_sync_policy.example.yaml"
@@ -1097,6 +1131,10 @@ def check_governance_assets(state: GateState, root: Path) -> None:
         "governance/protocol_sync_policy.example.yaml",
         "governance/protocol_sync_suggestions.yaml",
         "docs/protocol_sync_design.md",
+        "config/budget_tracking_policy.yaml",
+        "governance/budget_tracking_policy.example.yaml",
+        "governance/budget_cost_tracking.yaml",
+        "docs/budget_cost_tracking_design.md",
         "governance/execpolicy/profiles/readonly_managed_repo.rules",
         "governance/execpolicy/profiles/repo_ops_write.rules",
         "governance/execpolicy/profiles/risky_confirm.rules",
@@ -1338,6 +1376,7 @@ def main() -> int:
     check_priority_scoring_policy(state, root)
     check_lifecycle_policy(state, root)
     check_blocker_policy(state, root)
+    check_budget_tracking_policy(state, root)
     check_protocol_sync_policy(state, root)
     check_project_rule_promotion_policy(state, root)
     check_playbook_extraction_policy(state, root)

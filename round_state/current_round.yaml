@@ -1,14 +1,15 @@
-current_round: round_52_cross_repo_protocol_sync_suggestion
+current_round: round_53_budget_cost_tracking
 status: completed
 executor: cursor
 external_api_called: false
 managed_repos_modified: false
 secrets_read: false
 dashboard_version: v2
-next_round: round_53_budget_cost_tracking
+next_round: round_54_wip_limit_scheduling
 outputs:
-  - config/protocol_sync_policy.yaml
-  - scripts/validate_protocol_sync_policy.py
-  - governance/protocol_sync_suggestions.yaml
-  - docs/protocol_sync_design.md
-  - reports/round_52_completion_report.md
+  - config/budget_tracking_policy.yaml
+  - scripts/track_budget_cost.py
+  - scripts/validate_budget_tracking_policy.py
+  - governance/budget_cost_tracking.yaml
+  - docs/budget_cost_tracking_design.md
+  - reports/round_53_completion_report.md

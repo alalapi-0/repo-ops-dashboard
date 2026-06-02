@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-02T17:46:33.632755+00:00",
+  "generated_at": "2026-06-02T17:47:16.135503+00:00",
   "analyzer_version": "v2",
   "analyzer_policy": "config/analyzer_policy.yaml",
   "priority_scoring_policy": "config/priority_scoring_policy.yaml",
@@ -270,9 +270,9 @@
       "registry_matched": true,
       "registry_lifecycle": "bootstrap",
       "governance_level": "write_allowed",
-      "round_current": "round_52_cross_repo_protocol_sync_suggestion",
+      "round_current": "round_53_budget_cost_tracking",
       "round_status": "completed",
-      "round_next": "round_53_budget_cost_tracking",
+      "round_next": "round_54_wip_limit_scheduling",
       "current_stage": "round_00_bootstrap",
       "health_score": 88,
       "health_dimensions": {

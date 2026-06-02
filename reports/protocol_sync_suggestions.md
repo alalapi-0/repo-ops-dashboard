@@ -1,6 +1,6 @@
 # Protocol Sync Suggestions
 
-- generated_at: 2026-06-02T17:46:33.787180+00:00
+- generated_at: 2026-06-02T17:47:16.325055+00:00
 - reference_protocol_version: 0.3.0
 - **只读建议**：不在此脚本中写入任何被管理仓库。
 

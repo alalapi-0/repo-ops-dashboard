@@ -1,6 +1,6 @@
 # Playbook Candidate Extraction
 
-- generated_at: 2026-06-02 17:46 UTC
+- generated_at: 2026-06-02 17:47 UTC
 - candidate_count: 1
 - mode: dry-run
 

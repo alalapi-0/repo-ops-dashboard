@@ -86,6 +86,9 @@ echo "[refresh] reports"
 echo "[refresh] protocol sync suggestions"
 "$PYTHON" scripts/protocol_sync_report.py --input "$SNAPSHOTS" --no-dry-run
 
+echo "[refresh] budget cost tracking"
+"$PYTHON" scripts/track_budget_cost.py --write
+
 echo "[refresh] sync portfolio state"
 "$PYTHON" scripts/sync_portfolio_state.py --status "$STATUS"
 

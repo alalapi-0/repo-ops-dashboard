@@ -1,0 +1,28 @@
+schema_version: 0.1.0
+policy_version: v1
+description: Per-project budget and model/API cost estimates (mock when no billing API keys).
+
+sources:
+  project_registry: governance/project_registry.yaml
+  portfolio_state: governance/portfolio_state.yaml
+  output: governance/budget_cost_tracking.yaml
+  report: reports/budget_cost_tracking.md
+
+# Placeholder USD rates per estimated agent run (no external API)
+mock_rates:
+  currency: USD
+  per_agent_run:
+    Cursor: 0.50
+    Codex: 0.80
+    OpenClaw: 0.10
+    Human: 0.00
+  monthly_budget_default_usd: 100.00
+
+estimation:
+  runs_per_active_project: 4
+  warning_threshold_pct: 80
+  data_source: mock_placeholder
+
+defaults:
+  dry_run: true
+  allow_external_billing_api: false

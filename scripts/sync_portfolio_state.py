@@ -97,7 +97,7 @@ def build_project_state(registry_project: dict[str, Any], repo_row: dict[str, An
     return state
 
 
-def build_summary(projects: list[dict[str, Any]], review_open: int) -> dict[str, Any]:
+def build_summary(projects: list[dict[str, Any]], review_open: int, *, budget_warning: bool = False) -> dict[str, Any]:
     active = sum(
         1
         for p in projects
@@ -111,8 +111,17 @@ def build_summary(projects: list[dict[str, Any]], review_open: int) -> dict[str,
         "blocked_projects": blocked,
         "review_queue_open": review_open,
         "current_wip": wip,
-        "budget_warning": False,
+        "budget_warning": budget_warning,
     }
+
+
+def budget_warning_from_tracking(root: Path) -> bool:
+    path = root / "governance" / "budget_cost_tracking.yaml"
+    if not path.exists():
+        return False
+    data = load_yaml(path)
+    summary = data.get("summary", {})
+    return bool(summary.get("portfolio_budget_warning"))
 
 
 def parse_args() -> argparse.Namespace:
@@ -144,12 +153,13 @@ def main() -> int:
         for entry in registry.get("projects", [])
     ]
     review_open = count_open_reviews(root)
+    budget_warn = budget_warning_from_tracking(root)
     payload = {
         "schema_version": "0.1.0",
         "generated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
         "status_source": str(status_path.as_posix()),
         "registry_source": str(registry_path.as_posix()),
-        "summary": build_summary(projects, review_open),
+        "summary": build_summary(projects, review_open, budget_warning=budget_warn),
         "projects": projects,
     }
 

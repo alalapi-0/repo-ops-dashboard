@@ -1,6 +1,6 @@
 # Weekly Digest Template
 
-生成时间：2026-06-02 17:46 UTC
+生成时间：2026-06-02 17:47 UTC
 
 ## 本周摘要
 
@@ -39,9 +39,9 @@
 
 ## 当前轮次
 
-- round：`round_52_cross_repo_protocol_sync_suggestion`
+- round：`round_53_budget_cost_tracking`
 - status：`completed`
-- next：`round_53_budget_cost_tracking`
+- next：`round_54_wip_limit_scheduling`
 
 ## Human 本周笔记
 

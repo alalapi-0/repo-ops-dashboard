@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Round 53 - Budget & Cost Tracking
+
+- 新增 `budget_tracking_policy.yaml` 与 `track_budget_cost.py`（mock 占位估算，无 billing API）。
+- 生成 `governance/budget_cost_tracking.yaml`；`portfolio_state.summary.budget_warning` 联动。
+- `refresh_status.sh` 与 `agent_gate` 纳入预算追踪验收；`reports/round_53_completion_report.md`。
+
 ## Round 52 - Cross-Repo Protocol Sync Suggestion
 
 - 新增 `protocol_sync_policy.yaml` 与机器可读 `governance/protocol_sync_suggestions.yaml`。
