@@ -1,0 +1,26 @@
+schema_version: 0.1.0
+policy_version: v1
+description: Limit in_progress tasks across portfolio to prevent multi-project overload.
+
+sources:
+  governance_task_queue: governance/governance_task_queue.yaml
+  portfolio_state: governance/portfolio_state.yaml
+  output: governance/wip_limit_status.yaml
+  report: reports/wip_limit_scheduling.md
+
+limits:
+  max_concurrent_in_progress: 2
+  max_concurrent_per_project: 1
+  count_statuses:
+    - in_progress
+    - active
+
+scheduling:
+  defer_action: suggest_defer_lowest_priority
+  priority_order:
+    - high
+    - medium
+    - low
+
+defaults:
+  dry_run: true

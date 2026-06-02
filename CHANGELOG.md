@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Round 54 - WIP Limit & Scheduling
+
+- 新增 `wip_limit_policy.yaml` 与 `check_wip_limit.py`（只读 defer 建议，不自动改 task queue）。
+- 生成 `governance/wip_limit_status.yaml`；`refresh_status.sh` 与 `agent_gate` 纳入 WIP 验收。
+- `reports/round_54_completion_report.md`。
+
 ## Round 53 - Budget & Cost Tracking
 
 - 新增 `budget_tracking_policy.yaml` 与 `track_budget_cost.py`（mock 占位估算，无 billing API）。

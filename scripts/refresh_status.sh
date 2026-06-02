@@ -89,6 +89,9 @@ echo "[refresh] protocol sync suggestions"
 echo "[refresh] budget cost tracking"
 "$PYTHON" scripts/track_budget_cost.py --write
 
+echo "[refresh] wip limit scheduling"
+"$PYTHON" scripts/check_wip_limit.py --write
+
 echo "[refresh] sync portfolio state"
 "$PYTHON" scripts/sync_portfolio_state.py --status "$STATUS"
 

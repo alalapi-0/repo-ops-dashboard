@@ -598,6 +598,39 @@ def check_ui_check_policy(state: GateState, root: Path) -> None:
         state.add("ui_check_policy", WARNING, "ui_check_policy valid but console checks not wired in ui_check.py")
 
 
+def check_wip_limit_policy(state: GateState, root: Path) -> None:
+    live = root / "config" / "wip_limit_policy.yaml"
+    example = root / "governance" / "wip_limit_policy.example.yaml"
+    checker = root / "scripts" / "check_wip_limit.py"
+    validator = root / "scripts" / "validate_wip_limit_policy.py"
+    output = root / "governance" / "wip_limit_status.yaml"
+    if not live.exists() or not validator.exists():
+        state.add("wip_limit_policy", BLOCKED, "wip_limit_policy.yaml or validator missing")
+        return
+    try:
+        from validate_wip_limit_policy import load_yaml, validate_wip_limit_policy
+    except ImportError:
+        state.add("wip_limit_policy", BLOCKED, "validate_wip_limit_policy unavailable")
+        return
+    errors = validate_wip_limit_policy(load_yaml(live), live.name)
+    if errors:
+        state.add("wip_limit_policy", BLOCKED, f"wip_limit_policy invalid: {errors[0]}")
+        return
+    if example.exists() and checker.exists() and output.exists():
+        summary = load_yaml(output).get("summary", {})
+        state.add(
+            "wip_limit_policy",
+            PASS,
+            f"WIP limit scheduling wired (effective_wip={summary.get('effective_wip', 0)}, read-only)",
+        )
+    else:
+        state.add(
+            "wip_limit_policy",
+            WARNING,
+            "wip_limit_policy valid but checker/output incomplete",
+        )
+
+
 def check_budget_tracking_policy(state: GateState, root: Path) -> None:
     live = root / "config" / "budget_tracking_policy.yaml"
     example = root / "governance" / "budget_tracking_policy.example.yaml"
@@ -1135,6 +1168,10 @@ def check_governance_assets(state: GateState, root: Path) -> None:
         "governance/budget_tracking_policy.example.yaml",
         "governance/budget_cost_tracking.yaml",
         "docs/budget_cost_tracking_design.md",
+        "config/wip_limit_policy.yaml",
+        "governance/wip_limit_policy.example.yaml",
+        "governance/wip_limit_status.yaml",
+        "docs/wip_limit_scheduling_design.md",
         "governance/execpolicy/profiles/readonly_managed_repo.rules",
         "governance/execpolicy/profiles/repo_ops_write.rules",
         "governance/execpolicy/profiles/risky_confirm.rules",
@@ -1376,6 +1413,7 @@ def main() -> int:
     check_priority_scoring_policy(state, root)
     check_lifecycle_policy(state, root)
     check_blocker_policy(state, root)
+    check_wip_limit_policy(state, root)
     check_budget_tracking_policy(state, root)
     check_protocol_sync_policy(state, root)
     check_project_rule_promotion_policy(state, root)

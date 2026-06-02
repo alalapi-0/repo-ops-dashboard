@@ -1,6 +1,6 @@
 # Agent Gate Report
 
-- generated_at: 2026-06-02T17:47:15.959518+00:00
+- generated_at: 2026-06-02T17:47:54.264906+00:00
 - verdict: PASS
 
 ## Findings
@@ -22,6 +22,7 @@
 - [PASS] `priority_scoring_policy`: priority_scoring_policy v1 valid (5 factors, scale 10)
 - [PASS] `lifecycle_policy`: lifecycle_policy v1 valid (8 states)
 - [PASS] `blocker_policy`: blocker_policy v1 valid (3 types, 4 escalation levels)
+- [PASS] `wip_limit_policy`: WIP limit scheduling wired (effective_wip=0, read-only)
 - [PASS] `budget_tracking_policy`: budget cost tracking wired (mock estimates, 0 warning(s))
 - [PASS] `protocol_sync_policy`: protocol sync suggestions wired (3 repo(s) need sync, read-only)
 - [PASS] `project_rule_promotion_policy`: project rule promotion wired (1 proposal(s), HITL merge)
@@ -55,4 +56,4 @@
 - [PASS] `requirements_dev`: requirements-dev.txt includes playwright and pytest
 - [PASS] `installation_doc`: installation.md covers core refresh commands
 - [PASS] `example_fixtures`: example data fixtures present
-- [PASS] `pytest_tests`: pytest tests present (38 modules)
+- [PASS] `pytest_tests`: pytest tests present (39 modules)

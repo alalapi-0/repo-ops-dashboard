@@ -1,15 +1,15 @@
-current_round: round_53_budget_cost_tracking
+current_round: round_54_wip_limit_scheduling
 status: completed
 executor: cursor
 external_api_called: false
 managed_repos_modified: false
 secrets_read: false
 dashboard_version: v2
-next_round: round_54_wip_limit_scheduling
+next_round: round_55_feishu_lark_notification_planning
 outputs:
-  - config/budget_tracking_policy.yaml
-  - scripts/track_budget_cost.py
-  - scripts/validate_budget_tracking_policy.py
-  - governance/budget_cost_tracking.yaml
-  - docs/budget_cost_tracking_design.md
-  - reports/round_53_completion_report.md
+  - config/wip_limit_policy.yaml
+  - scripts/check_wip_limit.py
+  - scripts/validate_wip_limit_policy.py
+  - governance/wip_limit_status.yaml
+  - docs/wip_limit_scheduling_design.md
+  - reports/round_54_completion_report.md
