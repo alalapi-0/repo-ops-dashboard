@@ -1,18 +1,18 @@
 # OpenClaw Daily Briefing Skill
 
-生成时间：2026-06-02 17:57 UTC
+生成时间：2026-06-02 17:58 UTC
 
 ## 当前轮次
 
-- round：`round_62_release_backup_restore`
+- round：`round_63_personal_agent_os_long_term_integration`
 - status：`completed`
-- next：`round_63_personal_agent_os_long_term_integration`
+- next：`maintenance_mode`
 
 ## Repo Status 摘要
 
 - 仓库数：5
 - 有卡点：4
-- 扫描时间：2026-06-02T17:57:32.536147+00:00
+- 扫描时间：2026-06-02T17:58:19.176418+00:00
 
 ## 今日最该推进（1–3 仓）
 
@@ -28,11 +28,11 @@
 ## Daily Briefing 摘要
 
 - # Daily Briefing Template (Governance MVP)
-- 生成时间：2026-06-02 17:57 UTC
+- 生成时间：2026-06-02 17:58 UTC
 - ## 当前轮次
-- round：`round_62_release_backup_restore`
+- round：`round_63_personal_agent_os_long_term_integration`
 - status：`completed`
-- next：`round_63_personal_agent_os_long_term_integration`
+- next：`maintenance_mode`
 - ## 今日最该推进（1–3 仓）
 - 1. **repo-ops-dashboard**（Cursor）— 处理扫描 warning 并补齐可选治理文件；卡点：无卡点
 - 2. **novel-continuation-agent**（Human）— 补齐缺失治理文件（AGENTS.md / protocol / README）；卡点：repo_protocol_standard.yaml missing
@@ -44,7 +44,7 @@
 ## Weekly Digest 摘要
 
 - # Weekly Digest Template
-- 生成时间：2026-06-02 17:56 UTC
+- 生成时间：2026-06-02 17:57 UTC
 - ## 本周摘要
 - 扫描仓库：5
 - 活跃项目：14
@@ -74,12 +74,13 @@ python3 scripts/scan_repos.py --config config/repos.example.yaml --dry-run
 python3 scripts/analyze_repos.py --input data/repo_snapshots.example.json --output data/repo_status.example.json
 python3 scripts/generate_report.py --input data/repo_status.example.json
 python3 scripts/openclaw_orchestration_bridge.py --dry-run
+python3 scripts/personal_os_integration_snapshot.py --write
 python3 scripts/generate_daily_briefing.py --input data/repo_status.example.json --dry-run
 ```
 
 ## 短提醒（≤200 字）
 
-Round round_62_release_backup_restore：优先 repo-ops-dashboard, novel-continuation-agent。暂缓 2 仓；review_queue 待决 5 项。OpenClaw 只读 digest/repo_status，编程交给 Cursor/Codex。
+Round round_63_personal_agent_os_long_term_integration：优先 repo-ops-dashboard, novel-continuation-agent。暂缓 2 仓；review_queue 待决 5 项。OpenClaw 只读 digest/repo_status，编程交给 Cursor/Codex。
 
 ---
 

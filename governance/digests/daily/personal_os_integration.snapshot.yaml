@@ -1,0 +1,32 @@
+schema_version: 0.1.0
+role: personal_os_integration
+generated_at: '2026-06-02T17:58:18Z'
+architecture_40_rounds_complete: true
+current_round: round_63_personal_agent_os_long_term_integration
+next_round: maintenance_mode
+portfolio:
+  project_count: 17
+  snapshot_at: ''
+budget:
+  entry_count: 0
+  total_usd: 0
+weekly_digest_headline: '- next：`round_63_personal_agent_os_long_term_integration`'
+mock_modules:
+  schedule:
+    status: mock
+    source: mock
+    note: Round 19 ICS read-only — not connected in this snapshot
+  learning:
+    status: mock
+    source: mock
+    note: registered as type learning in project_registry
+  finance:
+    status: mock
+    source: mock
+    note: local CSV read-only — HumanOwner manual entry
+  ai_quota:
+    status: mock
+    source: mock
+    note: vendor console manual — no auto-fetch
+external_api_called: false
+hitl_required: true

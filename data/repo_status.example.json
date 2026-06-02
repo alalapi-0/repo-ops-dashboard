@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-02T17:57:32.536147+00:00",
+  "generated_at": "2026-06-02T17:58:19.176418+00:00",
   "analyzer_version": "v2",
   "analyzer_policy": "config/analyzer_policy.yaml",
   "priority_scoring_policy": "config/priority_scoring_policy.yaml",
@@ -270,9 +270,9 @@
       "registry_matched": true,
       "registry_lifecycle": "bootstrap",
       "governance_level": "write_allowed",
-      "round_current": "round_62_release_backup_restore",
+      "round_current": "round_63_personal_agent_os_long_term_integration",
       "round_status": "completed",
-      "round_next": "round_63_personal_agent_os_long_term_integration",
+      "round_next": "maintenance_mode",
       "current_stage": "round_00_bootstrap",
       "health_score": 88,
       "health_dimensions": {

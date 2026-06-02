@@ -127,6 +127,9 @@ echo "[refresh] governance hardening audit (dry-run)"
 echo "[refresh] governance backup (dry-run)"
 "$PYTHON" scripts/backup_governance_state.py
 
+echo "[refresh] personal OS integration snapshot (dry-run)"
+"$PYTHON" scripts/personal_os_integration_snapshot.py
+
 echo "[refresh] eval registry (dry-run)"
 "$PYTHON" scripts/run_eval_registry.py --required-only
 

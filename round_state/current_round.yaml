@@ -1,15 +1,16 @@
-current_round: round_62_release_backup_restore
+current_round: round_63_personal_agent_os_long_term_integration
 status: completed
 executor: cursor
 external_api_called: false
 managed_repos_modified: false
 secrets_read: false
 dashboard_version: v2
-next_round: round_63_personal_agent_os_long_term_integration
+architecture_40_rounds_complete: true
+next_round: maintenance_mode
 outputs:
-  - scripts/backup_governance_state.py
-  - config/backup_restore_policy.yaml
-  - governance/backup_restore_policy.example.yaml
-  - docs/backup_restore.md
-  - reports/governance_backup_report.md
-  - reports/round_62_completion_report.md
+  - scripts/personal_os_integration_snapshot.py
+  - config/personal_os_integration_policy.yaml
+  - governance/personal_os_integration.example.yaml
+  - governance/digests/daily/personal_os_integration.snapshot.yaml
+  - reports/personal_os_integration.md
+  - reports/round_63_completion_report.md

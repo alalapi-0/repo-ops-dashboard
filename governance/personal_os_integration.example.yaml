@@ -1,0 +1,13 @@
+# Personal Agent OS integration policy example (Round 63).
+schema_version: 0.1.0
+policy_version: v1
+description: Long-term integration snapshot — projects, budget, weekly review (mock for schedule/finance/AI).
+
+defaults:
+  dry_run: true
+  hitl_required: true
+  external_api_allowed: false
+
+outputs:
+  snapshot: governance/digests/daily/personal_os_integration.snapshot.yaml
+  report: reports/personal_os_integration.md

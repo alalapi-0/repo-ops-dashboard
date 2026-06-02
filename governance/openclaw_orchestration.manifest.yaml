@@ -20,6 +20,7 @@ readable_paths:
   - governance/digests/weekly/weekly_digest.md
   - governance/digests/daily/daily_briefing.md
   - governance/digests/daily/openclaw_daily_briefing.snapshot.yaml
+  - governance/digests/daily/personal_os_integration.snapshot.yaml
   - skills/openclaw_repo_ops/SKILL.md
 
 deny_read_patterns:
@@ -35,6 +36,7 @@ dry_run_triggers:
   - python3 scripts/analyze_repos.py --input data/repo_snapshots.example.json --output data/repo_status.example.json
   - python3 scripts/generate_report.py --input data/repo_status.example.json
   - python3 scripts/openclaw_orchestration_bridge.py --dry-run
+  - python3 scripts/personal_os_integration_snapshot.py --write
   - python3 scripts/generate_daily_briefing.py --input data/repo_status.example.json --dry-run
 
 outputs:
@@ -42,6 +44,8 @@ outputs:
   snapshot_yaml: governance/digests/daily/openclaw_orchestration.snapshot.yaml
   daily_briefing_skill_brief: reports/openclaw_daily_briefing_skill.md
   daily_briefing_skill_snapshot: governance/digests/daily/openclaw_daily_briefing.snapshot.yaml
+  personal_os_integration_snapshot: governance/digests/daily/personal_os_integration.snapshot.yaml
+  personal_os_integration_report: reports/personal_os_integration.md
 
 reminder_rules:
   max_chars: 200

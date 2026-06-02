@@ -612,6 +612,20 @@ def check_backup_restore(state: GateState, root: Path) -> None:
         state.add("backup_restore", WARNING, "backup/restore incomplete")
 
 
+def check_personal_os_integration(state: GateState, root: Path) -> None:
+    script = root / "scripts" / "personal_os_integration_snapshot.py"
+    policy = root / "config" / "personal_os_integration_policy.yaml"
+    example = root / "governance" / "personal_os_integration.example.yaml"
+    if not script.exists() or not policy.exists():
+        state.add("personal_os_integration", WARNING, "personal OS integration script/policy missing")
+        return
+    text = script.read_text(encoding="utf-8")
+    if "mock_modules" in text and "architecture_40_rounds_complete" in text and example.exists():
+        state.add("personal_os_integration", PASS, "Personal Agent OS integration snapshot wired (mock/dry-run)")
+    else:
+        state.add("personal_os_integration", WARNING, "personal OS integration incomplete")
+
+
 def check_codex_task_spec_prompt(state: GateState, root: Path) -> None:
     script = root / "scripts" / "generate_codex_prompt_from_task_spec.py"
     template = root / "prompts" / "codex_from_task_spec.md"
@@ -1602,6 +1616,7 @@ def main() -> int:
     check_handoff_trial(state, root)
     check_governance_hardening(state, root)
     check_backup_restore(state, root)
+    check_personal_os_integration(state, root)
     check_protocol_governance_api_ban(state, root)
     check_protocol_version(state, root)
     check_governance_assets(state, root)

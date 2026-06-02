@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Round 63 - Personal Agent OS Long-Term Integration（收官）
+
+- 新增 `personal_os_integration_snapshot.py`（portfolio/budget/digest + mock 模块，dry-run 默认）。
+- 更新 `personal_os_roadmap.md` Phase E；标记 40 轮架构完成、进入维护模式。
+- `reports/round_63_completion_report.md`（含整条治理链路总结）。
+
 ## Round 62 - Release / Backup / Restore
 
 - 新增 `backup_governance_state.py`（治理 YAML 备份，dry-run 默认，恢复需 HITL）。

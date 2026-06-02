@@ -1,0 +1,34 @@
+schema_version: 0.1.0
+policy_version: v1
+description: Personal Agent OS long-term integration snapshot (mock/dry-run, HITL for live data).
+
+integration:
+  portfolio: governance/portfolio_state.yaml
+  budget: governance/budget_cost_tracking.yaml
+  weekly_digest: governance/digests/weekly/weekly_digest.md
+  round_state: round_state/current_round.yaml
+  roadmap: docs/personal_os_roadmap.md
+
+mock_modules:
+  schedule:
+    source: mock
+    note: Round 19 ICS read-only — not connected in this snapshot
+  learning:
+    source: mock
+    note: registered as type learning in project_registry
+  finance:
+    source: mock
+    note: local CSV read-only — HumanOwner manual entry
+  ai_quota:
+    source: mock
+    note: vendor console manual — no auto-fetch
+
+defaults:
+  dry_run: true
+  hitl_required: true
+  external_api_allowed: false
+  managed_repos_write_allowed: false
+
+outputs:
+  snapshot: governance/digests/daily/personal_os_integration.snapshot.yaml
+  report: reports/personal_os_integration.md

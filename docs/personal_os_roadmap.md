@@ -49,6 +49,19 @@
 | 23 | 飞书 20KB/错误码/签名单测加固 | ✅ |
 | 24 | `dashboard/hub.html` 统一入口 | ✅ |
 
+### Phase E — 40 轮治理架构（Round 25–63，已完成）
+
+| 架构轮 | 仓库轮 | 内容 | 状态 |
+|--------|--------|------|------|
+| 02–37 | 25–60 | 项目登记、portfolio、task queue、PoW、handoff、eval、通知等 | ✅ |
+| 38 | 61 | 治理加固审计（安全/文档一致性） | ✅ |
+| 39 | 62 | 备份/恢复/迁移文档 | ✅ |
+| 40 | 63 | Personal Agent OS 长期整合 snapshot（mock 模块） | ✅ |
+
+**维护模式**：架构 40 轮已完成；后续为增量加固与 HumanOwner 驱动优先级，无强制新架构轮。
+
+整合 snapshot：`python3 scripts/personal_os_integration_snapshot.py --write`
+
 ## Agent 分工
 
 | Agent | 职责 |
