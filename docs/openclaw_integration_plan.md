@@ -28,7 +28,9 @@ OpenClaw 在 Personal Agent OS 中只作为调度入口和提醒入口，不作�
 ## 推荐接入阶段
 
 - Round 25：仅规划，不连接真实 OpenClaw。
-- Round 43：规划 OpenClaw orchestration bridge。
+- Round 43：OpenClaw orchestration bridge（`scripts/openclaw_orchestration_bridge.py` + manifest，dry-run 默认，无外部 API）。
+- Round 44：`governance/digests/weekly/weekly_digest.md`（`generate_weekly_digest.py`）。
+- Round 45：`governance/digests/daily/daily_briefing.md`（`generate_daily_briefing.py`）。
 - Round 58：低风险多 Agent handoff trial。
 
 ## Skill

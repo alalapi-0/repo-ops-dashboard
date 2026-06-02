@@ -489,6 +489,46 @@ def check_lifecycle_policy(state: GateState, root: Path) -> None:
         state.add("lifecycle_policy", WARNING, "lifecycle_policy valid but derive_lifecycle_v1 not wired in analyze_repos.py")
 
 
+def check_openclaw_orchestration_bridge(state: GateState, root: Path) -> None:
+    script = root / "scripts" / "openclaw_orchestration_bridge.py"
+    manifest = root / "governance" / "openclaw_orchestration.manifest.yaml"
+    template = root / "prompts" / "openclaw_orchestration_brief.md"
+    if not script.exists() or not manifest.exists() or not template.exists():
+        state.add("openclaw_orchestration_bridge", WARNING, "OpenClaw bridge script/manifest/template missing")
+        return
+    text = script.read_text(encoding="utf-8")
+    if "--dry-run" in text and "external_api_called" in text:
+        state.add("openclaw_orchestration_bridge", PASS, "OpenClaw orchestration bridge wired (dry-run default)")
+    else:
+        state.add("openclaw_orchestration_bridge", WARNING, "OpenClaw bridge missing dry-run or safety markers")
+
+
+def check_weekly_digest(state: GateState, root: Path) -> None:
+    script = root / "scripts" / "generate_weekly_digest.py"
+    template = root / "prompts" / "weekly_digest.md"
+    if not script.exists() or not template.exists():
+        state.add("weekly_digest", WARNING, "generate_weekly_digest.py or weekly_digest template missing")
+        return
+    text = script.read_text(encoding="utf-8")
+    if "governance/digests/weekly" in text and "--dry-run" in text:
+        state.add("weekly_digest", PASS, "weekly_digest generator wired")
+    else:
+        state.add("weekly_digest", WARNING, "weekly_digest generator incomplete")
+
+
+def check_daily_briefing(state: GateState, root: Path) -> None:
+    script = root / "scripts" / "generate_daily_briefing.py"
+    template = root / "prompts" / "daily_briefing.md"
+    if not script.exists() or not template.exists():
+        state.add("daily_briefing", WARNING, "generate_daily_briefing.py or daily_briefing template missing")
+        return
+    text = script.read_text(encoding="utf-8")
+    if "review_queue" in text and "governance/digests/daily" in text:
+        state.add("daily_briefing", PASS, "daily_briefing generator wired")
+    else:
+        state.add("daily_briefing", WARNING, "daily_briefing generator incomplete")
+
+
 def check_codex_task_spec_prompt(state: GateState, root: Path) -> None:
     script = root / "scripts" / "generate_codex_prompt_from_task_spec.py"
     template = root / "prompts" / "codex_from_task_spec.md"
@@ -1081,6 +1121,9 @@ def main() -> int:
     check_ui_check_policy(state, root)
     check_cursor_task_spec_prompt(state, root)
     check_codex_task_spec_prompt(state, root)
+    check_openclaw_orchestration_bridge(state, root)
+    check_weekly_digest(state, root)
+    check_daily_briefing(state, root)
     check_protocol_governance_api_ban(state, root)
     check_protocol_version(state, root)
     check_governance_assets(state, root)

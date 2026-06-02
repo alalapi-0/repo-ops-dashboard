@@ -1,13 +1,12 @@
-current_round: round_42_prompt_generator_for_codex
+current_round: round_43_openclaw_orchestration_bridge
 status: completed
 executor: cursor
 external_api_called: false
 managed_repos_modified: false
 secrets_read: false
 dashboard_version: v2
-next_round: round_43_openclaw_orchestration_bridge
+next_round: round_44_weekly_digest_mvp
 outputs:
-  - prompts/codex_from_task_spec.md
-  - scripts/generate_codex_prompt_from_task_spec.py
-  - governance/task_specs/example_codex_task_spec.yaml
-  - reports/round_42_completion_report.md
+  - scripts/openclaw_orchestration_bridge.py
+  - governance/openclaw_orchestration.manifest.yaml
+  - reports/round_43_completion_report.md

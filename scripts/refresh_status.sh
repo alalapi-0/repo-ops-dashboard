@@ -86,8 +86,17 @@ echo "[refresh] reports"
 echo "[refresh] protocol sync suggestions"
 "$PYTHON" scripts/protocol_sync_report.py --input "$SNAPSHOTS" --no-dry-run
 
+echo "[refresh] sync governance task queue"
+"$PYTHON" scripts/sync_governance_task_queue.py
+
 echo "[refresh] daily brief"
 "$PYTHON" scripts/generate_daily_brief.py --input "$STATUS"
+
+echo "[refresh] daily briefing (governance digest)"
+"$PYTHON" scripts/generate_daily_briefing.py --input "$STATUS"
+
+echo "[refresh] openclaw orchestration bridge"
+"$PYTHON" scripts/openclaw_orchestration_bridge.py
 
 if $LLM_SUMMARY; then
   echo "[refresh] llm summary"
@@ -123,6 +132,9 @@ echo "[refresh] weekly review merge"
   --priority-report "$PRIORITY_REPORT" \
   --human-notes "$HUMAN_NOTES" \
   --output "$WEEKLY_REVIEW"
+
+echo "[refresh] weekly digest"
+"$PYTHON" scripts/generate_weekly_digest.py --input "$STATUS" --human-notes "$HUMAN_NOTES"
 
 echo "[refresh] cursor task_spec prompt"
 "$PYTHON" scripts/generate_cursor_prompt_from_task_spec.py \

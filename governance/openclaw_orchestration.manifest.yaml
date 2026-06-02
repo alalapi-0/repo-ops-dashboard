@@ -1,0 +1,43 @@
+# OpenClaw orchestration bridge manifest (Round 43).
+# Machine-readable read paths and dry-run trigger commands for OpenClawAgent.
+schema_version: 0.1.0
+role: orchestration_entry
+hitl_required: true
+external_api_allowed: false
+managed_repos_write_allowed: false
+
+readable_paths:
+  - governance/portfolio_state.yaml
+  - governance/review_queue.yaml
+  - governance/governance_task_queue.yaml
+  - round_state/current_round.yaml
+  - data/repo_status.json
+  - data/repo_status.example.json
+  - reports/daily_repo_report.md
+  - reports/daily_brief.md
+  - reports/agent_gate_report.md
+  - governance/digests/weekly/weekly_digest.md
+  - governance/digests/daily/daily_briefing.md
+
+deny_read_patterns:
+  - .env
+  - secret
+  - token
+  - private_key
+
+dry_run_triggers:
+  - python3 scripts/agent_gate.py
+  - python3 scripts/scan_repos.py --config config/repos.example.yaml --dry-run
+  - python3 scripts/analyze_repos.py --input data/repo_snapshots.example.json --output data/repo_status.example.json
+  - python3 scripts/generate_report.py --input data/repo_status.example.json
+  - python3 scripts/openclaw_orchestration_bridge.py --dry-run
+
+outputs:
+  brief_markdown: reports/openclaw_orchestration_brief.md
+  snapshot_yaml: governance/digests/daily/openclaw_orchestration.snapshot.yaml
+
+reminder_rules:
+  max_chars: 200
+  include_review_queue_open: true
+  include_portfolio_blockers: true
+  include_current_round: true

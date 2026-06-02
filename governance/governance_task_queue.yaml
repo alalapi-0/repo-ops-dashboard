@@ -1,13 +1,13 @@
 # Governance task queue (Personal Agent OS).
 # Sources: governance/task_specs/*.yaml via scripts/sync_governance_task_queue.py
 schema_version: 0.1.0
-generated_at: '2026-06-02T05:06:32+00:00'
+generated_at: '2026-06-02T17:35:23+00:00'
 task_specs_dir: governance/task_specs
 summary:
-  total_tasks: 1
-  active_tasks: 1
+  total_tasks: 2
+  active_tasks: 2
   by_status:
-    proposed: 1
+    proposed: 2
 tasks:
 - task_id: task_light_novel_governance_prompt_001
   project_id: light_novel
@@ -19,4 +19,15 @@ tasks:
   execpolicy_profile: readonly_managed_repo
   confirmation_policy: human_review_before_execution
   task_spec_path: governance/task_specs/example_task_spec.yaml
+  is_active: true
+- task_id: task_repo_ops_test_fix_001
+  project_id: repo_ops_dashboard
+  title: 修复 repo-ops-dashboard 示例测试与 gate 报告
+  status: proposed
+  priority: medium
+  task_type: test_fix
+  assigned_agent: Codex
+  execpolicy_profile: portfolio_safe
+  confirmation_policy: human_review_before_execution
+  task_spec_path: governance/task_specs/example_codex_task_spec.yaml
   is_active: true
