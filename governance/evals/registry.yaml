@@ -54,11 +54,16 @@ evals:
     type: schema_check
     required: true
     path: governance/runs/example_run.jsonl
+  - eval_id: review_queue_valid
+    description: governance/review_queue.yaml exists and passes HITL validation rules.
+    type: schema_check
+    required: true
+    path: governance/review_queue.yaml
   - eval_id: completion_report_exists
     description: The current round completion report exists.
     type: file_exists
     required: true
-    path: reports/round_30_completion_report.md
+    path: reports/round_31_completion_report.md
   - eval_id: task_spec_schema_valid
     description: task_spec template includes required governance fields.
     type: schema_check

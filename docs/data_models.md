@@ -81,19 +81,19 @@ agent_assignment:
 ## review_queue
 
 - 用途：记录必须由 HumanOwner 决策的 HITL 项
-- 字段：`id/name`、`status/lifecycle`、`project_id`、`context_refs`、`created_at/updated_at`、模型特有字段。
-- 字段说明：标识字段用于关联；状态字段用于调度；上下文字段只传引用；时间字段用于审计。
-- 示例：见 `governance/review_queue.yaml` 或下方片段。
+- 字段：`review_id`、`type`、`project_id`、`task_id`、`prompt`、`options`、`context_refs`、`status`、`decision`、`decided_at`、`expires_at`。
+- 字段说明：`status=open` 时 `decision`/`decided_at` 必须为 null；仅 HumanOwner 可通过 `close_review_queue_item.py` 关闭。
+- 示例：见 `governance/review_queue.yaml` 或 `review_queue.example.yaml`。
 - 是否机器权威：是
 - 对应文件路径：`governance/review_queue.yaml`
-- 后续实现轮次：Round 31
+- 读取命令：`python3 scripts/read_review_queue.py --status open`
+- 实现轮次：Round 31（已完成 MVP）
 
 ```yaml
-review_queue:
-  id: example
-  status: proposed
-  project_id: repo_ops_dashboard
-  updated_at: '2026-06-02T00:00:00Z'
+review_id: rq_example_001
+type: governance_policy
+status: open
+decision: null
 ```
 
 ## weekly_digest

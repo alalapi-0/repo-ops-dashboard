@@ -1,17 +1,17 @@
-current_round: round_30_agent_run_jsonl_audit_trail
+current_round: round_31_review_queue_mvp
 status: completed
 executor: cursor
 external_api_called: false
 managed_repos_modified: false
 secrets_read: false
-agent_run_jsonl_implemented: true
-example_run_event_count: 5
-next_round: round_31_review_queue_mvp
+review_queue_mvp_implemented: true
+review_queue_open_count: 5
+next_round: round_32_execpolicy_checker
 outputs:
-  - governance/runs/agent_run_event.template.json
-  - governance/runs/example_run.jsonl
-  - scripts/validate_agent_run.py
-  - scripts/read_agent_run.py
-  - scripts/record_agent_run_event.py
-  - reports/round_30_completion_report.md
-  - tests/test_agent_run_jsonl.py
+  - governance/review_queue.example.yaml
+  - scripts/validate_review_queue.py
+  - scripts/read_review_queue.py
+  - scripts/add_review_queue_item.py
+  - scripts/close_review_queue_item.py
+  - reports/round_31_completion_report.md
+  - tests/test_review_queue.py

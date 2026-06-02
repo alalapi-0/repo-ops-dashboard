@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Round 31 - Review Queue MVP
+
+- 新增 `scripts/validate_review_queue.py`、`read_review_queue.py`、`add_review_queue_item.py`、`close_review_queue_item.py` 与 `review_queue.example.yaml`。
+- `agent_gate` 与 eval registry 增加 review_queue 验收。
+- 新增 `tests/test_review_queue.py` 与 `reports/round_31_completion_report.md`。
+
 ## Round 30 - Agent Run JSONL Audit Trail
 
 - 新增 `scripts/validate_agent_run.py`、`read_agent_run.py`、`record_agent_run_event.py` 与 `governance/runs/example_run.jsonl`。

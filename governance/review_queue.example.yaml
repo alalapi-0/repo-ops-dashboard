@@ -1,0 +1,16 @@
+schema_version: 0.1.0
+updated_at: '2026-06-02T00:00:00Z'
+policy: review_queue 只能由 HumanOwner 关闭，Agent 不得自行批准。
+items:
+  - review_id: rq_example_001
+    type: governance_policy
+    project_id: repo_ops_dashboard
+    task_id: task_example_001
+    prompt: 示例：是否允许某项治理变更？
+    options: [approve, reject, defer]
+    context_refs:
+      - docs/review_queue_design.md
+    status: open
+    decision: null
+    decided_at: null
+    expires_at: null

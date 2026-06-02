@@ -161,6 +161,7 @@ def check_local_required_files(state: GateState, root: Path) -> None:
         "governance/task_specs/task_spec.template.yaml",
         "governance/proof_of_work/proof_of_work.template.json",
         "governance/review_queue.yaml",
+        "governance/review_queue.example.yaml",
         "governance/execpolicy/portfolio.rules",
         "governance/evals/registry.yaml",
         "docs/roadmap_40_rounds.md",
@@ -405,6 +406,37 @@ def check_project_registry(state: GateState, root: Path) -> None:
             PASS,
             f"project_registry.yaml has {len(projects)} projects aligned with repos.yaml",
         )
+
+
+def check_review_queue(state: GateState, root: Path) -> None:
+    path = root / "governance" / "review_queue.yaml"
+    example = root / "governance" / "review_queue.example.yaml"
+    if not path.exists():
+        state.add("review_queue", BLOCKED, "governance/review_queue.yaml missing")
+        return
+    if not example.exists():
+        state.add("review_queue", BLOCKED, "governance/review_queue.example.yaml missing")
+        return
+    try:
+        from validate_review_queue import read_review_queue, summarize_review_queue, validate_review_queue
+    except ImportError:
+        state.add("review_queue", BLOCKED, "validate_review_queue module unavailable")
+        return
+    try:
+        queue = read_review_queue(path)
+    except ValueError as exc:
+        state.add("review_queue", BLOCKED, str(exc))
+        return
+    errors = validate_review_queue(queue, path.name)
+    if errors:
+        state.add("review_queue", BLOCKED, f"review_queue.yaml invalid: {errors[0]}")
+        return
+    summary = summarize_review_queue(queue)
+    state.add(
+        "review_queue",
+        PASS,
+        f"review_queue.yaml valid with {summary['open_items']} open item(s)",
+    )
 
 
 def check_agent_run_example(state: GateState, root: Path) -> None:
@@ -733,6 +765,7 @@ def main() -> int:
     check_proof_of_work_template(state, root)
     check_proof_of_work_registry(state, root)
     check_agent_run_example(state, root)
+    check_review_queue(state, root)
     check_eval_registry(state, root)
     check_completion_report(state, root)
     check_requirements_dev_playwright(state, root)

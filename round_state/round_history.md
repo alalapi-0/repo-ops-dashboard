@@ -209,3 +209,9 @@
 - 产出：`governance/runs/example_run.jsonl`、`scripts/validate_agent_run.py`、`scripts/read_agent_run.py`、`scripts/record_agent_run_event.py`
 - 下一轮：`round_31_review_queue_mvp`
 
+## Round 31 - Review Queue MVP
+
+- 状态：completed
+- 产出：`governance/review_queue.example.yaml`、`scripts/validate_review_queue.py`、`scripts/read_review_queue.py`
+- 下一轮：`round_32_execpolicy_checker`
+

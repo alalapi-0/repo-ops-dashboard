@@ -1,6 +1,6 @@
 # Agent Gate Report
 
-- generated_at: 2026-06-02T05:09:11.394402+00:00
+- generated_at: 2026-06-02T05:09:55.037149+00:00
 - verdict: PASS
 
 ## Findings
@@ -28,9 +28,10 @@
 - [PASS] `proof_of_work_template`: proof_of_work template contains required fields
 - [PASS] `proof_of_work_registry`: proof_of_work_registry.yaml lists 1 record(s)
 - [PASS] `agent_run_example`: example_run.jsonl valid with 5 event(s)
+- [PASS] `review_queue`: review_queue.yaml valid with 5 open item(s)
 - [PASS] `eval_registry`: eval registry contains required baseline evals
-- [PASS] `completion_report`: round_30_completion_report.md exists
+- [PASS] `completion_report`: round_31_completion_report.md exists
 - [PASS] `requirements_dev`: requirements-dev.txt includes playwright and pytest
 - [PASS] `installation_doc`: installation.md covers core refresh commands
 - [PASS] `example_fixtures`: example data fixtures present
-- [PASS] `pytest_tests`: pytest tests present (16 modules)
+- [PASS] `pytest_tests`: pytest tests present (17 modules)

@@ -25,7 +25,8 @@
 - `runs/`：Agent 执行审计 JSONL（`scripts/read_agent_run.py` 读取/校验；`scripts/record_agent_run_event.py` 手动追加事件）。
 - `runs/agent_run_event.template.json`：单行审计事件模板。
 - `runs/example_run.jsonl`：示例审计轨迹。
-- `review_queue.yaml`：人工决策队列。
+- `review_queue.yaml`：人工决策队列（`scripts/read_review_queue.py` 读取；`add_review_queue_item.py` 追加；`close_review_queue_item.py` 仅 HumanOwner 关闭）。
+- `review_queue.example.yaml`：review_queue 字段示例。
 - `execpolicy/`：文档级执行边界。
 - `evals/registry.yaml`：验收 gate 注册表。
 - `playbooks/`：可复用流程候选。
