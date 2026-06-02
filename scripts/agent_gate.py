@@ -407,6 +407,33 @@ def check_project_registry(state: GateState, root: Path) -> None:
         )
 
 
+def check_governance_task_queue(state: GateState, root: Path) -> None:
+    path = root / "governance" / "governance_task_queue.yaml"
+    if not path.exists():
+        state.add("governance_task_queue", BLOCKED, "governance/governance_task_queue.yaml missing")
+        return
+    data = load_yaml(path)
+    tasks = list(data.get("tasks", []))
+    summary = data.get("summary", {})
+    if not tasks or not summary:
+        state.add("governance_task_queue", BLOCKED, "governance_task_queue.yaml missing tasks or summary")
+        return
+    specs_dir = root / "governance" / "task_specs"
+    spec_files = [p for p in specs_dir.glob("*.yaml") if p.name != "task_spec.template.yaml"] if specs_dir.is_dir() else []
+    if len(tasks) != len(spec_files):
+        state.add(
+            "governance_task_queue",
+            WARNING,
+            f"queue has {len(tasks)} tasks but {len(spec_files)} task_spec file(s)",
+        )
+    else:
+        state.add(
+            "governance_task_queue",
+            PASS,
+            f"governance_task_queue.yaml lists {len(tasks)} task(s)",
+        )
+
+
 def check_portfolio_state(state: GateState, root: Path) -> None:
     path = root / "governance" / "portfolio_state.yaml"
     if not path.exists():
@@ -440,6 +467,8 @@ def check_governance_assets(state: GateState, root: Path) -> None:
         "governance/project_registry.example.yaml",
         "governance/portfolio_state.yaml",
         "governance/portfolio_state.example.yaml",
+        "governance/governance_task_queue.yaml",
+        "governance/governance_task_queue.example.yaml",
         "governance/task_specs/example_task_spec.yaml",
         "governance/proof_of_work/example_proof_of_work.json",
         "governance/runs/.gitkeep",
@@ -638,6 +667,7 @@ def main() -> int:
     check_governance_assets(state, root)
     check_project_registry(state, root)
     check_portfolio_state(state, root)
+    check_governance_task_queue(state, root)
     check_task_spec_template(state, root)
     check_proof_of_work_template(state, root)
     check_eval_registry(state, root)

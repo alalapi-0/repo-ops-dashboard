@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Round 28 - Governance Task Queue
+
+- 新增 `scripts/sync_governance_task_queue.py`、`scripts/read_task_spec.py` 与 `governance/governance_task_queue.yaml`。
+- `agent_gate` 与 eval registry 增加 governance_task_queue 验收。
+- 新增 `tests/test_governance_task_queue.py` 与 `reports/round_28_completion_report.md`。
+
 ## Round 27 - Portfolio State Snapshot
 
 - 新增 `scripts/sync_portfolio_state.py` 与 `governance/portfolio_state.yaml`（registry + repo status 合并快照）。

@@ -16,7 +16,9 @@
 - `project_registry.example.yaml`：项目登记示例与字段参考。
 - `portfolio_state.yaml`：组合状态快照（`scripts/sync_portfolio_state.py` 从 registry + repo status 生成）。
 - `portfolio_state.example.yaml`：组合状态快照示例。
-- `task_specs/`：治理任务模板和示例。
+- `governance_task_queue.yaml`：治理任务队列（`scripts/sync_governance_task_queue.py` 从 `task_specs/` 同步）。
+- `governance_task_queue.example.yaml`：任务队列示例。
+- `task_specs/`：治理任务模板和示例（`scripts/read_task_spec.py` 读取/校验单个规格）。
 - `proof_of_work/`：任务完成证明模板和示例。
 - `runs/`：未来审计 JSONL 输出目录。
 - `review_queue.yaml`：人工决策队列。

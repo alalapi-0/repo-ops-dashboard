@@ -1,16 +1,17 @@
-current_round: round_27_portfolio_state_snapshot
+current_round: round_28_governance_task_queue
 status: completed
 executor: cursor
 external_api_called: false
 managed_repos_modified: false
 secrets_read: false
-portfolio_state_implemented: true
-project_count: 17
-blocked_projects: 3
-review_queue_open: 5
-next_round: round_28_governance_task_queue
+governance_task_queue_implemented: true
+task_count: 1
+active_tasks: 1
+next_round: round_29_proof_of_work_system
 outputs:
-  - governance/portfolio_state.yaml
-  - scripts/sync_portfolio_state.py
-  - reports/round_27_completion_report.md
-  - tests/test_portfolio_state.py
+  - governance/governance_task_queue.yaml
+  - governance/governance_task_queue.example.yaml
+  - scripts/sync_governance_task_queue.py
+  - scripts/read_task_spec.py
+  - reports/round_28_completion_report.md
+  - tests/test_governance_task_queue.py

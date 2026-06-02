@@ -191,3 +191,9 @@
 - 产出：`governance/portfolio_state.yaml`、`scripts/sync_portfolio_state.py`
 - 下一轮：`round_28_governance_task_queue`
 
+## Round 28 - Governance Task Queue
+
+- 状态：completed
+- 产出：`governance/governance_task_queue.yaml`、`scripts/sync_governance_task_queue.py`、`scripts/read_task_spec.py`
+- 下一轮：`round_29_proof_of_work_system`
+

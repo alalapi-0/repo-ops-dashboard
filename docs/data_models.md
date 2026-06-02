@@ -43,19 +43,21 @@ portfolio_state:
 ## governance_task
 
 - 用途：描述治理任务队列中的单个工作单元
-- 字段：`id/name`、`status/lifecycle`、`project_id`、`context_refs`、`created_at/updated_at`、模型特有字段。
-- 字段说明：标识字段用于关联；状态字段用于调度；上下文字段只传引用；时间字段用于审计。
-- 示例：见 `governance/task_specs/*.yaml` 或下方片段。
+- 字段：`task_id`、`project_id`、`status`、`priority`、`assigned_agent`、`task_spec_path`、`is_active` 等。
+- 字段说明：队列条目由 `task_specs` 同步生成；完整规格见对应 `task_spec` 文件。
+- 示例：见 `governance/governance_task_queue.example.yaml` 或下方片段。
 - 是否机器权威：是
-- 对应文件路径：`governance/task_specs/*.yaml`
-- 后续实现轮次：Round 28
+- 对应文件路径：`governance/governance_task_queue.yaml`（权威）；`governance/task_specs/*.yaml`（规格源）
+- 同步命令：`python3 scripts/sync_governance_task_queue.py`（`--dry-run` / `--json` 仅输出）
+- 读取命令：`python3 scripts/read_task_spec.py <path>`
+- 实现轮次：Round 28（已完成 MVP）
 
 ```yaml
 governance_task:
-  id: example
+  task_id: task_example_001
   status: proposed
   project_id: repo_ops_dashboard
-  updated_at: '2026-06-02T00:00:00Z'
+  task_spec_path: governance/task_specs/example_task_spec.yaml
 ```
 
 ## agent_assignment
@@ -133,19 +135,20 @@ status_snapshot:
 ## task_spec
 
 - 用途：每个任务的目标、范围、目录、验收、权限与验证命令
-- 字段：`id/name`、`status/lifecycle`、`project_id`、`context_refs`、`created_at/updated_at`、模型特有字段。
-- 字段说明：标识字段用于关联；状态字段用于调度；上下文字段只传引用；时间字段用于审计。
-- 示例：见 `governance/task_specs/task_spec.template.yaml` 或下方片段。
+- 字段：`task_id`、`project_id`、`working_directory`、`assigned_agent`、`acceptance_criteria`、`validation_commands`、`execpolicy_profile` 等。
+- 字段说明：模板见 `task_spec.template.yaml`；非模板 YAML 由 `sync_governance_task_queue.py` 汇入队列。
+- 示例：见 `governance/task_specs/example_task_spec.yaml` 或下方片段。
 - 是否机器权威：是
-- 对应文件路径：`governance/task_specs/task_spec.template.yaml`
-- 后续实现轮次：Round 28
+- 对应文件路径：`governance/task_specs/*.yaml`（不含 `task_spec.template.yaml`）
+- 读取命令：`python3 scripts/read_task_spec.py governance/task_specs/example_task_spec.yaml`
+- 实现轮次：Round 28（已完成 MVP）
 
 ```yaml
 task_spec:
-  id: example
+  task_id: task_example_001
   status: proposed
   project_id: repo_ops_dashboard
-  updated_at: '2026-06-02T00:00:00Z'
+  working_directory: /path/to/project
 ```
 
 ## proof_of_work

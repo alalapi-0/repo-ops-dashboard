@@ -1,0 +1,20 @@
+schema_version: 0.1.0
+generated_at: '2026-06-02T00:00:00Z'
+task_specs_dir: governance/task_specs
+summary:
+  total_tasks: 1
+  active_tasks: 1
+  by_status:
+    proposed: 1
+tasks:
+  - task_id: task_light_novel_governance_prompt_001
+    project_id: light_novel
+    title: 为 light_novel 仓库生成 README/docs/CHANGELOG 同步治理 Prompt
+    status: proposed
+    priority: medium
+    task_type: prompt_generation
+    assigned_agent: Cursor
+    execpolicy_profile: readonly_managed_repo
+    confirmation_policy: human_review_before_execution
+    task_spec_path: governance/task_specs/example_task_spec.yaml
+    is_active: true
