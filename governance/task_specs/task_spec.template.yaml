@@ -1,0 +1,31 @@
+task_id:
+project_id:
+title:
+description:
+status:
+priority:
+task_type:
+working_directory:
+reference_paths:
+  -
+scope:
+  -
+out_of_scope:
+  -
+assigned_agent:
+playbook_id:
+confirmation_policy:
+execpolicy_profile:
+depends_on:
+  -
+acceptance_criteria:
+  -
+artifacts_expected:
+  -
+validation_commands:
+  -
+blockers:
+  -
+created_at:
+updated_at:
+notes:

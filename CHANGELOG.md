@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## Round 25 - Personal Agent OS Architecture Absorption
+
+- 将项目定位升级为个人多仓库治理层 / Personal Agent OS / Portfolio Orchestrator。
+- 新增 `governance/` 治理资产目录、task_spec、proof_of_work、review_queue、execpolicy 与 eval registry。
+- 新增数据模型、参考架构吸收、审计轨迹、handoff、review_queue、execpolicy、repo_context_index、evaluation gate 设计文档。
+- 新增 `docs/roadmap_40_rounds.md`，并将架构路线映射到仓库执行 Round 25-63。
+- 增强 `scripts/agent_gate.py` 的治理资产检查。
+
 ## MCP 工具配置轮
 
 - 合并 `.cursor/mcp.json`：补充 filesystem、github（保留 playwright / chrome-devtools / context7）。

@@ -1,6 +1,6 @@
 # Agent Gate Report
 
-- generated_at: 2026-05-31T23:26:46.353510+00:00
+- generated_at: 2026-06-02T01:05:51.306088+00:00
 - verdict: PASS
 
 ## Findings
@@ -11,13 +11,20 @@
 - [PASS] `dry_run_defaults`: dry-run defaults checked
 - [PASS] `target_repo_modification`: no obvious target-repo write logic
 - [PASS] `integration_docs_only`: integrations remain docs-only
-- [PASS] `round_docs`: round docs 00-24 exist
+- [PASS] `round_docs`: round docs 00-63 exist
 - [PASS] `round_doc_sections`: round docs contain required sections
 - [PASS] `ui_check_script`: ui_check.py exists
-- [PASS] `audit_report`: round 01 audit report exists
+- [PASS] `audit_report`: round 25 architecture absorption audit report exists
 - [PASS] `playwright_local`: ui_check uses local file:// access
 - [PASS] `scan_allowlist`: scan script uses pattern-based allowlist collection
-- [PASS] `protocol_round1_api`: Round 1 external API ban present in protocol
+- [PASS] `protocol_governance_api`: governance round external API ban present in protocol
+- [PASS] `protocol_version`: protocol v0.3.0 portfolio governance positioning present
+- [PASS] `protocol_positioning`: Personal Agent OS positioning present
+- [PASS] `governance_assets`: governance assets and design docs exist
+- [PASS] `task_spec_template`: task_spec template contains required fields
+- [PASS] `proof_of_work_template`: proof_of_work template contains required fields
+- [PASS] `eval_registry`: eval registry contains required baseline evals
+- [PASS] `completion_report`: round 25 completion report exists
 - [PASS] `requirements_dev`: requirements-dev.txt includes playwright and pytest
 - [PASS] `installation_doc`: installation.md covers core refresh commands
 - [PASS] `example_fixtures`: example data fixtures present

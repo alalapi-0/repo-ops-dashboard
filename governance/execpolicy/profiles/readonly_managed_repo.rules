@@ -1,0 +1,16 @@
+# Readonly managed repository profile
+allow read README.md
+allow read README.*
+allow read AGENTS.md
+allow read repo_protocol_standard.yaml
+allow read repo_context_index.yaml
+allow read round_state/**
+allow read docs/index.md
+allow read docs/roadmap*.md
+allow read docs/architecture*.md
+allow read CHANGELOG.md
+deny write **
+deny read **/.env
+deny read **/.env.*
+deny read **/*secret*
+deny read **/*token*

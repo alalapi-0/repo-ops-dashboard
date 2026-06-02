@@ -49,6 +49,45 @@ ROUND_FILES = [
     "round_22_llm_openrouter.md",
     "round_23_feishu_hardening.md",
     "round_24_personal_os_hub.md",
+    "round_25_architecture_absorption_personal_agent_os_upgrade.md",
+    "round_26_project_registry_mvp.md",
+    "round_27_portfolio_state_snapshot.md",
+    "round_28_governance_task_queue.md",
+    "round_29_proof_of_work_system.md",
+    "round_30_agent_run_jsonl_audit_trail.md",
+    "round_31_review_queue_mvp.md",
+    "round_32_execpolicy_checker.md",
+    "round_33_repo_context_index_mvp.md",
+    "round_34_readonly_repo_scanner_v2.md",
+    "round_35_status_analyzer_v2.md",
+    "round_36_priority_scoring_system.md",
+    "round_37_lifecycle_rules.md",
+    "round_38_blocker_management.md",
+    "round_39_dashboard_v2.md",
+    "round_40_playwright_dashboard_validation.md",
+    "round_41_prompt_generator_for_cursor.md",
+    "round_42_prompt_generator_for_codex.md",
+    "round_43_openclaw_orchestration_bridge.md",
+    "round_44_weekly_digest_mvp.md",
+    "round_45_daily_briefing_mvp.md",
+    "round_46_eval_registry_script.md",
+    "round_47_handoff_protocol_implementation.md",
+    "round_48_failure_recovery_retry_policy.md",
+    "round_49_checkpoint_snapshot.md",
+    "round_50_skill_playbook_candidate_extraction.md",
+    "round_51_project_rule_promotion.md",
+    "round_52_cross_repo_protocol_sync_suggestion.md",
+    "round_53_budget_cost_tracking.md",
+    "round_54_wip_limit_scheduling.md",
+    "round_55_feishu_lark_notification_planning.md",
+    "round_56_feishu_lark_notification_mvp.md",
+    "round_57_mac_local_notification.md",
+    "round_58_openclaw_daily_briefing_skill.md",
+    "round_59_browser_dashboard_interaction.md",
+    "round_60_multi_agent_handoff_trial.md",
+    "round_61_portfolio_governance_hardening.md",
+    "round_62_release_backup_restore.md",
+    "round_63_personal_agent_os_long_term_integration.md",
 ]
 
 ROUND_REQUIRED_SECTIONS = ["## 目标", "## 验收标准", "## 推荐执行 Agent"]
@@ -118,6 +157,13 @@ def check_local_required_files(state: GateState, root: Path) -> None:
         "AGENTS.md",
         "repo_protocol_standard.yaml",
         "round_state/current_round.yaml",
+        "governance/README.md",
+        "governance/task_specs/task_spec.template.yaml",
+        "governance/proof_of_work/proof_of_work.template.json",
+        "governance/review_queue.yaml",
+        "governance/execpolicy/portfolio.rules",
+        "governance/evals/registry.yaml",
+        "docs/roadmap_40_rounds.md",
     ]
     missing = [item for item in required if not (root / item).exists()]
     if missing:
@@ -223,7 +269,7 @@ def check_round_docs_exist(state: GateState, root: Path) -> None:
     if missing:
         state.add("round_docs", BLOCKED, f"missing round docs: {missing}")
     else:
-        state.add("round_docs", PASS, f"round docs 00-{len(ROUND_FILES) - 1} exist")
+        state.add("round_docs", PASS, "round docs 00-63 exist")
 
 
 def check_round_doc_sections(state: GateState, root: Path) -> None:
@@ -252,11 +298,11 @@ def check_ui_check_script(state: GateState, root: Path) -> None:
 
 
 def check_audit_report(state: GateState, root: Path) -> None:
-    path = root / "reports" / "round_01_independent_audit_report.md"
+    path = root / "reports" / "round_25_architecture_absorption_audit_report.md"
     if not path.exists():
-        state.add("audit_report", WARNING, "reports/round_01_independent_audit_report.md missing")
+        state.add("audit_report", WARNING, "reports/round_25_architecture_absorption_audit_report.md missing")
     else:
-        state.add("audit_report", PASS, "round 01 audit report exists")
+        state.add("audit_report", PASS, "round 25 architecture absorption audit report exists")
 
 
 def check_playwright_local_only(state: GateState, root: Path) -> None:
@@ -293,13 +339,130 @@ def check_scan_allowlist_compliance(state: GateState, root: Path) -> None:
         state.add("scan_allowlist", PASS, "scan script uses pattern-based allowlist collection")
 
 
-def check_protocol_round1_api_ban(state: GateState, root: Path) -> None:
+def check_protocol_governance_api_ban(state: GateState, root: Path) -> None:
     protocol = load_yaml(root / "repo_protocol_standard.yaml")
     safety = protocol.get("safety", {})
-    if safety.get("allow_external_api_in_round_1") is False:
-        state.add("protocol_round1_api", PASS, "Round 1 external API ban present in protocol")
+    if safety.get("allow_external_api_in_governance_round") is False:
+        state.add("protocol_governance_api", PASS, "governance round external API ban present in protocol")
     else:
-        state.add("protocol_round1_api", WARNING, "allow_external_api_in_round_1 not set to false")
+        state.add("protocol_governance_api", WARNING, "allow_external_api_in_governance_round not set to false")
+
+
+def check_protocol_version(state: GateState, root: Path) -> None:
+    protocol = load_yaml(root / "repo_protocol_standard.yaml")
+    version = str(protocol.get("protocol_version", ""))
+    project_type = str(protocol.get("project_type", ""))
+    positioning = protocol.get("project_positioning", {})
+    if version >= "0.3.0" and project_type == "personal_portfolio_orchestrator":
+        state.add("protocol_version", PASS, "protocol v0.3.0 portfolio governance positioning present")
+    else:
+        state.add("protocol_version", BLOCKED, f"unexpected protocol version/type: {version}/{project_type}")
+    if positioning.get("role") != "personal_agent_os_governance_layer":
+        state.add("protocol_positioning", WARNING, "project_positioning.role is not personal_agent_os_governance_layer")
+    else:
+        state.add("protocol_positioning", PASS, "Personal Agent OS positioning present")
+
+
+def check_governance_assets(state: GateState, root: Path) -> None:
+    required = [
+        "governance/project_registry.example.yaml",
+        "governance/portfolio_state.example.yaml",
+        "governance/task_specs/example_task_spec.yaml",
+        "governance/proof_of_work/example_proof_of_work.json",
+        "governance/runs/.gitkeep",
+        "governance/checkpoints/.gitkeep",
+        "governance/execpolicy/profiles/readonly_managed_repo.rules",
+        "governance/execpolicy/profiles/repo_ops_write.rules",
+        "governance/execpolicy/profiles/risky_confirm.rules",
+        "docs/data_models.md",
+        "docs/reference_architecture_absorption.md",
+        "docs/audit_trail_design.md",
+        "docs/handoff_protocol.md",
+        "docs/review_queue_design.md",
+        "docs/execpolicy_design.md",
+        "docs/repo_context_index_design.md",
+        "docs/evaluation_gate_design.md",
+    ]
+    missing = [item for item in required if not (root / item).exists()]
+    if missing:
+        state.add("governance_assets", BLOCKED, f"missing governance assets: {missing}")
+    else:
+        state.add("governance_assets", PASS, "governance assets and design docs exist")
+
+
+def check_task_spec_template(state: GateState, root: Path) -> None:
+    path = root / "governance" / "task_specs" / "task_spec.template.yaml"
+    if not path.exists():
+        state.add("task_spec_template", BLOCKED, "task_spec.template.yaml missing")
+        return
+    text = path.read_text(encoding="utf-8")
+    required = [
+        "task_id",
+        "project_id",
+        "working_directory",
+        "assigned_agent",
+        "acceptance_criteria",
+        "validation_commands",
+        "execpolicy_profile",
+    ]
+    missing = [item for item in required if item not in text]
+    if missing:
+        state.add("task_spec_template", BLOCKED, f"task_spec template missing fields: {missing}")
+    else:
+        state.add("task_spec_template", PASS, "task_spec template contains required fields")
+
+
+def check_proof_of_work_template(state: GateState, root: Path) -> None:
+    path = root / "governance" / "proof_of_work" / "proof_of_work.template.json"
+    if not path.exists():
+        state.add("proof_of_work_template", BLOCKED, "proof_of_work.template.json missing")
+        return
+    text = path.read_text(encoding="utf-8")
+    required = [
+        "task_id",
+        "project_id",
+        "changed_files",
+        "validation_commands",
+        "tests_passed",
+        "audit_run_path",
+        "known_issues",
+    ]
+    missing = [item for item in required if item not in text]
+    if missing:
+        state.add("proof_of_work_template", BLOCKED, f"proof_of_work template missing fields: {missing}")
+    else:
+        state.add("proof_of_work_template", PASS, "proof_of_work template contains required fields")
+
+
+def check_eval_registry(state: GateState, root: Path) -> None:
+    path = root / "governance" / "evals" / "registry.yaml"
+    registry = load_yaml(path)
+    eval_ids = {item.get("eval_id") for item in registry.get("evals", [])}
+    required = {
+        "repo_protocol_exists",
+        "agents_md_exists",
+        "no_secret_exposure",
+        "managed_repo_readonly",
+        "dashboard_html_exists",
+        "round_state_updated",
+        "completion_report_exists",
+        "task_spec_schema_valid",
+        "proof_of_work_schema_valid",
+        "playwright_dashboard_check",
+    }
+    missing = sorted(required - eval_ids)
+    if missing:
+        state.add("eval_registry", BLOCKED, f"eval registry missing evals: {missing}")
+    else:
+        state.add("eval_registry", PASS, "eval registry contains required baseline evals")
+
+
+def check_completion_report(state: GateState, root: Path) -> None:
+    path = root / "reports" / "round_25_completion_report.md"
+    if path.exists():
+        state.add("completion_report", PASS, "round 25 completion report exists")
+    else:
+        state.add("completion_report", WARNING, "reports/round_25_completion_report.md missing")
 
 
 def check_requirements_dev_playwright(state: GateState, root: Path) -> None:
@@ -393,7 +556,13 @@ def main() -> int:
     check_audit_report(state, root)
     check_playwright_local_only(state, root)
     check_scan_allowlist_compliance(state, root)
-    check_protocol_round1_api_ban(state, root)
+    check_protocol_governance_api_ban(state, root)
+    check_protocol_version(state, root)
+    check_governance_assets(state, root)
+    check_task_spec_template(state, root)
+    check_proof_of_work_template(state, root)
+    check_eval_registry(state, root)
+    check_completion_report(state, root)
     check_requirements_dev_playwright(state, root)
     check_installation_doc(state, root)
     check_example_fixtures(state, root)

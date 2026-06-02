@@ -1,0 +1,16 @@
+{
+  "task_id": "",
+  "project_id": "",
+  "status": "",
+  "completed_at": "",
+  "agent_type": "",
+  "working_directory": "",
+  "artifacts": [],
+  "changed_files": [],
+  "validation_commands": [],
+  "tests_passed": false,
+  "eval_report_path": "",
+  "audit_run_path": "",
+  "summary": "",
+  "known_issues": []
+}

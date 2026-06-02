@@ -1,0 +1,25 @@
+{
+  "task_id": "task_light_novel_governance_prompt_001",
+  "project_id": "light_novel",
+  "status": "completed",
+  "completed_at": "2026-06-02T00:00:00Z",
+  "agent_type": "Cursor",
+  "working_directory": "/Users/alalapi/PycharmProjects/repo-ops-dashboard",
+  "artifacts": [
+    "prompts/generated/light_novel_governance_sync.md"
+  ],
+  "changed_files": [],
+  "validation_commands": [
+    {
+      "command": "python3 scripts/agent_gate.py",
+      "status": "not_run_in_example"
+    }
+  ],
+  "tests_passed": false,
+  "eval_report_path": "",
+  "audit_run_path": "governance/runs/example_run.jsonl",
+  "summary": "示例 proof_of_work，展示任务完成证明结构。",
+  "known_issues": [
+    "示例未实际执行任务。"
+  ]
+}

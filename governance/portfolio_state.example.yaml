@@ -1,0 +1,29 @@
+schema_version: 0.1.0
+generated_at: '2026-06-02T00:00:00Z'
+summary:
+  total_projects: 2
+  active_projects: 2
+  blocked_projects: 0
+  review_queue_open: 5
+  current_wip: 1
+  budget_warning: false
+projects:
+  - project_id: repo_ops_dashboard
+    lifecycle: active
+    health: green
+    priority: high
+    recommended_agent: Cursor
+    current_task_id: task_repo_ops_round_25
+    blockers: []
+    next_actions:
+      - Complete governance directory and roadmap expansion.
+  - project_id: light_novel
+    lifecycle: active
+    health: yellow
+    priority: medium
+    recommended_agent: Codex
+    current_task_id: null
+    blockers:
+      - Needs repo_context_index before task handoff.
+    next_actions:
+      - Generate readonly governance prompt.

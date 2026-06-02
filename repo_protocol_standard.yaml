@@ -1,29 +1,33 @@
 protocol_name: repo_ops_dashboard_protocol
-protocol_version: 0.2.0
-project_type: meta_repo_manager
+protocol_version: 0.3.0
+project_type: personal_portfolio_orchestrator
 owner: user
 default_language: zh-CN
 
 project_positioning:
-  role: personal_multi_repo_dashboard
-  not_a_coding_agent: true
-  openclaw_role: orchestration_only
-  cursor_role: implementation
-  codex_role: batch_execution
+  role: personal_agent_os_governance_layer
   description: >
-    个人多仓库状态总控台，聚合管理文件、生成报告与推进建议，
-    不替代 Cursor/Codex 的主力编程角色。
+    repo-ops-dashboard 是个人多仓库治理层 / Personal Agent OS / Portfolio Orchestrator。
+    它决定该做什么、优先级是什么、如何验收，并把边界清楚的任务交给 Cursor、Codex、OpenClaw 或业务 Agent。
+  not_a_coding_agent: true
+  not_a_domain_agent: true
+  openclaw_role: orchestration_entry
+  cursor_role: implementation_agent
+  codex_role: batch_execution_agent
+  human_role: final_decision_maker
 
 safety:
   managed_repos_readonly: true
+  reference_lab_readonly: true
   allow_full_repo_scan: false
   allow_secret_reading: false
   allow_env_reading: false
   allow_target_repo_modification: false
   allow_auto_commit: false
-  allow_external_api_in_round_0: false
-  allow_external_api_in_round_1: false
+  allow_auto_push: false
+  allow_external_api_in_governance_round: false
   allow_browser_login_automation: false
+  allow_project_deletion_without_human: false
 
 managed_file_allowlist:
   - README.md
@@ -32,6 +36,7 @@ managed_file_allowlist:
   - CLAUDE.md
   - GEMINI.md
   - repo_protocol_standard.yaml
+  - repo_context_index.yaml
   - round_state/**
   - docs/index.md
   - docs/roadmap*.md
@@ -59,8 +64,47 @@ managed_file_denylist:
   - logs/**
   - cache/**
   - tmp/**
-  - output/**
-  - large_assets/**
+
+state_authority:
+  machine_readable_first: true
+  markdown_is_projection: true
+  canonical_files:
+    - governance/project_registry.example.yaml
+    - governance/portfolio_state.example.yaml
+    - governance/review_queue.yaml
+    - round_state/current_round.yaml
+
+task_policy:
+  every_task_requires_task_spec: true
+  every_task_requires_working_directory: true
+  every_task_requires_acceptance_criteria: true
+  every_task_requires_proof_of_work: true
+  every_task_requires_audit_log: true
+
+run_policy:
+  every_run_requires_agent_run_jsonl: true
+  every_run_requires_cwd: true
+  every_run_requires_agent_type: true
+  every_run_requires_task_id: true
+
+handoff_policy:
+  use_structured_handoff_packet: true
+  pass_context_refs_not_full_context: true
+  require_working_directory: true
+  require_confirmation_policy: true
+
+review_policy:
+  hitl_required_for:
+    - priority_conflict
+    - budget_increase
+    - publish_approval
+    - project_archive
+    - project_delete
+    - protocol_change
+    - skill_write
+    - playbook_promotion
+    - execpolicy_amendment
+    - schema_exception
 
 agent_roles:
   cursor:
@@ -77,8 +121,6 @@ agent_roles:
     can_modify_managed_repos: false
   human:
     role: final_decision
-    can_modify_repo_ops_dashboard: true
-    can_modify_managed_repos: true
 
 round_policy:
   every_round_requires_plan: true
@@ -86,6 +128,7 @@ round_policy:
   every_round_requires_changelog: true
   every_round_requires_state_update: true
   every_round_requires_completion_report: true
+  every_round_requires_proof_of_work_when_task_completed: true
 
 playwright_policy:
   allowed: true
@@ -101,9 +144,11 @@ sync_requirements:
     - round lifecycle contract changes
     - agent role boundary changes
     - script validation requirements change
+    - governance schema changes
   files_to_sync_with:
     - AGENTS.md
     - README.md
     - config/managed_files.yaml
     - round_state/current_round.yaml
     - docs/security_policy.md
+    - governance/README.md

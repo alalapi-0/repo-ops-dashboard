@@ -167,3 +167,15 @@
 - 状态：completed
 - 产出：`dashboard/hub.html`；Phase D 完结
 - next_round: null
+## Round 25 - Architecture Absorption & Personal Agent OS Upgrade
+
+- 状态：completed
+- 执行者：cursor
+- 产出：`governance/` 治理目录、协议 v0.3.0、架构吸收文档、40 轮治理路线、Round 25-63 执行映射、agent_gate 增强
+- 外部 API：false
+- 修改被管理仓库：false
+- 读取密钥：false
+- OpenClaw：false，仅规划
+- Feishu：false，仅规划
+- 下一轮：`round_26_project_registry_mvp`
+

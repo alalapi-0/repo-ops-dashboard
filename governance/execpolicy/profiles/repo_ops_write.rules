@@ -1,0 +1,8 @@
+# repo-ops-dashboard implementation profile
+allow write /Users/alalapi/PycharmProjects/repo-ops-dashboard/**
+deny read **/.env
+deny read **/.env.*
+deny read **/*secret*
+deny read **/*token*
+prompt command git push
+prompt command rm -rf

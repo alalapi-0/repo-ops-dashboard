@@ -1,0 +1,28 @@
+schema_version: 0.1.0
+updated_at: '2026-06-02T00:00:00Z'
+projects:
+  - project_id: repo_ops_dashboard
+    repo_name: repo-ops-dashboard
+    path: /Users/alalapi/PycharmProjects/repo-ops-dashboard
+    domain: portfolio_governance
+    lifecycle: active
+    owner: HumanOwner
+    default_agent: Cursor
+    governance_level: write_allowed
+    context_index_path: repo_context_index.yaml
+    key_files:
+      - README.md
+      - AGENTS.md
+      - repo_protocol_standard.yaml
+      - round_state/current_round.yaml
+    notes: Personal Agent OS governance layer itself.
+  - project_id: light_novel
+    repo_name: light_novel
+    path: /path/to/managed/light_novel
+    domain: novel_generation
+    lifecycle: active
+    owner: HumanOwner
+    default_agent: Codex
+    governance_level: readonly_managed_repo
+    context_index_path: repo_context_index.yaml
+    notes: Example managed business repository. Path is illustrative only.

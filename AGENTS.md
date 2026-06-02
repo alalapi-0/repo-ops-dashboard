@@ -2,20 +2,25 @@
 
 ## 1) 项目身份
 
-本项目为 `repo-ops-dashboard`，**个人多仓库管理总控台**。
+本项目为 `repo-ops-dashboard`，是用户个人多仓库治理层 / Personal Agent OS / Portfolio Orchestrator。
 
-核心价值：读取多个本地仓库的管理文件，汇总状态、判断优先级、识别卡点、生成报告与推进 Prompt，供 Cursor/Codex 执行、**Cursor Automations** 定时编排、Human 决策。
+它负责在“一个人 + 多个 AI Agent + 多个仓库/项目”的条件下，登记项目、汇总状态、判断优先级、生成 task_spec、组织 handoff、收集 proof_of_work、维护 review_queue，并为 HumanOwner 提供可审计的决策材料。
+
+它不是普通 Dashboard。Dashboard 只是治理状态的一个视图。
 
 ## 2) 不是什么
 
-本项目**不是**：
+本项目不是：
 
-- 第三个编程 Agent
-- 自动改所有仓库的机器人
-- 自动提交器
+- Cursor/Codex 替代品
+- 领域 Agent
+- 全自动无人值守系统
+- 直接修改所有仓库的工具
+- 密钥读取工具
+- 发布工具
 - 自动删除器
+- 自动提交器
 - 全盘扫描器
-- 密钥管理器
 
 ## 3) Agent 分工
 
@@ -23,80 +28,94 @@
 
 负责：
 
-- 本项目脚本实现
+- 本项目功能开发
+- 脚本实现
 - Dashboard UI
-- Playwright 本地 UI 检查
+- Playwright 检查
 - 文档维护
-- 本项目内部治理
+- Round 执行
+- 本项目内部治理资产维护
 
 ### CodexAgent
 
 负责：
 
 - 边界清楚的批量推进
+- 明确任务实现
 - 测试修复
-- 自动 PR 或提交建议
-- **不直接碰被管理业务仓库**
+- PR/提交建议
+- 不直接碰被管理业务仓库，除非 HumanOwner 在独立业务仓库内明确授权
 
-### CursorAutomations
+### OpenClawAgent
 
 负责：
 
-- 定时执行 `refresh_status.sh`
-- 可选飞书 `--feishu-send`、LLM `--llm-summary --call`（Human opt-in）
-- 读取 `repo_status.json` 与 `reports/` 做编排
-- **不做主力编程开发**
-
-### OpenClawAgent（可选遗留）
-
-- 历史 Skill 仍可用；新部署请用 Cursor Automations（见 `docs/cursor_automation_guide.md`）
-- 只读 status/report，不主力编程
+- 调度入口
+- 读取 `repo_status`、`portfolio_state`、`weekly_digest`、`review_queue`
+- 生成今日建议
+- 触发只读脚本
+- 生成 Cursor/Codex Prompt
+- 提醒 HumanOwner 处理 HITL 决策
+- 不做主力编程开发
 
 ### HumanOwner
 
 负责：
 
-- 决定优先级
-- 决定冻结
-- 决定归档
-- 决定是否推进
+- 优先级
+- 预算
+- 冻结/归档/删除
+- 发布
+- 规则写入
+- 高风险确认
+- 破例通过未达标任务
 
-## 4) 绝对禁止
+## 4) 每轮执行协议
 
-- 禁止读取任何 `.env`
-- 禁止打印任何 API Key
-- 禁止修改被管理的业务仓库
-- 禁止全量递归扫描所有仓库
-- 禁止自动删除仓库
-- 禁止自动 git commit
-- 禁止自动接入通知平台
-- 禁止在 Round 0 / Round 1 调用外部 API
-
-## 5) Round 执行协议
-
-每一轮必须：
+每轮必须：
 
 1. 读取 `repo_protocol_standard.yaml`
 2. 读取 `round_state/current_round.yaml`
-3. 读取对应 `docs/rounds/round_xx_*.md`
-4. 先输出计划
-5. 再执行有限范围修改
+3. 读取对应 `docs/rounds` 文档或路线映射
+4. 输出计划
+5. 限定范围执行
 6. 运行验证命令
 7. 更新 `CHANGELOG.md`
 8. 更新 `round_state/`
-9. 生成 `reports/round_xx_completion_report.md`
+9. 生成 completion report
+10. 如有任务完成，生成或规划 `proof_of_work`
 
-## 6) Playwright 使用规则
+## 5) 任务与验收协议
 
-- Playwright **只用于本地 Dashboard 页面检查**（`file://` 打开 `dashboard/index.html`）
-- **不登录**任何真实网站
-- **不读取**浏览器账号
-- **不保存**敏感截图
+每个治理任务必须有：`task_id`、`project_id`、目标、范围、`working_directory`、`assigned_agent`、验收标准、验证命令、proof_of_work、blockers、状态和时间戳。
+
+完成不能靠“感觉完成了”，必须提交 proof_of_work 或在 completion report 中说明为什么暂未生成。
+
+## 6) 绝对禁止
+
+- 禁止读取任何 `.env`
+- 禁止打印任何 API Key、Token、密码、私钥
+- 禁止修改被管理业务仓库
+- 禁止全量递归扫描所有仓库
+- 禁止自动删除项目或仓库
+- 禁止自动 git commit/push
+- 禁止自动接通知平台
+- 禁止自动发布
+- 禁止自动改 reference_lab
+- 禁止绕过 review_queue
+- 禁止在治理轮调用外部大模型 API
+
+## 7) Playwright 使用规则
+
+- Playwright 只用于本地 Dashboard 页面检查（`file://` 打开 `dashboard/index.html`）
+- 不登录任何真实网站
+- 不读取浏览器账号
+- 不保存敏感截图
 - 截图只保存到 `reports/ui_screenshots/`
-- Playwright 失败**不能影响**核心扫描脚本
+- Playwright 失败不能影响核心扫描脚本，但必须写入报告
 - 未安装 Playwright 时，`ui_check.py` 应给出清晰安装提示并优雅退出
 
-## 7) 验证命令
+## 8) 验证命令
 
 ```bash
 python3 scripts/agent_gate.py
@@ -106,23 +125,3 @@ python3 scripts/generate_dashboard.py --input data/repo_status.example.json --ou
 python3 scripts/generate_report.py --input data/repo_status.example.json --output reports/daily_repo_report.md
 python3 scripts/ui_check.py --file dashboard/index.html --screenshot reports/ui_screenshots/dashboard.png --headless true
 ```
-
-若 Playwright 未安装：
-
-```bash
-pip install -r requirements-dev.txt
-python3 -m playwright install chromium
-```
-
-若命令因示例数据不足无法完整运行，必须在当轮完成报告说明原因与修复计划。
-
-## 8) MCP Tools
-
-- 本项目优先使用 **`.cursor/mcp.json`** 中声明的 MCP（playwright、chrome-devtools、context7、filesystem、github）。
-- 自动推进轮开始前应确认 MCP 已在 Cursor **Tools & MCP** 中加载；可运行 `python3 scripts/check_mcp_config.py`。
-- **浏览器相关任务**必须优先使用 Playwright MCP（或 `scripts/ui_check.py`）；页面实现须边实现边做浏览器检查（console、network、核心流程）。
-- **文件操作**须确认真实文件状态（filesystem MCP 或内置工具 + `git diff`），filesystem 仅授权当前仓库工作区。
-- **GitHub 操作**须在提交前检查 `git diff`，避免泄露密钥；无 `GITHUB_TOKEN` 时降级为 `git`/`gh`，不卡死整轮。
-- 若 MCP 不可用，Agent 须在报告中记录原因并按 `docs/agent_skills/mcp_usage_skill.md` 使用替代方案继续推进。
-- 缺少 token / API Key 时进入 mock / dry-run，除非该凭证为任务唯一阻塞项。
-- 详见 `docs/agent_skills/mcp_usage_skill.md`、`.cursor/rules/mcp-agent-tools.mdc`。

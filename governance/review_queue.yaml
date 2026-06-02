@@ -1,0 +1,65 @@
+schema_version: 0.1.0
+updated_at: '2026-06-02T00:00:00Z'
+policy: review_queue 只能由 HumanOwner 关闭，Agent 不得自行批准。
+items:
+  - review_id: rq_001_personal_agent_os_positioning
+    type: positioning_change
+    project_id: repo_ops_dashboard
+    task_id: task_repo_ops_round_25
+    prompt: 是否将 repo-ops-dashboard 定位升级为 Personal Agent OS / Portfolio Orchestrator？
+    options: [approve, reject, defer]
+    context_refs:
+      - docs/reference_architecture_absorption.md
+      - docs/roadmap_40_rounds.md
+    status: open
+    decision: null
+    decided_at: null
+    expires_at: null
+  - review_id: rq_002_openclaw_orchestration
+    type: integration_permission
+    project_id: repo_ops_dashboard
+    task_id: task_repo_ops_round_25
+    prompt: 是否允许后续接 OpenClaw 调度入口？
+    options: [allow_planning_only, allow_readonly_mvp, reject]
+    context_refs:
+      - docs/openclaw_integration_plan.md
+    status: open
+    decision: null
+    decided_at: null
+    expires_at: null
+  - review_id: rq_003_feishu_daily_report
+    type: notification_permission
+    project_id: repo_ops_dashboard
+    task_id: task_repo_ops_round_25
+    prompt: 是否允许后续接 Feishu 日报？
+    options: [planning_only, low_sensitive_summary_only, reject]
+    context_refs:
+      - docs/cursor_automation_feishu.md
+    status: open
+    decision: null
+    decided_at: null
+    expires_at: null
+  - review_id: rq_004_weekly_priority_ranking
+    type: governance_policy
+    project_id: repo_ops_dashboard
+    task_id: task_repo_ops_round_25
+    prompt: 是否允许后续生成每周优先级排序？
+    options: [approve, approve_with_manual_override, reject]
+    context_refs:
+      - docs/roadmap_40_rounds.md
+    status: open
+    decision: null
+    decided_at: null
+    expires_at: null
+  - review_id: rq_005_project_frozen_candidate
+    type: lifecycle_decision
+    project_id: example_project
+    task_id: task_repo_ops_round_25
+    prompt: 是否允许某项目进入 frozen 状态？
+    options: [freeze, keep_active, archive_candidate]
+    context_refs:
+      - docs/lifecycle_rules.md
+    status: open
+    decision: null
+    decided_at: null
+    expires_at: null

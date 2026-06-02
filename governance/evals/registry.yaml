@@ -1,0 +1,51 @@
+schema_version: 0.1.0
+updated_at: '2026-06-02T00:00:00Z'
+evals:
+  - eval_id: repo_protocol_exists
+    description: repo_protocol_standard.yaml exists and is parseable.
+    type: file_exists
+    required: true
+    path: repo_protocol_standard.yaml
+  - eval_id: agents_md_exists
+    description: AGENTS.md exists and documents agent boundaries.
+    type: file_exists
+    required: true
+    path: AGENTS.md
+  - eval_id: no_secret_exposure
+    description: Tracked files do not contain obvious API keys, private keys, or tokens.
+    type: static_scan
+    required: true
+  - eval_id: managed_repo_readonly
+    description: Managed repositories are only scanned through allowlisted management files.
+    type: policy_check
+    required: true
+  - eval_id: dashboard_html_exists
+    description: dashboard/index.html exists after generation.
+    type: file_exists
+    required: true
+    path: dashboard/index.html
+  - eval_id: round_state_updated
+    description: round_state/current_round.yaml reflects the completed round.
+    type: yaml_check
+    required: true
+    path: round_state/current_round.yaml
+  - eval_id: completion_report_exists
+    description: The current round completion report exists.
+    type: file_exists
+    required: true
+    path: reports/round_25_completion_report.md
+  - eval_id: task_spec_schema_valid
+    description: task_spec template includes required governance fields.
+    type: schema_check
+    required: true
+    path: governance/task_specs/task_spec.template.yaml
+  - eval_id: proof_of_work_schema_valid
+    description: proof_of_work template includes required completion proof fields.
+    type: schema_check
+    required: true
+    path: governance/proof_of_work/proof_of_work.template.json
+  - eval_id: playwright_dashboard_check
+    description: Playwright validates local dashboard rendering when available.
+    type: ui_check
+    required: false
+    command: python3 scripts/ui_check.py --file dashboard/index.html --screenshot reports/ui_screenshots/dashboard.png --headless true

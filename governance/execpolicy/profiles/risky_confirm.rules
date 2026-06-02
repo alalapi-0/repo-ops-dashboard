@@ -1,0 +1,8 @@
+# Risky action profile: every risky action must enter review_queue first.
+prompt command git push
+prompt command rm -rf
+prompt command launchctl
+prompt command curl * | bash
+prompt write governance/execpolicy/**
+prompt write repo_protocol_standard.yaml
+prompt write .cursor/rules/**
