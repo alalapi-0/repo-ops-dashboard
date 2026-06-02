@@ -1,8 +1,8 @@
 # UI Check Report
 
-- generated_at: 2026-06-02T17:32:03.713112+00:00
+- generated_at: 2026-06-02T17:35:24.804958+00:00
 - status: PASS
-- page_url: http://127.0.0.1:8765/dashboard/index.html
+- page_url: file:///Users/alalapi/PycharmProjects/repo-ops-dashboard/dashboard/index.html
 - screenshot: reports/ui_screenshots/dashboard.png
 
 ## Checks

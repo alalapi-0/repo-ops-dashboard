@@ -281,3 +281,21 @@
 - 产出：`generate_codex_prompt_from_task_spec.py`、`example_codex_task_spec.yaml`
 - 下一轮：`round_43_openclaw_orchestration_bridge`
 
+## Round 43 - OpenClaw Orchestration Bridge
+
+- 状态：completed
+- 产出：`openclaw_orchestration_bridge.py`、manifest、orchestration brief/snapshot
+- 下一轮：`round_44_weekly_digest_mvp`
+
+## Round 44 - Weekly Digest MVP
+
+- 状态：completed
+- 产出：`generate_weekly_digest.py`、`governance/digests/weekly/weekly_digest.md`
+- 下一轮：`round_45_daily_briefing_mvp`
+
+## Round 45 - Daily Briefing MVP
+
+- 状态：completed
+- 产出：`generate_daily_briefing.py`、治理 daily briefing digest
+- 下一轮：`round_46_eval_registry_script`
+

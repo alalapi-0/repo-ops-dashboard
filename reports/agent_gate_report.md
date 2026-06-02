@@ -1,7 +1,7 @@
 # Agent Gate Report
 
-- generated_at: 2026-06-02T17:33:09.320660+00:00
-- verdict: WARNING
+- generated_at: 2026-06-02T17:35:22.824432+00:00
+- verdict: PASS
 
 ## Findings
 - [PASS] `denylist`: denylist configured
@@ -25,13 +25,16 @@
 - [PASS] `ui_check_policy`: ui_check_policy v1 valid (10 required checks)
 - [PASS] `cursor_task_spec_prompt`: Cursor task_spec prompt generator wired
 - [PASS] `codex_task_spec_prompt`: Codex task_spec prompt generator wired
+- [PASS] `openclaw_orchestration_bridge`: OpenClaw orchestration bridge wired (dry-run default)
+- [PASS] `weekly_digest`: weekly_digest generator wired
+- [PASS] `daily_briefing`: daily_briefing generator wired
 - [PASS] `protocol_governance_api`: governance round external API ban present in protocol
 - [PASS] `protocol_version`: protocol v0.3.0 portfolio governance positioning present
 - [PASS] `protocol_positioning`: Personal Agent OS positioning present
 - [PASS] `governance_assets`: governance assets and design docs exist
 - [PASS] `project_registry`: project_registry.yaml has 17 projects aligned with repos.yaml
 - [PASS] `portfolio_state`: portfolio_state.yaml snapshot covers 17 projects
-- [WARNING] `governance_task_queue`: queue has 1 tasks but 2 task_spec file(s)
+- [PASS] `governance_task_queue`: governance_task_queue.yaml lists 2 task(s)
 - [PASS] `task_spec_template`: task_spec template contains required fields
 - [PASS] `proof_of_work_template`: proof_of_work template contains required fields
 - [PASS] `proof_of_work_registry`: proof_of_work_registry.yaml lists 1 record(s)
@@ -44,4 +47,4 @@
 - [PASS] `requirements_dev`: requirements-dev.txt includes playwright and pytest
 - [PASS] `installation_doc`: installation.md covers core refresh commands
 - [PASS] `example_fixtures`: example data fixtures present
-- [PASS] `pytest_tests`: pytest tests present (27 modules)
+- [PASS] `pytest_tests`: pytest tests present (30 modules)

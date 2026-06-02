@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## Round 45 - Daily Briefing MVP
+
+- 新增 `generate_daily_briefing.py`、`prompts/daily_briefing.md` 与治理 digest 输出路径。
+- `refresh_status.sh` 与 `tests/test_generate_daily_briefing.py`；`agent_gate` daily_briefing 检查。
+- `reports/round_45_completion_report.md`。
+
+## Round 44 - Weekly Digest MVP
+
+- 新增 `generate_weekly_digest.py` 与 `governance/digests/weekly/weekly_digest.md`。
+- `prompts/weekly_digest.md`、`tests/test_generate_weekly_digest.py`；`agent_gate` weekly_digest 检查。
+- `reports/round_44_completion_report.md`。
+
+## Round 43 - OpenClaw Orchestration Bridge
+
+- 新增 `openclaw_orchestration_bridge.py`、`openclaw_orchestration.manifest.yaml` 与 orchestration brief 模板。
+- 同步 `governance_task_queue.yaml`（2 task_spec）；更新 OpenClaw Skill 与集成规划。
+- `tests/test_openclaw_orchestration_bridge.py`；`reports/round_43_completion_report.md`。
+
 ## Round 42 - Prompt Generator for Codex
 
 - 新增 `generate_codex_prompt_from_task_spec.py`、`codex_from_task_spec.md` 与 `example_codex_task_spec.yaml`。

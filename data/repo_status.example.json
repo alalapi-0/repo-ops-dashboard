@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-02T17:30:15.377937+00:00",
+  "generated_at": "2026-06-02T17:35:22.954613+00:00",
   "analyzer_version": "v2",
   "analyzer_policy": "config/analyzer_policy.yaml",
   "priority_scoring_policy": "config/priority_scoring_policy.yaml",
@@ -270,9 +270,9 @@
       "registry_matched": true,
       "registry_lifecycle": "bootstrap",
       "governance_level": "write_allowed",
-      "round_current": "round_39_dashboard_v2",
+      "round_current": "round_42_prompt_generator_for_codex",
       "round_status": "completed",
-      "round_next": "round_40_playwright_dashboard_validation",
+      "round_next": "round_43_openclaw_orchestration_bridge",
       "current_stage": "round_00_bootstrap",
       "health_score": 88,
       "health_dimensions": {
