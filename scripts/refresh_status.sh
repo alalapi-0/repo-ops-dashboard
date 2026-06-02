@@ -86,6 +86,12 @@ echo "[refresh] reports"
 echo "[refresh] protocol sync suggestions"
 "$PYTHON" scripts/protocol_sync_report.py --input "$SNAPSHOTS" --no-dry-run
 
+echo "[refresh] sync portfolio state"
+"$PYTHON" scripts/sync_portfolio_state.py --status "$STATUS"
+
+echo "[refresh] portfolio checkpoint snapshot (dry-run)"
+"$PYTHON" scripts/snapshot_portfolio_checkpoint.py
+
 echo "[refresh] sync governance task queue"
 "$PYTHON" scripts/sync_governance_task_queue.py
 

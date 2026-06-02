@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Round 49 - Checkpoint Snapshot
+
+- 新增 `checkpoint_snapshot_policy.yaml`、portfolio 快照脚本与 `governance/checkpoints/manifest.yaml`。
+- `refresh_status.sh` 在 sync portfolio 后执行 checkpoint dry-run；`agent_gate` 增加 checkpoint 验收。
+- `reports/round_49_completion_report.md`。
+
 ## Round 48 - Failure Recovery & Retry Policy
 
 - 新增 `failure_recovery_policy.yaml`、planner/validator 脚本与设计文档。

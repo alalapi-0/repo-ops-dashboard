@@ -1,12 +1,12 @@
 # Portfolio state snapshot (Personal Agent OS).
 # Sources: governance/project_registry.yaml + repo status JSON
 schema_version: 0.1.0
-generated_at: '2026-06-02T05:04:57+00:00'
+generated_at: '2026-06-02T17:43:32+00:00'
 status_source: data/repo_status.example.json
 registry_source: governance/project_registry.yaml
 summary:
   total_projects: 17
-  active_projects: 16
+  active_projects: 14
   blocked_projects: 3
   review_queue_open: 5
   current_wip: 0
@@ -14,7 +14,7 @@ summary:
 projects:
 - project_id: novel_continuation_agent
   repo_name: novel-continuation-agent
-  lifecycle: active
+  lifecycle: blocked
   health: yellow
   priority: high
   recommended_agent: Human
@@ -24,9 +24,10 @@ projects:
   next_actions:
   - 补齐缺失治理文件（AGENTS.md / protocol / README）
   last_checked: '2026-05-31T08:37:34.795755+00:00'
+  priority_score: 12
 - project_id: ai_manga
   repo_name: ai-manga
-  lifecycle: freeze_candidate
+  lifecycle: blocked
   health: red
   priority: high
   recommended_agent: Human
@@ -38,6 +39,7 @@ projects:
   next_actions:
   - 补齐缺失治理文件（AGENTS.md / protocol / README）
   last_checked: '2026-05-31T08:37:34.795755+00:00'
+  priority_score: 0
 - project_id: repo_ops_dashboard
   repo_name: repo-ops-dashboard
   lifecycle: bootstrap
@@ -49,6 +51,7 @@ projects:
   next_actions:
   - 处理扫描 warning 并补齐可选治理文件
   last_checked: '2026-05-31T08:37:34.795755+00:00'
+  priority_score: 43
 - project_id: ai_anime_short_factory
   repo_name: ai-anime-short-factory
   lifecycle: active
@@ -71,7 +74,7 @@ projects:
   - Run scan_repos.py and refresh status snapshot
 - project_id: light_novel
   repo_name: light_novel
-  lifecycle: active
+  lifecycle: blocked
   health: yellow
   priority: low
   recommended_agent: Human
@@ -82,6 +85,7 @@ projects:
   next_actions:
   - 补齐缺失治理文件（AGENTS.md / protocol / README）
   last_checked: '2026-05-31T08:37:34.795755+00:00'
+  priority_score: 13
 - project_id: computer_study_plan
   repo_name: computer_study_plan
   lifecycle: active

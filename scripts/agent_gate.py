@@ -598,6 +598,37 @@ def check_ui_check_policy(state: GateState, root: Path) -> None:
         state.add("ui_check_policy", WARNING, "ui_check_policy valid but console checks not wired in ui_check.py")
 
 
+def check_checkpoint_snapshot_policy(state: GateState, root: Path) -> None:
+    live = root / "config" / "checkpoint_snapshot_policy.yaml"
+    example = root / "governance" / "checkpoint_snapshot_policy.example.yaml"
+    planner = root / "scripts" / "snapshot_portfolio_checkpoint.py"
+    validator = root / "scripts" / "validate_checkpoint_snapshot_policy.py"
+    manifest = root / "governance" / "checkpoints" / "manifest.yaml"
+    if not live.exists() or not validator.exists():
+        state.add("checkpoint_snapshot_policy", BLOCKED, "checkpoint_snapshot_policy.yaml or validator missing")
+        return
+    try:
+        from validate_checkpoint_snapshot_policy import (
+            load_yaml,
+            validate_checkpoint_snapshot_policy,
+        )
+    except ImportError:
+        state.add("checkpoint_snapshot_policy", BLOCKED, "validate_checkpoint_snapshot_policy unavailable")
+        return
+    errors = validate_checkpoint_snapshot_policy(load_yaml(live), live.name)
+    if errors:
+        state.add("checkpoint_snapshot_policy", BLOCKED, f"checkpoint_snapshot_policy invalid: {errors[0]}")
+        return
+    if example.exists() and planner.exists() and manifest.exists():
+        state.add("checkpoint_snapshot_policy", PASS, "portfolio checkpoint snapshot policy wired (dry-run)")
+    else:
+        state.add(
+            "checkpoint_snapshot_policy",
+            WARNING,
+            "checkpoint_snapshot_policy valid but planner/example/manifest incomplete",
+        )
+
+
 def check_failure_recovery_policy(state: GateState, root: Path) -> None:
     live = root / "config" / "failure_recovery_policy.yaml"
     example = root / "governance" / "failure_recovery_policy.example.yaml"
@@ -948,6 +979,10 @@ def check_governance_assets(state: GateState, root: Path) -> None:
         "governance/handoffs/example_handoff_packet.yaml",
         "governance/handoffs/tracking.yaml",
         "governance/checkpoints/.gitkeep",
+        "governance/checkpoints/manifest.yaml",
+        "docs/checkpoint_snapshot_design.md",
+        "config/checkpoint_snapshot_policy.yaml",
+        "governance/checkpoint_snapshot_policy.example.yaml",
         "governance/execpolicy/profiles/readonly_managed_repo.rules",
         "governance/execpolicy/profiles/repo_ops_write.rules",
         "governance/execpolicy/profiles/risky_confirm.rules",
@@ -1189,6 +1224,7 @@ def main() -> int:
     check_priority_scoring_policy(state, root)
     check_lifecycle_policy(state, root)
     check_blocker_policy(state, root)
+    check_checkpoint_snapshot_policy(state, root)
     check_failure_recovery_policy(state, root)
     check_ui_check_policy(state, root)
     check_cursor_task_spec_prompt(state, root)

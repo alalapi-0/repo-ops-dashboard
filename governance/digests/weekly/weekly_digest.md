@@ -1,18 +1,18 @@
 # Weekly Digest Template
 
-生成时间：2026-06-02 17:35 UTC
+生成时间：2026-06-02 17:43 UTC
 
 ## 本周摘要
 
 - 扫描仓库：5
-- 活跃项目：16
+- 活跃项目：14
 - 阻塞项目：3
 - 治理轮次：见 round_state
 
 ## Portfolio 状态
 
 - 项目总数：17
-- 活跃：16
+- 活跃：14
 - 阻塞：3
 - review_queue 待决：5
 
@@ -39,9 +39,9 @@
 
 ## 当前轮次
 
-- round：`round_42_prompt_generator_for_codex`
+- round：`round_49_checkpoint_snapshot`
 - status：`completed`
-- next：`round_43_openclaw_orchestration_bridge`
+- next：`round_50_skill_playbook_candidate_extraction`
 
 ## Human 本周笔记
 

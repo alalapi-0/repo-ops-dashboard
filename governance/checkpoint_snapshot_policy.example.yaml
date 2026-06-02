@@ -1,0 +1,16 @@
+# Mirror of config/checkpoint_snapshot_policy.yaml for documentation and dry-run examples.
+schema_version: 0.1.0
+policy_version: v1
+description: Example checkpoint snapshot policy.
+
+snapshot:
+  source: governance/portfolio_state.yaml
+  output_dir: governance/checkpoints
+  manifest: governance/checkpoints/manifest.yaml
+  id_prefix: ckpt_portfolio_
+  max_retained: 8
+  cadence_hours: 24
+
+defaults:
+  dry_run: true
+  auto_approve: true

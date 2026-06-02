@@ -1,17 +1,17 @@
 # OpenClaw Orchestration Brief
 
-生成时间：2026-06-02 17:35 UTC
+生成时间：2026-06-02 17:43 UTC
 
 ## 当前轮次
 
-- round：`round_42_prompt_generator_for_codex`
+- round：`round_49_checkpoint_snapshot`
 - status：`completed`
-- next：`round_43_openclaw_orchestration_bridge`
+- next：`round_50_skill_playbook_candidate_extraction`
 
 ## Portfolio 摘要
 
 - 项目总数：17
-- 活跃：16
+- 活跃：14
 - 阻塞：3
 - review_queue 待决：5
 - budget_warning：False
@@ -32,12 +32,12 @@
 ## 今日最该推进（1–3 项目）
 
 1. **ai-anime-short-factory**（Codex）— Run scan_repos.py and refresh status snapshot；卡点：无卡点
-2. **novel-continuation-agent**（Human）— 补齐缺失治理文件（AGENTS.md / protocol / README）；卡点：repo_protocol_standard.yaml missing
-3. **repo-ops-dashboard**（Cursor）— 处理扫描 warning 并补齐可选治理文件；卡点：无卡点
+2. **ai-manga**（Human）— 补齐缺失治理文件（AGENTS.md / protocol / README）；卡点：README.md missing; AGENTS.md missing; repo_protocol_standard.yaml missing
+3. **novel-continuation-agent**（Human）— 补齐缺失治理文件（AGENTS.md / protocol / README）；卡点：repo_protocol_standard.yaml missing
 
 ## 今日暂缓 / 不该碰
 
-- **ai-manga**（Human）— 补齐缺失治理文件（AGENTS.md / protocol / README）；卡点：README.md missing; AGENTS.md missing; repo_protocol_standard.yaml missing
+- 无
 
 ## 建议触发命令（默认 dry-run / 只读）
 
@@ -51,7 +51,7 @@ python3 scripts/openclaw_orchestration_bridge.py --dry-run
 
 ## 短提醒（≤200 字）
 
-Round round_42_prompt_generator_for_codex：优先 ai-anime-short-factory, novel-continuation-agent。暂缓 1 项；review_queue 待决 5 项。OpenClaw 只读编排，编程交给 Cursor/Codex。
+Round round_49_checkpoint_snapshot：优先 ai-anime-short-factory, ai-manga。暂缓 0 项；review_queue 待决 5 项。OpenClaw 只读编排，编程交给 Cursor/Codex。
 
 ---
 

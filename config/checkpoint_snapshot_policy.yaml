@@ -1,0 +1,15 @@
+schema_version: 0.1.0
+policy_version: v1
+description: Periodic portfolio_state checkpoint snapshots (read-only, no external API).
+
+snapshot:
+  source: governance/portfolio_state.yaml
+  output_dir: governance/checkpoints
+  manifest: governance/checkpoints/manifest.yaml
+  id_prefix: ckpt_portfolio_
+  max_retained: 8
+  cadence_hours: 24
+
+defaults:
+  dry_run: true
+  auto_approve: true

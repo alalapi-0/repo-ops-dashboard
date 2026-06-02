@@ -1,12 +1,12 @@
 schema_version: 0.1.0
-generated_at: '2026-06-02T17:35:23+00:00'
+generated_at: '2026-06-02T17:43:33+00:00'
 role: orchestration_entry
-current_round: round_42_prompt_generator_for_codex
+current_round: round_49_checkpoint_snapshot
 round_status: completed
-next_round: round_43_openclaw_orchestration_bridge
+next_round: round_50_skill_playbook_candidate_extraction
 portfolio_summary:
   total_projects: 17
-  active_projects: 16
+  active_projects: 14
   blocked_projects: 3
   review_queue_open: 5
   current_wip: 0
@@ -23,9 +23,9 @@ active_task_ids:
 - task_repo_ops_test_fix_001
 top_project_ids:
 - ai_anime_short_factory
+- ai_manga
 - novel_continuation_agent
-- repo_ops_dashboard
-short_reminder: Round round_42_prompt_generator_for_codex：优先 ai-anime-short-factory,
-  novel-continuation-agent。暂缓 1 项；review_queue 待决 5 项。OpenClaw 只读编排，编程交给 Cursor/Codex。
+short_reminder: Round round_49_checkpoint_snapshot：优先 ai-anime-short-factory, ai-manga。暂缓
+  0 项；review_queue 待决 5 项。OpenClaw 只读编排，编程交给 Cursor/Codex。
 dry_run_only: true
 external_api_called: false

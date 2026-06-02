@@ -1,14 +1,15 @@
-current_round: round_48_failure_recovery_retry_policy
+current_round: round_49_checkpoint_snapshot
 status: completed
 executor: cursor
 external_api_called: false
 managed_repos_modified: false
 secrets_read: false
 dashboard_version: v2
-next_round: round_49_checkpoint_snapshot
+next_round: round_50_skill_playbook_candidate_extraction
 outputs:
-  - config/failure_recovery_policy.yaml
-  - scripts/failure_recovery.py
-  - scripts/validate_failure_recovery_policy.py
-  - docs/failure_recovery_design.md
-  - reports/round_48_completion_report.md
+  - config/checkpoint_snapshot_policy.yaml
+  - scripts/snapshot_portfolio_checkpoint.py
+  - scripts/validate_checkpoint_snapshot_policy.py
+  - docs/checkpoint_snapshot_design.md
+  - governance/checkpoints/manifest.yaml
+  - reports/round_49_completion_report.md

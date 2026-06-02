@@ -1,12 +1,12 @@
 # Daily Briefing Template (Governance MVP)
 
-生成时间：2026-06-02 17:35 UTC
+生成时间：2026-06-02 17:43 UTC
 
 ## 当前轮次
 
-- round：`round_42_prompt_generator_for_codex`
+- round：`round_49_checkpoint_snapshot`
 - status：`completed`
-- next：`round_43_openclaw_orchestration_bridge`
+- next：`round_50_skill_playbook_candidate_extraction`
 
 ## 今日最该推进（1–3 仓）
 
@@ -48,7 +48,7 @@ python3 scripts/openclaw_orchestration_bridge.py --dry-run
 
 ## 短提醒（≤200 字）
 
-Round round_42_prompt_generator_for_codex：今日优先 repo-ops-dashboard, novel-continuation-agent。暂缓 2 仓；review_queue 待决 5 项。编程交给 Cursor/Codex，决策留给 HumanOwner。
+Round round_49_checkpoint_snapshot：今日优先 repo-ops-dashboard, novel-continuation-agent。暂缓 2 仓；review_queue 待决 5 项。编程交给 Cursor/Codex，决策留给 HumanOwner。
 
 ---
 

@@ -1,8 +1,8 @@
 # Eval Registry Run
 
-- generated_at: 2026-06-02 17:37 UTC
+- generated_at: 2026-06-02 17:43 UTC
 - verdict: PASS
-- passed: 24/24
+- passed: 28/28
 - failed_required: 0
 - skipped: 0
 
@@ -27,6 +27,10 @@
 - [PASS] `lifecycle_policy_valid` (required): ok
 - [PASS] `blocker_policy_valid` (required): ok
 - [PASS] `completion_report_exists` (required): ok
+- [PASS] `failure_recovery_policy_valid` (required): ok
+- [PASS] `checkpoint_snapshot_policy_valid` (required): ok
+- [PASS] `handoff_packet_valid` (required): ok
+- [PASS] `handoff_tracking_valid` (required): ok
 - [PASS] `eval_registry_runner_valid` (required): ok
 - [PASS] `task_spec_schema_valid` (required): ok
 - [PASS] `proof_of_work_schema_valid` (required): ok
