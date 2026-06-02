@@ -179,3 +179,9 @@
 - Feishu：false，仅规划
 - 下一轮：`round_26_project_registry_mvp`
 
+## Round 26 - Project Registry MVP
+
+- 状态：completed
+- 产出：`governance/project_registry.yaml`、`scripts/sync_project_registry.py`
+- 下一轮：`round_27_portfolio_state_snapshot`
+

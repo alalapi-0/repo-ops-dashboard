@@ -69,6 +69,7 @@ state_authority:
   machine_readable_first: true
   markdown_is_projection: true
   canonical_files:
+    - governance/project_registry.yaml
     - governance/project_registry.example.yaml
     - governance/portfolio_state.example.yaml
     - governance/review_queue.yaml

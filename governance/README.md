@@ -12,7 +12,8 @@
 
 ## 目录
 
-- `project_registry.example.yaml`：项目登记示例。
+- `project_registry.yaml`：机器可读项目登记（由 `scripts/sync_project_registry.py` 从 `config/repos.yaml` 同步）。
+- `project_registry.example.yaml`：项目登记示例与字段参考。
 - `portfolio_state.example.yaml`：组合状态快照示例。
 - `task_specs/`：治理任务模板和示例。
 - `proof_of_work/`：任务完成证明模板和示例。

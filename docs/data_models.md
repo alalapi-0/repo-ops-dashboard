@@ -9,8 +9,9 @@
 - 字段说明：标识字段用于关联；状态字段用于调度；上下文字段只传引用；时间字段用于审计。
 - 示例：见 `governance/project_registry.example.yaml` 或下方片段。
 - 是否机器权威：是
-- 对应文件路径：`governance/project_registry.example.yaml`
-- 后续实现轮次：Round 26
+- 对应文件路径：`governance/project_registry.yaml`（权威）；`governance/project_registry.example.yaml`（示例）
+- 同步命令：`python3 scripts/sync_project_registry.py`（`--dry-run` 仅校验）
+- 实现轮次：Round 26（已完成 MVP）
 
 ```yaml
 project_registry:

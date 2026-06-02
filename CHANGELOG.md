@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Round 26 - Project Registry MVP
+
+- 新增 `scripts/sync_project_registry.py` 与 `governance/project_registry.yaml`（从 `config/repos.yaml` 同步 17 个项目）。
+- `agent_gate` 增加 project_registry 校验；eval registry 增加 `project_registry_exists`。
+- 新增 `tests/test_project_registry.py` 与 `reports/round_26_completion_report.md`。
+
 ## Round 25 - Personal Agent OS Architecture Absorption
 
 - 将项目定位升级为个人多仓库治理层 / Personal Agent OS / Portfolio Orchestrator。

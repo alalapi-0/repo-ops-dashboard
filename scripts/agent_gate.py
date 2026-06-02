@@ -363,8 +363,53 @@ def check_protocol_version(state: GateState, root: Path) -> None:
         state.add("protocol_positioning", PASS, "Personal Agent OS positioning present")
 
 
+def check_project_registry(state: GateState, root: Path) -> None:
+    path = root / "governance" / "project_registry.yaml"
+    if not path.exists():
+        state.add("project_registry", BLOCKED, "governance/project_registry.yaml missing")
+        return
+    data = load_yaml(path)
+    projects = list(data.get("projects", []))
+    if not projects:
+        state.add("project_registry", BLOCKED, "project_registry.yaml has no projects")
+        return
+    required_fields = (
+        "project_id",
+        "repo_name",
+        "path",
+        "domain",
+        "lifecycle",
+        "owner",
+        "default_agent",
+        "governance_level",
+    )
+    incomplete = []
+    for project in projects:
+        pid = str(project.get("project_id", "?"))
+        missing = [field for field in required_fields if not project.get(field)]
+        if missing:
+            incomplete.append(f"{pid}: {missing}")
+    repos_cfg = load_yaml(root / "config" / "repos.yaml")
+    repo_count = len(repos_cfg.get("repos", []))
+    if incomplete:
+        state.add("project_registry", BLOCKED, f"incomplete project entries: {incomplete[:3]}")
+    elif len(projects) < repo_count:
+        state.add(
+            "project_registry",
+            WARNING,
+            f"registry has {len(projects)} projects but repos.yaml has {repo_count}",
+        )
+    else:
+        state.add(
+            "project_registry",
+            PASS,
+            f"project_registry.yaml has {len(projects)} projects aligned with repos.yaml",
+        )
+
+
 def check_governance_assets(state: GateState, root: Path) -> None:
     required = [
+        "governance/project_registry.yaml",
         "governance/project_registry.example.yaml",
         "governance/portfolio_state.example.yaml",
         "governance/task_specs/example_task_spec.yaml",
@@ -458,11 +503,15 @@ def check_eval_registry(state: GateState, root: Path) -> None:
 
 
 def check_completion_report(state: GateState, root: Path) -> None:
-    path = root / "reports" / "round_25_completion_report.md"
+    current = load_yaml(root / "round_state" / "current_round.yaml")
+    round_name = str(current.get("current_round", ""))
+    prefix_match = re.match(r"round_\d+", round_name)
+    report_name = f"reports/{prefix_match.group(0)}_completion_report.md" if prefix_match else ""
+    path = root / report_name if report_name else Path()
     if path.exists():
-        state.add("completion_report", PASS, "round 25 completion report exists")
+        state.add("completion_report", PASS, f"{path.name} exists")
     else:
-        state.add("completion_report", WARNING, "reports/round_25_completion_report.md missing")
+        state.add("completion_report", WARNING, f"missing completion report for current round: {report_name or 'unknown'}")
 
 
 def check_requirements_dev_playwright(state: GateState, root: Path) -> None:
@@ -559,6 +608,7 @@ def main() -> int:
     check_protocol_governance_api_ban(state, root)
     check_protocol_version(state, root)
     check_governance_assets(state, root)
+    check_project_registry(state, root)
     check_task_spec_template(state, root)
     check_proof_of_work_template(state, root)
     check_eval_registry(state, root)
