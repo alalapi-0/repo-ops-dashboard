@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Round 48 - Failure Recovery & Retry Policy
+
+- 新增 `failure_recovery_policy.yaml`、planner/validator 脚本与设计文档。
+- 定义 retry_count、failure_class、checkpoint_id 与 review_queue 升级规则。
+- `refresh_status.sh`、`agent_gate` 与 eval registry 增加 failure_recovery 验收。
+- `reports/round_48_completion_report.md`。
+
 ## Round 47 - Handoff Protocol Implementation
 
 - 新增 handoff 模板、示例 packet、`tracking.yaml` 与 generate/validate 脚本。

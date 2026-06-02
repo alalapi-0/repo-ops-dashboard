@@ -1,0 +1,36 @@
+# Mirror of config/failure_recovery_policy.yaml for documentation and dry-run examples.
+schema_version: 0.1.0
+policy_version: v1
+description: Example failure recovery policy (see config/failure_recovery_policy.yaml for live config).
+
+retry:
+  max_retry_count: 3
+  backoff_hours: [1, 4, 24]
+  auto_approve: true
+
+failure_classes:
+  - id: transient
+    retry_eligible: true
+  - id: validation_failed
+    retry_eligible: true
+  - id: policy_violation
+    retry_eligible: false
+  - id: human_required
+    retry_eligible: false
+
+checkpoint:
+  id_prefix: ckpt_
+  required_on_failure: true
+  snapshot_dir: governance/checkpoints
+
+review_queue_escalation:
+  levels:
+    - level: log
+      after_retry_count: 0
+      action: log_only
+    - level: review
+      after_retry_count: 2
+      action: create_review_queue_item
+    - level: hitl
+      after_retry_count: 3
+      action: require_human_owner_decision

@@ -311,3 +311,9 @@
 - 产出：handoff_packet 生成/校验脚本与 tracking 注册表
 - 下一轮：`round_48_failure_recovery_retry_policy`
 
+## Round 48 - Failure Recovery & Retry Policy
+
+- 状态：completed
+- 产出：failure_recovery 策略、planner 与 validator
+- 下一轮：`round_49_checkpoint_snapshot`
+

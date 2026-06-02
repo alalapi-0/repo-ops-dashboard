@@ -178,6 +178,11 @@ def run_schema_eval(root: Path, eval_id: str, rel_path: str) -> list[str]:
         text = path.read_text(encoding="utf-8")
         return [f"missing field: {f}" for f in POW_TEMPLATE_REQUIRED if f not in text]
 
+    if eval_id == "failure_recovery_policy_valid":
+        from validate_failure_recovery_policy import validate_failure_recovery_policy
+
+        return validate_failure_recovery_policy(load_yaml(path), source=path.name)
+
     if eval_id == "handoff_packet_valid":
         from validate_handoff_packet import read_handoff_packet, validate_handoff_packet
 

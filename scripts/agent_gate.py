@@ -598,6 +598,32 @@ def check_ui_check_policy(state: GateState, root: Path) -> None:
         state.add("ui_check_policy", WARNING, "ui_check_policy valid but console checks not wired in ui_check.py")
 
 
+def check_failure_recovery_policy(state: GateState, root: Path) -> None:
+    live = root / "config" / "failure_recovery_policy.yaml"
+    example = root / "governance" / "failure_recovery_policy.example.yaml"
+    planner = root / "scripts" / "failure_recovery.py"
+    validator = root / "scripts" / "validate_failure_recovery_policy.py"
+    if not live.exists() or not validator.exists():
+        state.add("failure_recovery_policy", BLOCKED, "failure_recovery_policy.yaml or validator missing")
+        return
+    try:
+        from validate_failure_recovery_policy import (
+            load_yaml,
+            validate_failure_recovery_policy,
+        )
+    except ImportError:
+        state.add("failure_recovery_policy", BLOCKED, "validate_failure_recovery_policy unavailable")
+        return
+    errors = validate_failure_recovery_policy(load_yaml(live), live.name)
+    if errors:
+        state.add("failure_recovery_policy", BLOCKED, f"failure_recovery_policy invalid: {errors[0]}")
+        return
+    if example.exists() and planner.exists() and "plan_recovery" in planner.read_text(encoding="utf-8"):
+        state.add("failure_recovery_policy", PASS, "failure recovery policy and planner wired (dry-run)")
+    else:
+        state.add("failure_recovery_policy", WARNING, "failure_recovery_policy valid but planner/example incomplete")
+
+
 def check_blocker_policy(state: GateState, root: Path) -> None:
     live = root / "config" / "blocker_policy.yaml"
     example = root / "governance" / "blocker_policy.example.yaml"
@@ -938,6 +964,9 @@ def check_governance_assets(state: GateState, root: Path) -> None:
         "docs/lifecycle_policy_design.md",
         "docs/blocker_policy_design.md",
         "docs/evaluation_gate_design.md",
+        "docs/failure_recovery_design.md",
+        "config/failure_recovery_policy.yaml",
+        "governance/failure_recovery_policy.example.yaml",
     ]
     missing = [item for item in required if not (root / item).exists()]
     if missing:
@@ -1160,6 +1189,7 @@ def main() -> int:
     check_priority_scoring_policy(state, root)
     check_lifecycle_policy(state, root)
     check_blocker_policy(state, root)
+    check_failure_recovery_policy(state, root)
     check_ui_check_policy(state, root)
     check_cursor_task_spec_prompt(state, root)
     check_codex_task_spec_prompt(state, root)

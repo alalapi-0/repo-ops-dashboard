@@ -1,0 +1,50 @@
+schema_version: 0.1.0
+policy_version: v1
+description: Retry, failure classification, checkpoint binding, and review_queue escalation.
+
+retry:
+  max_retry_count: 3
+  backoff_hours:
+    - 1
+    - 4
+    - 24
+  auto_approve: true
+
+failure_classes:
+  - id: transient
+    description: Temporary infra or tooling glitch; safe to retry.
+    retry_eligible: true
+    default_checkpoint: true
+  - id: validation_failed
+    description: Tests, agent_gate, or schema validation failed.
+    retry_eligible: true
+    default_checkpoint: true
+  - id: policy_violation
+    description: Execpolicy or managed-repo boundary violated.
+    retry_eligible: false
+    default_checkpoint: true
+  - id: human_required
+    description: Needs HumanOwner decision before retry.
+    retry_eligible: false
+    default_checkpoint: true
+
+checkpoint:
+  id_prefix: ckpt_
+  required_on_failure: true
+  snapshot_dir: governance/checkpoints
+
+review_queue_escalation:
+  levels:
+    - level: log
+      after_retry_count: 0
+      action: log_only
+    - level: review
+      after_retry_count: 2
+      action: create_review_queue_item
+    - level: hitl
+      after_retry_count: 3
+      action: require_human_owner_decision
+
+defaults:
+  failure_class: transient
+  fallback_owner: HumanOwner

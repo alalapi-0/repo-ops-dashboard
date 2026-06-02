@@ -104,6 +104,9 @@ echo "[refresh] eval registry (dry-run)"
 echo "[refresh] handoff packet (dry-run)"
 "$PYTHON" scripts/generate_handoff_packet.py --task-spec governance/task_specs/example_task_spec.yaml
 
+echo "[refresh] failure recovery plan (dry-run)"
+"$PYTHON" scripts/failure_recovery.py --task-id task_example --failure-class validation_failed --retry-count 1
+
 if $LLM_SUMMARY; then
   echo "[refresh] llm summary"
   if $LLM_CALL; then

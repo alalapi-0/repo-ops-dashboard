@@ -104,6 +104,11 @@ evals:
     type: file_exists
     required: true
     path: round_state/current_round.yaml
+  - eval_id: failure_recovery_policy_valid
+    description: failure_recovery_policy.yaml defines retry, failure_class, checkpoint, escalation.
+    type: schema_check
+    required: true
+    path: config/failure_recovery_policy.yaml
   - eval_id: handoff_packet_valid
     description: example handoff_packet passes schema validation.
     type: schema_check
