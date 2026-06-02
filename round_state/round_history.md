@@ -263,3 +263,9 @@
 - 产出：治理面板 V2（portfolio/task/review/blockers）、ui_check 扩展
 - 下一轮：`round_40_playwright_dashboard_validation`
 
+## Round 40 - Playwright Dashboard Validation
+
+- 状态：completed
+- 产出：`ui_check_policy.yaml`、console/network 监听、交互验收、`tests/test_ui_check.py`
+- 下一轮：`round_41_prompt_generator_for_cursor`
+

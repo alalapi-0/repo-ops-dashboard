@@ -489,6 +489,41 @@ def check_lifecycle_policy(state: GateState, root: Path) -> None:
         state.add("lifecycle_policy", WARNING, "lifecycle_policy valid but derive_lifecycle_v1 not wired in analyze_repos.py")
 
 
+def check_ui_check_policy(state: GateState, root: Path) -> None:
+    live = root / "config" / "ui_check_policy.yaml"
+    example = root / "governance" / "ui_check_policy.example.yaml"
+    if not live.exists():
+        state.add("ui_check_policy", BLOCKED, "config/ui_check_policy.yaml missing")
+        return
+    if not example.exists():
+        state.add("ui_check_policy", BLOCKED, "governance/ui_check_policy.example.yaml missing")
+        return
+    try:
+        from validate_ui_check_policy import read_ui_check_policy, summarize_ui_check_policy, validate_ui_check_policy
+    except ImportError:
+        state.add("ui_check_policy", BLOCKED, "validate_ui_check_policy module unavailable")
+        return
+    try:
+        data = read_ui_check_policy(live)
+    except FileNotFoundError as exc:
+        state.add("ui_check_policy", BLOCKED, str(exc))
+        return
+    errors = validate_ui_check_policy(data, live.name)
+    if errors:
+        state.add("ui_check_policy", BLOCKED, f"ui_check_policy.yaml invalid: {errors[0]}")
+        return
+    summary = summarize_ui_check_policy(data)
+    ui_path = root / "scripts" / "ui_check.py"
+    if ui_path.exists() and "console_no_errors" in ui_path.read_text(encoding="utf-8"):
+        state.add(
+            "ui_check_policy",
+            PASS,
+            f"ui_check_policy v1 valid ({summary.get('required_check_count')} required checks)",
+        )
+    else:
+        state.add("ui_check_policy", WARNING, "ui_check_policy valid but console checks not wired in ui_check.py")
+
+
 def check_blocker_policy(state: GateState, root: Path) -> None:
     live = root / "config" / "blocker_policy.yaml"
     example = root / "governance" / "blocker_policy.example.yaml"
@@ -1009,6 +1044,7 @@ def main() -> int:
     check_priority_scoring_policy(state, root)
     check_lifecycle_policy(state, root)
     check_blocker_policy(state, root)
+    check_ui_check_policy(state, root)
     check_protocol_governance_api_ban(state, root)
     check_protocol_version(state, root)
     check_governance_assets(state, root)

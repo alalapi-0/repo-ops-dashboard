@@ -109,8 +109,13 @@ evals:
     type: schema_check
     required: true
     path: governance/proof_of_work/proof_of_work.template.json
+  - eval_id: ui_check_policy_valid
+    description: config/ui_check_policy.yaml defines v1 Playwright dashboard validation checks.
+    type: schema_check
+    required: true
+    path: config/ui_check_policy.yaml
   - eval_id: playwright_dashboard_check
-    description: Playwright validates local dashboard rendering when available.
+    description: Playwright validates local dashboard rendering, console, and network when available.
     type: ui_check
     required: false
     command: python3 scripts/ui_check.py --file dashboard/index.html --screenshot reports/ui_screenshots/dashboard.png --headless true

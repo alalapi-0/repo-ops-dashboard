@@ -1,14 +1,14 @@
-current_round: round_39_dashboard_v2
+current_round: round_40_playwright_dashboard_validation
 status: completed
 executor: cursor
 external_api_called: false
 managed_repos_modified: false
 secrets_read: false
 dashboard_version: v2
-next_round: round_40_playwright_dashboard_validation
+next_round: round_41_prompt_generator_for_cursor
 outputs:
-  - scripts/generate_dashboard.py
-  - dashboard/style.css
+  - config/ui_check_policy.yaml
   - scripts/ui_check.py
-  - tests/test_generate_dashboard.py
-  - reports/round_39_completion_report.md
+  - scripts/validate_ui_check_policy.py
+  - tests/test_ui_check.py
+  - reports/round_40_completion_report.md

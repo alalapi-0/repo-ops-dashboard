@@ -1,0 +1,28 @@
+schema_version: "0.1.0"
+ui_check_version: v1
+description: Playwright dashboard validation checks for local file:// and optional HTTP preview.
+
+access:
+  allowed_schemes:
+    - file
+    - http
+  http_hosts:
+    - 127.0.0.1
+    - localhost
+  forbid_external_navigation: true
+
+required_checks:
+  - page_title
+  - dashboard_container
+  - governance_v2_section
+  - gov_panel_portfolio_state
+  - gov_panel_task_queue
+  - gov_panel_review_queue
+  - gov_panel_blockers
+  - screenshot
+  - console_no_errors
+  - network_no_failed_requests
+
+interaction_checks:
+  - dashboard_filters
+  - copy_prompt_buttons

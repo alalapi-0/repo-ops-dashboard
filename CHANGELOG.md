@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Round 40 - Playwright Dashboard Validation
+
+- 新增 `config/ui_check_policy.yaml` 与 `validate_ui_check_policy.py`。
+- `ui_check.py` 增强 console/network 监听、过滤器与复制按钮交互、`--url` HTTP 预览。
+- `tests/test_ui_check.py`；`agent_gate` 与 eval registry 增加 ui_check_policy 验收。
+- `reports/round_40_completion_report.md`。
+
 ## Round 39 - Dashboard V2
 
 - `generate_dashboard.py` 新增治理面板 V2：portfolio_state、task_queue、review_queue、blockers。
