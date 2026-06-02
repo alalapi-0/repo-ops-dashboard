@@ -13,6 +13,8 @@ Eval gate 是治理轮的验收入口。它不追求一次性完美，而是把�
 
 基础 eval 定义在 `governance/evals/registry.yaml`，包括协议、AGENTS、密钥暴露、只读边界、Dashboard、round_state、completion report、task_spec、proof_of_work、Playwright 检查。
 
+Round 46 起由 `scripts/run_eval_registry.py` 按 registry 条目脚本化执行（默认 dry-run，跳过 ui_check 子进程）。
+
 ## 后续
 
-Round 47 之后可把 registry 中的条目逐步脚本化，并在 `agent_gate.py` 或独立 eval runner 中执行。
+Round 47 起可把 handoff_packet 与 failure recovery 条目纳入 registry runner。

@@ -1,18 +1,14 @@
-current_round: round_45_daily_briefing_mvp
+current_round: round_46_eval_registry_script
 status: completed
 executor: cursor
 external_api_called: false
 managed_repos_modified: false
 secrets_read: false
 dashboard_version: v2
-next_round: round_46_eval_registry_script
+next_round: round_47_handoff_protocol_implementation
 outputs:
-  - scripts/openclaw_orchestration_bridge.py
-  - governance/openclaw_orchestration.manifest.yaml
-  - scripts/generate_weekly_digest.py
-  - governance/digests/weekly/weekly_digest.md
-  - scripts/generate_daily_briefing.py
-  - governance/digests/daily/daily_briefing.md
-  - reports/round_43_completion_report.md
-  - reports/round_44_completion_report.md
-  - reports/round_45_completion_report.md
+  - scripts/run_eval_registry.py
+  - governance/evals/registry.yaml
+  - tests/test_run_eval_registry.py
+  - reports/eval_registry_run.md
+  - reports/round_46_completion_report.md

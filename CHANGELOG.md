@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Round 46 - Eval Registry Script
+
+- 新增 `run_eval_registry.py` 与 `reports/eval_registry_run.md` 输出；registry 增加 runner 元数据。
+- `completion_report_exists` 改为 round_state 动态解析；新增 `eval_registry_runner_valid` 验收项。
+- `refresh_status.sh`、`tests/test_run_eval_registry.py` 与 `agent_gate` eval_registry_runner 检查。
+- `reports/round_46_completion_report.md`。
+
 ## Round 45 - Daily Briefing MVP
 
 - 新增 `generate_daily_briefing.py`、`prompts/daily_briefing.md` 与治理 digest 输出路径。

@@ -1,5 +1,10 @@
 schema_version: 0.1.0
-updated_at: '2026-06-02T00:00:00Z'
+updated_at: '2026-06-03T00:00:00Z'
+runner:
+  script: scripts/run_eval_registry.py
+  default_report: reports/eval_registry_run.md
+  dry_run_default: true
+  auto_approve: true
 evals:
   - eval_id: repo_protocol_exists
     description: repo_protocol_standard.yaml exists and is parseable.
@@ -95,10 +100,15 @@ evals:
     required: true
     path: config/blocker_policy.yaml
   - eval_id: completion_report_exists
-    description: The current round completion report exists.
+    description: The current round completion report exists (resolved from round_state).
     type: file_exists
     required: true
-    path: reports/round_39_completion_report.md
+    path: round_state/current_round.yaml
+  - eval_id: eval_registry_runner_valid
+    description: run_eval_registry.py exists and registry declares runner metadata.
+    type: schema_check
+    required: true
+    path: governance/evals/registry.yaml
   - eval_id: task_spec_schema_valid
     description: task_spec template includes required governance fields.
     type: schema_check

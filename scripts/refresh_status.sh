@@ -98,6 +98,9 @@ echo "[refresh] daily briefing (governance digest)"
 echo "[refresh] openclaw orchestration bridge"
 "$PYTHON" scripts/openclaw_orchestration_bridge.py
 
+echo "[refresh] eval registry (dry-run)"
+"$PYTHON" scripts/run_eval_registry.py --required-only
+
 if $LLM_SUMMARY; then
   echo "[refresh] llm summary"
   if $LLM_CALL; then

@@ -1002,12 +1002,29 @@ def check_eval_registry(state: GateState, root: Path) -> None:
         "task_spec_schema_valid",
         "proof_of_work_schema_valid",
         "playwright_dashboard_check",
+        "eval_registry_runner_valid",
     }
     missing = sorted(required - eval_ids)
+    runner = registry.get("runner", {})
     if missing:
         state.add("eval_registry", BLOCKED, f"eval registry missing evals: {missing}")
+    elif not isinstance(runner, dict) or not runner.get("script"):
+        state.add("eval_registry", BLOCKED, "eval registry missing runner.script")
     else:
         state.add("eval_registry", PASS, "eval registry contains required baseline evals")
+
+
+def check_eval_registry_runner(state: GateState, root: Path) -> None:
+    script = root / "scripts" / "run_eval_registry.py"
+    registry = root / "governance" / "evals" / "registry.yaml"
+    if not script.exists() or not registry.exists():
+        state.add("eval_registry_runner", WARNING, "run_eval_registry.py or registry.yaml missing")
+        return
+    text = script.read_text(encoding="utf-8")
+    if "run_registry" in text and "DEFAULT_REGISTRY" in text:
+        state.add("eval_registry_runner", PASS, "eval registry runner wired (dry-run default)")
+    else:
+        state.add("eval_registry_runner", WARNING, "eval registry runner incomplete")
 
 
 def check_completion_report(state: GateState, root: Path) -> None:
@@ -1138,6 +1155,7 @@ def main() -> int:
     check_execpolicy(state, root)
     check_repo_context_index(state, root)
     check_eval_registry(state, root)
+    check_eval_registry_runner(state, root)
     check_completion_report(state, root)
     check_requirements_dev_playwright(state, root)
     check_installation_doc(state, root)

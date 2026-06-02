@@ -299,3 +299,9 @@
 - 产出：`generate_daily_briefing.py`、治理 daily briefing digest
 - 下一轮：`round_46_eval_registry_script`
 
+## Round 46 - Eval Registry Script
+
+- 状态：completed
+- 产出：`run_eval_registry.py`、registry runner 元数据、eval 运行报告
+- 下一轮：`round_47_handoff_protocol_implementation`
+
