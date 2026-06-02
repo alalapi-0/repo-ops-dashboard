@@ -149,6 +149,20 @@ def run_playwright_checks(
     checks.append({"name": "repo_cards", "ok": True, "detail": f"count={card_count}"})
     if card_count == 0:
         warnings.append("No .repo-card elements found; dashboard may be empty or not yet generated")
+    else:
+        first_card = cards.first
+        has_priority = first_card.get_attribute("data-priority") is not None
+        has_lifecycle = first_card.get_attribute("data-lifecycle") is not None
+        card_state_ok = has_priority and has_lifecycle
+        checks.append(
+            {
+                "name": "repo_card_state_attrs",
+                "ok": card_state_ok,
+                "detail": f"data-priority={has_priority} data-lifecycle={has_lifecycle}",
+            }
+        )
+        if not card_state_ok:
+            warnings.append("Repo cards missing data-priority or data-lifecycle attributes")
 
     filters = page.locator(".filters select")
     filter_count = filters.count()

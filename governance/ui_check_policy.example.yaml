@@ -26,3 +26,4 @@ required_checks:
 interaction_checks:
   - dashboard_filters
   - copy_prompt_buttons
+  - repo_card_state_attrs
