@@ -19,7 +19,9 @@
 - `governance_task_queue.yaml`：治理任务队列（`scripts/sync_governance_task_queue.py` 从 `task_specs/` 同步）。
 - `governance_task_queue.example.yaml`：任务队列示例。
 - `task_specs/`：治理任务模板和示例（`scripts/read_task_spec.py` 读取/校验单个规格）。
-- `proof_of_work/`：任务完成证明模板和示例。
+- `proof_of_work/`：任务完成证明模板和示例（`scripts/read_proof_of_work.py` 读取/校验）。
+- `proof_of_work_registry.yaml`：完成证明注册表（`scripts/sync_proof_of_work_registry.py` 同步）。
+- `proof_of_work_registry.example.yaml`：注册表示例。
 - `runs/`：未来审计 JSONL 输出目录。
 - `review_queue.yaml`：人工决策队列。
 - `execpolicy/`：文档级执行边界。

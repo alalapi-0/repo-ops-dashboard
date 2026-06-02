@@ -407,6 +407,37 @@ def check_project_registry(state: GateState, root: Path) -> None:
         )
 
 
+def check_proof_of_work_registry(state: GateState, root: Path) -> None:
+    path = root / "governance" / "proof_of_work_registry.yaml"
+    if not path.exists():
+        state.add("proof_of_work_registry", BLOCKED, "governance/proof_of_work_registry.yaml missing")
+        return
+    data = load_yaml(path)
+    records = list(data.get("records", []))
+    summary = data.get("summary", {})
+    if not records or not summary:
+        state.add("proof_of_work_registry", BLOCKED, "proof_of_work_registry.yaml missing records or summary")
+        return
+    pow_dir = root / "governance" / "proof_of_work"
+    json_files = [
+        p
+        for p in pow_dir.glob("*.json")
+        if p.name != "proof_of_work.template.json"
+    ] if pow_dir.is_dir() else []
+    if len(records) != len(json_files):
+        state.add(
+            "proof_of_work_registry",
+            WARNING,
+            f"registry has {len(records)} records but {len(json_files)} proof JSON file(s)",
+        )
+    else:
+        state.add(
+            "proof_of_work_registry",
+            PASS,
+            f"proof_of_work_registry.yaml lists {len(records)} record(s)",
+        )
+
+
 def check_governance_task_queue(state: GateState, root: Path) -> None:
     path = root / "governance" / "governance_task_queue.yaml"
     if not path.exists():
@@ -469,6 +500,8 @@ def check_governance_assets(state: GateState, root: Path) -> None:
         "governance/portfolio_state.example.yaml",
         "governance/governance_task_queue.yaml",
         "governance/governance_task_queue.example.yaml",
+        "governance/proof_of_work_registry.yaml",
+        "governance/proof_of_work_registry.example.yaml",
         "governance/task_specs/example_task_spec.yaml",
         "governance/proof_of_work/example_proof_of_work.json",
         "governance/runs/.gitkeep",
@@ -670,6 +703,7 @@ def main() -> int:
     check_governance_task_queue(state, root)
     check_task_spec_template(state, root)
     check_proof_of_work_template(state, root)
+    check_proof_of_work_registry(state, root)
     check_eval_registry(state, root)
     check_completion_report(state, root)
     check_requirements_dev_playwright(state, root)

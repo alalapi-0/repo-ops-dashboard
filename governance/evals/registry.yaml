@@ -44,11 +44,16 @@ evals:
     type: file_exists
     required: true
     path: governance/governance_task_queue.yaml
+  - eval_id: proof_of_work_registry_exists
+    description: governance/proof_of_work_registry.yaml exists with summary and proof rows.
+    type: file_exists
+    required: true
+    path: governance/proof_of_work_registry.yaml
   - eval_id: completion_report_exists
     description: The current round completion report exists.
     type: file_exists
     required: true
-    path: reports/round_28_completion_report.md
+    path: reports/round_29_completion_report.md
   - eval_id: task_spec_schema_valid
     description: task_spec template includes required governance fields.
     type: schema_check

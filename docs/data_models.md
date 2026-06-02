@@ -154,19 +154,21 @@ task_spec:
 ## proof_of_work
 
 - 用途：任务完成后的产物、文件、验证、审计和已知问题
-- 字段：`id/name`、`status/lifecycle`、`project_id`、`context_refs`、`created_at/updated_at`、模型特有字段。
-- 字段说明：标识字段用于关联；状态字段用于调度；上下文字段只传引用；时间字段用于审计。
-- 示例：见 `governance/proof_of_work/*.json` 或下方片段。
+- 字段：`task_id`、`project_id`、`status`、`artifacts`、`validation_commands`、`tests_passed`、`audit_run_path` 等。
+- 字段说明：模板见 `proof_of_work.template.json`；非模板 JSON 由 `sync_proof_of_work_registry.py` 汇入注册表。
+- 示例：见 `governance/proof_of_work/example_proof_of_work.json` 或下方片段。
 - 是否机器权威：是
-- 对应文件路径：`governance/proof_of_work/*.json`
-- 后续实现轮次：Round 29
+- 对应文件路径：`governance/proof_of_work/*.json`（不含模板）；`governance/proof_of_work_registry.yaml`（索引）
+- 同步命令：`python3 scripts/sync_proof_of_work_registry.py`（`--dry-run` / `--json`）
+- 读取命令：`python3 scripts/read_proof_of_work.py governance/proof_of_work/example_proof_of_work.json`
+- 实现轮次：Round 29（已完成 MVP）
 
 ```yaml
 proof_of_work:
-  id: example
-  status: proposed
+  task_id: task_example_001
   project_id: repo_ops_dashboard
-  updated_at: '2026-06-02T00:00:00Z'
+  status: completed
+  tests_passed: false
 ```
 
 ## agent_run_event

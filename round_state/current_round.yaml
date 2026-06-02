@@ -1,17 +1,17 @@
-current_round: round_28_governance_task_queue
+current_round: round_29_proof_of_work_system
 status: completed
 executor: cursor
 external_api_called: false
 managed_repos_modified: false
 secrets_read: false
-governance_task_queue_implemented: true
-task_count: 1
-active_tasks: 1
-next_round: round_29_proof_of_work_system
+proof_of_work_registry_implemented: true
+proof_record_count: 1
+next_round: round_30_agent_run_jsonl_audit_trail
 outputs:
-  - governance/governance_task_queue.yaml
-  - governance/governance_task_queue.example.yaml
-  - scripts/sync_governance_task_queue.py
-  - scripts/read_task_spec.py
-  - reports/round_28_completion_report.md
-  - tests/test_governance_task_queue.py
+  - governance/proof_of_work_registry.yaml
+  - governance/proof_of_work_registry.example.yaml
+  - scripts/validate_proof_of_work.py
+  - scripts/read_proof_of_work.py
+  - scripts/sync_proof_of_work_registry.py
+  - reports/round_29_completion_report.md
+  - tests/test_proof_of_work_registry.py

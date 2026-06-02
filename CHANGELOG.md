@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Round 29 - Proof of Work System
+
+- 新增 `scripts/validate_proof_of_work.py`、`read_proof_of_work.py`、`sync_proof_of_work_registry.py` 与 `governance/proof_of_work_registry.yaml`。
+- `agent_gate` 与 eval registry 增加 proof_of_work_registry 验收。
+- 新增 `tests/test_proof_of_work_registry.py` 与 `reports/round_29_completion_report.md`。
+
 ## Round 28 - Governance Task Queue
 
 - 新增 `scripts/sync_governance_task_queue.py`、`scripts/read_task_spec.py` 与 `governance/governance_task_queue.yaml`。

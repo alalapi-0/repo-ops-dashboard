@@ -197,3 +197,9 @@
 - 产出：`governance/governance_task_queue.yaml`、`scripts/sync_governance_task_queue.py`、`scripts/read_task_spec.py`
 - 下一轮：`round_29_proof_of_work_system`
 
+## Round 29 - Proof of Work System
+
+- 状态：completed
+- 产出：`governance/proof_of_work_registry.yaml`、`scripts/sync_proof_of_work_registry.py`、`scripts/validate_proof_of_work.py`
+- 下一轮：`round_30_agent_run_jsonl_audit_trail`
+

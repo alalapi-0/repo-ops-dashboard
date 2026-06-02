@@ -1,0 +1,18 @@
+schema_version: 0.1.0
+generated_at: '2026-06-02T00:00:00Z'
+proof_of_work_dir: governance/proof_of_work
+summary:
+  total_records: 1
+  tests_passed_count: 0
+  by_status:
+    completed: 1
+records:
+  - task_id: task_light_novel_governance_prompt_001
+    project_id: light_novel
+    status: completed
+    completed_at: '2026-06-02T00:00:00Z'
+    agent_type: Cursor
+    tests_passed: false
+    proof_path: governance/proof_of_work/example_proof_of_work.json
+    summary: 示例 proof_of_work，展示任务完成证明结构。
+    known_issue_count: 1
