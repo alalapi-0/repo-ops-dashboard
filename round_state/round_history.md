@@ -221,3 +221,9 @@
 - 产出：`scripts/validate_execpolicy.py`、`scripts/read_execpolicy.py`、`scripts/check_execpolicy_action.py`
 - 下一轮：`round_33_repo_context_index_mvp`
 
+## Round 33 - Repo Context Index MVP
+
+- 状态：completed
+- 产出：`repo_context_index.yaml`、`scripts/validate_repo_context_index.py`、`scripts/build_repo_context_index_stub.py`
+- 下一轮：`round_34_readonly_repo_scanner_v2`
+

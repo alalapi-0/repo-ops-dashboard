@@ -162,6 +162,7 @@ def check_local_required_files(state: GateState, root: Path) -> None:
         "governance/proof_of_work/proof_of_work.template.json",
         "governance/review_queue.yaml",
         "governance/review_queue.example.yaml",
+        "governance/repo_context_index.example.yaml",
         "governance/execpolicy/portfolio.rules",
         "governance/evals/registry.yaml",
         "docs/roadmap_40_rounds.md",
@@ -406,6 +407,41 @@ def check_project_registry(state: GateState, root: Path) -> None:
             PASS,
             f"project_registry.yaml has {len(projects)} projects aligned with repos.yaml",
         )
+
+
+def check_repo_context_index(state: GateState, root: Path) -> None:
+    live = root / "repo_context_index.yaml"
+    example = root / "governance" / "repo_context_index.example.yaml"
+    if not live.exists():
+        state.add("repo_context_index", BLOCKED, "repo_context_index.yaml missing at repo root")
+        return
+    if not example.exists():
+        state.add("repo_context_index", BLOCKED, "governance/repo_context_index.example.yaml missing")
+        return
+    try:
+        from validate_repo_context_index import (
+            read_repo_context_index,
+            summarize_repo_context_index,
+            validate_repo_context_index,
+        )
+    except ImportError:
+        state.add("repo_context_index", BLOCKED, "validate_repo_context_index module unavailable")
+        return
+    try:
+        data = read_repo_context_index(live)
+    except ValueError as exc:
+        state.add("repo_context_index", BLOCKED, str(exc))
+        return
+    errors = validate_repo_context_index(data, live.name)
+    if errors:
+        state.add("repo_context_index", BLOCKED, f"repo_context_index.yaml invalid: {errors[0]}")
+        return
+    summary = summarize_repo_context_index(data)
+    state.add(
+        "repo_context_index",
+        PASS,
+        f"repo_context_index.yaml valid for {summary.get('project_id')} ({summary.get('key_files_count')} key files)",
+    )
 
 
 def check_execpolicy(state: GateState, root: Path) -> None:
@@ -791,6 +827,7 @@ def main() -> int:
     check_agent_run_example(state, root)
     check_review_queue(state, root)
     check_execpolicy(state, root)
+    check_repo_context_index(state, root)
     check_eval_registry(state, root)
     check_completion_report(state, root)
     check_requirements_dev_playwright(state, root)

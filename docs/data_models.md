@@ -213,7 +213,7 @@ handoff_packet:
 - 示例：见 `业务仓库 repo_context_index.yaml` 或下方片段。
 - 是否机器权威：是
 - 对应文件路径：`业务仓库 repo_context_index.yaml`
-- 后续实现轮次：Round 33
+- 后续实现轮次：Round 33（已实现 `scripts/validate_repo_context_index.py`）
 
 ```yaml
 repo_context_index:

@@ -1,16 +1,17 @@
-current_round: round_32_execpolicy_checker
+current_round: round_33_repo_context_index_mvp
 status: completed
 executor: cursor
 external_api_called: false
 managed_repos_modified: false
 secrets_read: false
-execpolicy_checker_implemented: true
-execpolicy_portfolio_rules: 9
-execpolicy_profiles: 3
-next_round: round_33_repo_context_index_mvp
+repo_context_index_implemented: true
+repo_context_index_project_id: repo_ops_dashboard
+next_round: round_34_readonly_repo_scanner_v2
 outputs:
-  - scripts/validate_execpolicy.py
-  - scripts/read_execpolicy.py
-  - scripts/check_execpolicy_action.py
-  - reports/round_32_completion_report.md
-  - tests/test_execpolicy.py
+  - repo_context_index.yaml
+  - governance/repo_context_index.example.yaml
+  - scripts/validate_repo_context_index.py
+  - scripts/read_repo_context_index.py
+  - scripts/build_repo_context_index_stub.py
+  - reports/round_33_completion_report.md
+  - tests/test_repo_context_index.py

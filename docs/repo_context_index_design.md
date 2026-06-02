@@ -30,6 +30,13 @@ updated_at:
 - 作为每次治理任务的默认入口。
 - 支持跨仓状态汇总、优先级排序和 handoff。
 
+## 脚本化（Round 33）
+
+- `scripts/validate_repo_context_index.py`：校验字段与密钥样文本边界。
+- `scripts/read_repo_context_index.py`：读取并摘要。
+- `scripts/build_repo_context_index_stub.py`：从 `project_registry.yaml` 生成 stub（默认 stdout；仅可写入本仓库根或 `governance/stubs/`）。
+- `repo_context_index.yaml` 位于各仓库根目录；本仓库已提供实例与 `governance/repo_context_index.example.yaml`。
+
 ## 边界
 
 `repo_context_index.yaml` 不应包含密钥、账号、token、完整业务源码或长篇生成内容。

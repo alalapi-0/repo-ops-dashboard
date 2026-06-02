@@ -1,0 +1,18 @@
+schema_version: 0.1.0
+project_id: example_project
+repo_name: example-repo
+summary: One-line summary of the repository purpose.
+domain: example_domain
+current_stage: active
+key_files:
+  - README.md
+  - AGENTS.md
+  - repo_context_index.yaml
+key_commands:
+  - python3 scripts/agent_gate.py
+roadmap_summary: Brief roadmap note or link to docs/roadmap*.md.
+known_blockers: []
+last_change_summary: Initial repo_context_index stub.
+next_actions:
+  - Keep repo_context_index.yaml updated after major changes.
+updated_at: '2026-06-02T00:00:00Z'

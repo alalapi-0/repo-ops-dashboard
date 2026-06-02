@@ -64,11 +64,16 @@ evals:
     type: schema_check
     required: true
     path: governance/execpolicy/portfolio.rules
+  - eval_id: repo_context_index_valid
+    description: repo_context_index.yaml exists at repo root and passes schema validation.
+    type: schema_check
+    required: true
+    path: repo_context_index.yaml
   - eval_id: completion_report_exists
     description: The current round completion report exists.
     type: file_exists
     required: true
-    path: reports/round_32_completion_report.md
+    path: reports/round_33_completion_report.md
   - eval_id: task_spec_schema_valid
     description: task_spec template includes required governance fields.
     type: schema_check

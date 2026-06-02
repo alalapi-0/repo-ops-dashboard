@@ -5,6 +5,7 @@ allowlist:
   - CLAUDE.md
   - GEMINI.md
   - repo_protocol_standard.yaml
+  - repo_context_index.yaml
   - round_state/**
   - docs/index.md
   - docs/roadmap*.md

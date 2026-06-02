@@ -1,0 +1,24 @@
+schema_version: 0.1.0
+project_id: repo_ops_dashboard
+repo_name: repo-ops-dashboard
+summary: 个人多仓库治理层 / Personal Agent OS / Portfolio Orchestrator。
+domain: portfolio_governance
+current_stage: bootstrap
+key_files:
+  - README.md
+  - AGENTS.md
+  - repo_protocol_standard.yaml
+  - repo_context_index.yaml
+  - governance/project_registry.yaml
+  - round_state/current_round.yaml
+key_commands:
+  - npm run check:mcp
+  - python3 scripts/agent_gate.py
+  - ./scripts/refresh_status.sh --example --ui-check
+roadmap_summary: docs/roadmap_40_rounds.md 映射 Round 25-63 治理路线；当前 Round 33 repo_context_index MVP。
+known_blockers: []
+last_change_summary: Round 33 新增本仓库 repo_context_index.yaml 与校验/生成脚本。
+next_actions:
+  - 为其余 16 个注册项目生成 governance/stubs 下的 context index 草稿
+  - Round 34 readonly repo scanner v2
+updated_at: '2026-06-02T12:00:00+00:00'

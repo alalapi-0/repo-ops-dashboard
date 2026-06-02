@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Round 33 - Repo Context Index MVP
+
+- 新增本仓库 `repo_context_index.yaml` 与 `governance/repo_context_index.example.yaml`。
+- 新增 `scripts/validate_repo_context_index.py`、`read_repo_context_index.py`、`build_repo_context_index_stub.py`。
+- `agent_gate` 与 eval registry 增加 repo_context_index 验收；扫描 allowlist 纳入 `repo_context_index.yaml`。
+- 新增 `tests/test_repo_context_index.py` 与 `reports/round_33_completion_report.md`。
+
 ## Round 32 - Execpolicy Checker
 
 - 新增 `scripts/validate_execpolicy.py`、`read_execpolicy.py`、`check_execpolicy_action.py`。
