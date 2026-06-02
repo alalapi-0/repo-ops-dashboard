@@ -1,18 +1,18 @@
-current_round: round_36_priority_scoring_system
+current_round: round_37_lifecycle_rules
 status: completed
 executor: cursor
 external_api_called: false
 managed_repos_modified: false
 secrets_read: false
-scoring_version: v1
-priority_scoring_policy_path: config/priority_scoring_policy.yaml
-next_round: round_37_lifecycle_rules
+lifecycle_version: v1
+lifecycle_policy_path: config/lifecycle_policy.yaml
+next_round: round_38_blocker_management
 outputs:
-  - config/priority_scoring_policy.yaml
-  - governance/priority_scoring_policy.example.yaml
-  - scripts/priority_scoring.py
-  - scripts/validate_priority_scoring_policy.py
-  - scripts/read_priority_scoring_policy.py
-  - docs/priority_scoring_design.md
-  - tests/test_priority_scoring.py
-  - reports/round_36_completion_report.md
+  - config/lifecycle_policy.yaml
+  - governance/lifecycle_policy.example.yaml
+  - scripts/validate_lifecycle_policy.py
+  - scripts/read_lifecycle_policy.py
+  - docs/lifecycle_policy_design.md
+  - docs/lifecycle_rules.md
+  - tests/test_lifecycle_policy.py
+  - reports/round_37_completion_report.md

@@ -84,11 +84,16 @@ evals:
     type: schema_check
     required: true
     path: config/priority_scoring_policy.yaml
+  - eval_id: lifecycle_policy_valid
+    description: config/lifecycle_policy.yaml exists with canonical lifecycle states.
+    type: schema_check
+    required: true
+    path: config/lifecycle_policy.yaml
   - eval_id: completion_report_exists
     description: The current round completion report exists.
     type: file_exists
     required: true
-    path: reports/round_36_completion_report.md
+    path: reports/round_37_completion_report.md
   - eval_id: task_spec_schema_valid
     description: task_spec template includes required governance fields.
     type: schema_check

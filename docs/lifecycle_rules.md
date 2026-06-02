@@ -2,16 +2,22 @@
 
 本仓库**不自动删除**被管理项目目录，仅通过扫描与分析给出状态与归档建议。
 
-## 状态
+## 状态（Round 37 规范）
 
 | 状态 | 含义 |
 |------|------|
-| `active` | 路径存在且非空，正常推进 |
+| `idea` | 未匹配 registry 或早期构思阶段 |
 | `bootstrap` | 元项目或初始化中（如 repo-ops-dashboard） |
-| `missing` | 登记路径不存在（常见于已手动删除的低优先级项目） |
-| `empty` | 路径存在但目录内无有效文件（忽略 `.git`、`.DS_Store`） |
-| `archived` | 分析器判定为归档候选（`missing` 或 `empty`） |
-| `freeze_candidate` | 健康分过低或长期无治理文件 |
+| `active` | 路径存在且非空，正常推进 |
+| `blocked` | 存在 blockers（缺失关键治理文件等） |
+| `maintenance` | active 但健康分低于维护阈值 |
+| `frozen` | 冻结候选（原 `freeze_candidate` 标记统一为 frozen） |
+| `archived` | 归档候选（`missing` / `empty` / `archive_candidate`） |
+| `abandoned` | registry 标记为 abandoned，仅人工维护 |
+
+扫描阶段仍会输出 `status=missing` / `empty`；分析器 `lifecycle_status` 将其映射为 `archived`。
+
+机器可读规则见 `config/lifecycle_policy.yaml` 与 [`docs/lifecycle_policy_design.md`](lifecycle_policy_design.md)。
 
 ## 自动归档候选（无需 Human 确认即可标记）
 

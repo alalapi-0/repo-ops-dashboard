@@ -166,6 +166,7 @@ def check_local_required_files(state: GateState, root: Path) -> None:
         "governance/scan_policy.example.yaml",
         "governance/analyzer_policy.example.yaml",
         "governance/priority_scoring_policy.example.yaml",
+        "governance/lifecycle_policy.example.yaml",
         "governance/execpolicy/portfolio.rules",
         "governance/evals/registry.yaml",
         "docs/roadmap_40_rounds.md",
@@ -786,6 +787,7 @@ def check_governance_assets(state: GateState, root: Path) -> None:
         "docs/scan_policy_design.md",
         "docs/analyzer_policy_design.md",
         "docs/priority_scoring_design.md",
+        "docs/lifecycle_policy_design.md",
         "docs/evaluation_gate_design.md",
     ]
     missing = [item for item in required if not (root / item).exists()]
@@ -968,6 +970,7 @@ def main() -> int:
     check_scan_policy(state, root)
     check_analyzer_policy(state, root)
     check_priority_scoring_policy(state, root)
+    check_lifecycle_policy(state, root)
     check_protocol_governance_api_ban(state, root)
     check_protocol_version(state, root)
     check_governance_assets(state, root)

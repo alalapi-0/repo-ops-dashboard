@@ -31,6 +31,7 @@
 - `scan_policy.example.yaml`：只读扫描 v2 核心治理分类示例；live 实例为 `config/scan_policy.yaml`。
 - `analyzer_policy.example.yaml`：状态分析 v2 维度示例；live 实例为 `config/analyzer_policy.yaml`。
 - `priority_scoring_policy.example.yaml`：优先级评分 impact×urgency×unblock−cost−risk；live 为 `config/priority_scoring_policy.yaml`。
+- `lifecycle_policy.example.yaml`：idea/bootstrap/active/blocked/maintenance/frozen/archived/abandoned；live 为 `config/lifecycle_policy.yaml`。
 - `execpolicy/`：文档级执行边界（`scripts/read_execpolicy.py` 读取；`check_execpolicy_action.py` dry-run 分类）。
 - `evals/registry.yaml`：验收 gate 注册表。
 - `playbooks/`：可复用流程候选。

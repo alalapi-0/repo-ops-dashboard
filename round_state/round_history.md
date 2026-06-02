@@ -239,3 +239,15 @@
 - 产出：`config/analyzer_policy.yaml`、`scripts/validate_analyzer_policy.py`、`analyze_repos.py` v2 字段
 - 下一轮：`round_36_priority_scoring_system`
 
+## Round 36 - Priority Scoring System
+
+- 状态：completed
+- 产出：`config/priority_scoring_policy.yaml`、`scripts/priority_scoring.py`、`priority_score` 字段
+- 下一轮：`round_37_lifecycle_rules`
+
+## Round 37 - Lifecycle Rules
+
+- 状态：completed
+- 产出：`config/lifecycle_policy.yaml`、`derive_lifecycle_v1`、八态 `lifecycle_status`
+- 下一轮：`round_38_blocker_management`
+

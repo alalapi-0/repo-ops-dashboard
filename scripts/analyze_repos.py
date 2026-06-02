@@ -336,8 +336,8 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--lifecycle-policy",
-        default="",
-        help="Lifecycle policy yaml (optional until Round 37)",
+        default="config/lifecycle_policy.yaml",
+        help="Lifecycle policy yaml",
     )
     return parser.parse_args()
 
@@ -349,7 +349,7 @@ def main() -> int:
     registry_path = Path(args.registry)
     policy_path = Path(args.analyzer_policy)
     scoring_policy_path = Path(args.priority_scoring_policy)
-    lifecycle_policy_path = Path(args.lifecycle_policy) if args.lifecycle_policy else None
+    lifecycle_policy_path = Path(args.lifecycle_policy)
     output_path = Path(args.output)
 
     if not input_path.exists():
@@ -362,11 +362,9 @@ def main() -> int:
         raise SystemExit(f"Analyzer policy not found: {policy_path}")
     if not scoring_policy_path.exists():
         raise SystemExit(f"Priority scoring policy not found: {scoring_policy_path}")
-    lifecycle_policy: dict[str, Any] | None = None
-    if lifecycle_policy_path:
-        if not lifecycle_policy_path.exists():
-            raise SystemExit(f"Lifecycle policy not found: {lifecycle_policy_path}")
-        lifecycle_policy = load_yaml(lifecycle_policy_path)
+    if not lifecycle_policy_path.exists():
+        raise SystemExit(f"Lifecycle policy not found: {lifecycle_policy_path}")
+    lifecycle_policy = load_yaml(lifecycle_policy_path)
 
     snapshots = load_json(input_path)
     rules = load_yaml(rules_path)
@@ -480,6 +478,7 @@ def main() -> int:
         "analyzer_version": ANALYZER_VERSION,
         "analyzer_policy": policy_path.as_posix(),
         "priority_scoring_policy": scoring_policy_path.as_posix(),
+        "lifecycle_policy": lifecycle_policy_path.as_posix(),
         "registry": registry_path.as_posix(),
         "repos": repos_out,
     }

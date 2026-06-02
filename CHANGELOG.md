@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Round 37 - Lifecycle Rules
+
+- 新增 `config/lifecycle_policy.yaml` 与八态生命周期（idea/bootstrap/active/blocked/maintenance/frozen/archived/abandoned）。
+- `analyze_repos.py` 默认经 `derive_lifecycle_v1` 映射 `lifecycle_status`；更新 `docs/lifecycle_rules.md`。
+- `agent_gate` 与 eval registry 增加 lifecycle_policy 验收；`reports/round_37_completion_report.md`。
+
 ## Round 36 - Priority Scoring System
 
 - 新增 `config/priority_scoring_policy.yaml` 与治理示例；`scripts/priority_scoring.py` 实现 impact×urgency×unblock−cost−risk。

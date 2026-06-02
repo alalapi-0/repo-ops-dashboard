@@ -1,0 +1,28 @@
+schema_version: "0.1.0"
+lifecycle_version: v1
+description: Canonical project lifecycle states for portfolio governance.
+
+states:
+  - idea
+  - bootstrap
+  - active
+  - blocked
+  - maintenance
+  - frozen
+  - archived
+  - abandoned
+
+rules:
+  registry_abandoned: abandoned
+  registry_idea: idea
+  archive_candidate: archived
+  status_missing: archived
+  status_empty: archived
+  has_blockers: blocked
+  freeze_candidate: frozen
+  status_bootstrap: bootstrap
+  low_health_maintenance:
+    threshold: 40
+    status_active: maintenance
+  unmatched_registry: idea
+  default_active: active
