@@ -1,0 +1,40 @@
+task_id: task_handoff_trial_001
+project_id: repo_ops_dashboard
+title: Handoff trial — 验证 OpenClaw 读状态到 Cursor Prompt 到 proof_of_work 草案
+description: 低风险 dry-run trial，验证多 Agent 交接链路可读、可审计，不修改被管理业务仓库。
+status: proposed
+priority: low
+task_type: handoff_trial
+working_directory: /Users/alalapi/PycharmProjects/repo-ops-dashboard
+reference_paths:
+  - docs/handoff_protocol.md
+  - governance/handoffs/handoff_packet.template.yaml
+  - skills/openclaw_repo_ops/SKILL.md
+  - round_state/current_round.yaml
+scope:
+  - 读取 repo_status 与 digest 摘要。
+  - 生成 handoff_packet 与 Cursor Prompt 预览。
+  - 生成 proof_of_work 草案 JSON。
+out_of_scope:
+  - 修改被管理业务仓库。
+  - 读取 .env 或密钥。
+  - 自动 git commit / push。
+assigned_agent: Cursor
+playbook_id: repo_ops.handoff_trial
+confirmation_policy: human_review_before_execution
+execpolicy_profile: repo_ops_write
+depends_on: []
+acceptance_criteria:
+  - run_handoff_trial.py dry-run 输出 handoff id 与 prompt 字符数。
+  - proof_of_work 草案含 task_id 与 trial_mode 标记。
+  - 无 external_api_called。
+artifacts_expected:
+  - reports/handoff_trial_report.md
+  - reports/handoff_trial_pow_draft.json
+validation_commands:
+  - python3 scripts/agent_gate.py
+  - python3 scripts/run_handoff_trial.py --dry-run
+blockers: []
+created_at: '2026-06-03T00:00:00Z'
+updated_at: '2026-06-03T00:00:00Z'
+notes: Round 60 低风险 handoff trial，仅 repo-ops-dashboard 内 dry-run。

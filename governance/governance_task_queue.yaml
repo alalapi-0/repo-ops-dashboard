@@ -1,14 +1,25 @@
 # Governance task queue (Personal Agent OS).
 # Sources: governance/task_specs/*.yaml via scripts/sync_governance_task_queue.py
 schema_version: 0.1.0
-generated_at: '2026-06-02T17:51:29+00:00'
+generated_at: '2026-06-02T17:54:59+00:00'
 task_specs_dir: governance/task_specs
 summary:
-  total_tasks: 2
-  active_tasks: 2
+  total_tasks: 3
+  active_tasks: 3
   by_status:
-    proposed: 2
+    proposed: 3
 tasks:
+- task_id: task_handoff_trial_001
+  project_id: repo_ops_dashboard
+  title: Handoff trial — 验证 OpenClaw 读状态到 Cursor Prompt 到 proof_of_work 草案
+  status: proposed
+  priority: low
+  task_type: handoff_trial
+  assigned_agent: Cursor
+  execpolicy_profile: repo_ops_write
+  confirmation_policy: human_review_before_execution
+  task_spec_path: governance/task_specs/example_handoff_trial_task_spec.yaml
+  is_active: true
 - task_id: task_light_novel_governance_prompt_001
   project_id: light_novel
   title: 为 light_novel 仓库生成 README/docs/CHANGELOG 同步治理 Prompt

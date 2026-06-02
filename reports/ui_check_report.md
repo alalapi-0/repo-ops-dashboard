@@ -1,6 +1,6 @@
 # UI Check Report
 
-- generated_at: 2026-06-02T17:51:33.235817+00:00
+- generated_at: 2026-06-02T17:55:01.749528+00:00
 - status: PASS
 - page_url: file:///Users/alalapi/PycharmProjects/repo-ops-dashboard/dashboard/index.html
 - screenshot: reports/ui_screenshots/dashboard.png
@@ -9,6 +9,7 @@
 - [PASS] page_title: title='Repo Ops Dashboard'
 - [PASS] dashboard_container: found=True
 - [PASS] repo_cards: count=5
+- [PASS] repo_card_state_attrs: data-priority=True data-lifecycle=True
 - [PASS] dashboard_filters: count=3
 - [PASS] filter_interaction: first filter changed to second option
 - [PASS] copy_prompt_buttons: count=5

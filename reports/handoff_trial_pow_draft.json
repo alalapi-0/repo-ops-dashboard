@@ -1,0 +1,27 @@
+{
+  "task_id": "task_handoff_trial_001",
+  "project_id": "repo_ops_dashboard",
+  "status": "draft",
+  "completed_at": "",
+  "agent_type": "Cursor",
+  "working_directory": "/Users/alalapi/PycharmProjects/repo-ops-dashboard",
+  "artifacts": [
+    "reports/handoff_trial_report.md",
+    "reports/handoff_trial_pow_draft.json"
+  ],
+  "changed_files": [],
+  "validation_commands": [
+    "python3 scripts/agent_gate.py",
+    "python3 scripts/run_handoff_trial.py --dry-run"
+  ],
+  "tests_passed": false,
+  "eval_report_path": "",
+  "audit_run_path": "",
+  "summary": "Handoff trial draft for handoff_handoff_trial_001; Cursor prompt at prompts/generated/task_handoff_trial_001_cursor.md",
+  "known_issues": [
+    "dry-run trial — not executed"
+  ],
+  "handoff_id": "handoff_handoff_trial_001",
+  "trial_mode": true,
+  "external_api_called": false
+}

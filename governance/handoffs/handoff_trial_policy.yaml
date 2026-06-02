@@ -1,0 +1,14 @@
+# Handoff trial policy (Round 60) — dry-run default, HITL required for live execution.
+schema_version: "0.1.0"
+enabled: true
+dry_run_default: true
+hitl_required: true
+external_api_allowed: false
+managed_repos_write_allowed: false
+
+allowed_task_specs:
+  - governance/task_specs/example_handoff_trial_task_spec.yaml
+
+outputs:
+  report: reports/handoff_trial_report.md
+  pow_draft: reports/handoff_trial_pow_draft.json
