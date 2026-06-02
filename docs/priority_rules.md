@@ -28,6 +28,10 @@
 - obsolete demo
 - no README and no future plan
 
+## 治理评分（Round 36）
+
+`analyze_repos.py` 按 `config/priority_scoring_policy.yaml` 计算 `priority_score`（impact × urgency × unblock − cost − risk），写入 `repo_status` 与 `portfolio_state`。
+
 ## 多因素复盘（Round 12）
 
 算法脚本 `scripts/priority_review.py` 读取 `config/priority_factors.yaml`，结合 `repo_status` 与 `repos.yaml` 中的 `priority_hint` 生成 `reports/priority_review.md`。

@@ -1,17 +1,18 @@
-current_round: round_35_status_analyzer_v2
+current_round: round_36_priority_scoring_system
 status: completed
 executor: cursor
 external_api_called: false
 managed_repos_modified: false
 secrets_read: false
-analyzer_version: v2
-analyzer_policy_path: config/analyzer_policy.yaml
-next_round: round_36_priority_scoring_system
+scoring_version: v1
+priority_scoring_policy_path: config/priority_scoring_policy.yaml
+next_round: round_37_lifecycle_rules
 outputs:
-  - config/analyzer_policy.yaml
-  - governance/analyzer_policy.example.yaml
-  - scripts/validate_analyzer_policy.py
-  - scripts/read_analyzer_policy.py
-  - docs/analyzer_policy_design.md
-  - tests/test_analyze_repos.py
-  - reports/round_35_completion_report.md
+  - config/priority_scoring_policy.yaml
+  - governance/priority_scoring_policy.example.yaml
+  - scripts/priority_scoring.py
+  - scripts/validate_priority_scoring_policy.py
+  - scripts/read_priority_scoring_policy.py
+  - docs/priority_scoring_design.md
+  - tests/test_priority_scoring.py
+  - reports/round_36_completion_report.md

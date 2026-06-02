@@ -165,6 +165,7 @@ def check_local_required_files(state: GateState, root: Path) -> None:
         "governance/repo_context_index.example.yaml",
         "governance/scan_policy.example.yaml",
         "governance/analyzer_policy.example.yaml",
+        "governance/priority_scoring_policy.example.yaml",
         "governance/execpolicy/portfolio.rules",
         "governance/evals/registry.yaml",
         "docs/roadmap_40_rounds.md",
@@ -411,6 +412,80 @@ def check_analyzer_policy(state: GateState, root: Path) -> None:
         )
     else:
         state.add("analyzer_policy", WARNING, "analyzer_policy valid but analyze_repos.py missing ANALYZER_VERSION marker")
+
+
+def check_priority_scoring_policy(state: GateState, root: Path) -> None:
+    live = root / "config" / "priority_scoring_policy.yaml"
+    example = root / "governance" / "priority_scoring_policy.example.yaml"
+    if not live.exists():
+        state.add("priority_scoring_policy", BLOCKED, "config/priority_scoring_policy.yaml missing")
+        return
+    if not example.exists():
+        state.add("priority_scoring_policy", BLOCKED, "governance/priority_scoring_policy.example.yaml missing")
+        return
+    try:
+        from validate_priority_scoring_policy import (
+            read_priority_scoring_policy,
+            summarize_priority_scoring_policy,
+            validate_priority_scoring_policy,
+        )
+    except ImportError:
+        state.add("priority_scoring_policy", BLOCKED, "validate_priority_scoring_policy module unavailable")
+        return
+    try:
+        data = read_priority_scoring_policy(live)
+    except FileNotFoundError as exc:
+        state.add("priority_scoring_policy", BLOCKED, str(exc))
+        return
+    errors = validate_priority_scoring_policy(data, live.name)
+    if errors:
+        state.add("priority_scoring_policy", BLOCKED, f"priority_scoring_policy.yaml invalid: {errors[0]}")
+        return
+    summary = summarize_priority_scoring_policy(data)
+    scoring_path = root / "scripts" / "priority_scoring.py"
+    if scoring_path.exists():
+        state.add(
+            "priority_scoring_policy",
+            PASS,
+            f"priority_scoring_policy v1 valid ({len(summary.get('factors', []))} factors, scale {summary.get('product_scale')})",
+        )
+    else:
+        state.add("priority_scoring_policy", WARNING, "priority_scoring_policy valid but priority_scoring.py missing")
+
+
+def check_lifecycle_policy(state: GateState, root: Path) -> None:
+    live = root / "config" / "lifecycle_policy.yaml"
+    example = root / "governance" / "lifecycle_policy.example.yaml"
+    if not live.exists():
+        state.add("lifecycle_policy", BLOCKED, "config/lifecycle_policy.yaml missing")
+        return
+    if not example.exists():
+        state.add("lifecycle_policy", BLOCKED, "governance/lifecycle_policy.example.yaml missing")
+        return
+    try:
+        from validate_lifecycle_policy import read_lifecycle_policy, summarize_lifecycle_policy, validate_lifecycle_policy
+    except ImportError:
+        state.add("lifecycle_policy", BLOCKED, "validate_lifecycle_policy module unavailable")
+        return
+    try:
+        data = read_lifecycle_policy(live)
+    except FileNotFoundError as exc:
+        state.add("lifecycle_policy", BLOCKED, str(exc))
+        return
+    errors = validate_lifecycle_policy(data, live.name)
+    if errors:
+        state.add("lifecycle_policy", BLOCKED, f"lifecycle_policy.yaml invalid: {errors[0]}")
+        return
+    summary = summarize_lifecycle_policy(data)
+    analyze_path = root / "scripts" / "analyze_repos.py"
+    if analyze_path.exists() and "derive_lifecycle_v1" in analyze_path.read_text(encoding="utf-8"):
+        state.add(
+            "lifecycle_policy",
+            PASS,
+            f"lifecycle_policy v1 valid ({summary.get('state_count')} states)",
+        )
+    else:
+        state.add("lifecycle_policy", WARNING, "lifecycle_policy valid but derive_lifecycle_v1 not wired in analyze_repos.py")
 
 
 def check_protocol_governance_api_ban(state: GateState, root: Path) -> None:
@@ -710,6 +785,7 @@ def check_governance_assets(state: GateState, root: Path) -> None:
         "docs/repo_context_index_design.md",
         "docs/scan_policy_design.md",
         "docs/analyzer_policy_design.md",
+        "docs/priority_scoring_design.md",
         "docs/evaluation_gate_design.md",
     ]
     missing = [item for item in required if not (root / item).exists()]
@@ -891,6 +967,7 @@ def main() -> int:
     check_scan_allowlist_compliance(state, root)
     check_scan_policy(state, root)
     check_analyzer_policy(state, root)
+    check_priority_scoring_policy(state, root)
     check_protocol_governance_api_ban(state, root)
     check_protocol_version(state, root)
     check_governance_assets(state, root)

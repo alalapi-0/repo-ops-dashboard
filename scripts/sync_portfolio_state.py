@@ -92,11 +92,17 @@ def build_project_state(registry_project: dict[str, Any], repo_row: dict[str, An
     }
     if last_checked:
         state["last_checked"] = last_checked
+    if repo_row and repo_row.get("priority_score") is not None:
+        state["priority_score"] = int(repo_row["priority_score"])
     return state
 
 
 def build_summary(projects: list[dict[str, Any]], review_open: int) -> dict[str, Any]:
-    active = sum(1 for p in projects if str(p.get("lifecycle", "")) in {"active", "bootstrap"})
+    active = sum(
+        1
+        for p in projects
+        if str(p.get("lifecycle", "")) in {"active", "bootstrap", "maintenance", "idea"}
+    )
     blocked = sum(1 for p in projects if p.get("blockers"))
     wip = sum(1 for p in projects if p.get("current_task_id"))
     return {

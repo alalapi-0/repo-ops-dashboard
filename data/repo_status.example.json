@@ -1,7 +1,8 @@
 {
-  "generated_at": "2026-06-02T05:16:38.167791+00:00",
+  "generated_at": "2026-06-02T05:19:41.638039+00:00",
   "analyzer_version": "v2",
   "analyzer_policy": "config/analyzer_policy.yaml",
+  "priority_scoring_policy": "config/priority_scoring_policy.yaml",
   "registry": "governance/project_registry.yaml",
   "repos": [
     {
@@ -51,7 +52,18 @@
       "freeze_candidate": false,
       "archive_candidate": false,
       "lifecycle_status": "active",
-      "last_checked": "2026-05-31T08:37:34.795755+00:00"
+      "last_checked": "2026-05-31T08:37:34.795755+00:00",
+      "priority_score": 13,
+      "priority_score_band": "low",
+      "priority_score_breakdown": {
+        "impact": 7,
+        "urgency": 9,
+        "unblock": 2,
+        "cost": 0,
+        "risk": 0,
+        "product": 126,
+        "formula": "impact * urgency * unblock / product_scale - cost - risk"
+      }
     },
     {
       "name": "ai-manga",
@@ -108,7 +120,18 @@
       "freeze_candidate": true,
       "archive_candidate": false,
       "lifecycle_status": "freeze_candidate",
-      "last_checked": "2026-05-31T08:37:34.795755+00:00"
+      "last_checked": "2026-05-31T08:37:34.795755+00:00",
+      "priority_score": 0,
+      "priority_score_band": "low",
+      "priority_score_breakdown": {
+        "impact": 10,
+        "urgency": 10,
+        "unblock": 2,
+        "cost": 22,
+        "risk": 8,
+        "product": 200,
+        "formula": "impact * urgency * unblock / product_scale - cost - risk"
+      }
     },
     {
       "name": "novel-continuation-agent",
@@ -160,7 +183,18 @@
       "freeze_candidate": false,
       "archive_candidate": false,
       "lifecycle_status": "active",
-      "last_checked": "2026-05-31T08:37:34.795755+00:00"
+      "last_checked": "2026-05-31T08:37:34.795755+00:00",
+      "priority_score": 12,
+      "priority_score_band": "low",
+      "priority_score_breakdown": {
+        "impact": 10,
+        "urgency": 9,
+        "unblock": 2,
+        "cost": 6,
+        "risk": 0,
+        "product": 180,
+        "formula": "impact * urgency * unblock / product_scale - cost - risk"
+      }
     },
     {
       "name": "repo-ops-dashboard",
@@ -171,9 +205,9 @@
       "registry_matched": true,
       "registry_lifecycle": "bootstrap",
       "governance_level": "write_allowed",
-      "round_current": "round_35_status_analyzer_v2",
+      "round_current": "round_36_priority_scoring_system",
       "round_status": "completed",
-      "round_next": "round_36_priority_scoring_system",
+      "round_next": "round_37_lifecycle_rules",
       "current_stage": "round_00_bootstrap",
       "health_score": 88,
       "health_dimensions": {
@@ -208,7 +242,18 @@
       "freeze_candidate": false,
       "archive_candidate": false,
       "lifecycle_status": "bootstrap",
-      "last_checked": "2026-05-31T08:37:34.795755+00:00"
+      "last_checked": "2026-05-31T08:37:34.795755+00:00",
+      "priority_score": 43,
+      "priority_score_band": "high",
+      "priority_score_breakdown": {
+        "impact": 10,
+        "urgency": 5,
+        "unblock": 9,
+        "cost": 2,
+        "risk": 0,
+        "product": 450,
+        "formula": "impact * urgency * unblock / product_scale - cost - risk"
+      }
     },
     {
       "name": "old_demo_placeholder",
@@ -256,7 +301,18 @@
       "freeze_candidate": true,
       "archive_candidate": true,
       "lifecycle_status": "archived",
-      "last_checked": "2026-05-31T08:37:34.795755+00:00"
+      "last_checked": "2026-05-31T08:37:34.795755+00:00",
+      "priority_score": 0,
+      "priority_score_band": "low",
+      "priority_score_breakdown": {
+        "impact": 3,
+        "urgency": 10,
+        "unblock": 0,
+        "cost": 12,
+        "risk": 43,
+        "product": 0,
+        "formula": "impact * urgency * unblock / product_scale - cost - risk"
+      }
     }
   ]
 }

@@ -10,6 +10,7 @@ health_score:
   no_blocker: 10
 
 # v2 dimension weights live in config/analyzer_policy.yaml (see docs/analyzer_policy_design.md)
+# priority score formula lives in config/priority_scoring_policy.yaml (see docs/priority_scoring_design.md)
 
 priority_rules:
   high:

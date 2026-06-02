@@ -14,6 +14,8 @@ try:
 except ImportError as exc:  # pragma: no cover
     raise SystemExit("PyYAML is required. Run: pip install -r requirements.txt") from exc
 
+from priority_scoring import compute_priority_score
+
 
 ANALYZER_VERSION = "v2"
 ROUND_STATE_REL = "round_state/current_round.yaml"
@@ -58,7 +60,22 @@ def derive_blockers(repo: dict[str, Any]) -> list[str]:
     return blockers
 
 
-def derive_lifecycle(repo: dict[str, Any]) -> str:
+def derive_lifecycle(
+    repo: dict[str, Any],
+    *,
+    registry_lifecycle: str = "",
+    registry_matched: bool = True,
+    health_score: int = 0,
+    policy: dict[str, Any] | None = None,
+) -> str:
+    if policy:
+        return derive_lifecycle_v1(
+            repo,
+            registry_lifecycle=registry_lifecycle,
+            registry_matched=registry_matched,
+            health_score=health_score,
+            policy=policy,
+        )
     if repo.get("archive_candidate"):
         return "archived"
     status = str(repo.get("status", "unknown"))
@@ -71,6 +88,50 @@ def derive_lifecycle(repo: dict[str, Any]) -> str:
     if status == "active":
         return "active"
     return status
+
+
+def derive_lifecycle_v1(
+    repo: dict[str, Any],
+    *,
+    registry_lifecycle: str = "",
+    registry_matched: bool = True,
+    health_score: int = 0,
+    policy: dict[str, Any],
+) -> str:
+    rules = dict(policy.get("rules", {}))
+    reg = str(registry_lifecycle or "").lower()
+
+    if reg == "abandoned":
+        return str(rules.get("registry_abandoned", "abandoned"))
+    if reg == "idea":
+        return str(rules.get("registry_idea", "idea"))
+    if repo.get("archive_candidate"):
+        return str(rules.get("archive_candidate", "archived"))
+    status = str(repo.get("status", "unknown"))
+    if status == "missing":
+        return str(rules.get("status_missing", "archived"))
+    if status == "empty":
+        return str(rules.get("status_empty", "archived"))
+    if repo.get("blockers"):
+        return str(rules.get("has_blockers", "blocked"))
+    if repo.get("freeze_candidate"):
+        return str(rules.get("freeze_candidate", "frozen"))
+    if status == "bootstrap":
+        return str(rules.get("status_bootstrap", "bootstrap"))
+    maint_cfg = rules.get("low_health_maintenance", {})
+    threshold = 40
+    if isinstance(maint_cfg, dict):
+        threshold = int(maint_cfg.get("threshold", 40))
+    if status == "active" and health_score < threshold:
+        return str(maint_cfg.get("status_active", "maintenance") if isinstance(maint_cfg, dict) else "maintenance")
+    if not registry_matched:
+        return str(rules.get("unmatched_registry", "idea"))
+    if status == "active":
+        return str(rules.get("default_active", "active"))
+    allowed = set(policy.get("states", []))
+    if allowed and status in allowed:
+        return status
+    return str(rules.get("default_active", "active"))
 
 
 def build_registry_index(registry_data: dict[str, Any]) -> dict[str, dict[str, Any]]:
@@ -268,6 +329,16 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--rules", default="config/scoring_rules.yaml", help="Scoring rules yaml")
     parser.add_argument("--registry", default="governance/project_registry.yaml", help="Project registry yaml")
     parser.add_argument("--analyzer-policy", default="config/analyzer_policy.yaml", help="Analyzer policy yaml")
+    parser.add_argument(
+        "--priority-scoring-policy",
+        default="config/priority_scoring_policy.yaml",
+        help="Priority scoring policy yaml",
+    )
+    parser.add_argument(
+        "--lifecycle-policy",
+        default="",
+        help="Lifecycle policy yaml (optional until Round 37)",
+    )
     return parser.parse_args()
 
 
@@ -277,6 +348,8 @@ def main() -> int:
     rules_path = Path(args.rules)
     registry_path = Path(args.registry)
     policy_path = Path(args.analyzer_policy)
+    scoring_policy_path = Path(args.priority_scoring_policy)
+    lifecycle_policy_path = Path(args.lifecycle_policy) if args.lifecycle_policy else None
     output_path = Path(args.output)
 
     if not input_path.exists():
@@ -287,11 +360,19 @@ def main() -> int:
         raise SystemExit(f"Registry not found: {registry_path}")
     if not policy_path.exists():
         raise SystemExit(f"Analyzer policy not found: {policy_path}")
+    if not scoring_policy_path.exists():
+        raise SystemExit(f"Priority scoring policy not found: {scoring_policy_path}")
+    lifecycle_policy: dict[str, Any] | None = None
+    if lifecycle_policy_path:
+        if not lifecycle_policy_path.exists():
+            raise SystemExit(f"Lifecycle policy not found: {lifecycle_policy_path}")
+        lifecycle_policy = load_yaml(lifecycle_policy_path)
 
     snapshots = load_json(input_path)
     rules = load_yaml(rules_path)
     registry_data = load_yaml(registry_path)
     policy_cfg = load_yaml(policy_path)
+    scoring_policy = load_yaml(scoring_policy_path)
     weights = dict(rules.get("health_score", {}))
     dimension_weights = dict(policy_cfg.get("health_dimensions", {}))
     registry_index = build_registry_index(registry_data)
@@ -338,6 +419,34 @@ def main() -> int:
             archive_candidate,
         )
 
+        scoring_input = {
+            "name": repo.get("name"),
+            "type": repo.get("type"),
+            "status": repo.get("status"),
+            "health_score": health,
+            "registry_matched": bool(registry_project),
+            "blockers": blockers,
+            "warnings": warnings,
+            "freeze_candidate": freeze_candidate,
+            "archive_candidate": archive_candidate,
+            "round_next": str(round_state.get("next_round", "")),
+            "next_actions": next_actions,
+        }
+        score_fields = compute_priority_score(scoring_input, scoring_policy)
+
+        lifecycle_status = derive_lifecycle(
+            {
+                **repo,
+                "blockers": blockers,
+                "freeze_candidate": freeze_candidate,
+                "archive_candidate": archive_candidate,
+            },
+            registry_lifecycle=str(registry_project.get("lifecycle", "")),
+            registry_matched=bool(registry_project),
+            health_score=health,
+            policy=lifecycle_policy,
+        )
+
         row = {
             "name": repo.get("name"),
             "path": repo.get("path"),
@@ -360,14 +469,9 @@ def main() -> int:
             "recommended_agent": recommended_agent,
             "freeze_candidate": freeze_candidate,
             "archive_candidate": archive_candidate,
-            "lifecycle_status": derive_lifecycle(
-                {
-                    **repo,
-                    "freeze_candidate": freeze_candidate,
-                    "archive_candidate": archive_candidate,
-                }
-            ),
+            "lifecycle_status": lifecycle_status,
             "last_checked": snapshot_generated_at,
+            **score_fields,
         }
         repos_out.append(row)
 
@@ -375,6 +479,7 @@ def main() -> int:
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "analyzer_version": ANALYZER_VERSION,
         "analyzer_policy": policy_path.as_posix(),
+        "priority_scoring_policy": scoring_policy_path.as_posix(),
         "registry": registry_path.as_posix(),
         "repos": repos_out,
     }

@@ -71,6 +71,7 @@ def render_card(repo: dict[str, Any], fallback_checked: str, priority_meta: dict
       <p><strong>优先级:</strong> {esc(repo.get("priority"))}</p>
       {priority_source_line}
       <p><strong>健康分:</strong> {esc(repo.get("health_score"))}</p>
+      <p><strong>治理评分:</strong> {esc(repo.get("priority_score", "—"))} ({esc(repo.get("priority_score_band", ""))})</p>
       <p><strong>推荐 Agent:</strong> {esc(repo.get("recommended_agent"))}</p>
       <p><strong>最后检查:</strong> {esc(last_checked)}</p>
       <p><strong>卡点:</strong> {esc('; '.join(blockers))}</p>

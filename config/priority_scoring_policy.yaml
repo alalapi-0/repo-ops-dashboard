@@ -1,0 +1,47 @@
+schema_version: "0.1.0"
+scoring_version: v1
+description: Priority score = impact × urgency × unblock / product_scale - cost - risk
+
+formula:
+  expression: "impact * urgency * unblock / product_scale - cost - risk"
+  product_scale: 10
+
+factors:
+  impact:
+    max: 10
+    type_impact:
+      meta_ops: 9
+      novel_agent: 8
+      ai_manga: 8
+      ai_anime: 7
+      content_scheduler: 6
+      translation: 4
+      unknown: 3
+    registry_match_bonus: 1
+    health_divisor: 20
+  urgency:
+    max: 10
+    baseline: 5
+    blocker_boost: 4
+    freeze_boost: 2
+    path_missing_boost: 3
+  unblock:
+    max: 10
+    baseline: 6
+    with_blockers: 2
+    round_next_bonus: 2
+    next_action_bonus: 1
+    clean_warnings_bonus: 1
+  cost:
+    max: 50
+    warning_each: 2
+    freeze_penalty: 12
+  risk:
+    max: 50
+    archive_penalty: 35
+    low_health_penalty: 8
+    low_health_threshold: 30
+
+priority_bands:
+  high: 40
+  medium: 15

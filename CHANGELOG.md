@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Round 36 - Priority Scoring System
+
+- 新增 `config/priority_scoring_policy.yaml` 与治理示例；`scripts/priority_scoring.py` 实现 impact×urgency×unblock−cost−risk。
+- `analyze_repos.py` 输出 `priority_score` 字段；Dashboard 与 `portfolio_state` 同步展示。
+- `agent_gate` 与 eval registry 增加 priority_scoring 验收；`reports/round_36_completion_report.md`。
+
 ## Round 35 - Status Analyzer V2
 
 - 新增 `config/analyzer_policy.yaml` 与 `governance/analyzer_policy.example.yaml`（registry/snapshot/round_state 健康维度）。
