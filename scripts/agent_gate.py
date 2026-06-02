@@ -489,6 +489,42 @@ def check_lifecycle_policy(state: GateState, root: Path) -> None:
         state.add("lifecycle_policy", WARNING, "lifecycle_policy valid but derive_lifecycle_v1 not wired in analyze_repos.py")
 
 
+def check_blocker_policy(state: GateState, root: Path) -> None:
+    live = root / "config" / "blocker_policy.yaml"
+    example = root / "governance" / "blocker_policy.example.yaml"
+    if not live.exists():
+        state.add("blocker_policy", BLOCKED, "config/blocker_policy.yaml missing")
+        return
+    if not example.exists():
+        state.add("blocker_policy", BLOCKED, "governance/blocker_policy.example.yaml missing")
+        return
+    try:
+        from validate_blocker_policy import read_blocker_policy, summarize_blocker_policy, validate_blocker_policy
+    except ImportError:
+        state.add("blocker_policy", BLOCKED, "validate_blocker_policy module unavailable")
+        return
+    try:
+        data = read_blocker_policy(live)
+    except FileNotFoundError as exc:
+        state.add("blocker_policy", BLOCKED, str(exc))
+        return
+    errors = validate_blocker_policy(data, live.name)
+    if errors:
+        state.add("blocker_policy", BLOCKED, f"blocker_policy.yaml invalid: {errors[0]}")
+        return
+    summary = summarize_blocker_policy(data)
+    mgmt_path = root / "scripts" / "blocker_management.py"
+    analyze_path = root / "scripts" / "analyze_repos.py"
+    if mgmt_path.exists() and analyze_path.exists() and "blocker_details" in analyze_path.read_text(encoding="utf-8"):
+        state.add(
+            "blocker_policy",
+            PASS,
+            f"blocker_policy v1 valid ({summary.get('type_count')} types, {len(summary.get('escalation_levels', []))} escalation levels)",
+        )
+    else:
+        state.add("blocker_policy", WARNING, "blocker_policy valid but blocker_details not wired in analyze_repos.py")
+
+
 def check_protocol_governance_api_ban(state: GateState, root: Path) -> None:
     protocol = load_yaml(root / "repo_protocol_standard.yaml")
     safety = protocol.get("safety", {})
@@ -788,6 +824,7 @@ def check_governance_assets(state: GateState, root: Path) -> None:
         "docs/analyzer_policy_design.md",
         "docs/priority_scoring_design.md",
         "docs/lifecycle_policy_design.md",
+        "docs/blocker_policy_design.md",
         "docs/evaluation_gate_design.md",
     ]
     missing = [item for item in required if not (root / item).exists()]
@@ -971,6 +1008,7 @@ def main() -> int:
     check_analyzer_policy(state, root)
     check_priority_scoring_policy(state, root)
     check_lifecycle_policy(state, root)
+    check_blocker_policy(state, root)
     check_protocol_governance_api_ban(state, root)
     check_protocol_version(state, root)
     check_governance_assets(state, root)

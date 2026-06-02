@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Round 38 - Blocker Management
+
+- 新增 `config/blocker_policy.yaml` 与三类 blocker（governance_missing / repository_path / repository_empty）。
+- 新增 `scripts/blocker_management.py` 实现分类与超时升级（info→warning→review→hitl）。
+- `analyze_repos.py` 输出 `blocker_details`；`agent_gate` 与 eval registry 增加 blocker_policy 验收。
+- `reports/round_38_completion_report.md`。
+
 ## Round 37 - Lifecycle Rules
 
 - 新增 `config/lifecycle_policy.yaml` 与八态生命周期（idea/bootstrap/active/blocked/maintenance/frozen/archived/abandoned）。

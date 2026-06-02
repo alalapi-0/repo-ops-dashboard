@@ -251,3 +251,9 @@
 - 产出：`config/lifecycle_policy.yaml`、`derive_lifecycle_v1`、八态 `lifecycle_status`
 - 下一轮：`round_38_blocker_management`
 
+## Round 38 - Blocker Management
+
+- 状态：completed
+- 产出：`config/blocker_policy.yaml`、`blocker_management.py`、`blocker_details` 字段
+- 下一轮：`round_39_dashboard_v2`
+

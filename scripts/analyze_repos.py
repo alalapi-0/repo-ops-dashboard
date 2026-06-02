@@ -14,6 +14,7 @@ try:
 except ImportError as exc:  # pragma: no cover
     raise SystemExit("PyYAML is required. Run: pip install -r requirements.txt") from exc
 
+from blocker_management import enrich_blockers, summarize_blockers
 from priority_scoring import compute_priority_score
 
 
@@ -339,6 +340,11 @@ def parse_args() -> argparse.Namespace:
         default="config/lifecycle_policy.yaml",
         help="Lifecycle policy yaml",
     )
+    parser.add_argument(
+        "--blocker-policy",
+        default="config/blocker_policy.yaml",
+        help="Blocker policy yaml",
+    )
     return parser.parse_args()
 
 
@@ -350,6 +356,7 @@ def main() -> int:
     policy_path = Path(args.analyzer_policy)
     scoring_policy_path = Path(args.priority_scoring_policy)
     lifecycle_policy_path = Path(args.lifecycle_policy)
+    blocker_policy_path = Path(args.blocker_policy)
     output_path = Path(args.output)
 
     if not input_path.exists():
@@ -364,7 +371,10 @@ def main() -> int:
         raise SystemExit(f"Priority scoring policy not found: {scoring_policy_path}")
     if not lifecycle_policy_path.exists():
         raise SystemExit(f"Lifecycle policy not found: {lifecycle_policy_path}")
+    if not blocker_policy_path.exists():
+        raise SystemExit(f"Blocker policy not found: {blocker_policy_path}")
     lifecycle_policy = load_yaml(lifecycle_policy_path)
+    blocker_policy = load_yaml(blocker_policy_path)
 
     snapshots = load_json(input_path)
     rules = load_yaml(rules_path)
@@ -392,6 +402,8 @@ def main() -> int:
             health = int(round((health + composite) / 2))
         priority = pick_priority(repo, health)
         blockers = derive_blockers(repo)
+        blocker_summary = summarize_blockers(blockers, age_days=0, policy=blocker_policy)
+        blocker_details = list(blocker_summary.get("details", []))
         warnings = list(repo.get("warnings", []))
         next_actions = []
         status = str(repo.get("status", "unknown"))
@@ -462,6 +474,8 @@ def main() -> int:
             "health_dimensions": dimensions,
             "priority": priority,
             "blockers": blockers,
+            "blocker_details": blocker_details,
+            "blocker_max_escalation": blocker_summary.get("max_escalation", "none"),
             "warnings": warnings,
             "next_actions": next_actions,
             "recommended_agent": recommended_agent,
@@ -479,6 +493,7 @@ def main() -> int:
         "analyzer_policy": policy_path.as_posix(),
         "priority_scoring_policy": scoring_policy_path.as_posix(),
         "lifecycle_policy": lifecycle_policy_path.as_posix(),
+        "blocker_policy": blocker_policy_path.as_posix(),
         "registry": registry_path.as_posix(),
         "repos": repos_out,
     }

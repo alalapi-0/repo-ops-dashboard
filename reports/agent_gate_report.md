@@ -1,6 +1,6 @@
 # Agent Gate Report
 
-- generated_at: 2026-06-02T05:20:25.341594+00:00
+- generated_at: 2026-06-02T05:22:08.692613+00:00
 - verdict: PASS
 
 ## Findings
@@ -21,6 +21,7 @@
 - [PASS] `analyzer_policy`: analyzer_policy v2 valid (3 dimensions, analyzer v2)
 - [PASS] `priority_scoring_policy`: priority_scoring_policy v1 valid (5 factors, scale 10)
 - [PASS] `lifecycle_policy`: lifecycle_policy v1 valid (8 states)
+- [PASS] `blocker_policy`: blocker_policy v1 valid (3 types, 4 escalation levels)
 - [PASS] `protocol_governance_api`: governance round external API ban present in protocol
 - [PASS] `protocol_version`: protocol v0.3.0 portfolio governance positioning present
 - [PASS] `protocol_positioning`: Personal Agent OS positioning present
@@ -36,8 +37,8 @@
 - [PASS] `execpolicy`: execpolicy rules valid (11 portfolio rules, 3 profiles)
 - [PASS] `repo_context_index`: repo_context_index.yaml valid for repo_ops_dashboard (6 key files)
 - [PASS] `eval_registry`: eval registry contains required baseline evals
-- [PASS] `completion_report`: round_37_completion_report.md exists
+- [PASS] `completion_report`: round_38_completion_report.md exists
 - [PASS] `requirements_dev`: requirements-dev.txt includes playwright and pytest
 - [PASS] `installation_doc`: installation.md covers core refresh commands
 - [PASS] `example_fixtures`: example data fixtures present
-- [PASS] `pytest_tests`: pytest tests present (22 modules)
+- [PASS] `pytest_tests`: pytest tests present (23 modules)

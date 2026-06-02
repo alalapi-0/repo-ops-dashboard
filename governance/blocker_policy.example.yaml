@@ -1,0 +1,42 @@
+schema_version: "0.1.0"
+blocker_version: v1
+description: Example blocker types and timeout escalation (mirrors config/blocker_policy.yaml).
+
+types:
+  - id: repository_path
+    description: Repository path is missing or unreachable.
+    patterns:
+      - "repository path missing"
+    severity: critical
+    default_owner: Human
+  - id: repository_empty
+    description: Repository directory exists but is empty.
+    patterns:
+      - "repository directory empty"
+    severity: high
+    default_owner: Human
+  - id: governance_missing
+    description: Missing critical governance files.
+    patterns:
+      - " missing"
+    severity: high
+    default_owner: Cursor
+
+escalation:
+  levels:
+    - level: info
+      after_days: 0
+      action: log_only
+    - level: warning
+      after_days: 3
+      action: surface_in_dashboard
+    - level: review
+      after_days: 7
+      action: create_review_queue_item
+    - level: hitl
+      after_days: 14
+      action: require_human_owner_decision
+
+defaults:
+  unknown_type: governance_missing
+  fallback_owner: Human

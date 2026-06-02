@@ -89,6 +89,11 @@ evals:
     type: schema_check
     required: true
     path: config/lifecycle_policy.yaml
+  - eval_id: blocker_policy_valid
+    description: config/blocker_policy.yaml exists with blocker types and escalation levels.
+    type: schema_check
+    required: true
+    path: config/blocker_policy.yaml
   - eval_id: completion_report_exists
     description: The current round completion report exists.
     type: file_exists
