@@ -1,15 +1,13 @@
-current_round: round_55_feishu_lark_notification_planning
+current_round: round_56_feishu_lark_notification_mvp
 status: completed
 executor: cursor
 external_api_called: false
 managed_repos_modified: false
 secrets_read: false
 dashboard_version: v2
-next_round: round_56_feishu_lark_notification_mvp
+next_round: round_57_mac_local_notification
 outputs:
-  - config/feishu_notification_policy.yaml
-  - scripts/plan_feishu_notifications.py
-  - scripts/validate_feishu_notification_policy.py
-  - governance/feishu_notification_plan.yaml
-  - docs/feishu_lark_notification_design.md
-  - reports/round_55_completion_report.md
+  - scripts/send_feishu_notification.py
+  - reports/feishu_outbound_preview.json
+  - tests/test_send_feishu_notification.py
+  - reports/round_56_completion_report.md

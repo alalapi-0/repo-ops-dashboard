@@ -1,12 +1,12 @@
 # Feishu notification plan (planning only, no API).
 schema_version: 0.1.0
-generated_at: '2026-06-02T17:49:47.724573+00:00'
+generated_at: '2026-06-02T17:50:36.786531+00:00'
 policy_version: v1
 mode: planning_only
 external_api_called: false
 summary:
   sources_ready: 5
-  sources_total: 5
+  sources_total: 6
   daily_enabled: true
   weekly_enabled: true
   feishu_mode: preview_only
@@ -47,6 +47,10 @@ source_readiness:
     path: reports/llm_daily_summary.md
     exists: true
     bytes: 375
+  outbound_preview:
+    path: reports/feishu_outbound_preview.json
+    exists: false
+    bytes: 0
 next_steps:
 - HumanOwner 审阅 review_queue 中 feishu 日报权限项
 - 配置 FEISHU_WEBHOOK_URL 后使用 send_feishu_notification.py --send

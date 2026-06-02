@@ -18,7 +18,7 @@
 |------|------|
 | `scripts/prepare_feishu_payload.py` | 从日报/简报生成卡片预览 JSON |
 | `scripts/plan_feishu_notifications.py` | 本轮：汇总排期与来源就绪状态（无 API） |
-| `scripts/send_feishu_notification.py` | Round 56：MVP 发送/出站预览（dry-run 默认） |
+| `scripts/send_feishu_notification.py` | Round 56：MVP 发送/出站预览（dry-run 默认，无 webhook 写 mock outbound） |
 | `scripts/feishu_send.sh` | 包装脚本，source `.env` 后 `--send` |
 
 ## 排期建议

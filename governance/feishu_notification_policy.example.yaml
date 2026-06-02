@@ -11,6 +11,7 @@ sources:
   output_plan: governance/feishu_notification_plan.yaml
   output_report: reports/feishu_notification_planning.md
   payload_preview: reports/feishu_payload_preview.json
+  outbound_preview: reports/feishu_outbound_preview.json
 
 channels:
   feishu_bot:

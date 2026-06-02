@@ -1,0 +1,44 @@
+{
+  "schema_version": "0.1.0",
+  "generated_at": "2026-06-02T17:50:39.056441+00:00",
+  "channel": "feishu_bot",
+  "mode": "daily",
+  "delivery": {
+    "status": "preview",
+    "webhook_configured": false,
+    "send_attempted": false,
+    "http_status": null,
+    "response_excerpt": "",
+    "error": ""
+  },
+  "payload_bytes": 1170,
+  "outbound_body": {
+    "msg_type": "interactive",
+    "card": {
+      "header": {
+        "title": {
+          "tag": "plain_text",
+          "content": "Repo Ops 日报摘要"
+        }
+      },
+      "elements": [
+        {
+          "tag": "div",
+          "text": {
+            "tag": "lark_md",
+            "content": "**概览** — 仓库 5 · 高优 3 · 卡点 4 · freeze 候选 2\n**高优先级**\n- **ai-manga** | priority=high | score=14 | agent=Human\n- **novel-continuation-agent** | priority=high | score=46 | agent=Human\n- **repo-ops-dashboard** | priority=high | score=88 | agent=Cursor\n\n**每日简报**\n今日优先推进：repo-ops-dashboard, novel-continuation-agent。暂缓 2 仓勿动。编排交给 Cursor Automations，编程交给 Cursor/Codex。\n\n**LLM 摘要**\n# LLM Generation\n\n- generated_at: 2026-05-31T23:26:23.196142+00:00\n- provider: openrouter\n- model: deepseek/deepseek-v4-pro\n\n## 今日三条行动\n1. **repo-ops-dashboard**（Cursor）：处理扫描警告并补齐可选治理文件，无阻断。\n2. **novel-continuation-agent**（Human）：补齐缺失的 repo_protocol_standard.yaml 等治理文件。\n3. **light_novel**"
+          }
+        },
+        {
+          "tag": "note",
+          "elements": [
+            {
+              "tag": "plain_text",
+              "content": "本地预览载荷 — 未发送。路径已脱敏。"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

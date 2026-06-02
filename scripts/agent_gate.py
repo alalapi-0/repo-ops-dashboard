@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import subprocess
 from dataclasses import dataclass
@@ -608,8 +609,10 @@ def check_feishu_notification_policy(state: GateState, root: Path) -> None:
     live = root / "config" / "feishu_notification_policy.yaml"
     example = root / "governance" / "feishu_notification_policy.example.yaml"
     planner = root / "scripts" / "plan_feishu_notifications.py"
+    sender = root / "scripts" / "send_feishu_notification.py"
     validator = root / "scripts" / "validate_feishu_notification_policy.py"
     output = root / "governance" / "feishu_notification_plan.yaml"
+    outbound = root / "reports" / "feishu_outbound_preview.json"
     if not live.exists() or not validator.exists():
         state.add("feishu_notification_policy", BLOCKED, "feishu_notification_policy.yaml or validator missing")
         return
@@ -622,7 +625,16 @@ def check_feishu_notification_policy(state: GateState, root: Path) -> None:
     if errors:
         state.add("feishu_notification_policy", BLOCKED, f"feishu_notification_policy invalid: {errors[0]}")
         return
-    if example.exists() and planner.exists() and output.exists():
+    if example.exists() and planner.exists() and output.exists() and sender.exists() and outbound.exists():
+        summary = load_yaml(output).get("summary", {})
+        outbound_record = json.loads(outbound.read_text(encoding="utf-8"))
+        delivery = outbound_record.get("delivery", {}).get("status", "unknown")
+        state.add(
+            "feishu_notification_policy",
+            PASS,
+            f"Feishu notification MVP wired (sources={summary.get('sources_ready', 0)}/{summary.get('sources_total', 0)}, outbound={delivery})",
+        )
+    elif example.exists() and planner.exists() and output.exists():
         summary = load_yaml(output).get("summary", {})
         state.add(
             "feishu_notification_policy",

@@ -1,8 +1,8 @@
 # Feishu/Lark 通知规划报告
 
-- 生成时间: 2026-06-02T17:49:47.724573+00:00
+- 生成时间: 2026-06-02T17:50:36.786531+00:00
 - 模式: planning_only（未调用外部 API）
-- 来源就绪: 5/5
+- 来源就绪: 5/6
 
 ## 排期建议
 
@@ -16,6 +16,7 @@
 - ✓ `reports/daily_brief.md` (1857 bytes)
 - ✓ `data/repo_status.json` (14608 bytes)
 - ✓ `reports/llm_daily_summary.md` (375 bytes)
+- ✗ `reports/feishu_outbound_preview.json` (0 bytes)
 
 ## 下一步
 

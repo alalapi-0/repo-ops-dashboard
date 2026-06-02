@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Round 56 - Feishu/Lark Notification MVP
+
+- 新增 `send_feishu_notification.py`（dry-run 写 outbound 预览，无 webhook 不阻断）。
+- `refresh_status.sh` 改用 MVP 脚本；`agent_gate` 验收 outbound 状态。
+- `reports/round_56_completion_report.md`。
+
 ## Round 55 - Feishu/Lark Notification Planning
 
 - 新增 `feishu_notification_policy.yaml` 与 `plan_feishu_notifications.py`（规划 only，无 API）。

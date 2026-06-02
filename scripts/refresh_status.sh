@@ -185,9 +185,9 @@ echo "[refresh] dashboard"
 
 echo "[refresh] feishu preview"
 if $FEISHU_SEND; then
-  "$PYTHON" scripts/prepare_feishu_payload.py --status "$STATUS" --send
+  "$PYTHON" scripts/send_feishu_notification.py --status "$STATUS" --send
 else
-  "$PYTHON" scripts/prepare_feishu_payload.py --status "$STATUS"
+  "$PYTHON" scripts/send_feishu_notification.py --status "$STATUS"
 fi
 
 if $BITABLE_SYNC; then
