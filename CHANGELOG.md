@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Round 39 - Dashboard V2
+
+- `generate_dashboard.py` 新增治理面板 V2：portfolio_state、task_queue、review_queue、blockers。
+- 更新 `dashboard/style.css` 与 `ui_check.py` 验收；`tests/test_generate_dashboard.py`。
+- `reports/round_39_completion_report.md`。
+
 ## Round 38 - Blocker Management
 
 - 新增 `config/blocker_policy.yaml` 与三类 blocker（governance_missing / repository_path / repository_empty）。

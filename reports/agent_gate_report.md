@@ -1,6 +1,6 @@
 # Agent Gate Report
 
-- generated_at: 2026-06-02T05:22:08.692613+00:00
+- generated_at: 2026-06-02T17:30:15.256694+00:00
 - verdict: PASS
 
 ## Findings
@@ -37,8 +37,8 @@
 - [PASS] `execpolicy`: execpolicy rules valid (11 portfolio rules, 3 profiles)
 - [PASS] `repo_context_index`: repo_context_index.yaml valid for repo_ops_dashboard (6 key files)
 - [PASS] `eval_registry`: eval registry contains required baseline evals
-- [PASS] `completion_report`: round_38_completion_report.md exists
+- [PASS] `completion_report`: round_39_completion_report.md exists
 - [PASS] `requirements_dev`: requirements-dev.txt includes playwright and pytest
 - [PASS] `installation_doc`: installation.md covers core refresh commands
 - [PASS] `example_fixtures`: example data fixtures present
-- [PASS] `pytest_tests`: pytest tests present (23 modules)
+- [PASS] `pytest_tests`: pytest tests present (24 modules)

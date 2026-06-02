@@ -1,18 +1,14 @@
-current_round: round_38_blocker_management
+current_round: round_39_dashboard_v2
 status: completed
 executor: cursor
 external_api_called: false
 managed_repos_modified: false
 secrets_read: false
-blocker_version: v1
-blocker_policy_path: config/blocker_policy.yaml
-next_round: round_39_dashboard_v2
+dashboard_version: v2
+next_round: round_40_playwright_dashboard_validation
 outputs:
-  - config/blocker_policy.yaml
-  - governance/blocker_policy.example.yaml
-  - scripts/validate_blocker_policy.py
-  - scripts/read_blocker_policy.py
-  - scripts/blocker_management.py
-  - docs/blocker_policy_design.md
-  - tests/test_blocker_policy.py
-  - reports/round_38_completion_report.md
+  - scripts/generate_dashboard.py
+  - dashboard/style.css
+  - scripts/ui_check.py
+  - tests/test_generate_dashboard.py
+  - reports/round_39_completion_report.md

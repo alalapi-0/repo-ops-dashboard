@@ -163,3 +163,70 @@ h1 {
   background: #fef3c7;
   font-size: 12px;
 }
+
+.governance-v2 {
+  margin-top: 16px;
+}
+
+.governance-v2 > h2 {
+  margin: 0 0 12px;
+  font-size: 20px;
+}
+
+.gov-panels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+.gov-panel {
+  background: white;
+  border-radius: 10px;
+  padding: 12px 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.gov-panel h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+}
+
+.gov-meta,
+.gov-foot {
+  margin: 0 0 8px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.gov-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+.gov-stats span {
+  background: #f3f4f6;
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+.gov-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.gov-table th,
+.gov-table td {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 4px 6px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.gov-table th {
+  color: #6b7280;
+  font-weight: 600;
+}

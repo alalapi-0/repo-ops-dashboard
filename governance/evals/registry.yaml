@@ -98,7 +98,7 @@ evals:
     description: The current round completion report exists.
     type: file_exists
     required: true
-    path: reports/round_37_completion_report.md
+    path: reports/round_39_completion_report.md
   - eval_id: task_spec_schema_valid
     description: task_spec template includes required governance fields.
     type: schema_check

@@ -161,6 +161,19 @@ def main() -> int:
             if hn_count == 0:
                 warnings.append("No human-notes section; run generate_dashboard with human_notes.example.json")
 
+            gov_v2 = page.locator(".governance-v2[data-dashboard-v2-ready='true']")
+            gov_count = gov_v2.count()
+            checks.append({"name": "governance_v2_section", "ok": gov_count > 0, "detail": f"count={gov_count}"})
+            if gov_count == 0:
+                warnings.append("No governance-v2 section; run generate_dashboard with portfolio/task/review YAML")
+
+            for panel in ("portfolio_state", "task_queue", "review_queue", "blockers"):
+                loc = page.locator(f".gov-panel[data-panel='{panel}']")
+                panel_ok = loc.count() > 0
+                checks.append({"name": f"gov_panel_{panel}", "ok": panel_ok, "detail": f"count={loc.count()}"})
+                if not panel_ok:
+                    warnings.append(f"Missing governance panel: {panel}")
+
             screenshot_path.parent.mkdir(parents=True, exist_ok=True)
             page.screenshot(path=str(screenshot_path), full_page=True)
             screenshot_taken = screenshot_path

@@ -9,10 +9,22 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+try:
+    import yaml
+except ImportError as exc:  # pragma: no cover
+    raise SystemExit("PyYAML is required. Run: pip install -r requirements.txt") from exc
+
 
 def load_json(path: Path) -> dict[str, Any]:
     with path.open("r", encoding="utf-8") as handle:
         return json.load(handle)
+
+
+def load_yaml(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    with path.open("r", encoding="utf-8") as handle:
+        return yaml.safe_load(handle) or {}
 
 
 def esc(text: Any) -> str:
@@ -95,6 +107,21 @@ def parse_args() -> argparse.Namespace:
         default="",
         help="Human notes JSON (default: data/human_notes.json or example)",
     )
+    parser.add_argument(
+        "--portfolio-state",
+        default="governance/portfolio_state.yaml",
+        help="Portfolio state YAML for governance panel",
+    )
+    parser.add_argument(
+        "--task-queue",
+        default="governance/governance_task_queue.yaml",
+        help="Governance task queue YAML",
+    )
+    parser.add_argument(
+        "--review-queue",
+        default="governance/review_queue.yaml",
+        help="Review queue YAML",
+    )
     return parser.parse_args()
 
 
@@ -130,6 +157,147 @@ def render_human_notes_section(notes: dict[str, Any]) -> str:
     """
 
 
+def render_portfolio_panel(data: dict[str, Any]) -> str:
+    if not data:
+        return ""
+    summary = dict(data.get("summary", {}))
+    projects = list(data.get("projects", []))
+    blocked = [p for p in projects if p.get("blockers")]
+    rows = "".join(
+        f"<tr><td>{esc(p.get('project_id', ''))}</td>"
+        f"<td>{esc(p.get('lifecycle', ''))}</td>"
+        f"<td>{esc(p.get('priority', ''))}</td>"
+        f"<td>{esc(len(p.get('blockers') or []))}</td></tr>"
+        for p in projects[:8]
+    )
+    return f"""
+    <article class="gov-panel" data-panel="portfolio_state">
+      <h3>Portfolio State</h3>
+      <p class="gov-meta">生成：{esc(data.get("generated_at", "—"))}</p>
+      <div class="gov-stats">
+        <span>项目 {esc(summary.get("total_projects", 0))}</span>
+        <span>活跃 {esc(summary.get("active_projects", 0))}</span>
+        <span>卡住 {esc(summary.get("blocked_projects", 0))}</span>
+        <span>Review 开放 {esc(summary.get("review_queue_open", 0))}</span>
+      </div>
+      <table class="gov-table">
+        <thead><tr><th>project_id</th><th>lifecycle</th><th>priority</th><th>blockers</th></tr></thead>
+        <tbody>{rows or '<tr><td colspan="4">无项目</td></tr>'}</tbody>
+      </table>
+      <p class="gov-foot">展示 {min(len(projects), 8)}/{len(projects)} 项目 · 有卡点 {len(blocked)}</p>
+    </article>
+    """
+
+
+def render_task_queue_panel(data: dict[str, Any]) -> str:
+    if not data:
+        return ""
+    summary = dict(data.get("summary", {}))
+    tasks = list(data.get("tasks", []))
+    rows = "".join(
+        f"<tr><td>{esc(t.get('task_id', ''))}</td>"
+        f"<td>{esc(t.get('project_id', ''))}</td>"
+        f"<td>{esc(t.get('status', ''))}</td>"
+        f"<td>{esc(t.get('assigned_agent', ''))}</td></tr>"
+        for t in tasks[:6]
+    )
+    return f"""
+    <article class="gov-panel" data-panel="task_queue">
+      <h3>Task Queue</h3>
+      <p class="gov-meta">生成：{esc(data.get("generated_at", "—"))}</p>
+      <div class="gov-stats">
+        <span>总任务 {esc(summary.get("total_tasks", 0))}</span>
+        <span>活跃 {esc(summary.get("active_tasks", 0))}</span>
+      </div>
+      <table class="gov-table">
+        <thead><tr><th>task_id</th><th>project</th><th>status</th><th>agent</th></tr></thead>
+        <tbody>{rows or '<tr><td colspan="4">无任务</td></tr>'}</tbody>
+      </table>
+    </article>
+    """
+
+
+def render_review_queue_panel(data: dict[str, Any]) -> str:
+    if not data:
+        return ""
+    items = [item for item in data.get("items", []) if str(item.get("status", "")).lower() == "open"]
+    rows = "".join(
+        f"<tr><td>{esc(item.get('review_id', ''))}</td>"
+        f"<td>{esc(item.get('type', ''))}</td>"
+        f"<td>{esc(item.get('project_id', ''))}</td></tr>"
+        for item in items[:6]
+    )
+    return f"""
+    <article class="gov-panel" data-panel="review_queue">
+      <h3>Review Queue</h3>
+      <p class="gov-meta">更新：{esc(data.get("updated_at", "—"))}</p>
+      <div class="gov-stats">
+        <span>开放 {len(items)}</span>
+      </div>
+      <table class="gov-table">
+        <thead><tr><th>review_id</th><th>type</th><th>project</th></tr></thead>
+        <tbody>{rows or '<tr><td colspan="3">无开放项</td></tr>'}</tbody>
+      </table>
+    </article>
+    """
+
+
+def render_blockers_panel(repos: list[dict[str, Any]]) -> str:
+    rows: list[str] = []
+    for repo in repos:
+        blockers = list(repo.get("blockers") or [])
+        if not blockers:
+            continue
+        details = list(repo.get("blocker_details") or [])
+        escalation = str(repo.get("blocker_max_escalation", "info"))
+        if details:
+            types = ", ".join(str(d.get("type", "")) for d in details)
+            owners = ", ".join(sorted({str(d.get("owner", "")) for d in details}))
+            detail_text = f"{esc(types)} · 升级 {esc(escalation)} · 负责 {esc(owners)}"
+        else:
+            detail_text = esc("; ".join(blockers))
+        rows.append(
+            f"<tr><td>{esc(repo.get('name', ''))}</td>"
+            f"<td>{esc('; '.join(blockers))}</td>"
+            f"<td>{detail_text}</td></tr>"
+        )
+    body = "".join(rows) or '<tr><td colspan="3">无卡点</td></tr>'
+    return f"""
+    <article class="gov-panel" data-panel="blockers">
+      <h3>Blockers</h3>
+      <div class="gov-stats">
+        <span>卡住仓库 {len(rows)}</span>
+      </div>
+      <table class="gov-table">
+        <thead><tr><th>仓库</th><th>卡点</th><th>分类/升级</th></tr></thead>
+        <tbody>{body}</tbody>
+      </table>
+    </article>
+    """
+
+
+def render_governance_v2(
+    portfolio: dict[str, Any],
+    task_queue: dict[str, Any],
+    review_queue: dict[str, Any],
+    repos: list[dict[str, Any]],
+) -> str:
+    panels = (
+        render_portfolio_panel(portfolio)
+        + render_task_queue_panel(task_queue)
+        + render_review_queue_panel(review_queue)
+        + render_blockers_panel(repos)
+    )
+    if not panels.strip():
+        return ""
+    return f"""
+    <section class="governance-v2" data-dashboard-v2-ready="true">
+      <h2>治理面板 V2</h2>
+      <div class="gov-panels">{panels}</div>
+    </section>
+    """
+
+
 def main() -> int:
     args = parse_args()
     input_path = Path(args.input)
@@ -146,8 +314,16 @@ def main() -> int:
         notes_path = Path("data/human_notes.example.json")
     human_notes_html = render_human_notes_section(load_human_notes(notes_path))
 
+    portfolio_path = Path(args.portfolio_state)
+    task_queue_path = Path(args.task_queue)
+    review_queue_path = Path(args.review_queue)
+    portfolio_data = load_yaml(portfolio_path)
+    task_queue_data = load_yaml(task_queue_path)
+    review_queue_data = load_yaml(review_queue_path)
+
     payload = load_json(input_path)
     repos = list(payload.get("repos", []))
+    governance_v2_html = render_governance_v2(portfolio_data, task_queue_data, review_queue_data, repos)
     high_count = sum(1 for r in repos if r.get("priority") == "high")
     blocked_count = sum(1 for r in repos if r.get("blockers"))
     freeze_count = sum(1 for r in repos if r.get("freeze_candidate"))
@@ -173,6 +349,7 @@ def main() -> int:
       <h1>Repo Ops Dashboard</h1>
       <p>更新时间：{esc(now_text)}</p>
     </header>
+    {governance_v2_html}
     <section class="stats">
       <div class="stat"><span>总仓库数</span><strong>{len(repos)}</strong></div>
       <div class="stat"><span>高优先级</span><strong>{high_count}</strong></div>

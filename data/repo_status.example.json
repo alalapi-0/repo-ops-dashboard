@@ -1,9 +1,10 @@
 {
-  "generated_at": "2026-06-02T05:20:25.552847+00:00",
+  "generated_at": "2026-06-02T17:30:15.377937+00:00",
   "analyzer_version": "v2",
   "analyzer_policy": "config/analyzer_policy.yaml",
   "priority_scoring_policy": "config/priority_scoring_policy.yaml",
   "lifecycle_policy": "config/lifecycle_policy.yaml",
+  "blocker_policy": "config/blocker_policy.yaml",
   "registry": "governance/project_registry.yaml",
   "repos": [
     {
@@ -45,6 +46,27 @@
         "AGENTS.md missing",
         "repo_protocol_standard.yaml missing"
       ],
+      "blocker_details": [
+        {
+          "message": "AGENTS.md missing",
+          "type": "governance_missing",
+          "severity": "high",
+          "owner": "Cursor",
+          "age_days": 0,
+          "escalation_level": "info",
+          "escalation_action": "log_only"
+        },
+        {
+          "message": "repo_protocol_standard.yaml missing",
+          "type": "governance_missing",
+          "severity": "high",
+          "owner": "Cursor",
+          "age_days": 0,
+          "escalation_level": "info",
+          "escalation_action": "log_only"
+        }
+      ],
+      "blocker_max_escalation": "info",
       "warnings": [],
       "next_actions": [
         "补齐缺失治理文件（AGENTS.md / protocol / README）"
@@ -106,6 +128,36 @@
         "AGENTS.md missing",
         "repo_protocol_standard.yaml missing"
       ],
+      "blocker_details": [
+        {
+          "message": "README.md missing",
+          "type": "governance_missing",
+          "severity": "high",
+          "owner": "Cursor",
+          "age_days": 0,
+          "escalation_level": "info",
+          "escalation_action": "log_only"
+        },
+        {
+          "message": "AGENTS.md missing",
+          "type": "governance_missing",
+          "severity": "high",
+          "owner": "Cursor",
+          "age_days": 0,
+          "escalation_level": "info",
+          "escalation_action": "log_only"
+        },
+        {
+          "message": "repo_protocol_standard.yaml missing",
+          "type": "governance_missing",
+          "severity": "high",
+          "owner": "Cursor",
+          "age_days": 0,
+          "escalation_level": "info",
+          "escalation_action": "log_only"
+        }
+      ],
+      "blocker_max_escalation": "info",
       "warnings": [
         "pattern no match: README.*",
         "pattern no match: round_state/**",
@@ -172,6 +224,18 @@
       "blockers": [
         "repo_protocol_standard.yaml missing"
       ],
+      "blocker_details": [
+        {
+          "message": "repo_protocol_standard.yaml missing",
+          "type": "governance_missing",
+          "severity": "high",
+          "owner": "Cursor",
+          "age_days": 0,
+          "escalation_level": "info",
+          "escalation_action": "log_only"
+        }
+      ],
+      "blocker_max_escalation": "info",
       "warnings": [
         "pattern no match: round_state/**",
         "pattern no match: docs/roadmap*.md",
@@ -206,9 +270,9 @@
       "registry_matched": true,
       "registry_lifecycle": "bootstrap",
       "governance_level": "write_allowed",
-      "round_current": "round_37_lifecycle_rules",
+      "round_current": "round_39_dashboard_v2",
       "round_status": "completed",
-      "round_next": "round_38_blocker_management",
+      "round_next": "round_40_playwright_dashboard_validation",
       "current_stage": "round_00_bootstrap",
       "health_score": 88,
       "health_dimensions": {
@@ -233,6 +297,8 @@
       },
       "priority": "high",
       "blockers": [],
+      "blocker_details": [],
+      "blocker_max_escalation": "none",
       "warnings": [
         "pattern no match: docs/roadmap*.md"
       ],
@@ -294,6 +360,18 @@
       "blockers": [
         "repository path missing"
       ],
+      "blocker_details": [
+        {
+          "message": "repository path missing",
+          "type": "repository_path",
+          "severity": "critical",
+          "owner": "Human",
+          "age_days": 0,
+          "escalation_level": "info",
+          "escalation_action": "log_only"
+        }
+      ],
+      "blocker_max_escalation": "info",
       "warnings": [],
       "next_actions": [
         "确认仓库路径是否有效，或从登记中归档"

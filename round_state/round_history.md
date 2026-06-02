@@ -257,3 +257,9 @@
 - 产出：`config/blocker_policy.yaml`、`blocker_management.py`、`blocker_details` 字段
 - 下一轮：`round_39_dashboard_v2`
 
+## Round 39 - Dashboard V2
+
+- 状态：completed
+- 产出：治理面板 V2（portfolio/task/review/blockers）、ui_check 扩展
+- 下一轮：`round_40_playwright_dashboard_validation`
+

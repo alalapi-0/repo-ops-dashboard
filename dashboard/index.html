@@ -10,8 +10,66 @@
   <main class="container" data-dashboard-ready="true">
     <header>
       <h1>Repo Ops Dashboard</h1>
-      <p>更新时间：2026-06-02 05:20:26 UTC</p>
+      <p>更新时间：2026-06-02 17:30:15 UTC</p>
     </header>
+    
+    <section class="governance-v2" data-dashboard-v2-ready="true">
+      <h2>治理面板 V2</h2>
+      <div class="gov-panels">
+    <article class="gov-panel" data-panel="portfolio_state">
+      <h3>Portfolio State</h3>
+      <p class="gov-meta">生成：2026-06-02T05:04:57+00:00</p>
+      <div class="gov-stats">
+        <span>项目 17</span>
+        <span>活跃 16</span>
+        <span>卡住 3</span>
+        <span>Review 开放 5</span>
+      </div>
+      <table class="gov-table">
+        <thead><tr><th>project_id</th><th>lifecycle</th><th>priority</th><th>blockers</th></tr></thead>
+        <tbody><tr><td>novel_continuation_agent</td><td>active</td><td>high</td><td>1</td></tr><tr><td>ai_manga</td><td>freeze_candidate</td><td>high</td><td>3</td></tr><tr><td>repo_ops_dashboard</td><td>bootstrap</td><td>high</td><td>0</td></tr><tr><td>ai_anime_short_factory</td><td>active</td><td>high</td><td>0</td></tr><tr><td>wechat_article_scheduler</td><td>active</td><td>high</td><td>0</td></tr><tr><td>light_novel</td><td>active</td><td>low</td><td>2</td></tr><tr><td>computer_study_plan</td><td>active</td><td>medium</td><td>0</td></tr><tr><td>world_news_lens</td><td>active</td><td>medium</td><td>0</td></tr></tbody>
+      </table>
+      <p class="gov-foot">展示 8/17 项目 · 有卡点 3</p>
+    </article>
+    
+    <article class="gov-panel" data-panel="task_queue">
+      <h3>Task Queue</h3>
+      <p class="gov-meta">生成：2026-06-02T05:06:32+00:00</p>
+      <div class="gov-stats">
+        <span>总任务 1</span>
+        <span>活跃 1</span>
+      </div>
+      <table class="gov-table">
+        <thead><tr><th>task_id</th><th>project</th><th>status</th><th>agent</th></tr></thead>
+        <tbody><tr><td>task_light_novel_governance_prompt_001</td><td>light_novel</td><td>proposed</td><td>Cursor</td></tr></tbody>
+      </table>
+    </article>
+    
+    <article class="gov-panel" data-panel="review_queue">
+      <h3>Review Queue</h3>
+      <p class="gov-meta">更新：2026-06-02T00:00:00Z</p>
+      <div class="gov-stats">
+        <span>开放 5</span>
+      </div>
+      <table class="gov-table">
+        <thead><tr><th>review_id</th><th>type</th><th>project</th></tr></thead>
+        <tbody><tr><td>rq_001_personal_agent_os_positioning</td><td>positioning_change</td><td>repo_ops_dashboard</td></tr><tr><td>rq_002_openclaw_orchestration</td><td>integration_permission</td><td>repo_ops_dashboard</td></tr><tr><td>rq_003_feishu_daily_report</td><td>notification_permission</td><td>repo_ops_dashboard</td></tr><tr><td>rq_004_weekly_priority_ranking</td><td>governance_policy</td><td>repo_ops_dashboard</td></tr><tr><td>rq_005_project_frozen_candidate</td><td>lifecycle_decision</td><td>example_project</td></tr></tbody>
+      </table>
+    </article>
+    
+    <article class="gov-panel" data-panel="blockers">
+      <h3>Blockers</h3>
+      <div class="gov-stats">
+        <span>卡住仓库 4</span>
+      </div>
+      <table class="gov-table">
+        <thead><tr><th>仓库</th><th>卡点</th><th>分类/升级</th></tr></thead>
+        <tbody><tr><td>light_novel</td><td>AGENTS.md missing; repo_protocol_standard.yaml missing</td><td>governance_missing, governance_missing · 升级 info · 负责 Cursor</td></tr><tr><td>ai-manga</td><td>README.md missing; AGENTS.md missing; repo_protocol_standard.yaml missing</td><td>governance_missing, governance_missing, governance_missing · 升级 info · 负责 Cursor</td></tr><tr><td>novel-continuation-agent</td><td>repo_protocol_standard.yaml missing</td><td>governance_missing · 升级 info · 负责 Cursor</td></tr><tr><td>old_demo_placeholder</td><td>repository path missing</td><td>repository_path · 升级 info · 负责 Human</td></tr></tbody>
+      </table>
+    </article>
+    </div>
+    </section>
+    
     <section class="stats">
       <div class="stat"><span>总仓库数</span><strong>5</strong></div>
       <div class="stat"><span>高优先级</span><strong>3</strong></div>
