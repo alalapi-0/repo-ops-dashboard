@@ -115,3 +115,14 @@ python3 -m playwright install chromium
 ```
 
 若命令因示例数据不足无法完整运行，必须在当轮完成报告说明原因与修复计划。
+
+## 8) MCP Tools
+
+- 本项目优先使用 **`.cursor/mcp.json`** 中声明的 MCP（playwright、chrome-devtools、context7、filesystem、github）。
+- 自动推进轮开始前应确认 MCP 已在 Cursor **Tools & MCP** 中加载；可运行 `python3 scripts/check_mcp_config.py`。
+- **浏览器相关任务**必须优先使用 Playwright MCP（或 `scripts/ui_check.py`）；页面实现须边实现边做浏览器检查（console、network、核心流程）。
+- **文件操作**须确认真实文件状态（filesystem MCP 或内置工具 + `git diff`），filesystem 仅授权当前仓库工作区。
+- **GitHub 操作**须在提交前检查 `git diff`，避免泄露密钥；无 `GITHUB_TOKEN` 时降级为 `git`/`gh`，不卡死整轮。
+- 若 MCP 不可用，Agent 须在报告中记录原因并按 `docs/agent_skills/mcp_usage_skill.md` 使用替代方案继续推进。
+- 缺少 token / API Key 时进入 mock / dry-run，除非该凭证为任务唯一阻塞项。
+- 详见 `docs/agent_skills/mcp_usage_skill.md`、`.cursor/rules/mcp-agent-tools.mdc`。

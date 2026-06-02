@@ -1,5 +1,10 @@
 # 文档索引
 
+## Agent 与 MCP
+
+- MCP 使用技能：`docs/agent_skills/mcp_usage_skill.md`
+- 浏览器验证：`docs/agent-browser-verification.md`
+
 ## 核心文档
 
 - 架构：`docs/architecture.md`

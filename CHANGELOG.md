@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## MCP 工具配置轮
+
+- 合并 `.cursor/mcp.json`：补充 filesystem、github（保留 playwright / chrome-devtools / context7）。
+- 新增 `docs/agent_skills/mcp_usage_skill.md`、`scripts/check_mcp_config.py`、`.cursor/rules/mcp-agent-tools.mdc`。
+- 更新 `AGENTS.md`、`README.md`、`docs/agent-browser-verification.md`。
+
 ## Autonomous Round 1 - Agent Verification
 
 - 执行 agent_gate、pytest（37）、ui_check、MCP 浏览器验证（经本地 HTTP）。

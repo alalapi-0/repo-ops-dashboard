@@ -11,6 +11,8 @@
 | **playwright** | 浏览器自动化：打开页面、点击、输入、截图、基本页面交互 |
 | **chrome-devtools** | 深层 DevTools 调试：console、network、performance、DOM 检查 |
 | **context7** | 查询最新库/框架文档；prompt 中可写 `use context7` |
+| **filesystem** | 仅当前仓库工作区（`.`）内读写与列举文件 |
+| **github** | 仓库 / issue / PR 等（需环境变量 `GITHUB_TOKEN`，勿提交到 Git） |
 
 ### 各 MCP 说明
 
@@ -26,7 +28,10 @@
    - `playwright`
    - `chrome-devtools`
    - `context7`
+   - `filesystem`
+   - `github`（可选；无 token 时可忽略或降级为 `git`/`gh`）
 4. 若显示错误或 Pending，检查本机是否已安装 **Node.js v18+** 且 `npx` 可用。
+5. 静态校验：`python3 scripts/check_mcp_config.py`
 
 ## 修改配置后需重启 Cursor
 
@@ -97,6 +102,7 @@ python3 -m http.server 8765 --bind 127.0.0.1
 
 ## 相关文档
 
+- [mcp_usage_skill.md](./agent_skills/mcp_usage_skill.md) — MCP 全集、授权范围与降级
 - [AGENTS.md](../AGENTS.md) — Agent 分工与 Playwright 边界
 - [playwright_setup.md](./playwright_setup.md) — Python Playwright 安装与 `ui_check.py`
 - [security_policy.md](./security_policy.md) — 安全策略

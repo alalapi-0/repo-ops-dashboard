@@ -1,0 +1,14 @@
+---
+description: "Agent 使用 MCP 工具时的安全与验证要求（Playwright、filesystem、GitHub、文档查询）"
+alwaysApply: true
+---
+
+# MCP Agent Tools
+
+1. **浏览器 / UI**：修改 Dashboard、静态页或任何可见 UI 时，必须使用 **Playwright MCP** 或 **Chrome DevTools MCP**（或 `scripts/ui_check.py`）做真实浏览器检查；不得仅凭代码或静态 HTML 判断成功。
+2. **验证深度**：浏览器检查必须覆盖 **页面渲染、console、network、核心用户流程**（见 `.cursor/skills/browser-debug-check/SKILL.md`）。
+3. **密钥**：使用 MCP 时不得打印、记录或提交 API Key、token、cookie、session；不得把真实密钥写入仓库或 `.cursor/mcp.json`。
+4. **Filesystem**：不得配置 filesystem MCP 访问 `/`、`C:\`、用户主目录根路径或整个系统；仅允许当前项目工作区（见 `.cursor/mcp.json` 与 `docs/agent_skills/mcp_usage_skill.md`）。
+5. **提交前**：每轮 commit 前必须检查 `git diff`，确认无 `.env`、密钥或无关大文件。
+6. **MCP 未加载**：在 completion report 中记录原因，并按 `docs/agent_skills/mcp_usage_skill.md` 尝试修复（Node/npx、重启 Cursor、运行 `scripts/check_mcp_config.py`）。
+7. **缺少第三方 token**：不得因此停止整轮推进，除非该 token 是当前任务的**唯一**阻塞项；应降级为 git/gh、dry-run 或 Python `ui_check.py`，并文档化缺口。

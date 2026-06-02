@@ -43,6 +43,10 @@
 - Round 0 / Round 1 不调用外部 API，不接真实通知平台
 - Playwright 仅用于本地 Dashboard UI 检查，不登录任何网站
 
+## MCP 工具（Cursor Agent）
+
+项目级 MCP 配置见 [`.cursor/mcp.json`](.cursor/mcp.json)（Playwright、Chrome DevTools、Context7、filesystem、GitHub）。使用说明：[`docs/agent_skills/mcp_usage_skill.md`](docs/agent_skills/mcp_usage_skill.md)。修改配置后需重启 Cursor；校验：`python3 scripts/check_mcp_config.py`。
+
 ## 快速开始
 
 ```bash
