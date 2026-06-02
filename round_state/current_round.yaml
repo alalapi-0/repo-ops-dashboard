@@ -1,14 +1,13 @@
-current_round: round_40_playwright_dashboard_validation
+current_round: round_41_prompt_generator_for_cursor
 status: completed
 executor: cursor
 external_api_called: false
 managed_repos_modified: false
 secrets_read: false
 dashboard_version: v2
-next_round: round_41_prompt_generator_for_cursor
+next_round: round_42_prompt_generator_for_codex
 outputs:
-  - config/ui_check_policy.yaml
-  - scripts/ui_check.py
-  - scripts/validate_ui_check_policy.py
-  - tests/test_ui_check.py
-  - reports/round_40_completion_report.md
+  - prompts/cursor_from_task_spec.md
+  - scripts/generate_cursor_prompt_from_task_spec.py
+  - tests/test_generate_cursor_prompt_from_task_spec.py
+  - reports/round_41_completion_report.md

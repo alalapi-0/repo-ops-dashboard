@@ -269,3 +269,9 @@
 - 产出：`ui_check_policy.yaml`、console/network 监听、交互验收、`tests/test_ui_check.py`
 - 下一轮：`round_41_prompt_generator_for_cursor`
 
+## Round 41 - Prompt Generator for Cursor
+
+- 状态：completed
+- 产出：`generate_cursor_prompt_from_task_spec.py`、`cursor_from_task_spec.md` 模板
+- 下一轮：`round_42_prompt_generator_for_codex`
+

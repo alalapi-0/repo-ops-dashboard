@@ -124,6 +124,11 @@ echo "[refresh] weekly review merge"
   --human-notes "$HUMAN_NOTES" \
   --output "$WEEKLY_REVIEW"
 
+echo "[refresh] cursor task_spec prompt"
+"$PYTHON" scripts/generate_cursor_prompt_from_task_spec.py \
+  --task-spec governance/task_specs/example_task_spec.yaml \
+  --dry-run
+
 echo "[refresh] dashboard"
 "$PYTHON" scripts/generate_dashboard.py \
   --input "$STATUS" \

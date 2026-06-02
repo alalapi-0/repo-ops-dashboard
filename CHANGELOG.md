@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Round 41 - Prompt Generator for Cursor
+
+- 新增 `generate_cursor_prompt_from_task_spec.py` 与 `prompts/cursor_from_task_spec.md`。
+- `refresh_status.sh` dry-run 生成；`tests/test_generate_cursor_prompt_from_task_spec.py`。
+- `reports/round_41_completion_report.md`。
+
 ## Round 40 - Playwright Dashboard Validation
 
 - 新增 `config/ui_check_policy.yaml` 与 `validate_ui_check_policy.py`。

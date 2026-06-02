@@ -489,6 +489,23 @@ def check_lifecycle_policy(state: GateState, root: Path) -> None:
         state.add("lifecycle_policy", WARNING, "lifecycle_policy valid but derive_lifecycle_v1 not wired in analyze_repos.py")
 
 
+def check_cursor_task_spec_prompt(state: GateState, root: Path) -> None:
+    script = root / "scripts" / "generate_cursor_prompt_from_task_spec.py"
+    template = root / "prompts" / "cursor_from_task_spec.md"
+    example = root / "governance" / "task_specs" / "example_task_spec.yaml"
+    if not script.exists():
+        state.add("cursor_task_spec_prompt", WARNING, "generate_cursor_prompt_from_task_spec.py missing")
+        return
+    if not template.exists() or not example.exists():
+        state.add("cursor_task_spec_prompt", WARNING, "cursor_from_task_spec template or example task_spec missing")
+        return
+    text = script.read_text(encoding="utf-8")
+    if "validate_task_spec" in text and "assigned_agent" in text:
+        state.add("cursor_task_spec_prompt", PASS, "Cursor task_spec prompt generator wired")
+    else:
+        state.add("cursor_task_spec_prompt", WARNING, "Cursor task_spec prompt generator incomplete")
+
+
 def check_ui_check_policy(state: GateState, root: Path) -> None:
     live = root / "config" / "ui_check_policy.yaml"
     example = root / "governance" / "ui_check_policy.example.yaml"
@@ -1045,6 +1062,7 @@ def main() -> int:
     check_lifecycle_policy(state, root)
     check_blocker_policy(state, root)
     check_ui_check_policy(state, root)
+    check_cursor_task_spec_prompt(state, root)
     check_protocol_governance_api_ban(state, root)
     check_protocol_version(state, root)
     check_governance_assets(state, root)
