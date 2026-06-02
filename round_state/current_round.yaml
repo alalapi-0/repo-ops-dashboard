@@ -1,12 +1,12 @@
-current_round: round_43_openclaw_orchestration_bridge
+current_round: round_44_weekly_digest_mvp
 status: completed
 executor: cursor
 external_api_called: false
 managed_repos_modified: false
 secrets_read: false
 dashboard_version: v2
-next_round: round_44_weekly_digest_mvp
+next_round: round_45_daily_briefing_mvp
 outputs:
-  - scripts/openclaw_orchestration_bridge.py
-  - governance/openclaw_orchestration.manifest.yaml
-  - reports/round_43_completion_report.md
+  - scripts/generate_weekly_digest.py
+  - governance/digests/weekly/weekly_digest.md
+  - reports/round_44_completion_report.md
