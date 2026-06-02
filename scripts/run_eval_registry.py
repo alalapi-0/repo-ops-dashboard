@@ -178,6 +178,23 @@ def run_schema_eval(root: Path, eval_id: str, rel_path: str) -> list[str]:
         text = path.read_text(encoding="utf-8")
         return [f"missing field: {f}" for f in POW_TEMPLATE_REQUIRED if f not in text]
 
+    if eval_id == "handoff_packet_valid":
+        from validate_handoff_packet import read_handoff_packet, validate_handoff_packet
+
+        return validate_handoff_packet(read_handoff_packet(path), source=path.name)
+
+    if eval_id == "handoff_tracking_valid":
+        data = load_yaml(path)
+        items = data.get("items", [])
+        if not isinstance(items, list) or not items:
+            return ["tracking.items empty"]
+        for item in items:
+            if not isinstance(item, dict):
+                return ["tracking item must be mapping"]
+            if not str(item.get("handoff_id", "")).startswith("handoff_"):
+                return ["handoff_id prefix invalid"]
+        return []
+
     if eval_id == "eval_registry_runner_valid":
         reg = load_yaml(path)
         runner = reg.get("runner", {})

@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Round 47 - Handoff Protocol Implementation
+
+- 新增 handoff 模板、示例 packet、`tracking.yaml` 与 generate/validate 脚本。
+- `refresh_status.sh`、`agent_gate` 与 eval registry 增加 handoff 验收项。
+- `reports/round_47_completion_report.md`。
+
 ## Round 46 - Eval Registry Script
 
 - 新增 `run_eval_registry.py` 与 `reports/eval_registry_run.md` 输出；registry 增加 runner 元数据。

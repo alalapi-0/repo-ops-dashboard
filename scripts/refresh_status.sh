@@ -101,6 +101,9 @@ echo "[refresh] openclaw orchestration bridge"
 echo "[refresh] eval registry (dry-run)"
 "$PYTHON" scripts/run_eval_registry.py --required-only
 
+echo "[refresh] handoff packet (dry-run)"
+"$PYTHON" scripts/generate_handoff_packet.py --task-spec governance/task_specs/example_task_spec.yaml
+
 if $LLM_SUMMARY; then
   echo "[refresh] llm summary"
   if $LLM_CALL; then

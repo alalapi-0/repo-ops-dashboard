@@ -918,6 +918,9 @@ def check_governance_assets(state: GateState, root: Path) -> None:
         "governance/runs/.gitkeep",
         "governance/runs/agent_run_event.template.json",
         "governance/runs/example_run.jsonl",
+        "governance/handoffs/handoff_packet.template.yaml",
+        "governance/handoffs/example_handoff_packet.yaml",
+        "governance/handoffs/tracking.yaml",
         "governance/checkpoints/.gitkeep",
         "governance/execpolicy/profiles/readonly_managed_repo.rules",
         "governance/execpolicy/profiles/repo_ops_write.rules",
@@ -1012,6 +1015,28 @@ def check_eval_registry(state: GateState, root: Path) -> None:
         state.add("eval_registry", BLOCKED, "eval registry missing runner.script")
     else:
         state.add("eval_registry", PASS, "eval registry contains required baseline evals")
+
+
+def check_handoff_protocol(state: GateState, root: Path) -> None:
+    template = root / "governance" / "handoffs" / "handoff_packet.template.yaml"
+    example = root / "governance" / "handoffs" / "example_handoff_packet.yaml"
+    tracking = root / "governance" / "handoffs" / "tracking.yaml"
+    gen_script = root / "scripts" / "generate_handoff_packet.py"
+    val_script = root / "scripts" / "validate_handoff_packet.py"
+    if not all(p.exists() for p in (template, example, tracking, gen_script, val_script)):
+        state.add("handoff_protocol", WARNING, "handoff template/example/tracking or scripts missing")
+        return
+    try:
+        from validate_handoff_packet import validate_handoff_file
+
+        errors = validate_handoff_file(example)
+    except Exception as exc:  # noqa: BLE001
+        state.add("handoff_protocol", BLOCKED, f"handoff validation import failed: {exc}")
+        return
+    if errors:
+        state.add("handoff_protocol", BLOCKED, f"example handoff invalid: {errors[:3]}")
+    else:
+        state.add("handoff_protocol", PASS, "handoff_packet generation and tracking wired")
 
 
 def check_eval_registry_runner(state: GateState, root: Path) -> None:
@@ -1141,6 +1166,7 @@ def main() -> int:
     check_openclaw_orchestration_bridge(state, root)
     check_weekly_digest(state, root)
     check_daily_briefing(state, root)
+    check_handoff_protocol(state, root)
     check_protocol_governance_api_ban(state, root)
     check_protocol_version(state, root)
     check_governance_assets(state, root)

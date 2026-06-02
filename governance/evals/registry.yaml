@@ -104,6 +104,16 @@ evals:
     type: file_exists
     required: true
     path: round_state/current_round.yaml
+  - eval_id: handoff_packet_valid
+    description: example handoff_packet passes schema validation.
+    type: schema_check
+    required: true
+    path: governance/handoffs/example_handoff_packet.yaml
+  - eval_id: handoff_tracking_valid
+    description: handoff tracking registry exists with dispatched items.
+    type: schema_check
+    required: true
+    path: governance/handoffs/tracking.yaml
   - eval_id: eval_registry_runner_valid
     description: run_eval_registry.py exists and registry declares runner metadata.
     type: schema_check

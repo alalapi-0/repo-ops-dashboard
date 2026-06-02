@@ -33,6 +33,14 @@ timeout:
 return_contract:
 ```
 
+## 机器可读资产
+
+- 模板：`governance/handoffs/handoff_packet.template.yaml`
+- 示例：`governance/handoffs/example_handoff_packet.yaml`
+- 跟踪：`governance/handoffs/tracking.yaml`
+- 生成：`python3 scripts/generate_handoff_packet.py --task-spec <task_spec.yaml>`（默认 dry-run）
+- 校验：`python3 scripts/validate_handoff_packet.py`（通过 `validate_handoff_file`）
+
 ## 强制规则
 
 - 传 `context_refs`，不传全量上下文。

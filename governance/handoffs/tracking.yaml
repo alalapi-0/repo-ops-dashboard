@@ -1,0 +1,14 @@
+schema_version: 0.1.0
+updated_at: '2026-06-03T00:00:00Z'
+policy: handoff 跟踪只读；Agent 不得自行关闭 return 状态为 completed 的 handoff。
+items:
+  - handoff_id: handoff_repo_ops_cursor_001
+    parent_task_id: task_light_novel_governance_prompt_001
+    target_agent: Cursor
+    status: dispatched
+    dispatched_at: '2026-06-03T00:00:00Z'
+    packet_path: governance/handoffs/example_handoff_packet.yaml
+    return_status: pending
+    return_received_at: null
+    proof_of_work_path: null
+    notes: 示例 handoff，dry-run 跟踪。

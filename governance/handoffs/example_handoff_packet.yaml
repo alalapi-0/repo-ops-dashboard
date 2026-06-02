@@ -1,0 +1,31 @@
+handoff_id: handoff_repo_ops_cursor_001
+parent_task_id: task_light_novel_governance_prompt_001
+target_agent: Cursor
+working_directory: /Users/alalapi/PycharmProjects/repo-ops-dashboard
+task_spec_path: governance/task_specs/example_task_spec.yaml
+context_refs:
+  - docs/handoff_protocol.md
+  - governance/task_specs/example_task_spec.yaml
+  - repo_protocol_standard.yaml
+allowed_files:
+  - governance/**
+  - prompts/**
+  - scripts/generate_cursor_prompt_from_task_spec.py
+denied_files:
+  - "**/.env"
+  - "**/.env.*"
+  - managed_repos/**
+confirmation_policy: human_review_before_execution
+execpolicy_profile: repo_ops_write
+expected_artifacts:
+  - prompts/generated/example_cursor_prompt.md
+timeout: 24h
+return_contract:
+  proof_of_work_path: governance/proof_of_work/example_proof_of_work.json
+  validation_commands:
+    - python3 scripts/agent_gate.py
+  status_field: status
+  allowed_return_statuses:
+    - completed
+    - blocked
+    - needs_review

@@ -1,0 +1,17 @@
+handoff_id:
+parent_task_id:
+target_agent:
+working_directory:
+task_spec_path:
+context_refs:
+  -
+allowed_files:
+  -
+denied_files:
+  -
+confirmation_policy:
+execpolicy_profile:
+expected_artifacts:
+  -
+timeout:
+return_contract:
