@@ -1,6 +1,6 @@
 # Budget & Cost Tracking
 
-- generated_at: 2026-06-02T17:47:54+00:00
+- generated_at: 2026-06-02T17:49:47+00:00
 - data_source: mock_placeholder (no billing API keys)
 - total_estimated_cost_usd: 29.6
 - projects_with_warning: 0

@@ -1,0 +1,53 @@
+# Feishu notification plan (planning only, no API).
+schema_version: 0.1.0
+generated_at: '2026-06-02T17:49:47.724573+00:00'
+policy_version: v1
+mode: planning_only
+external_api_called: false
+summary:
+  sources_ready: 5
+  sources_total: 5
+  daily_enabled: true
+  weekly_enabled: true
+  feishu_mode: preview_only
+  hitl_review_id: rq_003_feishu_daily_report
+schedule:
+  daily:
+    enabled: true
+    suggested_cron: 5 9 * * 1-5
+    timezone: Asia/Shanghai
+    card_title: Repo Ops 日报摘要
+  weekly:
+    enabled: true
+    suggested_cron: 10 17 * * 5
+    timezone: Asia/Shanghai
+    card_title: Repo Ops 周报摘要
+    include_sections:
+    - weekly_digest
+    - priority_review
+    - blocker_summary
+source_readiness:
+  daily_report:
+    path: reports/daily_repo_report.md
+    exists: true
+    bytes: 2806
+  weekly_report:
+    path: reports/weekly_repo_report.md
+    exists: true
+    bytes: 2807
+  daily_brief:
+    path: reports/daily_brief.md
+    exists: true
+    bytes: 1857
+  repo_status:
+    path: data/repo_status.json
+    exists: true
+    bytes: 14608
+  llm_summary:
+    path: reports/llm_daily_summary.md
+    exists: true
+    bytes: 375
+next_steps:
+- HumanOwner 审阅 review_queue 中 feishu 日报权限项
+- 配置 FEISHU_WEBHOOK_URL 后使用 send_feishu_notification.py --send
+- refresh_status.sh 默认仅生成预览，不加 --feishu-send

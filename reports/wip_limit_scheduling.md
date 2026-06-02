@@ -1,6 +1,6 @@
 # WIP Limit & Scheduling
 
-- generated_at: 2026-06-02T17:47:54+00:00
+- generated_at: 2026-06-02T17:49:47+00:00
 - max_concurrent_in_progress: 2
 - effective_wip: 0
 - over_limit: False

@@ -1,12 +1,12 @@
 # Daily Briefing Template (Governance MVP)
 
-生成时间：2026-06-02 17:47 UTC
+生成时间：2026-06-02 17:49 UTC
 
 ## 当前轮次
 
-- round：`round_53_budget_cost_tracking`
+- round：`round_55_feishu_lark_notification_planning`
 - status：`completed`
-- next：`round_54_wip_limit_scheduling`
+- next：`round_56_feishu_lark_notification_mvp`
 
 ## 今日最该推进（1–3 仓）
 
@@ -48,7 +48,7 @@ python3 scripts/openclaw_orchestration_bridge.py --dry-run
 
 ## 短提醒（≤200 字）
 
-Round round_53_budget_cost_tracking：今日优先 repo-ops-dashboard, novel-continuation-agent。暂缓 2 仓；review_queue 待决 5 项。编程交给 Cursor/Codex，决策留给 HumanOwner。
+Round round_55_feishu_lark_notification_planning：今日优先 repo-ops-dashboard, novel-continuation-agent。暂缓 2 仓；review_queue 待决 5 项。编程交给 Cursor/Codex，决策留给 HumanOwner。
 
 ---
 

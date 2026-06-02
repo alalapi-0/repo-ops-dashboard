@@ -1,7 +1,7 @@
 # Governance task queue (Personal Agent OS).
 # Sources: governance/task_specs/*.yaml via scripts/sync_governance_task_queue.py
 schema_version: 0.1.0
-generated_at: '2026-06-02T17:47:55+00:00'
+generated_at: '2026-06-02T17:49:47+00:00'
 task_specs_dir: governance/task_specs
 summary:
   total_tasks: 2

@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Round 55 - Feishu/Lark Notification Planning
+
+- 新增 `feishu_notification_policy.yaml` 与 `plan_feishu_notifications.py`（规划 only，无 API）。
+- 生成 `governance/feishu_notification_plan.yaml`；`refresh_status.sh` 与 `agent_gate` 纳入规划验收。
+- `reports/round_55_completion_report.md`。
+
 ## Round 54 - WIP Limit & Scheduling
 
 - 新增 `wip_limit_policy.yaml` 与 `check_wip_limit.py`（只读 defer 建议，不自动改 task queue）。

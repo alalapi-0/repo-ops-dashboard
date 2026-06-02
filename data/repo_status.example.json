@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-02T17:47:54.427386+00:00",
+  "generated_at": "2026-06-02T17:49:47.340529+00:00",
   "analyzer_version": "v2",
   "analyzer_policy": "config/analyzer_policy.yaml",
   "priority_scoring_policy": "config/priority_scoring_policy.yaml",
@@ -270,9 +270,9 @@
       "registry_matched": true,
       "registry_lifecycle": "bootstrap",
       "governance_level": "write_allowed",
-      "round_current": "round_53_budget_cost_tracking",
+      "round_current": "round_55_feishu_lark_notification_planning",
       "round_status": "completed",
-      "round_next": "round_54_wip_limit_scheduling",
+      "round_next": "round_56_feishu_lark_notification_mvp",
       "current_stage": "round_00_bootstrap",
       "health_score": 88,
       "health_dimensions": {

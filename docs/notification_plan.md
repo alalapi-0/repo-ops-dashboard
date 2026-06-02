@@ -10,7 +10,7 @@
 |------|------|------|
 | Markdown 日报/周报 | 已实现 | `generate_report.py` |
 | Dashboard / Hub | 已实现 | `dashboard/index.html`、`dashboard/hub.html` |
-| Feishu 机器人 | 已实现（opt-in） | `prepare_feishu_payload.py --send` |
+| Feishu 机器人 | 规划 + MVP（opt-in） | `plan_feishu_notifications.py`、`send_feishu_notification.py --send` |
 | Feishu 多维表格 | 已实现（opt-in） | `sync_feishu_bitable.py --sync` |
 | Cursor Automations | 已实现（文档） | [`cursor_automation_guide.md`](cursor_automation_guide.md) |
 | OpenRouter LLM | 已实现（opt-in） | `generate_llm_summary.py --call` |

@@ -1,0 +1,52 @@
+schema_version: 0.1.0
+policy_version: v1
+description: Plan Feishu/Lark daily and weekly notification cadence without calling real APIs.
+
+sources:
+  daily_report: reports/daily_repo_report.md
+  weekly_report: reports/weekly_repo_report.md
+  daily_brief: reports/daily_brief.md
+  repo_status: data/repo_status.json
+  llm_summary: reports/llm_daily_summary.md
+  output_plan: governance/feishu_notification_plan.yaml
+  output_report: reports/feishu_notification_planning.md
+  payload_preview: reports/feishu_payload_preview.json
+
+channels:
+  feishu_bot:
+    enabled: true
+    mode: preview_only
+    send_requires_env:
+      - FEISHU_WEBHOOK_URL
+    optional_env:
+      - FEISHU_SIGN_SECRET
+    hitl_review_id: rq_003_feishu_daily_report
+
+schedule:
+  daily:
+    enabled: true
+    suggested_cron: "5 9 * * 1-5"
+    timezone: Asia/Shanghai
+    card_title: Repo Ops 日报摘要
+  weekly:
+    enabled: true
+    suggested_cron: "10 17 * * 5"
+    timezone: Asia/Shanghai
+    card_title: Repo Ops 周报摘要
+    include_sections:
+      - weekly_digest
+      - priority_review
+      - blocker_summary
+
+content_rules:
+  redact_local_paths: true
+  max_body_bytes: 20480
+  include_llm_summary: optional
+  forbidden_fields:
+    - webhook_url
+    - api_token
+    - full_local_path
+
+defaults:
+  dry_run: true
+  external_api: false

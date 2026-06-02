@@ -92,6 +92,9 @@ echo "[refresh] budget cost tracking"
 echo "[refresh] wip limit scheduling"
 "$PYTHON" scripts/check_wip_limit.py --write
 
+echo "[refresh] feishu notification planning"
+"$PYTHON" scripts/plan_feishu_notifications.py --write
+
 echo "[refresh] sync portfolio state"
 "$PYTHON" scripts/sync_portfolio_state.py --status "$STATUS"
 

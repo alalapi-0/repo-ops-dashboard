@@ -252,7 +252,13 @@ def check_no_target_repo_modification_logic(state: GateState, root: Path) -> Non
 def check_integration_is_docs_only(state: GateState, root: Path) -> None:
     script_dir = root / "scripts"
     risky_imports = ["feishu", "lark_oapi", "telegram", "openclaw_sdk"]
-    allowed_feishu_scripts = {"prepare_feishu_payload.py", "sync_feishu_bitable.py"}
+    allowed_feishu_scripts = {
+        "prepare_feishu_payload.py",
+        "sync_feishu_bitable.py",
+        "plan_feishu_notifications.py",
+        "validate_feishu_notification_policy.py",
+        "send_feishu_notification.py",
+    }
     hits = []
     for path in sorted(script_dir.glob("*.py")):
         if path.name == "agent_gate.py":
@@ -596,6 +602,39 @@ def check_ui_check_policy(state: GateState, root: Path) -> None:
         )
     else:
         state.add("ui_check_policy", WARNING, "ui_check_policy valid but console checks not wired in ui_check.py")
+
+
+def check_feishu_notification_policy(state: GateState, root: Path) -> None:
+    live = root / "config" / "feishu_notification_policy.yaml"
+    example = root / "governance" / "feishu_notification_policy.example.yaml"
+    planner = root / "scripts" / "plan_feishu_notifications.py"
+    validator = root / "scripts" / "validate_feishu_notification_policy.py"
+    output = root / "governance" / "feishu_notification_plan.yaml"
+    if not live.exists() or not validator.exists():
+        state.add("feishu_notification_policy", BLOCKED, "feishu_notification_policy.yaml or validator missing")
+        return
+    try:
+        from validate_feishu_notification_policy import load_yaml, validate_feishu_notification_policy
+    except ImportError:
+        state.add("feishu_notification_policy", BLOCKED, "validate_feishu_notification_policy unavailable")
+        return
+    errors = validate_feishu_notification_policy(load_yaml(live), live.name)
+    if errors:
+        state.add("feishu_notification_policy", BLOCKED, f"feishu_notification_policy invalid: {errors[0]}")
+        return
+    if example.exists() and planner.exists() and output.exists():
+        summary = load_yaml(output).get("summary", {})
+        state.add(
+            "feishu_notification_policy",
+            PASS,
+            f"Feishu notification planning wired (sources={summary.get('sources_ready', 0)}/{summary.get('sources_total', 0)}, no API)",
+        )
+    else:
+        state.add(
+            "feishu_notification_policy",
+            WARNING,
+            "feishu_notification_policy valid but planner/output incomplete",
+        )
 
 
 def check_wip_limit_policy(state: GateState, root: Path) -> None:
@@ -1172,6 +1211,10 @@ def check_governance_assets(state: GateState, root: Path) -> None:
         "governance/wip_limit_policy.example.yaml",
         "governance/wip_limit_status.yaml",
         "docs/wip_limit_scheduling_design.md",
+        "config/feishu_notification_policy.yaml",
+        "governance/feishu_notification_policy.example.yaml",
+        "governance/feishu_notification_plan.yaml",
+        "docs/feishu_lark_notification_design.md",
         "governance/execpolicy/profiles/readonly_managed_repo.rules",
         "governance/execpolicy/profiles/repo_ops_write.rules",
         "governance/execpolicy/profiles/risky_confirm.rules",
@@ -1414,6 +1457,7 @@ def main() -> int:
     check_lifecycle_policy(state, root)
     check_blocker_policy(state, root)
     check_wip_limit_policy(state, root)
+    check_feishu_notification_policy(state, root)
     check_budget_tracking_policy(state, root)
     check_protocol_sync_policy(state, root)
     check_project_rule_promotion_policy(state, root)
