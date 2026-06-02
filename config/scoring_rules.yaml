@@ -9,6 +9,8 @@ health_score:
   has_next_action: 10
   no_blocker: 10
 
+# v2 dimension weights live in config/analyzer_policy.yaml (see docs/analyzer_policy_design.md)
+
 priority_rules:
   high:
     - active project

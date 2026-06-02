@@ -73,3 +73,44 @@ def test_recommend_agent_archive_candidate() -> None:
 
 def test_recommend_agent_meta_ops() -> None:
     assert ar.recommend_agent("medium", [], "meta_ops", archive_candidate=False) == "Cursor"
+
+
+def test_match_registry_project_by_path() -> None:
+    index = ar.build_registry_index(
+        {
+            "projects": [
+                {
+                    "project_id": "demo",
+                    "repo_name": "demo-repo",
+                    "path": "/tmp/demo-repo",
+                    "lifecycle": "active",
+                }
+            ]
+        }
+    )
+    repo = {"name": "demo-repo", "path": "/tmp/demo-repo"}
+    matched = ar.match_registry_project(repo, index)
+    assert matched.get("project_id") == "demo"
+
+
+def test_compute_health_dimensions() -> None:
+    repo = {
+        "status": "active",
+        "read_files": ["README.md", "AGENTS.md", "repo_protocol_standard.yaml", "round_state/current_round.yaml"],
+        "core_governance": {"required_coverage_pct": 100},
+    }
+    registry_project = {"project_id": "demo", "lifecycle": "active", "domain": "demo"}
+    round_state = {"current_round": "round_01", "status": "completed", "next_round": "round_02"}
+    weights = {
+        "governance_files": {"weight": 40, "source": "snapshot"},
+        "registry_alignment": {"weight": 30, "source": "registry"},
+        "round_progress": {"weight": 30, "source": "round_state"},
+    }
+    result = ar.compute_health_dimensions(repo, registry_project, round_state, weights)
+    assert result["composite_score"] >= 80
+    assert "governance_files" in result["breakdown"]
+
+
+def test_score_round_progress_missing() -> None:
+    assert ar.score_round_progress_dimension({}) == 0
+    assert ar.score_round_progress_dimension({"status": "completed"}) == 100

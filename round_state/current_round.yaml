@@ -1,17 +1,17 @@
-current_round: round_34_readonly_repo_scanner_v2
+current_round: round_35_status_analyzer_v2
 status: completed
 executor: cursor
 external_api_called: false
 managed_repos_modified: false
 secrets_read: false
-scanner_version: v2
-scan_policy_path: config/scan_policy.yaml
-next_round: round_35_status_analyzer_v2
+analyzer_version: v2
+analyzer_policy_path: config/analyzer_policy.yaml
+next_round: round_36_priority_scoring_system
 outputs:
-  - config/scan_policy.yaml
-  - governance/scan_policy.example.yaml
-  - scripts/validate_scan_policy.py
-  - scripts/read_scan_policy.py
-  - docs/scan_policy_design.md
-  - tests/test_scan_repos.py
-  - reports/round_34_completion_report.md
+  - config/analyzer_policy.yaml
+  - governance/analyzer_policy.example.yaml
+  - scripts/validate_analyzer_policy.py
+  - scripts/read_analyzer_policy.py
+  - docs/analyzer_policy_design.md
+  - tests/test_analyze_repos.py
+  - reports/round_35_completion_report.md

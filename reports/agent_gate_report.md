@@ -1,6 +1,6 @@
 # Agent Gate Report
 
-- generated_at: 2026-06-02T05:15:21.429537+00:00
+- generated_at: 2026-06-02T05:16:37.932617+00:00
 - verdict: PASS
 
 ## Findings
@@ -18,6 +18,7 @@
 - [PASS] `playwright_local`: ui_check uses local file:// access
 - [PASS] `scan_allowlist`: scan script uses pattern-based allowlist collection
 - [PASS] `scan_policy`: scan_policy v2 valid (5 patterns, scanner v2)
+- [PASS] `analyzer_policy`: analyzer_policy v2 valid (3 dimensions, analyzer v2)
 - [PASS] `protocol_governance_api`: governance round external API ban present in protocol
 - [PASS] `protocol_version`: protocol v0.3.0 portfolio governance positioning present
 - [PASS] `protocol_positioning`: Personal Agent OS positioning present
@@ -33,7 +34,7 @@
 - [PASS] `execpolicy`: execpolicy rules valid (11 portfolio rules, 3 profiles)
 - [PASS] `repo_context_index`: repo_context_index.yaml valid for repo_ops_dashboard (6 key files)
 - [PASS] `eval_registry`: eval registry contains required baseline evals
-- [PASS] `completion_report`: round_34_completion_report.md exists
+- [PASS] `completion_report`: round_35_completion_report.md exists
 - [PASS] `requirements_dev`: requirements-dev.txt includes playwright and pytest
 - [PASS] `installation_doc`: installation.md covers core refresh commands
 - [PASS] `example_fixtures`: example data fixtures present

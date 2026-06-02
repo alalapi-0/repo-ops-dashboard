@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Round 35 - Status Analyzer V2
+
+- 新增 `config/analyzer_policy.yaml` 与 `governance/analyzer_policy.example.yaml`（registry/snapshot/round_state 健康维度）。
+- 新增 `scripts/validate_analyzer_policy.py`、`read_analyzer_policy.py`；`analyze_repos.py` 输出 v2 字段。
+- `agent_gate` 与 eval registry 增加 analyzer_policy 验收；扩展 `tests/test_analyze_repos.py` 与 `reports/round_35_completion_report.md`。
+
 ## Round 34 - Readonly Repo Scanner V2
 
 - 新增 `config/scan_policy.yaml` 与 `governance/scan_policy.example.yaml`（核心治理分类 readme/agents/protocol/round_state）。

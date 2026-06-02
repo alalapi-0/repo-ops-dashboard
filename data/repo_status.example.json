@@ -1,13 +1,43 @@
 {
-  "generated_at": "2026-06-02T05:15:21.689343+00:00",
+  "generated_at": "2026-06-02T05:16:38.167791+00:00",
+  "analyzer_version": "v2",
+  "analyzer_policy": "config/analyzer_policy.yaml",
+  "registry": "governance/project_registry.yaml",
   "repos": [
     {
       "name": "light_novel",
       "path": "/Users/alalapi/PycharmProjects/light_novel",
       "type": "translation",
       "status": "active",
+      "project_id": "light_novel",
+      "registry_matched": true,
+      "registry_lifecycle": "active",
+      "governance_level": "readonly_managed_repo",
+      "round_current": "",
+      "round_status": "",
+      "round_next": "",
       "current_stage": "execution",
-      "health_score": 65,
+      "health_score": 50,
+      "health_dimensions": {
+        "composite_score": 34,
+        "breakdown": {
+          "governance_files": {
+            "score": 33,
+            "weight": 40,
+            "contribution": 13
+          },
+          "registry_alignment": {
+            "score": 70,
+            "weight": 30,
+            "contribution": 21
+          },
+          "round_progress": {
+            "score": 0,
+            "weight": 30,
+            "contribution": 0
+          }
+        }
+      },
       "priority": "low",
       "blockers": [
         "AGENTS.md missing",
@@ -28,8 +58,35 @@
       "path": "/Users/alalapi/PycharmProjects/ai-manga",
       "type": "ai_manga",
       "status": "active",
+      "project_id": "ai_manga",
+      "registry_matched": true,
+      "registry_lifecycle": "active",
+      "governance_level": "readonly_managed_repo",
+      "round_current": "",
+      "round_status": "",
+      "round_next": "",
       "current_stage": "execution",
-      "health_score": 8,
+      "health_score": 14,
+      "health_dimensions": {
+        "composite_score": 21,
+        "breakdown": {
+          "governance_files": {
+            "score": 0,
+            "weight": 40,
+            "contribution": 0
+          },
+          "registry_alignment": {
+            "score": 70,
+            "weight": 30,
+            "contribution": 21
+          },
+          "round_progress": {
+            "score": 0,
+            "weight": 30,
+            "contribution": 0
+          }
+        }
+      },
       "priority": "high",
       "blockers": [
         "README.md missing",
@@ -58,8 +115,35 @@
       "path": "/Users/alalapi/PycharmProjects/novel-continuation-agent",
       "type": "novel_agent",
       "status": "active",
+      "project_id": "novel_continuation_agent",
+      "registry_matched": true,
+      "registry_lifecycle": "active",
+      "governance_level": "readonly_managed_repo",
+      "round_current": "",
+      "round_status": "",
+      "round_next": "",
       "current_stage": "execution",
-      "health_score": 44,
+      "health_score": 46,
+      "health_dimensions": {
+        "composite_score": 48,
+        "breakdown": {
+          "governance_files": {
+            "score": 67,
+            "weight": 40,
+            "contribution": 27
+          },
+          "registry_alignment": {
+            "score": 70,
+            "weight": 30,
+            "contribution": 21
+          },
+          "round_progress": {
+            "score": 0,
+            "weight": 30,
+            "contribution": 0
+          }
+        }
+      },
       "priority": "high",
       "blockers": [
         "repo_protocol_standard.yaml missing"
@@ -83,8 +167,35 @@
       "path": "/Users/alalapi/PycharmProjects/repo-ops-dashboard",
       "type": "meta_ops",
       "status": "bootstrap",
+      "project_id": "repo_ops_dashboard",
+      "registry_matched": true,
+      "registry_lifecycle": "bootstrap",
+      "governance_level": "write_allowed",
+      "round_current": "round_35_status_analyzer_v2",
+      "round_status": "completed",
+      "round_next": "round_36_priority_scoring_system",
       "current_stage": "round_00_bootstrap",
       "health_score": 88,
+      "health_dimensions": {
+        "composite_score": 88,
+        "breakdown": {
+          "governance_files": {
+            "score": 100,
+            "weight": 40,
+            "contribution": 40
+          },
+          "registry_alignment": {
+            "score": 60,
+            "weight": 30,
+            "contribution": 18
+          },
+          "round_progress": {
+            "score": 100,
+            "weight": 30,
+            "contribution": 30
+          }
+        }
+      },
       "priority": "high",
       "blockers": [],
       "warnings": [
@@ -104,8 +215,35 @@
       "path": "/Users/alalapi/PycharmProjects/old_demo_placeholder",
       "type": "demo",
       "status": "missing",
+      "project_id": "",
+      "registry_matched": false,
+      "registry_lifecycle": "",
+      "governance_level": "",
+      "round_current": "",
+      "round_status": "",
+      "round_next": "",
       "current_stage": "missing",
       "health_score": 10,
+      "health_dimensions": {
+        "composite_score": 0,
+        "breakdown": {
+          "governance_files": {
+            "score": 0,
+            "weight": 40,
+            "contribution": 0
+          },
+          "registry_alignment": {
+            "score": 0,
+            "weight": 30,
+            "contribution": 0
+          },
+          "round_progress": {
+            "score": 0,
+            "weight": 30,
+            "contribution": 0
+          }
+        }
+      },
       "priority": "low",
       "blockers": [
         "repository path missing"

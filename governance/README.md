@@ -29,6 +29,7 @@
 - `review_queue.example.yaml`：review_queue 字段示例。
 - `repo_context_index.example.yaml`：repo_context_index 字段示例；本仓库根 `repo_context_index.yaml` 为 live 实例。
 - `scan_policy.example.yaml`：只读扫描 v2 核心治理分类示例；live 实例为 `config/scan_policy.yaml`。
+- `analyzer_policy.example.yaml`：状态分析 v2 维度示例；live 实例为 `config/analyzer_policy.yaml`。
 - `execpolicy/`：文档级执行边界（`scripts/read_execpolicy.py` 读取；`check_execpolicy_action.py` dry-run 分类）。
 - `evals/registry.yaml`：验收 gate 注册表。
 - `playbooks/`：可复用流程候选。

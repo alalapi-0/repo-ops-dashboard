@@ -233,3 +233,9 @@
 - 产出：`config/scan_policy.yaml`、`scripts/validate_scan_policy.py`、`scan_repos.py` v2 字段
 - 下一轮：`round_35_status_analyzer_v2`
 
+## Round 35 - Status Analyzer V2
+
+- 状态：completed
+- 产出：`config/analyzer_policy.yaml`、`scripts/validate_analyzer_policy.py`、`analyze_repos.py` v2 字段
+- 下一轮：`round_36_priority_scoring_system`
+

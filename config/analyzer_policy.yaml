@@ -1,0 +1,27 @@
+schema_version: "0.1.0"
+analyzer_version: v2
+description: Status analyzer v2 — enrich health from registry, snapshot, and round_state.
+
+inputs:
+  registry: governance/project_registry.yaml
+  round_state_file: round_state/current_round.yaml
+
+health_dimensions:
+  governance_files:
+    weight: 40
+    source: snapshot
+  registry_alignment:
+    weight: 30
+    source: registry
+  round_progress:
+    weight: 30
+    source: round_state
+
+registry_match:
+  by_path: true
+  by_repo_name: true
+
+round_state_fields:
+  - current_round
+  - status
+  - next_round

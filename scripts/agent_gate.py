@@ -164,6 +164,7 @@ def check_local_required_files(state: GateState, root: Path) -> None:
         "governance/review_queue.example.yaml",
         "governance/repo_context_index.example.yaml",
         "governance/scan_policy.example.yaml",
+        "governance/analyzer_policy.example.yaml",
         "governance/execpolicy/portfolio.rules",
         "governance/evals/registry.yaml",
         "docs/roadmap_40_rounds.md",
@@ -375,6 +376,41 @@ def check_scan_policy(state: GateState, root: Path) -> None:
         )
     else:
         state.add("scan_policy", WARNING, "scan_policy valid but scan_repos.py missing SCANNER_VERSION marker")
+
+
+def check_analyzer_policy(state: GateState, root: Path) -> None:
+    live = root / "config" / "analyzer_policy.yaml"
+    example = root / "governance" / "analyzer_policy.example.yaml"
+    if not live.exists():
+        state.add("analyzer_policy", BLOCKED, "config/analyzer_policy.yaml missing")
+        return
+    if not example.exists():
+        state.add("analyzer_policy", BLOCKED, "governance/analyzer_policy.example.yaml missing")
+        return
+    try:
+        from validate_analyzer_policy import read_analyzer_policy, summarize_analyzer_policy, validate_analyzer_policy
+    except ImportError:
+        state.add("analyzer_policy", BLOCKED, "validate_analyzer_policy module unavailable")
+        return
+    try:
+        data = read_analyzer_policy(live)
+    except FileNotFoundError as exc:
+        state.add("analyzer_policy", BLOCKED, str(exc))
+        return
+    errors = validate_analyzer_policy(data, live.name)
+    if errors:
+        state.add("analyzer_policy", BLOCKED, f"analyzer_policy.yaml invalid: {errors[0]}")
+        return
+    summary = summarize_analyzer_policy(data)
+    analyze_path = root / "scripts" / "analyze_repos.py"
+    if analyze_path.exists() and "ANALYZER_VERSION" in analyze_path.read_text(encoding="utf-8"):
+        state.add(
+            "analyzer_policy",
+            PASS,
+            f"analyzer_policy v2 valid ({len(summary.get('dimensions', []))} dimensions, analyzer {summary.get('analyzer_version')})",
+        )
+    else:
+        state.add("analyzer_policy", WARNING, "analyzer_policy valid but analyze_repos.py missing ANALYZER_VERSION marker")
 
 
 def check_protocol_governance_api_ban(state: GateState, root: Path) -> None:
@@ -673,6 +709,7 @@ def check_governance_assets(state: GateState, root: Path) -> None:
         "docs/execpolicy_design.md",
         "docs/repo_context_index_design.md",
         "docs/scan_policy_design.md",
+        "docs/analyzer_policy_design.md",
         "docs/evaluation_gate_design.md",
     ]
     missing = [item for item in required if not (root / item).exists()]
@@ -853,6 +890,7 @@ def main() -> int:
     check_playwright_local_only(state, root)
     check_scan_allowlist_compliance(state, root)
     check_scan_policy(state, root)
+    check_analyzer_policy(state, root)
     check_protocol_governance_api_ban(state, root)
     check_protocol_version(state, root)
     check_governance_assets(state, root)
