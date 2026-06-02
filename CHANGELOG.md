@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Round 30 - Agent Run JSONL Audit Trail
+
+- 新增 `scripts/validate_agent_run.py`、`read_agent_run.py`、`record_agent_run_event.py` 与 `governance/runs/example_run.jsonl`。
+- `agent_gate` 与 eval registry 增加 agent_run JSONL 验收。
+- 新增 `tests/test_agent_run_jsonl.py` 与 `reports/round_30_completion_report.md`。
+
 ## Round 29 - Proof of Work System
 
 - 新增 `scripts/validate_proof_of_work.py`、`read_proof_of_work.py`、`sync_proof_of_work_registry.py` 与 `governance/proof_of_work_registry.yaml`。

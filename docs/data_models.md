@@ -174,19 +174,17 @@ proof_of_work:
 ## agent_run_event
 
 - 用途：JSONL 审计流的单行事件
-- 字段：`id/name`、`status/lifecycle`、`project_id`、`context_refs`、`created_at/updated_at`、模型特有字段。
-- 字段说明：标识字段用于关联；状态字段用于调度；上下文字段只传引用；时间字段用于审计。
-- 示例：见 `governance/runs/{run_id}.jsonl` 或下方片段。
+- 字段：`event_type`、`timestamp`、`task_id`、`project_id`、`agent_type`、`cwd`、`payload`、`error`、`proof_of_work_path`。
+- 字段说明：每行一个 JSON 对象；`event_type` 见 `docs/audit_trail_design.md`；`payload` 为结构化载荷。
+- 示例：见 `governance/runs/example_run.jsonl` 或下方片段。
 - 是否机器权威：是
 - 对应文件路径：`governance/runs/{run_id}.jsonl`
-- 后续实现轮次：Round 30
+- 读取命令：`python3 scripts/read_agent_run.py governance/runs/example_run.jsonl`
+- 记录命令：`python3 scripts/record_agent_run_event.py --run-id <id> --event-type run_started --task-id task_x --dry-run`
+- 实现轮次：Round 30（已完成 MVP）
 
-```yaml
-agent_run_event:
-  id: example
-  status: proposed
-  project_id: repo_ops_dashboard
-  updated_at: '2026-06-02T00:00:00Z'
+```json
+{"event_type":"run_started","timestamp":"2026-06-02T00:00:00Z","task_id":"task_example_001","project_id":"repo_ops_dashboard","agent_type":"Cursor","cwd":"/path/to/repo","payload":{},"error":null,"proof_of_work_path":null}
 ```
 
 ## handoff_packet

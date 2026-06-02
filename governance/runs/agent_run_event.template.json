@@ -1,0 +1,11 @@
+{
+  "event_type": "run_started",
+  "timestamp": "2026-06-02T00:00:00Z",
+  "task_id": "task_example_001",
+  "project_id": "repo_ops_dashboard",
+  "agent_type": "Cursor",
+  "cwd": "/path/to/repo-ops-dashboard",
+  "payload": {},
+  "error": null,
+  "proof_of_work_path": null
+}

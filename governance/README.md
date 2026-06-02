@@ -22,7 +22,9 @@
 - `proof_of_work/`：任务完成证明模板和示例（`scripts/read_proof_of_work.py` 读取/校验）。
 - `proof_of_work_registry.yaml`：完成证明注册表（`scripts/sync_proof_of_work_registry.py` 同步）。
 - `proof_of_work_registry.example.yaml`：注册表示例。
-- `runs/`：未来审计 JSONL 输出目录。
+- `runs/`：Agent 执行审计 JSONL（`scripts/read_agent_run.py` 读取/校验；`scripts/record_agent_run_event.py` 手动追加事件）。
+- `runs/agent_run_event.template.json`：单行审计事件模板。
+- `runs/example_run.jsonl`：示例审计轨迹。
 - `review_queue.yaml`：人工决策队列。
 - `execpolicy/`：文档级执行边界。
 - `evals/registry.yaml`：验收 gate 注册表。

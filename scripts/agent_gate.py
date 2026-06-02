@@ -407,6 +407,32 @@ def check_project_registry(state: GateState, root: Path) -> None:
         )
 
 
+def check_agent_run_example(state: GateState, root: Path) -> None:
+    path = root / "governance" / "runs" / "example_run.jsonl"
+    template = root / "governance" / "runs" / "agent_run_event.template.json"
+    if not path.exists():
+        state.add("agent_run_example", BLOCKED, "governance/runs/example_run.jsonl missing")
+        return
+    if not template.exists():
+        state.add("agent_run_example", BLOCKED, "governance/runs/agent_run_event.template.json missing")
+        return
+    try:
+        from validate_agent_run import read_agent_run, validate_agent_run
+    except ImportError:
+        state.add("agent_run_example", BLOCKED, "validate_agent_run module unavailable")
+        return
+    errors = validate_agent_run(path)
+    if errors:
+        state.add("agent_run_example", BLOCKED, f"example_run.jsonl invalid: {errors[0]}")
+        return
+    events = read_agent_run(path)
+    state.add(
+        "agent_run_example",
+        PASS,
+        f"example_run.jsonl valid with {len(events)} event(s)",
+    )
+
+
 def check_proof_of_work_registry(state: GateState, root: Path) -> None:
     path = root / "governance" / "proof_of_work_registry.yaml"
     if not path.exists():
@@ -505,6 +531,8 @@ def check_governance_assets(state: GateState, root: Path) -> None:
         "governance/task_specs/example_task_spec.yaml",
         "governance/proof_of_work/example_proof_of_work.json",
         "governance/runs/.gitkeep",
+        "governance/runs/agent_run_event.template.json",
+        "governance/runs/example_run.jsonl",
         "governance/checkpoints/.gitkeep",
         "governance/execpolicy/profiles/readonly_managed_repo.rules",
         "governance/execpolicy/profiles/repo_ops_write.rules",
@@ -704,6 +732,7 @@ def main() -> int:
     check_task_spec_template(state, root)
     check_proof_of_work_template(state, root)
     check_proof_of_work_registry(state, root)
+    check_agent_run_example(state, root)
     check_eval_registry(state, root)
     check_completion_report(state, root)
     check_requirements_dev_playwright(state, root)

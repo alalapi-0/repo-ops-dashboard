@@ -49,11 +49,16 @@ evals:
     type: file_exists
     required: true
     path: governance/proof_of_work_registry.yaml
+  - eval_id: agent_run_jsonl_valid
+    description: governance/runs/example_run.jsonl exists and matches audit trail schema.
+    type: schema_check
+    required: true
+    path: governance/runs/example_run.jsonl
   - eval_id: completion_report_exists
     description: The current round completion report exists.
     type: file_exists
     required: true
-    path: reports/round_29_completion_report.md
+    path: reports/round_30_completion_report.md
   - eval_id: task_spec_schema_valid
     description: task_spec template includes required governance fields.
     type: schema_check

@@ -1,17 +1,17 @@
-current_round: round_29_proof_of_work_system
+current_round: round_30_agent_run_jsonl_audit_trail
 status: completed
 executor: cursor
 external_api_called: false
 managed_repos_modified: false
 secrets_read: false
-proof_of_work_registry_implemented: true
-proof_record_count: 1
-next_round: round_30_agent_run_jsonl_audit_trail
+agent_run_jsonl_implemented: true
+example_run_event_count: 5
+next_round: round_31_review_queue_mvp
 outputs:
-  - governance/proof_of_work_registry.yaml
-  - governance/proof_of_work_registry.example.yaml
-  - scripts/validate_proof_of_work.py
-  - scripts/read_proof_of_work.py
-  - scripts/sync_proof_of_work_registry.py
-  - reports/round_29_completion_report.md
-  - tests/test_proof_of_work_registry.py
+  - governance/runs/agent_run_event.template.json
+  - governance/runs/example_run.jsonl
+  - scripts/validate_agent_run.py
+  - scripts/read_agent_run.py
+  - scripts/record_agent_run_event.py
+  - reports/round_30_completion_report.md
+  - tests/test_agent_run_jsonl.py
