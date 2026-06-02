@@ -1,6 +1,6 @@
 # Agent Gate Report
 
-- generated_at: 2026-06-02T05:04:19.466541+00:00
+- generated_at: 2026-06-02T05:05:09.166465+00:00
 - verdict: PASS
 
 ## Findings
@@ -22,11 +22,12 @@
 - [PASS] `protocol_positioning`: Personal Agent OS positioning present
 - [PASS] `governance_assets`: governance assets and design docs exist
 - [PASS] `project_registry`: project_registry.yaml has 17 projects aligned with repos.yaml
+- [PASS] `portfolio_state`: portfolio_state.yaml snapshot covers 17 projects
 - [PASS] `task_spec_template`: task_spec template contains required fields
 - [PASS] `proof_of_work_template`: proof_of_work template contains required fields
 - [PASS] `eval_registry`: eval registry contains required baseline evals
-- [PASS] `completion_report`: round_26_completion_report.md exists
+- [PASS] `completion_report`: round_27_completion_report.md exists
 - [PASS] `requirements_dev`: requirements-dev.txt includes playwright and pytest
 - [PASS] `installation_doc`: installation.md covers core refresh commands
 - [PASS] `example_fixtures`: example data fixtures present
-- [PASS] `pytest_tests`: pytest tests present (12 modules)
+- [PASS] `pytest_tests`: pytest tests present (13 modules)

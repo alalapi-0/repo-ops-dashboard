@@ -1,16 +1,16 @@
-current_round: round_26_project_registry_mvp
+current_round: round_27_portfolio_state_snapshot
 status: completed
 executor: cursor
 external_api_called: false
 managed_repos_modified: false
 secrets_read: false
-project_registry_implemented: true
+portfolio_state_implemented: true
 project_count: 17
-openclaw_connected: false
-feishu_connected: false
-next_round: round_27_portfolio_state_snapshot
+blocked_projects: 3
+review_queue_open: 5
+next_round: round_28_governance_task_queue
 outputs:
-  - governance/project_registry.yaml
-  - scripts/sync_project_registry.py
-  - reports/round_26_completion_report.md
-  - tests/test_project_registry.py
+  - governance/portfolio_state.yaml
+  - scripts/sync_portfolio_state.py
+  - reports/round_27_completion_report.md
+  - tests/test_portfolio_state.py

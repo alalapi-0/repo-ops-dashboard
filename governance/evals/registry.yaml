@@ -34,11 +34,16 @@ evals:
     type: file_exists
     required: true
     path: governance/project_registry.yaml
+  - eval_id: portfolio_state_exists
+    description: governance/portfolio_state.yaml exists with summary and project rows.
+    type: file_exists
+    required: true
+    path: governance/portfolio_state.yaml
   - eval_id: completion_report_exists
     description: The current round completion report exists.
     type: file_exists
     required: true
-    path: reports/round_26_completion_report.md
+    path: reports/round_27_completion_report.md
   - eval_id: task_spec_schema_valid
     description: task_spec template includes required governance fields.
     type: schema_check

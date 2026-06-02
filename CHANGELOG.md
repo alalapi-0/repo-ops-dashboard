@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## Round 27 - Portfolio State Snapshot
+
+- 新增 `scripts/sync_portfolio_state.py` 与 `governance/portfolio_state.yaml`（registry + repo status 合并快照）。
+- `agent_gate` 与 eval registry 增加 portfolio_state 验收。
+
 ## Round 26 - Project Registry MVP
 
 - 新增 `scripts/sync_project_registry.py` 与 `governance/project_registry.yaml`（从 `config/repos.yaml` 同步 17 个项目）。

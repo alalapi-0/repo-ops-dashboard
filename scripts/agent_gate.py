@@ -407,10 +407,38 @@ def check_project_registry(state: GateState, root: Path) -> None:
         )
 
 
+def check_portfolio_state(state: GateState, root: Path) -> None:
+    path = root / "governance" / "portfolio_state.yaml"
+    if not path.exists():
+        state.add("portfolio_state", BLOCKED, "governance/portfolio_state.yaml missing")
+        return
+    data = load_yaml(path)
+    projects = list(data.get("projects", []))
+    summary = data.get("summary", {})
+    if not projects or not summary:
+        state.add("portfolio_state", BLOCKED, "portfolio_state.yaml missing projects or summary")
+        return
+    registry = load_yaml(root / "governance" / "project_registry.yaml")
+    reg_count = len(registry.get("projects", []))
+    if len(projects) != reg_count:
+        state.add(
+            "portfolio_state",
+            WARNING,
+            f"portfolio has {len(projects)} projects, registry has {reg_count}",
+        )
+    else:
+        state.add(
+            "portfolio_state",
+            PASS,
+            f"portfolio_state.yaml snapshot covers {len(projects)} projects",
+        )
+
+
 def check_governance_assets(state: GateState, root: Path) -> None:
     required = [
         "governance/project_registry.yaml",
         "governance/project_registry.example.yaml",
+        "governance/portfolio_state.yaml",
         "governance/portfolio_state.example.yaml",
         "governance/task_specs/example_task_spec.yaml",
         "governance/proof_of_work/example_proof_of_work.json",
@@ -609,6 +637,7 @@ def main() -> int:
     check_protocol_version(state, root)
     check_governance_assets(state, root)
     check_project_registry(state, root)
+    check_portfolio_state(state, root)
     check_task_spec_template(state, root)
     check_proof_of_work_template(state, root)
     check_eval_registry(state, root)

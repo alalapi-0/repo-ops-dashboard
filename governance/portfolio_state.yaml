@@ -1,0 +1,194 @@
+# Portfolio state snapshot (Personal Agent OS).
+# Sources: governance/project_registry.yaml + repo status JSON
+schema_version: 0.1.0
+generated_at: '2026-06-02T05:04:57+00:00'
+status_source: data/repo_status.example.json
+registry_source: governance/project_registry.yaml
+summary:
+  total_projects: 17
+  active_projects: 16
+  blocked_projects: 3
+  review_queue_open: 5
+  current_wip: 0
+  budget_warning: false
+projects:
+- project_id: novel_continuation_agent
+  repo_name: novel-continuation-agent
+  lifecycle: active
+  health: yellow
+  priority: high
+  recommended_agent: Human
+  current_task_id: null
+  blockers:
+  - repo_protocol_standard.yaml missing
+  next_actions:
+  - 补齐缺失治理文件（AGENTS.md / protocol / README）
+  last_checked: '2026-05-31T08:37:34.795755+00:00'
+- project_id: ai_manga
+  repo_name: ai-manga
+  lifecycle: freeze_candidate
+  health: red
+  priority: high
+  recommended_agent: Human
+  current_task_id: null
+  blockers:
+  - README.md missing
+  - AGENTS.md missing
+  - repo_protocol_standard.yaml missing
+  next_actions:
+  - 补齐缺失治理文件（AGENTS.md / protocol / README）
+  last_checked: '2026-05-31T08:37:34.795755+00:00'
+- project_id: repo_ops_dashboard
+  repo_name: repo-ops-dashboard
+  lifecycle: bootstrap
+  health: green
+  priority: high
+  recommended_agent: Cursor
+  current_task_id: null
+  blockers: []
+  next_actions:
+  - 处理扫描 warning 并补齐可选治理文件
+  last_checked: '2026-05-31T08:37:34.795755+00:00'
+- project_id: ai_anime_short_factory
+  repo_name: ai-anime-short-factory
+  lifecycle: active
+  health: unknown
+  priority: high
+  recommended_agent: Codex
+  current_task_id: null
+  blockers: []
+  next_actions:
+  - Run scan_repos.py and refresh status snapshot
+- project_id: wechat_article_scheduler
+  repo_name: wechat-article-scheduler
+  lifecycle: active
+  health: unknown
+  priority: high
+  recommended_agent: Codex
+  current_task_id: null
+  blockers: []
+  next_actions:
+  - Run scan_repos.py and refresh status snapshot
+- project_id: light_novel
+  repo_name: light_novel
+  lifecycle: active
+  health: yellow
+  priority: low
+  recommended_agent: Human
+  current_task_id: null
+  blockers:
+  - AGENTS.md missing
+  - repo_protocol_standard.yaml missing
+  next_actions:
+  - 补齐缺失治理文件（AGENTS.md / protocol / README）
+  last_checked: '2026-05-31T08:37:34.795755+00:00'
+- project_id: computer_study_plan
+  repo_name: computer_study_plan
+  lifecycle: active
+  health: unknown
+  priority: medium
+  recommended_agent: Cursor
+  current_task_id: null
+  blockers: []
+  next_actions:
+  - Run scan_repos.py and refresh status snapshot
+- project_id: world_news_lens
+  repo_name: world-news-lens
+  lifecycle: active
+  health: unknown
+  priority: medium
+  recommended_agent: Cursor
+  current_task_id: null
+  blockers: []
+  next_actions:
+  - Run scan_repos.py and refresh status snapshot
+- project_id: pixel_world_asset_forge
+  repo_name: pixel-world-asset-forge
+  lifecycle: active
+  health: unknown
+  priority: medium
+  recommended_agent: Codex
+  current_task_id: null
+  blockers: []
+  next_actions:
+  - Run scan_repos.py and refresh status snapshot
+- project_id: agent_experiments
+  repo_name: agent-experiments
+  lifecycle: active
+  health: unknown
+  priority: low
+  recommended_agent: Cursor
+  current_task_id: null
+  blockers: []
+  next_actions:
+  - Run scan_repos.py and refresh status snapshot
+- project_id: ai_anime_short_factory_external
+  repo_name: ai-anime-short-factory-external
+  lifecycle: active
+  health: unknown
+  priority: low
+  recommended_agent: Human
+  current_task_id: null
+  blockers: []
+  next_actions:
+  - Run scan_repos.py and refresh status snapshot
+- project_id: api_mini_labs
+  repo_name: api-mini-labs
+  lifecycle: active
+  health: unknown
+  priority: low
+  recommended_agent: Cursor
+  current_task_id: null
+  blockers: []
+  next_actions:
+  - Run scan_repos.py and refresh status snapshot
+- project_id: audiobook_cleaner_lab
+  repo_name: audiobook-cleaner-lab
+  lifecycle: active
+  health: unknown
+  priority: low
+  recommended_agent: Cursor
+  current_task_id: null
+  blockers: []
+  next_actions:
+  - Run scan_repos.py and refresh status snapshot
+- project_id: resilient_personal_network
+  repo_name: resilient-personal-network
+  lifecycle: active
+  health: unknown
+  priority: low
+  recommended_agent: Cursor
+  current_task_id: null
+  blockers: []
+  next_actions:
+  - Run scan_repos.py and refresh status snapshot
+- project_id: tool_mini_labs
+  repo_name: tool-mini-labs
+  lifecycle: active
+  health: unknown
+  priority: low
+  recommended_agent: Cursor
+  current_task_id: null
+  blockers: []
+  next_actions:
+  - Run scan_repos.py and refresh status snapshot
+- project_id: typing_practice_app
+  repo_name: typing-practice-app
+  lifecycle: active
+  health: unknown
+  priority: low
+  recommended_agent: Cursor
+  current_task_id: null
+  blockers: []
+  next_actions:
+  - Run scan_repos.py and refresh status snapshot
+- project_id: youtube_hq_downloader
+  repo_name: youtube_hq_downloader
+  lifecycle: active
+  health: unknown
+  priority: low
+  recommended_agent: Cursor
+  current_task_id: null
+  blockers: []
+  next_actions:
+  - Run scan_repos.py and refresh status snapshot

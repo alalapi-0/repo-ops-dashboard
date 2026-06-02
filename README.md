@@ -63,6 +63,7 @@ python3 scripts/ui_check.py --file dashboard/index.html --screenshot reports/ui_
 ## 当前状态
 
 - 历史 Round 00-24 已形成扫描、分析、Dashboard、Prompt、报告、Feishu/OpenRouter opt-in、Hub 等基础能力。
+- Round 27 完成 Portfolio State 快照：`governance/portfolio_state.yaml`（`scripts/sync_portfolio_state.py`）。
 - Round 26 完成 Project Registry MVP：`governance/project_registry.yaml`（`scripts/sync_project_registry.py` 同步自 `config/repos.yaml`）。
 - Round 25 将项目重新基线为 Personal Agent OS / Portfolio Orchestrator。
 - 真实登记：`config/repos.yaml` + `governance/project_registry.yaml`。

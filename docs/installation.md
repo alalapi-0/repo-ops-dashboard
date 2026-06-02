@@ -16,6 +16,7 @@ python3 -m playwright install chromium
 1. 编辑 [`config/repos.yaml`](../config/repos.yaml)，或从 example 复制。
 2. 合并新目录：`python3 scripts/sync_repo_registry.py --workspace /Users/alalapi/PycharmProjects`
 3. 同步治理登记：`python3 scripts/sync_project_registry.py`（`--dry-run` 仅校验）
+4. 同步组合快照：`python3 scripts/sync_portfolio_state.py`（依赖 registry + repo status JSON）
 
 ## 一条命令刷新
 

@@ -185,3 +185,9 @@
 - 产出：`governance/project_registry.yaml`、`scripts/sync_project_registry.py`
 - 下一轮：`round_27_portfolio_state_snapshot`
 
+## Round 27 - Portfolio State Snapshot
+
+- 状态：completed
+- 产出：`governance/portfolio_state.yaml`、`scripts/sync_portfolio_state.py`
+- 下一轮：`round_28_governance_task_queue`
+

@@ -71,6 +71,7 @@ state_authority:
   canonical_files:
     - governance/project_registry.yaml
     - governance/project_registry.example.yaml
+    - governance/portfolio_state.yaml
     - governance/portfolio_state.example.yaml
     - governance/review_queue.yaml
     - round_state/current_round.yaml
