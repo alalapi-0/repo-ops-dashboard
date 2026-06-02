@@ -1,13 +1,15 @@
-current_round: round_56_feishu_lark_notification_mvp
+current_round: round_57_mac_local_notification
 status: completed
 executor: cursor
 external_api_called: false
 managed_repos_modified: false
 secrets_read: false
 dashboard_version: v2
-next_round: round_57_mac_local_notification
+next_round: round_58_openclaw_daily_briefing_skill
 outputs:
-  - scripts/send_feishu_notification.py
-  - reports/feishu_outbound_preview.json
-  - tests/test_send_feishu_notification.py
-  - reports/round_56_completion_report.md
+  - config/mac_notification_policy.yaml
+  - scripts/send_mac_notification.py
+  - scripts/validate_mac_notification_policy.py
+  - reports/mac_notification_payload.json
+  - docs/mac_local_notification_design.md
+  - reports/round_57_completion_report.md

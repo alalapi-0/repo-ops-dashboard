@@ -1,12 +1,12 @@
 # OpenClaw Orchestration Brief
 
-生成时间：2026-06-02 17:50 UTC
+生成时间：2026-06-02 17:51 UTC
 
 ## 当前轮次
 
-- round：`round_55_feishu_lark_notification_planning`
+- round：`round_56_feishu_lark_notification_mvp`
 - status：`completed`
-- next：`round_56_feishu_lark_notification_mvp`
+- next：`round_57_mac_local_notification`
 
 ## Portfolio 摘要
 
@@ -51,7 +51,7 @@ python3 scripts/openclaw_orchestration_bridge.py --dry-run
 
 ## 短提醒（≤200 字）
 
-Round round_55_feishu_lark_notification_planning：优先 ai-anime-short-factory, ai-manga。暂缓 0 项；review_queue 待决 5 项。OpenClaw 只读编排，编程交给 Cursor/Codex。
+Round round_56_feishu_lark_notification_mvp：优先 ai-anime-short-factory, ai-manga。暂缓 0 项；review_queue 待决 5 项。OpenClaw 只读编排，编程交给 Cursor/Codex。
 
 ---
 

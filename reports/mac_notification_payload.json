@@ -1,0 +1,19 @@
+{
+  "schema_version": "0.1.0",
+  "generated_at": "2026-06-02T17:51:31.463897+00:00",
+  "platform": "Darwin",
+  "notification": {
+    "title": "Repo Ops",
+    "body": "今日优先推进：repo-ops-dashboard, novel-continuation-agent。暂缓 2 仓勿动。编排交给 Cursor Automations，编程交给 Cursor/Codex。\nBlockers: light_novel: AGENTS.md missing; ai-manga: README.md missing; novel-continuation-agent: repo_protocol_stan…",
+    "subtitle": "今日优先推进：repo-ops-dashboard, novel-continuation-agent。暂缓 2 仓勿动。编排交给 Cursor Automat"
+  },
+  "blockers": [
+    "light_novel: AGENTS.md missing",
+    "ai-manga: README.md missing",
+    "novel-continuation-agent: repo_protocol_standard.yaml missing"
+  ],
+  "delivery": {
+    "method": "osascript",
+    "status": "dry_run"
+  }
+}

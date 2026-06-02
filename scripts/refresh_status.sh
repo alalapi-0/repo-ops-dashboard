@@ -190,6 +190,9 @@ else
   "$PYTHON" scripts/send_feishu_notification.py --status "$STATUS"
 fi
 
+echo "[refresh] mac local notification (dry-run)"
+"$PYTHON" scripts/send_mac_notification.py --status "$STATUS" --brief reports/daily_brief.md --write
+
 if $BITABLE_SYNC; then
   echo "[refresh] feishu bitable sync"
   "$PYTHON" scripts/sync_feishu_bitable.py --input "$STATUS" --sync

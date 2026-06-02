@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Round 57 - Mac Local Notification
+
+- 新增 `mac_notification_policy.yaml` 与 `send_mac_notification.py`（dry-run payload，CI 跳过 osascript）。
+- `refresh_status.sh` 与 `agent_gate` 纳入 Mac 本地通知验收。
+- `reports/round_57_completion_report.md`。
+
 ## Round 56 - Feishu/Lark Notification MVP
 
 - 新增 `send_feishu_notification.py`（dry-run 写 outbound 预览，无 webhook 不阻断）。

@@ -1,6 +1,6 @@
 # Weekly Digest Template
 
-生成时间：2026-06-02 17:50 UTC
+生成时间：2026-06-02 17:51 UTC
 
 ## 本周摘要
 
@@ -39,9 +39,9 @@
 
 ## 当前轮次
 
-- round：`round_55_feishu_lark_notification_planning`
+- round：`round_56_feishu_lark_notification_mvp`
 - status：`completed`
-- next：`round_56_feishu_lark_notification_mvp`
+- next：`round_57_mac_local_notification`
 
 ## Human 本周笔记
 

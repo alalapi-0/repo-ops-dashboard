@@ -14,7 +14,7 @@
 | Feishu 多维表格 | 已实现（opt-in） | `sync_feishu_bitable.py --sync` |
 | Cursor Automations | 已实现（文档） | [`cursor_automation_guide.md`](cursor_automation_guide.md) |
 | OpenRouter LLM | 已实现（opt-in） | `generate_llm_summary.py --call` |
-| Mac 本地通知 | 规划 | launchd 包装 refresh |
+| Mac 本地通知 | 已实现（dry-run） | `send_mac_notification.py`（CI 跳过 osascript） |
 | OpenClaw | 可选遗留 | Skill deprecated |
 
 ## 原则

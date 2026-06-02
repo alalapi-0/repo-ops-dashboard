@@ -1,0 +1,28 @@
+schema_version: 0.1.0
+policy_version: v1
+description: Mac local notification for daily suggestions and blockers (dry-run payload default).
+
+sources:
+  daily_brief: reports/daily_brief.md
+  repo_status: data/repo_status.json
+  output_payload: reports/mac_notification_payload.json
+  output_report: reports/mac_notification_plan.md
+
+content:
+  title: Repo Ops
+  subtitle_from: daily_brief_excerpt
+  include_blockers: true
+  max_body_chars: 220
+  redact_local_paths: true
+
+delivery:
+  method: osascript
+  dry_run_default: true
+  skip_osascript_when:
+    - CI
+    - GITHUB_ACTIONS
+    - non_darwin
+
+defaults:
+  dry_run: true
+  external_api: false

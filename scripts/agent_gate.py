@@ -605,6 +605,40 @@ def check_ui_check_policy(state: GateState, root: Path) -> None:
         state.add("ui_check_policy", WARNING, "ui_check_policy valid but console checks not wired in ui_check.py")
 
 
+def check_mac_notification_policy(state: GateState, root: Path) -> None:
+    live = root / "config" / "mac_notification_policy.yaml"
+    example = root / "governance" / "mac_notification_policy.example.yaml"
+    sender = root / "scripts" / "send_mac_notification.py"
+    validator = root / "scripts" / "validate_mac_notification_policy.py"
+    output = root / "reports" / "mac_notification_payload.json"
+    if not live.exists() or not validator.exists():
+        state.add("mac_notification_policy", BLOCKED, "mac_notification_policy.yaml or validator missing")
+        return
+    try:
+        from validate_mac_notification_policy import load_yaml, validate_mac_notification_policy
+    except ImportError:
+        state.add("mac_notification_policy", BLOCKED, "validate_mac_notification_policy unavailable")
+        return
+    errors = validate_mac_notification_policy(load_yaml(live), live.name)
+    if errors:
+        state.add("mac_notification_policy", BLOCKED, f"mac_notification_policy invalid: {errors[0]}")
+        return
+    if example.exists() and sender.exists() and output.exists():
+        payload = json.loads(output.read_text(encoding="utf-8"))
+        status = payload.get("delivery", {}).get("status", "unknown")
+        state.add(
+            "mac_notification_policy",
+            PASS,
+            f"Mac local notification wired (payload={status}, osascript opt-in)",
+        )
+    else:
+        state.add(
+            "mac_notification_policy",
+            WARNING,
+            "mac_notification_policy valid but sender/output incomplete",
+        )
+
+
 def check_feishu_notification_policy(state: GateState, root: Path) -> None:
     live = root / "config" / "feishu_notification_policy.yaml"
     example = root / "governance" / "feishu_notification_policy.example.yaml"
@@ -1227,6 +1261,9 @@ def check_governance_assets(state: GateState, root: Path) -> None:
         "governance/feishu_notification_policy.example.yaml",
         "governance/feishu_notification_plan.yaml",
         "docs/feishu_lark_notification_design.md",
+        "config/mac_notification_policy.yaml",
+        "governance/mac_notification_policy.example.yaml",
+        "docs/mac_local_notification_design.md",
         "governance/execpolicy/profiles/readonly_managed_repo.rules",
         "governance/execpolicy/profiles/repo_ops_write.rules",
         "governance/execpolicy/profiles/risky_confirm.rules",
@@ -1470,6 +1507,7 @@ def main() -> int:
     check_blocker_policy(state, root)
     check_wip_limit_policy(state, root)
     check_feishu_notification_policy(state, root)
+    check_mac_notification_policy(state, root)
     check_budget_tracking_policy(state, root)
     check_protocol_sync_policy(state, root)
     check_project_rule_promotion_policy(state, root)
