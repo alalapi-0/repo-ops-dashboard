@@ -598,6 +598,20 @@ def check_governance_hardening(state: GateState, root: Path) -> None:
         state.add("governance_hardening", WARNING, "governance hardening audit incomplete")
 
 
+def check_backup_restore(state: GateState, root: Path) -> None:
+    script = root / "scripts" / "backup_governance_state.py"
+    policy = root / "config" / "backup_restore_policy.yaml"
+    doc = root / "docs" / "backup_restore.md"
+    if not script.exists() or not policy.exists() or not doc.exists():
+        state.add("backup_restore", WARNING, "backup/restore script/policy/doc missing")
+        return
+    text = script.read_text(encoding="utf-8")
+    if "--write" in text and "hitl" in doc.read_text(encoding="utf-8").lower():
+        state.add("backup_restore", PASS, "governance backup/restore wired (dry-run default, HITL restore)")
+    else:
+        state.add("backup_restore", WARNING, "backup/restore incomplete")
+
+
 def check_codex_task_spec_prompt(state: GateState, root: Path) -> None:
     script = root / "scripts" / "generate_codex_prompt_from_task_spec.py"
     template = root / "prompts" / "codex_from_task_spec.md"
@@ -1587,6 +1601,7 @@ def main() -> int:
     check_handoff_protocol(state, root)
     check_handoff_trial(state, root)
     check_governance_hardening(state, root)
+    check_backup_restore(state, root)
     check_protocol_governance_api_ban(state, root)
     check_protocol_version(state, root)
     check_governance_assets(state, root)

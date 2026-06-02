@@ -1,12 +1,12 @@
 # OpenClaw Orchestration Brief
 
-生成时间：2026-06-02 17:56 UTC
+生成时间：2026-06-02 17:57 UTC
 
 ## 当前轮次
 
-- round：`round_61_portfolio_governance_hardening`
+- round：`round_62_release_backup_restore`
 - status：`completed`
-- next：`round_62_release_backup_restore`
+- next：`round_63_personal_agent_os_long_term_integration`
 
 ## Portfolio 摘要
 
@@ -54,7 +54,7 @@ python3 scripts/generate_daily_briefing.py --input data/repo_status.example.json
 
 ## 短提醒（≤200 字）
 
-Round round_61_portfolio_governance_hardening：优先 ai-anime-short-factory, ai-manga。暂缓 0 项；review_queue 待决 5 项。OpenClaw 只读编排，编程交给 Cursor/Codex。
+Round round_62_release_backup_restore：优先 ai-anime-short-factory, ai-manga。暂缓 0 项；review_queue 待决 5 项。OpenClaw 只读编排，编程交给 Cursor/Codex。
 
 ---
 

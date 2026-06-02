@@ -1,12 +1,12 @@
 # Daily Briefing Template (Governance MVP)
 
-生成时间：2026-06-02 17:56 UTC
+生成时间：2026-06-02 17:57 UTC
 
 ## 当前轮次
 
-- round：`round_61_portfolio_governance_hardening`
+- round：`round_62_release_backup_restore`
 - status：`completed`
-- next：`round_62_release_backup_restore`
+- next：`round_63_personal_agent_os_long_term_integration`
 
 ## 今日最该推进（1–3 仓）
 
@@ -48,7 +48,7 @@ python3 scripts/openclaw_orchestration_bridge.py --dry-run
 
 ## 短提醒（≤200 字）
 
-Round round_61_portfolio_governance_hardening：今日优先 repo-ops-dashboard, novel-continuation-agent。暂缓 2 仓；review_queue 待决 5 项。编程交给 Cursor/Codex，决策留给 HumanOwner。
+Round round_62_release_backup_restore：今日优先 repo-ops-dashboard, novel-continuation-agent。暂缓 2 仓；review_queue 待决 5 项。编程交给 Cursor/Codex，决策留给 HumanOwner。
 
 ---
 

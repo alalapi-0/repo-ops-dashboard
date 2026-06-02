@@ -1,6 +1,6 @@
 # Weekly Digest Template
 
-生成时间：2026-06-02 17:56 UTC
+生成时间：2026-06-02 17:57 UTC
 
 ## 本周摘要
 
@@ -40,9 +40,9 @@
 
 ## 当前轮次
 
-- round：`round_61_portfolio_governance_hardening`
+- round：`round_62_release_backup_restore`
 - status：`completed`
-- next：`round_62_release_backup_restore`
+- next：`round_63_personal_agent_os_long_term_integration`
 
 ## Human 本周笔记
 

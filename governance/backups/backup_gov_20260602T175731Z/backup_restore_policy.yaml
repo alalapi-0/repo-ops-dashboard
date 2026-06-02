@@ -1,0 +1,30 @@
+schema_version: 0.1.0
+policy_version: v1
+description: Governance state backup and restore (dry-run default, no secrets).
+
+backup:
+  output_dir: governance/backups
+  manifest: governance/backups/manifest.yaml
+  id_prefix: backup_gov_
+  max_retained: 5
+  include_paths:
+    - governance/portfolio_state.yaml
+    - governance/project_registry.yaml
+    - governance/review_queue.yaml
+    - governance/governance_task_queue.yaml
+    - governance/proof_of_work_registry.yaml
+    - round_state/current_round.yaml
+    - config/governance_hardening_policy.yaml
+    - config/backup_restore_policy.yaml
+
+restore:
+  hitl_required: true
+  overwrite_allowed: false
+
+defaults:
+  dry_run: true
+  external_api_allowed: false
+  managed_repos_write_allowed: false
+
+outputs:
+  report: reports/governance_backup_report.md

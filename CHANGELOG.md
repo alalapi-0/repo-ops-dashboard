@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Round 62 - Release / Backup / Restore
+
+- 新增 `backup_governance_state.py`（治理 YAML 备份，dry-run 默认，恢复需 HITL）。
+- 新增 `docs/backup_restore.md` 与安装文档备份章节。
+- `refresh_status.sh` 与 `agent_gate` 纳入验收。
+- `reports/round_62_completion_report.md`。
+
 ## Round 61 - Portfolio Governance Hardening
 
 - 新增 `audit_governance_hardening.py`（denylist、协议对齐、脚本安全扫描，dry-run 默认）。

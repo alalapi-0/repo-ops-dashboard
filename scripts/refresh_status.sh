@@ -124,6 +124,9 @@ echo "[refresh] handoff trial (dry-run)"
 echo "[refresh] governance hardening audit (dry-run)"
 "$PYTHON" scripts/audit_governance_hardening.py
 
+echo "[refresh] governance backup (dry-run)"
+"$PYTHON" scripts/backup_governance_state.py
+
 echo "[refresh] eval registry (dry-run)"
 "$PYTHON" scripts/run_eval_registry.py --required-only
 

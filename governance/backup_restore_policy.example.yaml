@@ -1,0 +1,16 @@
+# Backup / restore policy example (Round 62).
+schema_version: 0.1.0
+policy_version: v1
+description: Governance state backup and restore (dry-run default, no secrets).
+
+backup:
+  output_dir: governance/backups
+  manifest: governance/backups/manifest.yaml
+  max_retained: 5
+
+defaults:
+  dry_run: true
+  hitl_required: true
+
+outputs:
+  report: reports/governance_backup_report.md

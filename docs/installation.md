@@ -48,6 +48,15 @@ python3 -m pytest
 
 在浏览器打开 `dashboard/index.html`（`file://`）。
 
+## 备份治理状态（可选）
+
+```bash
+python3 scripts/backup_governance_state.py          # dry-run 报告
+python3 scripts/backup_governance_state.py --write  # 写入 governance/backups/
+```
+
+详见 [`backup_restore.md`](backup_restore.md)。
+
 ## 配置环境变量（可选）
 
 1. 复制模板：`cp .env.example .env`
@@ -69,6 +78,7 @@ python3 -m pytest
 
 ## 文档索引
 
+- 备份与恢复：[`backup_restore.md`](backup_restore.md)
 - 环境变量：[`env_configuration.md`](env_configuration.md)
 - 架构：[`architecture.md`](architecture.md)
 - 生命周期：[`lifecycle_rules.md`](lifecycle_rules.md)
