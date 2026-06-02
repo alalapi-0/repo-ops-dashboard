@@ -1,6 +1,6 @@
 # Agent Gate Report
 
-- generated_at: 2026-06-02T05:09:55.037149+00:00
+- generated_at: 2026-06-02T05:15:21.429537+00:00
 - verdict: PASS
 
 ## Findings
@@ -17,6 +17,7 @@
 - [PASS] `audit_report`: round 25 architecture absorption audit report exists
 - [PASS] `playwright_local`: ui_check uses local file:// access
 - [PASS] `scan_allowlist`: scan script uses pattern-based allowlist collection
+- [PASS] `scan_policy`: scan_policy v2 valid (5 patterns, scanner v2)
 - [PASS] `protocol_governance_api`: governance round external API ban present in protocol
 - [PASS] `protocol_version`: protocol v0.3.0 portfolio governance positioning present
 - [PASS] `protocol_positioning`: Personal Agent OS positioning present
@@ -29,9 +30,11 @@
 - [PASS] `proof_of_work_registry`: proof_of_work_registry.yaml lists 1 record(s)
 - [PASS] `agent_run_example`: example_run.jsonl valid with 5 event(s)
 - [PASS] `review_queue`: review_queue.yaml valid with 5 open item(s)
+- [PASS] `execpolicy`: execpolicy rules valid (11 portfolio rules, 3 profiles)
+- [PASS] `repo_context_index`: repo_context_index.yaml valid for repo_ops_dashboard (6 key files)
 - [PASS] `eval_registry`: eval registry contains required baseline evals
-- [PASS] `completion_report`: round_31_completion_report.md exists
+- [PASS] `completion_report`: round_34_completion_report.md exists
 - [PASS] `requirements_dev`: requirements-dev.txt includes playwright and pytest
 - [PASS] `installation_doc`: installation.md covers core refresh commands
 - [PASS] `example_fixtures`: example data fixtures present
-- [PASS] `pytest_tests`: pytest tests present (17 modules)
+- [PASS] `pytest_tests`: pytest tests present (20 modules)

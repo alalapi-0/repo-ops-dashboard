@@ -16,6 +16,9 @@ except ImportError as exc:  # pragma: no cover
     raise SystemExit("PyYAML is required. Run: pip install -r requirements.txt") from exc
 
 
+SCANNER_VERSION = "v2"
+
+
 def load_yaml(path: Path) -> dict[str, Any]:
     with path.open("r", encoding="utf-8") as handle:
         return yaml.safe_load(handle) or {}
@@ -101,10 +104,87 @@ def collect_files(
     return dedup, missing, skipped, warnings
 
 
+def load_core_governance_policy(policy_cfg: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    core = policy_cfg.get("core_governance", {})
+    if not isinstance(core, dict):
+        return {}
+    normalized: dict[str, dict[str, Any]] = {}
+    for name, entry in core.items():
+        if not isinstance(entry, dict):
+            continue
+        patterns = entry.get("patterns", [])
+        normalized[str(name)] = {
+            "patterns": [str(item) for item in patterns] if isinstance(patterns, list) else [],
+            "required": bool(entry.get("required", False)),
+        }
+    return normalized
+
+
+def file_matches_pattern(file_path: str, pattern: str) -> bool:
+    if any(token in pattern for token in ["*", "?", "["]):
+        return fnmatch.fnmatch(file_path, pattern)
+    return file_path == pattern
+
+
+def classify_read_files(read_files: list[str], core_policy: dict[str, dict[str, Any]]) -> dict[str, list[str]]:
+    categories: dict[str, list[str]] = {name: [] for name in core_policy}
+    uncategorized: list[str] = []
+    for file_path in read_files:
+        matched = False
+        for category, entry in core_policy.items():
+            if any(file_matches_pattern(file_path, pattern) for pattern in entry.get("patterns", [])):
+                categories[category].append(file_path)
+                matched = True
+                break
+        if not matched:
+            uncategorized.append(file_path)
+    if uncategorized:
+        categories["other"] = sorted(uncategorized)
+    return {key: sorted(set(values)) for key, values in categories.items() if values}
+
+
+def assess_core_governance(
+    read_files: list[str],
+    missing: list[str],
+    core_policy: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    files = set(read_files)
+    missing_set = set(missing)
+    found: list[str] = []
+    core_missing: list[str] = []
+    optional_missing: list[str] = []
+
+    for category, entry in core_policy.items():
+        patterns = entry.get("patterns", [])
+        category_found = any(
+            any(file_matches_pattern(file_path, pattern) for pattern in patterns) for file_path in files
+        )
+        if category_found:
+            found.append(category)
+            continue
+        if entry.get("required"):
+            core_missing.append(category)
+        elif any(pattern in missing_set for pattern in patterns) or any(
+            "*" in pattern or "?" in pattern for pattern in patterns
+        ):
+            optional_missing.append(category)
+
+    required_total = sum(1 for entry in core_policy.values() if entry.get("required"))
+    required_found = sum(1 for category in found if core_policy.get(category, {}).get("required"))
+    coverage_pct = 100 if required_total == 0 else int(round(required_found * 100 / required_total))
+    return {
+        "found_categories": sorted(found),
+        "missing_required_categories": sorted(core_missing),
+        "missing_optional_categories": sorted(optional_missing),
+        "required_coverage_pct": coverage_pct,
+    }
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Read only scan managed repository files")
     parser.add_argument("--config", default="config/repos.example.yaml", help="Repo config yaml path")
     parser.add_argument("--managed-files", default="config/managed_files.yaml", help="Managed files policy yaml path")
+    parser.add_argument("--scan-policy", default="config/scan_policy.yaml", help="Scan policy yaml path")
     parser.add_argument("--output", default="data/repo_snapshots.json", help="Output json path")
     parser.add_argument(
         "--max-file-kb",
@@ -121,14 +201,19 @@ def main() -> int:
     args = parse_args()
     config_path = Path(args.config)
     policy_path = Path(args.managed_files)
+    scan_policy_path = Path(args.scan_policy)
 
     if not config_path.exists():
         raise SystemExit(f"Config not found: {config_path}")
     if not policy_path.exists():
         raise SystemExit(f"Managed files policy not found: {policy_path}")
+    if not scan_policy_path.exists():
+        raise SystemExit(f"Scan policy not found: {scan_policy_path}")
 
     repo_cfg = load_yaml(config_path)
     policy_cfg = load_yaml(policy_path)
+    scan_policy_cfg = load_yaml(scan_policy_path)
+    core_policy = load_core_governance_policy(scan_policy_cfg)
 
     global_allowlist = list(policy_cfg.get("allowlist", []))
     denylist = list(policy_cfg.get("denylist", []))
@@ -136,6 +221,8 @@ def main() -> int:
 
     result: dict[str, Any] = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
+        "scanner_version": SCANNER_VERSION,
+        "scan_policy": scan_policy_path.as_posix(),
         "dry_run": args.dry_run,
         "repos": [],
     }
@@ -158,6 +245,8 @@ def main() -> int:
             "missing": [],
             "skipped": [],
             "warnings": [],
+            "file_categories": {},
+            "core_governance": {},
         }
 
         if not path.exists():
@@ -188,11 +277,17 @@ def main() -> int:
         row["missing"] = missing
         row["skipped"] = skipped
         row["warnings"] = warnings
+        if core_policy:
+            row["file_categories"] = classify_read_files(read_files, core_policy)
+            row["core_governance"] = assess_core_governance(read_files, missing, core_policy)
         result["repos"].append(row)
 
+        core_summary = row.get("core_governance", {})
+        coverage = core_summary.get("required_coverage_pct", 0)
         print(
             f"[repo] {name} read={len(read_files)} "
-            f"missing={len(missing)} skipped={len(skipped)} warnings={len(warnings)}"
+            f"missing={len(missing)} skipped={len(skipped)} warnings={len(warnings)} "
+            f"core_coverage={coverage}%"
         )
         for file_path in read_files:
             print(f"  + {file_path}")

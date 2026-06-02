@@ -163,6 +163,7 @@ def check_local_required_files(state: GateState, root: Path) -> None:
         "governance/review_queue.yaml",
         "governance/review_queue.example.yaml",
         "governance/repo_context_index.example.yaml",
+        "governance/scan_policy.example.yaml",
         "governance/execpolicy/portfolio.rules",
         "governance/evals/registry.yaml",
         "docs/roadmap_40_rounds.md",
@@ -339,6 +340,41 @@ def check_scan_allowlist_compliance(state: GateState, root: Path) -> None:
         state.add("scan_allowlist", WARNING, f"scan script review needed: {risky}")
     else:
         state.add("scan_allowlist", PASS, "scan script uses pattern-based allowlist collection")
+
+
+def check_scan_policy(state: GateState, root: Path) -> None:
+    live = root / "config" / "scan_policy.yaml"
+    example = root / "governance" / "scan_policy.example.yaml"
+    if not live.exists():
+        state.add("scan_policy", BLOCKED, "config/scan_policy.yaml missing")
+        return
+    if not example.exists():
+        state.add("scan_policy", BLOCKED, "governance/scan_policy.example.yaml missing")
+        return
+    try:
+        from validate_scan_policy import read_scan_policy, summarize_scan_policy, validate_scan_policy
+    except ImportError:
+        state.add("scan_policy", BLOCKED, "validate_scan_policy module unavailable")
+        return
+    try:
+        data = read_scan_policy(live)
+    except FileNotFoundError as exc:
+        state.add("scan_policy", BLOCKED, str(exc))
+        return
+    errors = validate_scan_policy(data, live.name)
+    if errors:
+        state.add("scan_policy", BLOCKED, f"scan_policy.yaml invalid: {errors[0]}")
+        return
+    summary = summarize_scan_policy(data)
+    scan_path = root / "scripts" / "scan_repos.py"
+    if scan_path.exists() and "SCANNER_VERSION" in scan_path.read_text(encoding="utf-8"):
+        state.add(
+            "scan_policy",
+            PASS,
+            f"scan_policy v2 valid ({summary.get('pattern_count')} patterns, scanner {summary.get('scanner_version')})",
+        )
+    else:
+        state.add("scan_policy", WARNING, "scan_policy valid but scan_repos.py missing SCANNER_VERSION marker")
 
 
 def check_protocol_governance_api_ban(state: GateState, root: Path) -> None:
@@ -636,6 +672,7 @@ def check_governance_assets(state: GateState, root: Path) -> None:
         "docs/review_queue_design.md",
         "docs/execpolicy_design.md",
         "docs/repo_context_index_design.md",
+        "docs/scan_policy_design.md",
         "docs/evaluation_gate_design.md",
     ]
     missing = [item for item in required if not (root / item).exists()]
@@ -815,6 +852,7 @@ def main() -> int:
     check_audit_report(state, root)
     check_playwright_local_only(state, root)
     check_scan_allowlist_compliance(state, root)
+    check_scan_policy(state, root)
     check_protocol_governance_api_ban(state, root)
     check_protocol_version(state, root)
     check_governance_assets(state, root)

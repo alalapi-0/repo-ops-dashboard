@@ -1,17 +1,17 @@
-current_round: round_33_repo_context_index_mvp
+current_round: round_34_readonly_repo_scanner_v2
 status: completed
 executor: cursor
 external_api_called: false
 managed_repos_modified: false
 secrets_read: false
-repo_context_index_implemented: true
-repo_context_index_project_id: repo_ops_dashboard
-next_round: round_34_readonly_repo_scanner_v2
+scanner_version: v2
+scan_policy_path: config/scan_policy.yaml
+next_round: round_35_status_analyzer_v2
 outputs:
-  - repo_context_index.yaml
-  - governance/repo_context_index.example.yaml
-  - scripts/validate_repo_context_index.py
-  - scripts/read_repo_context_index.py
-  - scripts/build_repo_context_index_stub.py
-  - reports/round_33_completion_report.md
-  - tests/test_repo_context_index.py
+  - config/scan_policy.yaml
+  - governance/scan_policy.example.yaml
+  - scripts/validate_scan_policy.py
+  - scripts/read_scan_policy.py
+  - docs/scan_policy_design.md
+  - tests/test_scan_repos.py
+  - reports/round_34_completion_report.md

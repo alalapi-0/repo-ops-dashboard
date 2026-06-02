@@ -1,0 +1,27 @@
+schema_version: "0.1.0"
+scanner_version: v2
+description: Strict allowlist policy for readonly governance file scanning.
+
+core_governance:
+  readme:
+    patterns:
+      - README.md
+      - README.*
+    required: true
+  agents:
+    patterns:
+      - AGENTS.md
+    required: true
+  protocol:
+    patterns:
+      - repo_protocol_standard.yaml
+    required: true
+  round_state:
+    patterns:
+      - round_state/**
+    required: false
+
+safety:
+  default_dry_run: true
+  max_file_kb: 512
+  deny_env_files: true

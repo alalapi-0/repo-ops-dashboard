@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Round 34 - Readonly Repo Scanner V2
+
+- 新增 `config/scan_policy.yaml` 与 `governance/scan_policy.example.yaml`（核心治理分类 readme/agents/protocol/round_state）。
+- 新增 `scripts/validate_scan_policy.py`、`read_scan_policy.py`；`scan_repos.py` 输出 v2 字段。
+- `agent_gate` 与 eval registry 增加 scan_policy 验收；新增 `tests/test_scan_repos.py` 与 `reports/round_34_completion_report.md`。
+
 ## Round 33 - Repo Context Index MVP
 
 - 新增本仓库 `repo_context_index.yaml` 与 `governance/repo_context_index.example.yaml`。

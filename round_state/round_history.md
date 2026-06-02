@@ -227,3 +227,9 @@
 - 产出：`repo_context_index.yaml`、`scripts/validate_repo_context_index.py`、`scripts/build_repo_context_index_stub.py`
 - 下一轮：`round_34_readonly_repo_scanner_v2`
 
+## Round 34 - Readonly Repo Scanner V2
+
+- 状态：completed
+- 产出：`config/scan_policy.yaml`、`scripts/validate_scan_policy.py`、`scan_repos.py` v2 字段
+- 下一轮：`round_35_status_analyzer_v2`
+
