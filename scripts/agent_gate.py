@@ -598,6 +598,42 @@ def check_ui_check_policy(state: GateState, root: Path) -> None:
         state.add("ui_check_policy", WARNING, "ui_check_policy valid but console checks not wired in ui_check.py")
 
 
+def check_project_rule_promotion_policy(state: GateState, root: Path) -> None:
+    live = root / "config" / "project_rule_promotion_policy.yaml"
+    example = root / "governance" / "project_rule_promotion_policy.example.yaml"
+    promoter = root / "scripts" / "promote_project_rule.py"
+    validator = root / "scripts" / "validate_project_rule_promotion_policy.py"
+    queue = root / "governance" / "project_rule_promotion_queue.yaml"
+    if not live.exists() or not validator.exists():
+        state.add("project_rule_promotion_policy", BLOCKED, "project_rule_promotion_policy.yaml or validator missing")
+        return
+    try:
+        from validate_project_rule_promotion_policy import (
+            load_yaml,
+            validate_project_rule_promotion_policy,
+        )
+    except ImportError:
+        state.add("project_rule_promotion_policy", BLOCKED, "validate_project_rule_promotion_policy unavailable")
+        return
+    errors = validate_project_rule_promotion_policy(load_yaml(live), live.name)
+    if errors:
+        state.add("project_rule_promotion_policy", BLOCKED, f"project_rule_promotion_policy invalid: {errors[0]}")
+        return
+    if example.exists() and promoter.exists() and queue.exists():
+        proposals = load_yaml(queue).get("proposals", [])
+        state.add(
+            "project_rule_promotion_policy",
+            PASS,
+            f"project rule promotion wired ({len(proposals)} proposal(s), HITL merge)",
+        )
+    else:
+        state.add(
+            "project_rule_promotion_policy",
+            WARNING,
+            "project_rule_promotion_policy valid but promoter/queue incomplete",
+        )
+
+
 def check_playbook_extraction_policy(state: GateState, root: Path) -> None:
     live = root / "config" / "playbook_extraction_policy.yaml"
     example = root / "governance" / "playbook_extraction_policy.example.yaml"
@@ -1019,6 +1055,10 @@ def check_governance_assets(state: GateState, root: Path) -> None:
         "docs/playbook_extraction_design.md",
         "config/playbook_extraction_policy.yaml",
         "governance/playbook_extraction_policy.example.yaml",
+        "governance/project_rule_promotion_queue.yaml",
+        "docs/project_rule_promotion_design.md",
+        "config/project_rule_promotion_policy.yaml",
+        "governance/project_rule_promotion_policy.example.yaml",
         "governance/execpolicy/profiles/readonly_managed_repo.rules",
         "governance/execpolicy/profiles/repo_ops_write.rules",
         "governance/execpolicy/profiles/risky_confirm.rules",
@@ -1260,6 +1300,7 @@ def main() -> int:
     check_priority_scoring_policy(state, root)
     check_lifecycle_policy(state, root)
     check_blocker_policy(state, root)
+    check_project_rule_promotion_policy(state, root)
     check_playbook_extraction_policy(state, root)
     check_checkpoint_snapshot_policy(state, root)
     check_failure_recovery_policy(state, root)

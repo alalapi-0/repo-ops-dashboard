@@ -1,7 +1,7 @@
 # Portfolio state snapshot (Personal Agent OS).
 # Sources: governance/project_registry.yaml + repo status JSON
 schema_version: 0.1.0
-generated_at: '2026-06-02T17:44:12+00:00'
+generated_at: '2026-06-02T17:44:54+00:00'
 status_source: data/repo_status.example.json
 registry_source: governance/project_registry.yaml
 summary:

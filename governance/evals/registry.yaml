@@ -119,6 +119,11 @@ evals:
     type: file_exists
     required: true
     path: governance/playbook_candidates.yaml
+  - eval_id: project_rule_promotion_queue_exists
+    description: governance/project_rule_promotion_queue.yaml lists review_queue proposals.
+    type: file_exists
+    required: true
+    path: governance/project_rule_promotion_queue.yaml
   - eval_id: handoff_packet_valid
     description: example handoff_packet passes schema validation.
     type: schema_check

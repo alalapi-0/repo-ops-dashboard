@@ -4,9 +4,9 @@
 
 ## 当前轮次
 
-- round：`round_50_skill_playbook_candidate_extraction`
+- round：`round_51_project_rule_promotion`
 - status：`completed`
-- next：`round_51_project_rule_promotion`
+- next：`round_52_cross_repo_protocol_sync_suggestion`
 
 ## 今日最该推进（1–3 仓）
 
@@ -48,7 +48,7 @@ python3 scripts/openclaw_orchestration_bridge.py --dry-run
 
 ## 短提醒（≤200 字）
 
-Round round_50_skill_playbook_candidate_extraction：今日优先 repo-ops-dashboard, novel-continuation-agent。暂缓 2 仓；review_queue 待决 5 项。编程交给 Cursor/Codex，决策留给 HumanOwner。
+Round round_51_project_rule_promotion：今日优先 repo-ops-dashboard, novel-continuation-agent。暂缓 2 仓；review_queue 待决 5 项。编程交给 Cursor/Codex，决策留给 HumanOwner。
 
 ---
 

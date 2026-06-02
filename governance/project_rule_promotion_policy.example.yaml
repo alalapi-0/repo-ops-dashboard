@@ -1,0 +1,22 @@
+# Mirror of config/project_rule_promotion_policy.yaml
+schema_version: 0.1.0
+policy_version: v1
+description: Example project rule promotion policy.
+
+sources:
+  playbook_candidates: governance/playbook_candidates.yaml
+  proposal_output: governance/project_rule_promotion_queue.yaml
+  review_queue_ref: governance/review_queue.yaml
+
+selection:
+  candidate_status_allowlist: [proposed, approved]
+
+promotion:
+  review_type: project_rule_promotion
+  options: [approve_promotion, defer, reject]
+  id_prefix: rq_promo_
+
+defaults:
+  dry_run: true
+  auto_approve: true
+  merge_into_review_queue: false

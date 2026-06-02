@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Round 51 - Project Rule Promotion
+
+- 新增 `project_rule_promotion_policy.yaml` 与 `promote_project_rule.py`（默认不自动合并 review_queue）。
+- 生成 `governance/project_rule_promotion_queue.yaml`；`refresh_status` 与 `agent_gate` 纳入推广验收。
+- `reports/round_51_completion_report.md`。
+
 ## Round 50 - Skill / Playbook Candidate Extraction
 
 - 新增 `playbook_extraction_policy.yaml` 与 `extract_playbook_candidates.py`。

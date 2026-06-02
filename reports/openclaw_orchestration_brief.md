@@ -4,9 +4,9 @@
 
 ## 当前轮次
 
-- round：`round_50_skill_playbook_candidate_extraction`
+- round：`round_51_project_rule_promotion`
 - status：`completed`
-- next：`round_51_project_rule_promotion`
+- next：`round_52_cross_repo_protocol_sync_suggestion`
 
 ## Portfolio 摘要
 
@@ -51,7 +51,7 @@ python3 scripts/openclaw_orchestration_bridge.py --dry-run
 
 ## 短提醒（≤200 字）
 
-Round round_50_skill_playbook_candidate_extraction：优先 ai-anime-short-factory, ai-manga。暂缓 0 项；review_queue 待决 5 项。OpenClaw 只读编排，编程交给 Cursor/Codex。
+Round round_51_project_rule_promotion：优先 ai-anime-short-factory, ai-manga。暂缓 0 项；review_queue 待决 5 项。OpenClaw 只读编排，编程交给 Cursor/Codex。
 
 ---
 

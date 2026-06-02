@@ -116,6 +116,9 @@ echo "[refresh] failure recovery plan (dry-run)"
 echo "[refresh] playbook candidates (dry-run)"
 "$PYTHON" scripts/extract_playbook_candidates.py
 
+echo "[refresh] project rule promotion (dry-run)"
+"$PYTHON" scripts/promote_project_rule.py
+
 if $LLM_SUMMARY; then
   echo "[refresh] llm summary"
   if $LLM_CALL; then

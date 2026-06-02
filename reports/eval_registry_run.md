@@ -2,7 +2,7 @@
 
 - generated_at: 2026-06-02 17:44 UTC
 - verdict: PASS
-- passed: 29/29
+- passed: 30/30
 - failed_required: 0
 - skipped: 0
 
@@ -30,6 +30,7 @@
 - [PASS] `failure_recovery_policy_valid` (required): ok
 - [PASS] `checkpoint_snapshot_policy_valid` (required): ok
 - [PASS] `playbook_candidates_registry_exists` (required): ok
+- [PASS] `project_rule_promotion_queue_exists` (required): ok
 - [PASS] `handoff_packet_valid` (required): ok
 - [PASS] `handoff_tracking_valid` (required): ok
 - [PASS] `eval_registry_runner_valid` (required): ok

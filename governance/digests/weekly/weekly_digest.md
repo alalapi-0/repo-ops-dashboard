@@ -39,9 +39,9 @@
 
 ## 当前轮次
 
-- round：`round_50_skill_playbook_candidate_extraction`
+- round：`round_51_project_rule_promotion`
 - status：`completed`
-- next：`round_51_project_rule_promotion`
+- next：`round_52_cross_repo_protocol_sync_suggestion`
 
 ## Human 本周笔记
 

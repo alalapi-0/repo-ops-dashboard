@@ -1,15 +1,15 @@
-current_round: round_50_skill_playbook_candidate_extraction
+current_round: round_51_project_rule_promotion
 status: completed
 executor: cursor
 external_api_called: false
 managed_repos_modified: false
 secrets_read: false
 dashboard_version: v2
-next_round: round_51_project_rule_promotion
+next_round: round_52_cross_repo_protocol_sync_suggestion
 outputs:
-  - config/playbook_extraction_policy.yaml
-  - scripts/extract_playbook_candidates.py
-  - scripts/validate_playbook_extraction_policy.py
-  - governance/playbook_candidates.yaml
-  - docs/playbook_extraction_design.md
-  - reports/round_50_completion_report.md
+  - config/project_rule_promotion_policy.yaml
+  - scripts/promote_project_rule.py
+  - scripts/validate_project_rule_promotion_policy.py
+  - governance/project_rule_promotion_queue.yaml
+  - docs/project_rule_promotion_design.md
+  - reports/round_51_completion_report.md
