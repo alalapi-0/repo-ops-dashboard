@@ -1,6 +1,6 @@
 # Agent Gate Report
 
-- generated_at: 2026-06-02T17:51:40.041209+00:00
+- generated_at: 2026-06-02T17:54:58.569702+00:00
 - verdict: PASS
 
 ## Findings
@@ -14,6 +14,7 @@
 - [PASS] `round_docs`: round docs 00-63 exist
 - [PASS] `round_doc_sections`: round docs contain required sections
 - [PASS] `ui_check_script`: ui_check.py exists
+- [PASS] `ui_check_http`: HTTP dashboard ui_check wired (127.0.0.1 only)
 - [PASS] `audit_report`: round 25 architecture absorption audit report exists
 - [PASS] `playwright_local`: ui_check uses local file:// access
 - [PASS] `scan_allowlist`: scan script uses pattern-based allowlist collection
@@ -37,14 +38,16 @@
 - [PASS] `openclaw_orchestration_bridge`: OpenClaw orchestration bridge wired (dry-run default)
 - [PASS] `weekly_digest`: weekly_digest generator wired
 - [PASS] `daily_briefing`: daily_briefing generator wired
+- [PASS] `openclaw_daily_briefing_skill`: OpenClaw daily briefing skill wired (digest + repo_status)
 - [PASS] `handoff_protocol`: handoff_packet generation and tracking wired
+- [PASS] `handoff_trial`: multi-agent handoff trial wired (dry-run default)
 - [PASS] `protocol_governance_api`: governance round external API ban present in protocol
 - [PASS] `protocol_version`: protocol v0.3.0 portfolio governance positioning present
 - [PASS] `protocol_positioning`: Personal Agent OS positioning present
 - [PASS] `governance_assets`: governance assets and design docs exist
 - [PASS] `project_registry`: project_registry.yaml has 17 projects aligned with repos.yaml
 - [PASS] `portfolio_state`: portfolio_state.yaml snapshot covers 17 projects
-- [PASS] `governance_task_queue`: governance_task_queue.yaml lists 2 task(s)
+- [PASS] `governance_task_queue`: governance_task_queue.yaml lists 3 task(s)
 - [PASS] `task_spec_template`: task_spec template contains required fields
 - [PASS] `proof_of_work_template`: proof_of_work template contains required fields
 - [PASS] `proof_of_work_registry`: proof_of_work_registry.yaml lists 1 record(s)
@@ -54,8 +57,8 @@
 - [PASS] `repo_context_index`: repo_context_index.yaml valid for repo_ops_dashboard (6 key files)
 - [PASS] `eval_registry`: eval registry contains required baseline evals
 - [PASS] `eval_registry_runner`: eval registry runner wired (dry-run default)
-- [PASS] `completion_report`: round_57_completion_report.md exists
+- [PASS] `completion_report`: round_60_completion_report.md exists
 - [PASS] `requirements_dev`: requirements-dev.txt includes playwright and pytest
 - [PASS] `installation_doc`: installation.md covers core refresh commands
 - [PASS] `example_fixtures`: example data fixtures present
-- [PASS] `pytest_tests`: pytest tests present (42 modules)
+- [PASS] `pytest_tests`: pytest tests present (44 modules)

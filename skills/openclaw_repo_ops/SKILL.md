@@ -24,6 +24,8 @@ OpenClaw 是 Personal Agent OS 的调度入口，不是主力编程 Agent。它�
 - `governance/digests/weekly/weekly_digest.md`
 - `governance/digests/daily/daily_briefing.md`
 - `governance/digests/daily/openclaw_orchestration.snapshot.yaml`
+- `governance/digests/daily/openclaw_daily_briefing.snapshot.yaml`
+- `reports/openclaw_daily_briefing_skill.md`
 - `governance/openclaw_orchestration.manifest.yaml`
 - `data/repo_status.json` 或 `data/repo_status.example.json`
 - `reports/daily_repo_report.md`
@@ -47,8 +49,16 @@ python3 scripts/analyze_repos.py --input data/repo_snapshots.example.json --outp
 python3 scripts/generate_report.py --input data/repo_status.example.json
 python3 scripts/generate_prompts.py --input data/repo_status.example.json --dry-run
 python3 scripts/openclaw_orchestration_bridge.py --dry-run
+python3 scripts/openclaw_daily_briefing_skill.py --dry-run
 python3 scripts/generate_weekly_digest.py --input data/repo_status.example.json --dry-run
 python3 scripts/generate_daily_briefing.py --input data/repo_status.example.json --dry-run
+```
+
+Round 58 daily briefing skill（读取 repo_status + digest，默认 dry-run）：
+
+```bash
+python3 scripts/openclaw_daily_briefing_skill.py --status data/repo_status.example.json
+python3 scripts/openclaw_daily_briefing_skill.py --status data/repo_status.example.json --dry-run
 ```
 
 Round 43 编排桥接（默认 dry-run，写文件需去掉 `--dry-run` 并由 HumanOwner 授权）：

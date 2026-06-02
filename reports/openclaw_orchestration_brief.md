@@ -1,12 +1,12 @@
 # OpenClaw Orchestration Brief
 
-生成时间：2026-06-02 17:51 UTC
+生成时间：2026-06-02 17:54 UTC
 
 ## 当前轮次
 
-- round：`round_56_feishu_lark_notification_mvp`
+- round：`round_60_multi_agent_handoff_trial`
 - status：`completed`
-- next：`round_57_mac_local_notification`
+- next：`round_61_portfolio_governance_hardening`
 
 ## Portfolio 摘要
 
@@ -26,6 +26,7 @@
 
 ## 活跃治理任务
 
+- **task_handoff_trial_001**（Cursor）— Handoff trial — 验证 OpenClaw 读状态到 Cursor Prompt 到 proof_of_work 草案
 - **task_light_novel_governance_prompt_001**（Cursor）— 为 light_novel 仓库生成 README/docs/CHANGELOG 同步治理 Prompt
 - **task_repo_ops_test_fix_001**（Codex）— 修复 repo-ops-dashboard 示例测试与 gate 报告
 
@@ -43,15 +44,17 @@
 
 ```bash
 python3 scripts/agent_gate.py
+python3 scripts/openclaw_daily_briefing_skill.py --dry-run
 python3 scripts/scan_repos.py --config config/repos.example.yaml --dry-run
 python3 scripts/analyze_repos.py --input data/repo_snapshots.example.json --output data/repo_status.example.json
 python3 scripts/generate_report.py --input data/repo_status.example.json
 python3 scripts/openclaw_orchestration_bridge.py --dry-run
+python3 scripts/generate_daily_briefing.py --input data/repo_status.example.json --dry-run
 ```
 
 ## 短提醒（≤200 字）
 
-Round round_56_feishu_lark_notification_mvp：优先 ai-anime-short-factory, ai-manga。暂缓 0 项；review_queue 待决 5 项。OpenClaw 只读编排，编程交给 Cursor/Codex。
+Round round_60_multi_agent_handoff_trial：优先 ai-anime-short-factory, ai-manga。暂缓 0 项；review_queue 待决 5 项。OpenClaw 只读编排，编程交给 Cursor/Codex。
 
 ---
 

@@ -16,8 +16,11 @@ readable_paths:
   - reports/daily_repo_report.md
   - reports/daily_brief.md
   - reports/agent_gate_report.md
+  - reports/openclaw_daily_briefing_skill.md
   - governance/digests/weekly/weekly_digest.md
   - governance/digests/daily/daily_briefing.md
+  - governance/digests/daily/openclaw_daily_briefing.snapshot.yaml
+  - skills/openclaw_repo_ops/SKILL.md
 
 deny_read_patterns:
   - .env
@@ -27,14 +30,18 @@ deny_read_patterns:
 
 dry_run_triggers:
   - python3 scripts/agent_gate.py
+  - python3 scripts/openclaw_daily_briefing_skill.py --dry-run
   - python3 scripts/scan_repos.py --config config/repos.example.yaml --dry-run
   - python3 scripts/analyze_repos.py --input data/repo_snapshots.example.json --output data/repo_status.example.json
   - python3 scripts/generate_report.py --input data/repo_status.example.json
   - python3 scripts/openclaw_orchestration_bridge.py --dry-run
+  - python3 scripts/generate_daily_briefing.py --input data/repo_status.example.json --dry-run
 
 outputs:
   brief_markdown: reports/openclaw_orchestration_brief.md
   snapshot_yaml: governance/digests/daily/openclaw_orchestration.snapshot.yaml
+  daily_briefing_skill_brief: reports/openclaw_daily_briefing_skill.md
+  daily_briefing_skill_snapshot: governance/digests/daily/openclaw_daily_briefing.snapshot.yaml
 
 reminder_rules:
   max_chars: 200

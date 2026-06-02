@@ -310,6 +310,20 @@ def check_ui_check_script(state: GateState, root: Path) -> None:
         state.add("ui_check_script", PASS, "ui_check.py exists")
 
 
+def check_ui_check_http(state: GateState, root: Path) -> None:
+    script = root / "scripts" / "ui_check_http.sh"
+    ui_check = root / "scripts" / "ui_check.py"
+    if not script.exists():
+        state.add("ui_check_http", WARNING, "scripts/ui_check_http.sh missing")
+        return
+    text = script.read_text(encoding="utf-8")
+    ui_text = ui_check.read_text(encoding="utf-8") if ui_check.exists() else ""
+    if "127.0.0.1" in text and "http.server" in text and "repo_card_state_attrs" in ui_text:
+        state.add("ui_check_http", PASS, "HTTP dashboard ui_check wired (127.0.0.1 only)")
+    else:
+        state.add("ui_check_http", WARNING, "ui_check_http incomplete or card state check missing")
+
+
 def check_audit_report(state: GateState, root: Path) -> None:
     path = root / "reports" / "round_25_architecture_absorption_audit_report.md"
     if not path.exists():
@@ -534,6 +548,40 @@ def check_daily_briefing(state: GateState, root: Path) -> None:
         state.add("daily_briefing", PASS, "daily_briefing generator wired")
     else:
         state.add("daily_briefing", WARNING, "daily_briefing generator incomplete")
+
+
+def check_openclaw_daily_briefing_skill(state: GateState, root: Path) -> None:
+    script = root / "scripts" / "openclaw_daily_briefing_skill.py"
+    template = root / "prompts" / "openclaw_daily_briefing_skill.md"
+    skill_doc = root / "skills" / "openclaw_repo_ops" / "SKILL.md"
+    if not script.exists() or not template.exists():
+        state.add("openclaw_daily_briefing_skill", WARNING, "openclaw_daily_briefing_skill script/template missing")
+        return
+    text = script.read_text(encoding="utf-8")
+    skill_text = skill_doc.read_text(encoding="utf-8") if skill_doc.exists() else ""
+    if (
+        "--dry-run" in text
+        and "external_api_called" in text
+        and "repo_status" in text
+        and "openclaw_daily_briefing_skill" in skill_text
+    ):
+        state.add("openclaw_daily_briefing_skill", PASS, "OpenClaw daily briefing skill wired (digest + repo_status)")
+    else:
+        state.add("openclaw_daily_briefing_skill", WARNING, "OpenClaw daily briefing skill incomplete")
+
+
+def check_handoff_trial(state: GateState, root: Path) -> None:
+    script = root / "scripts" / "run_handoff_trial.py"
+    policy = root / "governance" / "handoffs" / "handoff_trial_policy.yaml"
+    task_spec = root / "governance" / "task_specs" / "example_handoff_trial_task_spec.yaml"
+    if not script.exists() or not policy.exists() or not task_spec.exists():
+        state.add("handoff_trial", WARNING, "handoff trial script/policy/task_spec missing")
+        return
+    text = script.read_text(encoding="utf-8")
+    if "--dry-run" in text and "proof_of_work" in text and "openclaw_daily_briefing_skill" in text:
+        state.add("handoff_trial", PASS, "multi-agent handoff trial wired (dry-run default)")
+    else:
+        state.add("handoff_trial", WARNING, "handoff trial incomplete")
 
 
 def check_codex_task_spec_prompt(state: GateState, root: Path) -> None:
@@ -1497,6 +1545,7 @@ def main() -> int:
     check_round_docs_exist(state, root)
     check_round_doc_sections(state, root)
     check_ui_check_script(state, root)
+    check_ui_check_http(state, root)
     check_audit_report(state, root)
     check_playwright_local_only(state, root)
     check_scan_allowlist_compliance(state, root)
@@ -1520,7 +1569,9 @@ def main() -> int:
     check_openclaw_orchestration_bridge(state, root)
     check_weekly_digest(state, root)
     check_daily_briefing(state, root)
+    check_openclaw_daily_briefing_skill(state, root)
     check_handoff_protocol(state, root)
+    check_handoff_trial(state, root)
     check_protocol_governance_api_ban(state, root)
     check_protocol_version(state, root)
     check_governance_assets(state, root)

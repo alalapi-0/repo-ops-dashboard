@@ -8,6 +8,7 @@ cd "$ROOT"
 
 USE_EXAMPLE=false
 UI_CHECK=false
+HTTP_UI_CHECK=false
 FEISHU_SEND=false
 BITABLE_SYNC=false
 LLM_SUMMARY=false
@@ -17,6 +18,7 @@ for arg in "$@"; do
   case "$arg" in
     --example) USE_EXAMPLE=true ;;
     --ui-check) UI_CHECK=true ;;
+    --http-ui-check) HTTP_UI_CHECK=true ;;
     --feishu-send) FEISHU_SEND=true ;;
     --bitable-sync) BITABLE_SYNC=true ;;
     --llm-summary) LLM_SUMMARY=true ;;
@@ -110,8 +112,14 @@ echo "[refresh] daily brief"
 echo "[refresh] daily briefing (governance digest)"
 "$PYTHON" scripts/generate_daily_briefing.py --input "$STATUS"
 
+echo "[refresh] openclaw daily briefing skill"
+"$PYTHON" scripts/openclaw_daily_briefing_skill.py --status "$STATUS"
+
 echo "[refresh] openclaw orchestration bridge"
 "$PYTHON" scripts/openclaw_orchestration_bridge.py
+
+echo "[refresh] handoff trial (dry-run)"
+"$PYTHON" scripts/run_handoff_trial.py --dry-run
 
 echo "[refresh] eval registry (dry-run)"
 "$PYTHON" scripts/run_eval_registry.py --required-only
@@ -204,6 +212,11 @@ if $UI_CHECK; then
     --file dashboard/index.html \
     --screenshot reports/ui_screenshots/dashboard.png \
     --headless true
+fi
+
+if $HTTP_UI_CHECK; then
+  echo "[refresh] ui_check_http"
+  ./scripts/ui_check_http.sh
 fi
 
 echo "[refresh] done -> $STATUS"
