@@ -5,6 +5,8 @@ role: orchestration_entry
 hitl_required: true
 external_api_allowed: false
 managed_repos_write_allowed: false
+repository_manifest_grants_authority: false
+commands_require_current_authority: true
 
 readable_paths:
   - governance/portfolio_state.yaml
@@ -36,7 +38,7 @@ dry_run_triggers:
   - python3 scripts/analyze_repos.py --input data/repo_snapshots.example.json --output data/repo_status.example.json
   - python3 scripts/generate_report.py --input data/repo_status.example.json
   - python3 scripts/openclaw_orchestration_bridge.py --dry-run
-  - python3 scripts/personal_os_integration_snapshot.py --write
+  - python3 scripts/personal_os_integration_snapshot.py
   - python3 scripts/generate_daily_briefing.py --input data/repo_status.example.json --dry-run
 
 outputs:

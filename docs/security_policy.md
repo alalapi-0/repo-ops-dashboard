@@ -15,11 +15,12 @@
 
 ## 执行策略
 
-- 所有脚本默认 dry-run 或只在本仓库产物输出目录写文件。
-- `scripts/agent_gate.py` 为推进前检查门，返回 0/1/2。
+- 仓库策略和脚本参数不授予执行或写入权限；任何副作用仍需当前用户与上层策略授权。
+- 普通检查和 dry-run 默认只读。
+- `scripts/agent_gate.py` 默认只读并返回 0/1/2；仅在已有写入权限时显式使用 `--write-report`。
 - Round 0 禁止外部 API 调用。
 
 ## 审计策略
 
-- 每轮输出 completion report。
+- 仅已授权启动或推进的产品轮次才输出 completion report。
 - 在报告中写明是否读取密钥、是否调用外部 API、是否修改被管理仓库。

@@ -22,7 +22,7 @@ out_of_scope:
 assigned_agent: Cursor
 playbook_id: repo_ops.handoff_trial
 confirmation_policy: human_review_before_execution
-execpolicy_profile: repo_ops_write
+execpolicy_profile: repo_ops_guarded
 depends_on: []
 acceptance_criteria:
   - run_handoff_trial.py dry-run 输出 handoff id 与 prompt 字符数。

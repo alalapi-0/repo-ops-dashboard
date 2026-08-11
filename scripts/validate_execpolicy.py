@@ -16,14 +16,14 @@ REQUIRED_PORTFOLIO_CHECKS: tuple[tuple[str, str, str], ...] = (
     ("deny", "read", "**/*secret*"),
     ("deny", "read", "**/*token*"),
     ("deny", "write", "managed_repos/**"),
-    ("allow", "write", "/Users/alalapi/PycharmProjects/repo-ops-dashboard/**"),
+    ("prompt", "write", "**"),
 )
 
 REQUIRED_PORTFOLIO_COMMAND_PROMPTS = ("rm -rf", "launchctl")
 
 KNOWN_PROFILES = (
     "readonly_managed_repo",
-    "repo_ops_write",
+    "repo_ops_guarded",
     "risky_confirm",
 )
 

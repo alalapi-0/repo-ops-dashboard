@@ -5,6 +5,8 @@ description: Read repo-ops-dashboard governance state, generate daily advice and
 
 # OpenClaw Repo Ops Skill
 
+本 Skill 只描述能力和限制，不授予读取、写入、命令执行、网络或外部动作权限。当前用户和上层策略始终决定动作权限。
+
 ## 角色定位
 
 OpenClaw 是 Personal Agent OS 的调度入口，不是主力编程 Agent。它读取状态、生成提醒、触发只读脚本、生成 Cursor/Codex Prompt，并提醒 HumanOwner 处理 review_queue。
@@ -16,7 +18,7 @@ OpenClaw 是 Personal Agent OS 的调度入口，不是主力编程 Agent。它�
 - 需要产出给 Cursor/Codex 的 handoff Prompt 草案
 - 需要提醒 HumanOwner 优先级、冻结、归档、预算、发布等决策
 
-## 可读取
+## 输入候选（仍需当前读取权限）
 
 - `governance/project_registry.example.yaml`
 - `governance/portfolio_state.example.yaml`
@@ -40,9 +42,9 @@ OpenClaw 是 Personal Agent OS 的调度入口，不是主力编程 Agent。它�
 
 禁止读取 `.env`、密钥文件、token、私钥、被管理仓业务源码树。
 
-## 可触发命令
+## 命令候选（仍需当前执行权限）
 
-只允许在 `repo-ops-dashboard` 根目录触发默认 dry-run 或只读命令：
+已获命令执行权限时，仅在 `repo-ops-dashboard` 根目录使用下列默认 dry-run 或只读命令：
 
 ```bash
 python3 scripts/agent_gate.py
@@ -76,7 +78,7 @@ Round 43 编排桥接（默认 dry-run，写文件需去掉 `--dry-run` 并由 H
 python3 scripts/openclaw_orchestration_bridge.py
 ```
 
-写文件操作、外部 API 调用、通知发送、发布、归档、删除、预算调整都必须先进入 `governance/review_queue.yaml` 并由 HumanOwner 批准。
+写文件操作、外部 API 调用、通知发送、发布、归档、删除、预算调整需要当前用户和上层策略授权；`review_queue.yaml` 可记录决策状态，但不能自行授权。
 
 ## 输出格式
 

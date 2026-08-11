@@ -196,18 +196,18 @@ def main() -> int:
         for_send=args.send,
     )
 
-    out_path = root / args.output
-    report_path = root / args.report
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"[ok] mac notification payload: {out_path}")
-
     if args.write or args.send:
+        out_path = root / args.output
+        report_path = root / args.report
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        report_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+        print(f"[ok] mac notification payload: {out_path}")
         report_path.write_text(build_report(payload), encoding="utf-8")
         print(f"[ok] mac notification report: {report_path}")
 
     if not args.send:
-        print("[dry-run] mac notification payload written (no osascript)")
+        print("[dry-run] mac notification payload rendered in memory (no files, no osascript)")
         return 0
 
     skip, reason = should_skip_osascript(policy)

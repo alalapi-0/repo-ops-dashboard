@@ -16,7 +16,7 @@ denied_files:
   - "**/.env.*"
   - managed_repos/**
 confirmation_policy: human_review_before_execution
-execpolicy_profile: repo_ops_write
+execpolicy_profile: repo_ops_guarded
 expected_artifacts:
   - prompts/generated/example_cursor_prompt.md
 timeout: 24h

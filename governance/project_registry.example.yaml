@@ -8,7 +8,7 @@ projects:
     lifecycle: active
     owner: HumanOwner
     default_agent: Cursor
-    governance_level: write_allowed
+    governance_level: mutation_requires_current_authority
     context_index_path: repo_context_index.yaml
     key_files:
       - README.md

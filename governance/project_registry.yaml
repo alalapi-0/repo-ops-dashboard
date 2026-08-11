@@ -33,7 +33,7 @@ projects:
   lifecycle: bootstrap
   owner: HumanOwner
   default_agent: Cursor
-  governance_level: write_allowed
+  governance_level: mutation_requires_current_authority
   priority_hint: high
   registry_source: config/repos.yaml
   context_index_path: repo_context_index.yaml

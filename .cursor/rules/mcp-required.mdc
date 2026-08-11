@@ -1,15 +1,15 @@
 ---
-description: "Workspace MCP Servers 必选清单与安全检查要求"
+description: "Workspace MCP 分层状态与安全检查要求"
 alwaysApply: true
 ---
 
-# MCP Required
+# MCP State
 
-1. 当前仓库默认需要以下 **Workspace MCP Servers**：`chrome-devtools`、`context7`、`filesystem`、`github`、`playwright`（配置见 `.cursor/mcp.json`）。
-2. Agent **开始自动推进前**必须检查 MCP 配置：运行 `node scripts/check_mcp_config.js` 或 `npm run check:mcp`，并在 Cursor **Tools & MCP** 确认 server 已连接。
-3. **UI / 浏览器任务**（Dashboard、审核台、预览、发布流程）必须使用 **chrome-devtools** 或 **playwright** 做真实浏览器检查；不得仅凭静态 HTML 或代码 diff 宣布完成。
-4. 文档与依赖不确定时，优先用 **context7** 查询第三方库/框架文档。
+1. `chrome-devtools`、`context7`、`filesystem`、`github`、`playwright` 是仓库支持的候选能力；`.cursor/mcp.json` 只描述当前宿主配置，两者不得混同。
+2. `node scripts/check_mcp_config.js` 或 `npm run check:mcp` 仅做只读静态检查。配置存在不代表已安装、运行、可达、认证或获得动作权限。
+3. **UI / 浏览器任务**（Dashboard、审核台、预览、发布流程）需要真实浏览器检查。仅在已配置、观测可用且当前授权时使用 **chrome-devtools** 或 **playwright**；否则使用本地 `scripts/ui_check.py`。
+4. 文档与依赖不确定时，可先用仓库内文档；只在 context7 已配置、可用且当前允许网络读取时才调用它。
 5. **filesystem** 读写必须限制在当前项目目录；禁止授权 `/`、`~`、用户主目录、磁盘根路径或 `/Volumes`。
-6. **GitHub** 操作前必须检查 `git status` 和 `git diff`；有 token 可用 GitHub MCP，否则降级为 `git` / `gh` CLI。
+6. **GitHub** 操作需要当前授权，且操作前必须检查 `git status` 和 `git diff`。token、MCP 或 CLI 可用性均不构成授权。
 7. **提交前**必须确认 diff 中无 token、API Key、cookie、`.env` 或无关大文件。
-8. MCP 不可用时，在 completion report 中**记录原因**，尝试 Node/npx 与重启 Cursor；**不要**无意义反复安装同一包。
+8. MCP 不可用时，只在已授权的持久化任务中记录原因；不得因候选能力缺失而自动安装、改配置或推进任务。

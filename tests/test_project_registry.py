@@ -24,7 +24,7 @@ def test_build_project_meta_ops() -> None:
         }
     )
     assert project["project_id"] == "repo_ops_dashboard"
-    assert project["governance_level"] == "write_allowed"
+    assert project["governance_level"] == "mutation_requires_current_authority"
     assert project["default_agent"] == "Cursor"
     assert project["domain"] == "portfolio_governance"
 

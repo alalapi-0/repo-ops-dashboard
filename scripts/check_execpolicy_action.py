@@ -21,7 +21,7 @@ from validate_execpolicy import (  # noqa: E402
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Check execpolicy for a path or command")
-    parser.add_argument("--profile", default="repo_ops_write", choices=list(KNOWN_PROFILES))
+    parser.add_argument("--profile", default="repo_ops_guarded", choices=list(KNOWN_PROFILES))
     parser.add_argument("--action", choices=["read", "write"], help="Path access type")
     parser.add_argument("--path", help="Target path to classify")
     parser.add_argument("--command", help="Shell command to classify")
@@ -54,11 +54,10 @@ def main() -> int:
         target = args.path or ""
         kind = args.action or "read"
 
-    mode = "dry-run" if args.dry_run or True else "enforce"
+    mode = "dry-run"
     print(f"[{mode}] profile={args.profile} {kind}={target!r} -> {verdict}")
-    if verdict in {"deny", "prompt"}:
-        return 1
-    return 0
+    print("[advisory] classification never grants action authority")
+    return 0 if verdict == "allow" else 1
 
 
 if __name__ == "__main__":

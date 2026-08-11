@@ -72,7 +72,7 @@ python3 scripts/ui_check.py --file dashboard/index.html --screenshot reports/ui_
 
 ## Workspace MCP Servers
 
-本项目在 Cursor 中需要启用以下 **Workspace MCP Servers**（声明于 `.cursor/mcp.json`）：
+本项目对以下 MCP 能力有支持或历史集成记录。这是候选能力清单，不是当前配置或运行状态：
 
 | Server | 用途 |
 |--------|------|
@@ -84,11 +84,11 @@ python3 scripts/ui_check.py --file dashboard/index.html --screenshot reports/ui_
 
 说明：
 
-1. `.cursor/mcp.json` 是本项目的 Workspace MCP 配置；合并已有 server 时勿覆盖无关项。
-2. Cursor 可能需要**完全退出并重启**（或重新加载窗口）后才能识别新配置。
-3. **GitHub MCP** 需通过环境变量提供 token（如 `GITHUB_TOKEN` → `${env:GITHUB_TOKEN}`），**不允许**写进仓库。
-4. **filesystem MCP** 仅授权当前项目目录（配置为 `"."`，相对工作区根）。
-5. 运行 `npm run check:mcp`（或 `node scripts/check_mcp_config.js`）做静态配置检查。
+1. `.cursor/mcp.json` 仅是当前宿主项目配置的真值来源；仓库不自动补齐候选 server。
+2. 配置不证明已安装、已启动、可达或已认证，也不授权调用。
+3. 凭据只能由宿主环境提供，不允许写入仓库或输出到诊断日志。
+4. 如配置 filesystem，必须限定在单仓库范围。
+5. `npm run check:mcp` 只做不显示启动参数的静态、只读检查；运行时另行验证。
 
 详见 `docs/agent_skills/mcp_usage_skill.md` 与 `AGENTS.md` MCP Tools 章节。
 

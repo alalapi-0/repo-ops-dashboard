@@ -79,7 +79,11 @@ def default_agent(repo_type: str, repo_name: str) -> str:
 
 
 def governance_level(repo_name: str) -> str:
-    return "write_allowed" if repo_name == "repo-ops-dashboard" else "readonly_managed_repo"
+    return (
+        "mutation_requires_current_authority"
+        if repo_name == "repo-ops-dashboard"
+        else "readonly_managed_repo"
+    )
 
 
 def domain_for(repo_type: str) -> str:

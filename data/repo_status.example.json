@@ -269,7 +269,7 @@
       "project_id": "repo_ops_dashboard",
       "registry_matched": true,
       "registry_lifecycle": "bootstrap",
-      "governance_level": "write_allowed",
+      "governance_level": "mutation_requires_current_authority",
       "round_current": "round_63_personal_agent_os_long_term_integration",
       "round_status": "completed",
       "round_next": "maintenance_mode",

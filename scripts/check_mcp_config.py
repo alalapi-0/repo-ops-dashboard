@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 import json
 import re
 import sys
@@ -25,7 +26,13 @@ SENSITIVE_ENV_KEYS = re.compile(
     re.I,
 )
 
-REQUIRED_PLAYWRIGHT_NAMES = {"playwright"}
+SUPPORTED_SERVERS = {
+    "chrome-devtools",
+    "context7",
+    "filesystem",
+    "github",
+    "playwright",
+}
 
 
 def _collect_path_args(server: dict) -> list[str]:
@@ -54,14 +61,22 @@ def _has_literal_secret(value: str) -> bool:
     return False
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Read-only MCP configuration check")
+    parser.add_argument("--config", type=Path, default=MCP_PATH)
+    return parser.parse_args()
+
+
 def main() -> int:
-    print(f"MCP config path: {MCP_PATH}")
-    if not MCP_PATH.exists():
+    args = parse_args()
+    mcp_path = args.config.resolve()
+    print("MCP config: selected")
+    if not mcp_path.exists():
         print("ERROR: .cursor/mcp.json not found")
         return 1
 
     try:
-        data = json.loads(MCP_PATH.read_text(encoding="utf-8"))
+        data = json.loads(mcp_path.read_text(encoding="utf-8"))
     except json.JSONDecodeError as exc:
         print(f"ERROR: invalid JSON: {exc}")
         return 1
@@ -77,9 +92,6 @@ def main() -> int:
     errors: list[str] = []
     warnings: list[str] = []
 
-    if not REQUIRED_PLAYWRIGHT_NAMES.intersection(names):
-        errors.append("missing required server: playwright")
-
     for name, cfg in servers.items():
         if not isinstance(cfg, dict):
             errors.append(f"{name}: config must be an object")
@@ -89,7 +101,7 @@ def main() -> int:
             for arg in _collect_path_args(cfg):
                 if _is_dangerous_path(arg):
                     errors.append(
-                        f"filesystem: dangerous allowed path '{arg}' "
+                        "filesystem: dangerous allowed path configured "
                         "(use project workspace only)"
                     )
                 elif arg == ".":
@@ -130,6 +142,10 @@ def main() -> int:
     if errors:
         return 1
     print("OK: MCP config static check passed")
+    print(
+        "Supported candidates (not runtime claims): "
+        + ", ".join(sorted(SUPPORTED_SERVERS))
+    )
     return 0
 
 

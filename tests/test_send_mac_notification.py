@@ -49,7 +49,9 @@ def test_build_payload_dry_run():
     assert payload["notification"]["title"] == "Repo Ops"
 
 
-def test_send_mac_notification_cli_dry_run():
+def test_send_mac_notification_cli_write_to_temp(tmp_path: Path):
+    payload_path = tmp_path / "payload.json"
+    report_path = tmp_path / "report.md"
     result = subprocess.run(
         [
             sys.executable,
@@ -57,6 +59,10 @@ def test_send_mac_notification_cli_dry_run():
             "--status",
             str(ROOT / "data" / "repo_status.example.json"),
             "--write",
+            "--output",
+            str(payload_path),
+            "--report",
+            str(report_path),
         ],
         cwd=str(ROOT),
         capture_output=True,
@@ -64,7 +70,32 @@ def test_send_mac_notification_cli_dry_run():
         check=False,
     )
     assert result.returncode == 0
-    payload_path = ROOT / "reports" / "mac_notification_payload.json"
     assert payload_path.exists()
+    assert report_path.exists()
     payload = json.loads(payload_path.read_text(encoding="utf-8"))
     assert payload["delivery"]["status"] == "dry_run"
+
+
+def test_send_mac_notification_default_is_non_mutating(tmp_path: Path):
+    payload_path = tmp_path / "payload.json"
+    report_path = tmp_path / "report.md"
+    result = subprocess.run(
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "send_mac_notification.py"),
+            "--status",
+            str(ROOT / "data" / "repo_status.example.json"),
+            "--output",
+            str(payload_path),
+            "--report",
+            str(report_path),
+        ],
+        cwd=str(ROOT),
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert result.returncode == 0
+    assert "rendered in memory" in result.stdout
+    assert not payload_path.exists()
+    assert not report_path.exists()

@@ -7,9 +7,9 @@ const fs = require("fs");
 const path = require("path");
 
 const ROOT = path.resolve(__dirname, "..");
-const MCP_PATH = path.join(ROOT, ".cursor", "mcp.json");
+const DEFAULT_MCP_PATH = path.join(ROOT, ".cursor", "mcp.json");
 
-const REQUIRED_SERVERS = [
+const SUPPORTED_SERVERS = [
   "chrome-devtools",
   "context7",
   "filesystem",
@@ -52,26 +52,33 @@ function collectPathArgs(server) {
 }
 
 function summarizeServer(name, cfg) {
-  const cmd = cfg.command || "(none)";
-  const args = Array.isArray(cfg.args) ? cfg.args.join(" ") : "";
-  const envKeys =
+  const hasCommand = typeof cfg.command === "string" && cfg.command.length > 0;
+  const argCount = Array.isArray(cfg.args) ? cfg.args.length : 0;
+  const envKeyCount =
     cfg.env && typeof cfg.env === "object"
-      ? Object.keys(cfg.env).join(", ") || "(none)"
-      : "(none)";
-  return `  - ${name}: command=${cmd} args=[${args}] env_keys=[${envKeys}]`;
+      ? Object.keys(cfg.env).length
+      : 0;
+  return `  - ${name}: command_configured=${hasCommand} arg_count=${argCount} env_key_count=${envKeyCount}`;
 }
 
 function main() {
-  console.log(`MCP config path: ${MCP_PATH}`);
+  const configIndex = process.argv.indexOf("--config");
+  const configArg = configIndex >= 0 ? process.argv[configIndex + 1] : null;
+  if (configIndex >= 0 && !configArg) {
+    console.error("ERROR: --config requires a path");
+    process.exit(1);
+  }
+  const mcpPath = configArg ? path.resolve(configArg) : DEFAULT_MCP_PATH;
+  console.log("MCP config: selected");
 
-  if (!fs.existsSync(MCP_PATH)) {
+  if (!fs.existsSync(mcpPath)) {
     console.error("ERROR: .cursor/mcp.json not found");
     process.exit(1);
   }
 
   let data;
   try {
-    data = JSON.parse(fs.readFileSync(MCP_PATH, "utf8"));
+    data = JSON.parse(fs.readFileSync(mcpPath, "utf8"));
   } catch (err) {
     console.error(`ERROR: invalid JSON: ${err.message}`);
     process.exit(1);
@@ -96,12 +103,6 @@ function main() {
   const errors = [];
   const warnings = [];
 
-  for (const required of REQUIRED_SERVERS) {
-    if (!(required in servers)) {
-      errors.push(`missing required server: ${required}`);
-    }
-  }
-
   for (const [name, cfg] of Object.entries(servers)) {
     if (!cfg || typeof cfg !== "object") {
       errors.push(`${name}: config must be an object`);
@@ -117,7 +118,7 @@ function main() {
       for (const arg of collectPathArgs(cfg)) {
         if (isDangerousPath(arg)) {
           errors.push(
-            `filesystem: dangerous allowed path '${arg}' (use project workspace only)`
+            "filesystem: dangerous allowed path configured (use project workspace only)"
           );
         } else if (String(arg) === ".") {
           warnings.push(
@@ -160,7 +161,7 @@ function main() {
 
   console.log("OK: MCP config static check passed");
   console.log(
-    `Required servers present: ${REQUIRED_SERVERS.join(", ")}`
+    `Supported candidates (not runtime claims): ${SUPPORTED_SERVERS.join(", ")}`
   );
   process.exit(0);
 }

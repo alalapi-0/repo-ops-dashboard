@@ -49,3 +49,4 @@ data/generations/library/
 data/generations/raw/
 prompts/generated/*.md
 .idea/
+.DS_Store

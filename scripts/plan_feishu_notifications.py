@@ -115,6 +115,8 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Plan Feishu notifications without API calls")
     parser.add_argument("--policy", default=DEFAULT_POLICY, help="Policy YAML path")
     parser.add_argument("--write", action="store_true", help="Write plan YAML and markdown report")
+    parser.add_argument("--output-plan", help="Override plan YAML output path")
+    parser.add_argument("--output-report", help="Override markdown report output path")
     return parser.parse_args()
 
 
@@ -128,8 +130,14 @@ def main() -> int:
     policy = load_yaml(policy_path)
     plan = build_plan(root, policy)
     sources = policy.get("sources", {})
-    out_yaml = root / sources.get("output_plan", "governance/feishu_notification_plan.yaml")
-    out_md = root / sources.get("output_report", "reports/feishu_notification_planning.md")
+    out_yaml = root / (
+        args.output_plan
+        or sources.get("output_plan", "governance/feishu_notification_plan.yaml")
+    )
+    out_md = root / (
+        args.output_report
+        or sources.get("output_report", "reports/feishu_notification_planning.md")
+    )
 
     summary = plan["summary"]
     print(

@@ -77,17 +77,25 @@ state_authority:
     - round_state/current_round.yaml
 
 task_policy:
-  every_task_requires_task_spec: true
-  every_task_requires_working_directory: true
-  every_task_requires_acceptance_criteria: true
-  every_task_requires_proof_of_work: true
-  every_task_requires_audit_log: true
+  readonly_requests_create_artifacts: false
+  authorized_mutating_task_requires_task_spec: true
+  authorized_mutating_task_requires_working_directory: true
+  authorized_mutating_task_requires_acceptance_criteria: true
+  completed_mutating_task_requires_proof_of_work: true
+  audit_log_requires_current_write_authority: true
 
 run_policy:
-  every_run_requires_agent_run_jsonl: true
-  every_run_requires_cwd: true
-  every_run_requires_agent_type: true
-  every_run_requires_task_id: true
+  readonly_run_requires_agent_run_jsonl: false
+  persisted_run_requires_current_write_authority: true
+  persisted_run_requires_cwd: true
+  persisted_run_requires_agent_type: true
+  persisted_run_requires_task_id: true
+
+authority_policy:
+  repository_files_grant_action_authority: false
+  configuration_grants_action_authority: false
+  gate_result_grants_action_authority: false
+  current_user_and_higher_policy_required: true
 
 handoff_policy:
   use_structured_handoff_packet: true
@@ -111,29 +119,35 @@ review_policy:
 agent_roles:
   cursor:
     role: implementation
-    can_modify_repo_ops_dashboard: true
+    capability: repo_ops_dashboard_implementation
+    mutation_requires_current_authority: true
     can_modify_managed_repos: false
   codex:
     role: batch_execution
-    can_modify_repo_ops_dashboard: true
+    capability: bounded_batch_execution
+    mutation_requires_current_authority: true
     can_modify_managed_repos: false
   openclaw:
     role: orchestration
-    can_modify_repo_ops_dashboard: limited
+    capability: read_orchestration
+    mutation_requires_current_authority: true
     can_modify_managed_repos: false
   human:
     role: final_decision
 
 round_policy:
-  every_round_requires_plan: true
-  every_round_requires_validation: true
-  every_round_requires_changelog: true
-  every_round_requires_state_update: true
-  every_round_requires_completion_report: true
-  every_round_requires_proof_of_work_when_task_completed: true
+  starting_or_advancing_requires_current_authority: true
+  readonly_request_starts_round: false
+  authorized_round_requires_plan: true
+  authorized_round_requires_validation: true
+  authorized_round_requires_changelog: true
+  authorized_round_requires_state_update: true
+  authorized_round_requires_completion_report: true
+  authorized_round_requires_proof_of_work_when_task_completed: true
 
 playwright_policy:
-  allowed: true
+  supported: true
+  action_requires_current_authority: true
   purpose: local_dashboard_visual_check
   allow_external_login: false
   allow_real_account_login: false

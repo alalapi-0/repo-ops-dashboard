@@ -5,6 +5,8 @@ alwaysApply: true
 
 # Verification Gate
 
+本 gate 只规定已授权变更的验证深度，不授权修改、启动服务、调用 MCP/API 或生成报告。只读评审保持只读。
+
 当任务涉及以下内容时，必须执行验证闭环：
 
 - 前端页面
@@ -22,13 +24,13 @@ alwaysApply: true
 2. 阅读 `README.md`
 3. 阅读 `docs/`
 4. 阅读 `.cursor/rules/`
-5. 修改代码
-6. 启动服务
-7. 使用 Playwright MCP 或 Chrome DevTools MCP 验证关键路径
+5. 在当前权限内修改代码
+6. 如已获授权，启动本地服务
+7. 如已配置、可用且获授权，使用 Playwright MCP 或 Chrome DevTools MCP 验证关键路径
 8. 检查 console
 9. 检查 network
 10. 执行 lint/test/build
-11. 输出验证报告
+11. 返回验证结果；仅在有写入权限时持久化报告
 
 必须优先使用项目内已有验证命令。
 

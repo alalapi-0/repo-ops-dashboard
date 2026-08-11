@@ -36,3 +36,12 @@ def test_summarize_counts_actions() -> None:
     summary = vep.summarize_execpolicy(rules)
     assert summary["total_rules"] >= 8
     assert summary["deny"] >= 4
+
+
+def test_no_active_execpolicy_grants_write() -> None:
+    root = Path(__file__).resolve().parents[1]
+    execpolicy = root / "governance" / "execpolicy"
+    for path in [execpolicy / "portfolio.rules", *sorted((execpolicy / "profiles").glob("*.rules"))]:
+        rules, errors = vep.read_execpolicy_file(path)
+        assert not errors
+        assert not any(rule.action == "allow" and rule.kind == "write" for rule in rules)

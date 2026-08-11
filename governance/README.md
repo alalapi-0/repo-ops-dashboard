@@ -5,10 +5,11 @@
 ## 原则
 
 - YAML/JSON 是机器权威，Markdown 是人类视图。
-- 每个治理任务必须有 `task_spec`、工作目录、验收标准和 `proof_of_work`。
-- 每次 Agent 执行必须能落到 `governance/runs/{run_id}.jsonl` 的审计事件模型。
+- 本目录中的 YAML/JSON 表达状态和限制，不授予 Agent 写入、Git、网络或外部动作权限。
+- 已获当前写入权限的治理任务使用 `task_spec`、工作目录、验收标准和 `proof_of_work`；只读任务不创建这些产物。
+- `governance/runs/{run_id}.jsonl` 是已授权持久化运行的审计事件模型，不是普通检查的默认副作用。
 - 任何高风险决策必须进入 `review_queue.yaml`，只能由 HumanOwner 关闭。
-- 被管理业务仓库默认只读；本项目可写；密钥、`.env`、token、私钥不可读。
+- 被管理业务仓库默认只读；本项目的写入也需当前用户与上层策略授权；密钥、`.env`、token、私钥不可读。
 
 ## 目录
 

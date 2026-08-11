@@ -1,6 +1,8 @@
 # Document-level execpolicy for repo-ops-dashboard.
 # Future script enforcement should parse a structured successor to this file.
+# These rules are advisory constraints, never a source of action authority.
 
+prompt write **
 deny write /Volumes/AI_WORK_SSD/lab/reference_lab/**
 deny read **/.env
 deny read **/.env.*
@@ -11,4 +13,3 @@ prompt command git push
 prompt command rm -rf
 prompt command launchctl
 prompt command curl * | bash
-allow write /Users/alalapi/PycharmProjects/repo-ops-dashboard/**

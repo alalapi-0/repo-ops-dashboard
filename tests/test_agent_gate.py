@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 from pathlib import Path
+import subprocess
+import sys
 
 import agent_gate as gate
 
@@ -38,3 +40,28 @@ def test_example_fixtures_exist() -> None:
     state = gate.GateState()
     gate.check_example_fixtures(state, root)
     assert any(f.check == "example_fixtures" and f.severity == gate.PASS for f in state.findings)
+
+
+def test_report_rendering_is_in_memory() -> None:
+    state = gate.GateState()
+    state.add("sample", gate.PASS, "ok")
+    text = gate.render_report(state)
+    assert "# Agent Gate Report" in text
+    assert "[PASS] `sample`: ok" in text
+
+
+def test_default_gate_does_not_rewrite_report() -> None:
+    root = Path(__file__).resolve().parents[1]
+    report = root / "reports" / "agent_gate_report.md"
+    before = report.read_bytes() if report.exists() else None
+    completed = subprocess.run(
+        [sys.executable, "scripts/agent_gate.py"],
+        cwd=root,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    after = report.read_bytes() if report.exists() else None
+    assert completed.returncode in {0, 1, 2}
+    assert "report=not-written" in completed.stdout
+    assert after == before

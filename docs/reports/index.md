@@ -6,3 +6,5 @@ Round 0 主要报告位于：
 
 - `reports/round_00_completion_report.md`
 - `reports/agent_gate_report.md`
+
+`agent_gate_report.md` 是显式 `--write-report` 模式的持久化产物。普通 `scripts/agent_gate.py` 检查只读，不更新该文件。

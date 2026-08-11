@@ -18,7 +18,7 @@ DEFAULT_OUTPUT_DIR = "governance/handoffs/generated"
 DEFAULT_TRACKING = "governance/handoffs/tracking.yaml"
 
 AGENT_PROFILE = {
-    "Cursor": "repo_ops_write",
+    "Cursor": "repo_ops_guarded",
     "Codex": "readonly_managed_repo",
     "OpenClaw": "readonly_managed_repo",
 }

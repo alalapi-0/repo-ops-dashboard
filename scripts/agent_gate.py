@@ -1355,7 +1355,7 @@ def check_governance_assets(state: GateState, root: Path) -> None:
         "governance/mac_notification_policy.example.yaml",
         "docs/mac_local_notification_design.md",
         "governance/execpolicy/profiles/readonly_managed_repo.rules",
-        "governance/execpolicy/profiles/repo_ops_write.rules",
+        "governance/execpolicy/profiles/repo_ops_guarded.rules",
         "governance/execpolicy/profiles/risky_confirm.rules",
         "docs/data_models.md",
         "docs/reference_architecture_absorption.md",
@@ -1549,9 +1549,7 @@ def check_pytest_tests(state: GateState, root: Path) -> None:
     state.add("pytest_tests", PASS, f"pytest tests present ({len(test_files)} modules)")
 
 
-def render_report(state: GateState, root: Path) -> Path:
-    report_path = root / "reports" / "agent_gate_report.md"
-    report_path.parent.mkdir(parents=True, exist_ok=True)
+def render_report(state: GateState) -> str:
     lines = [
         "# Agent Gate Report",
         "",
@@ -1562,13 +1560,24 @@ def render_report(state: GateState, root: Path) -> Path:
     ]
     for item in state.findings:
         lines.append(f"- [{item.severity}] `{item.check}`: {item.message}")
-    report_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return "\n".join(lines) + "\n"
+
+
+def write_report(state: GateState, root: Path) -> Path:
+    report_path = root / "reports" / "agent_gate_report.md"
+    report_path.parent.mkdir(parents=True, exist_ok=True)
+    report_path.write_text(render_report(state), encoding="utf-8")
     return report_path
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run deterministic gate checks")
     parser.add_argument("--root", default=".", help="Repository root path")
+    parser.add_argument(
+        "--write-report",
+        action="store_true",
+        help="persist reports/agent_gate_report.md (requires separate write authority)",
+    )
     return parser.parse_args()
 
 
@@ -1637,9 +1646,12 @@ def main() -> int:
     check_installation_doc(state, root)
     check_example_fixtures(state, root)
     check_pytest_tests(state, root)
-    report = render_report(state, root)
+    report = write_report(state, root) if args.write_report else None
 
-    print(f"[gate] verdict={state.verdict} report={report}")
+    print(
+        f"[gate] verdict={state.verdict} "
+        f"report={report if report is not None else 'not-written'}"
+    )
     for item in state.findings:
         print(f"[{item.severity}] {item.check}: {item.message}")
     return EXIT_CODES[state.verdict]

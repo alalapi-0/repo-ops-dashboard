@@ -16,7 +16,7 @@ tasks:
   priority: low
   task_type: handoff_trial
   assigned_agent: Cursor
-  execpolicy_profile: repo_ops_write
+  execpolicy_profile: repo_ops_guarded
   confirmation_policy: human_review_before_execution
   task_spec_path: governance/task_specs/example_handoff_trial_task_spec.yaml
   is_active: true

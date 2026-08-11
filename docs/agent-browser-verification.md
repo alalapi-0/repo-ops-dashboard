@@ -2,9 +2,9 @@
 
 本文档说明本仓库为 Cursor Agent 配置的浏览器调试与验证工具，以及如何使用与维护。
 
-## 新增 MCP 服务器
+## 候选 MCP 服务器
 
-以下 MCP 已写入 `.cursor/mcp.json`（项目级配置，可提交 GitHub）：
+以下是仓库支持的候选能力，不代表已写入 `.cursor/mcp.json`、已加载或已授权：
 
 | MCP 名称 | 用途 |
 |----------|------|
@@ -24,18 +24,18 @@
 
 1. 打开 **Cursor Settings**（macOS：`Cmd + ,`）。
 2. 进入 **Tools & MCP** 或 **MCP** 面板。
-3. 确认以下 server 为可用（绿色/Connected）状态：
+3. 仅对当前任务需要且 `.cursor/mcp.json` 已配置的 server 观察 Connected 状态。下列项是候选清单：
    - `playwright`
    - `chrome-devtools`
    - `context7`
    - `filesystem`
    - `github`（可选；无 token 时可忽略或降级为 `git`/`gh`）
 4. 若显示错误或 Pending，检查本机是否已安装 **Node.js v18+** 且 `npx` 可用。
-5. 静态校验：`python3 scripts/check_mcp_config.py`
+5. 静态校验：`python3 scripts/check_mcp_config.py`。它不证明运行时状态或动作权限。
 
 ## 修改配置后需重启 Cursor
 
-`.cursor/mcp.json` 变更后，请**完全重启 Cursor**（Quit 后重新打开），再检查 MCP 状态。
+若宿主所有者已单独授权并修改 `.cursor/mcp.json`，可能需完全重启 Cursor 再检查 MCP 状态。本文档不授权该修改。
 
 ## Prompt 示例
 
@@ -43,7 +43,7 @@
 
 ```
 请调用 /browser-debug-check 技能完成本轮验证。
-使用 Playwright MCP 打开 dashboard/index.html（file://），检查 console 无 error。
+如已配置、可用且当前任务已授权，使用 Playwright MCP 验证 Dashboard；否则使用本地 `ui_check.py`。
 ```
 
 查最新文档后再改代码：

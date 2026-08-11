@@ -1,11 +1,11 @@
 # Repo Ops Dashboard Rule
 
 1. 本项目是多仓库管理总控台，不是业务仓库，不是第三个编程 Agent。
-2. Cursor 仅允许修改本仓库文件。
+2. 本文件只限制范围，不授权写入；Cursor 仅在当前用户与上层策略明确授权后才可修改本仓库文件。
 3. Cursor 不得修改被管理仓库。
 4. Cursor 不得读取密钥或 `.env` 内容。
 5. Cursor 必须遵循 `AGENTS.md` 与 `repo_protocol_standard.yaml`。
-6. Cursor 每轮必须更新 `round_state`、`CHANGELOG.md` 与 completion report。
+6. 只有已授权开始或推进的产品轮次才更新 `round_state`、`CHANGELOG.md` 与 completion report；只读请求和普通检查不产生这些写入。
 7. Cursor 生成脚本时必须默认 dry-run。
 8. Cursor 不得引入复杂依赖，除非用户明确要求。
 9. Playwright 仅用于本地 Dashboard（`file://`），禁止登录外网或真实账号。

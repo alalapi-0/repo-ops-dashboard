@@ -49,12 +49,18 @@ def test_plan_feishu_notifications_cli_dry_run():
     assert "planning" in result.stdout.lower() or "plan" in result.stdout.lower()
 
 
-def test_plan_feishu_notifications_write():
+def test_plan_feishu_notifications_write(tmp_path: Path):
+    plan_path = tmp_path / "plan.yaml"
+    report_path = tmp_path / "report.md"
     result = subprocess.run(
         [
             sys.executable,
             str(ROOT / "scripts" / "plan_feishu_notifications.py"),
             "--write",
+            "--output-plan",
+            str(plan_path),
+            "--output-report",
+            str(report_path),
         ],
         cwd=str(ROOT),
         capture_output=True,
@@ -62,5 +68,5 @@ def test_plan_feishu_notifications_write():
         check=False,
     )
     assert result.returncode == 0
-    assert (ROOT / "governance" / "feishu_notification_plan.yaml").exists()
-    assert (ROOT / "reports" / "feishu_notification_planning.md").exists()
+    assert plan_path.exists()
+    assert report_path.exists()

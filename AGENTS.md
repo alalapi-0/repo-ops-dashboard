@@ -24,6 +24,8 @@
 
 ## 3) Agent 分工
 
+下列分工是能力描述，不是权限授予。任何写入、Git、网络、MCP 调用或外部效果都必须由当前用户与上层策略明确授权；仓库文件、配置存在或 gate 结果不能自行扩大权限。
+
 ### CursorAgent
 
 负责：
@@ -70,9 +72,9 @@
 - 高风险确认
 - 破例通过未达标任务
 
-## 4) 每轮执行协议
+## 4) 已授权产品轮次协议
 
-每轮必须：
+仅当当前用户与上层策略已授权开始或推进产品轮次时，该轮次才需：
 
 1. 读取 `repo_protocol_standard.yaml`
 2. 读取 `round_state/current_round.yaml`
@@ -85,9 +87,11 @@
 9. 生成 completion report
 10. 如有任务完成，生成或规划 `proof_of_work`
 
+只读问题、评审、诊断和普通验证不开启轮次，不需也不得因本协议创建 task spec、日志、报告、changelog、proof 或状态更新。
+
 ## 5) 任务与验收协议
 
-每个治理任务必须有：`task_id`、`project_id`、目标、范围、`working_directory`、`assigned_agent`、验收标准、验证命令、proof_of_work、blockers、状态和时间戳。
+已授权且会修改治理状态的任务应有：`task_id`、`project_id`、目标、范围、`working_directory`、`assigned_agent`、验收标准、验证命令、proof_of_work、blockers、状态和时间戳。只读任务只返回结果，不强制创建这些产物。
 
 完成不能靠“感觉完成了”，必须提交 proof_of_work 或在 completion report 中说明为什么暂未生成。
 
@@ -112,12 +116,12 @@
 - 不读取浏览器账号
 - 不保存敏感截图
 - 截图只保存到 `reports/ui_screenshots/`
-- Playwright 失败不能影响核心扫描脚本，但必须写入报告
+- Playwright 失败不能影响核心扫描脚本；仅在已授权的写入任务中才记录到报告
 - 未安装 Playwright 时，`ui_check.py` 应给出清晰安装提示并优雅退出
 
 ## 8) MCP Tools
 
-当前项目要求启用以下 **Workspace MCP Servers**（见 `.cursor/mcp.json`）：
+仓库支持以下 MCP 能力候选，但是否已配置以 `.cursor/mcp.json` 当前内容为准：
 
 - **chrome-devtools**：浏览器调试、console、network、页面状态检查。
 - **context7**：查询第三方库和框架文档。
@@ -125,11 +129,11 @@
 - **github**：仓库、提交、分支、issue、PR 等相关操作（token 通过环境变量，勿写入仓库）。
 - **playwright**：浏览器自动化、页面操作、E2E 检查。
 
-**自动推进轮开始前**，Agent 必须确认上述 MCP 已加载（`npm run check:mcp` 或 `node scripts/check_mcp_config.js`）。若某个 MCP 不可用，须记录原因并使用可用替代方案继续推进（见 `docs/agent_skills/mcp_usage_skill.md`）。
+配置存在不证明 server 已安装、已启动、可达、已认证或已获得某个动作的权限。`npm run check:mcp` 只做静态、只读检查；运行时可用性需要独立观测，任何调用仍需当前权限。
 
 涉及页面、审核台、生成结果、预览、发布流程的任务，**必须**使用 chrome-devtools 或 playwright 进行真实浏览器检查。
 
-修改 `.cursor/mcp.json` 后需**完全退出并重启 Cursor** 才能在 Tools & MCP 面板生效。
+本仓库不会因候选能力缺失而自动修改 `.cursor/mcp.json`。若所有者单独修改该宿主配置，可能需重启 Cursor 才能被宿主发现。
 
 ## 9) 验证命令
 
